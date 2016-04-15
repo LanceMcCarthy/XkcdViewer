@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XkcdViewer", "XkcdViewer\XkcdViewer.csproj", "{AD7F8370-EEAA-4F70-9E6F-0A14962D61E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XkcdViewer.Droid", "Droid\XkcdViewer.Droid.csproj", "{143F0B3B-EEF9-47D3-AE9D-0261E46FC779}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{143F0B3B-EEF9-47D3-AE9D-0261E46FC779}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{143F0B3B-EEF9-47D3-AE9D-0261E46FC779}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{143F0B3B-EEF9-47D3-AE9D-0261E46FC779}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{143F0B3B-EEF9-47D3-AE9D-0261E46FC779}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD7F8370-EEAA-4F70-9E6F-0A14962D61E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD7F8370-EEAA-4F70-9E6F-0A14962D61E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD7F8370-EEAA-4F70-9E6F-0A14962D61E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD7F8370-EEAA-4F70-9E6F-0A14962D61E0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

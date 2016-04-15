@@ -1,5 +1,81 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="XkcdViewer.MainPage">
-	<ContentPage.Content>
-	</ContentPage.Content>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
+             xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+             xmlns:converters="clr-namespace:XkcdViewer.Converters;assembly=XkcdViewer"
+             xmlns:local="clr-namespace:XkcdViewer;assembly=XkcdViewer"
+             x:Class="XkcdViewer.MainPage">
+
+  <ContentPage.Resources>
+    <ResourceDictionary>
+     <!--<converters:InvertBoolenConverter x:Key="InvertBoolConverter"/>
+      <converters:UrlToImageSourceConverter x:Key="ImageSourceConverter"/>-->
+      <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter"/>
+      <converters:ImageHeightConverter x:Key="HeightConverter"/>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+
+  <ContentPage.Content>
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+
+      <dataControls:RadListView x:Name="MyRadListView"
+                                ItemsSource="{Binding Comics}"
+                                IsItemSwipeEnabled="True" 
+                                IsItemsReorderEnabled="True" 
+                                SwipeThreshold="10">
+        <dataControls:RadListView.ItemTemplate>
+          <DataTemplate>
+            <listView:ListViewTemplateCell>
+              <listView:ListViewTemplateCell.View>
+                <Grid Padding="0,0,0,10">
+                  <StackLayout BackgroundColor="White">
+                    <StackLayout Orientation="Horizontal" >
+                      <Label Text="{Binding Num}" TextColor="Gray" FontSize="Small"/>
+                      <Label Text=" - " TextColor="Gray" FontSize="Small" />
+                      <Label Text="{Binding Title}" TextColor="Black" FontSize="Small"/>
+                    </StackLayout>
+                    <Image Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}" HeightRequest="{Binding Converter={StaticResource HeightConverter}}"/>
+                  </StackLayout>
+                </Grid>
+              </listView:ListViewTemplateCell.View>
+            </listView:ListViewTemplateCell>
+          </DataTemplate>
+        </dataControls:RadListView.ItemTemplate>
+        <dataControls:RadListView.ItemSwipeContentTemplate>
+          <DataTemplate>
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="100"/>
+              </Grid.ColumnDefinitions>
+              <Button Text="favorite" TextColor="White" BackgroundColor="#008001" Clicked="FavoriteButtonClicked"/>
+              <Button Text="unfavorite" TextColor="White" BackgroundColor="#AD0000" Clicked="UnfavoriteButtonClicked" Grid.Column="2"/>
+            </Grid>
+          </DataTemplate>
+        </dataControls:RadListView.ItemSwipeContentTemplate>
+      </dataControls:RadListView>
+
+      <Grid Grid.Row="1">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition/>
+          <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="GetNextComicButton"
+              Text="Get Previous Comic"
+              Clicked="GetNextComicButton_OnClicked"  />
+
+        <Button x:Name="NavigateToFavsButton"
+                Text="See Favs"
+                Clicked="NavigateToFavsButton_OnClicked"
+                Grid.Column="1"/>
+      </Grid>
+    </Grid>
+  </ContentPage.Content>
 </ContentPage>
+<!-- -->

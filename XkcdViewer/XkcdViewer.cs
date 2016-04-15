@@ -1,26 +1,20 @@
-﻿using System;
-
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
+using XkcdViewer.ViewModels;
 
 namespace XkcdViewer
 {
 	public class App : Application
 	{
-		public App ()
+	    private static MainViewModel viewModel;
+	    public static MainViewModel ViewModel => viewModel ?? (viewModel = new MainViewModel());
+
+
+	    public App ()
 		{
-			// The root page of your application
-			MainPage = new ContentPage {
-				Content = new StackLayout {
-					VerticalOptions = LayoutOptions.Center,
-					Children = {
-						new Label {
-							XAlign = TextAlignment.Center,
-							Text = "Welcome to Xamarin Forms!"
-						}
-					}
-				}
-			};
-		}
+            //MainPage = new MainPage();
+
+            MainPage = new NavigationPage(new MainPage());
+        }
 
 		protected override void OnStart ()
 		{

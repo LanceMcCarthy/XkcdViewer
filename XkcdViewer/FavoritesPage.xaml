@@ -8,8 +8,6 @@
   
   <ContentPage.Resources>
     <ResourceDictionary>
-      <!--<converters:InvertBoolenConverter x:Key="InvertBoolConverter"/>
-      <converters:UrlToImageSourceConverter x:Key="ImageSourceConverter"/>-->
       <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter"/>
       <converters:ImageHeightConverter x:Key="HeightConverter"/>
     </ResourceDictionary>
@@ -24,7 +22,7 @@
       <DataTemplate>
         <listView:ListViewTemplateCell>
           <listView:ListViewTemplateCell.View>
-            <Grid Padding="0,0,0,10">
+            <Grid Padding="10">
               <StackLayout BackgroundColor="White">
                 <StackLayout Orientation="Horizontal">
                   <Label Text="{Binding Num}" TextColor="Gray" FontSize="Small"/>
@@ -46,9 +44,10 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="100"/>
           </Grid.ColumnDefinitions>
-          <Button Text="unfavorite" TextColor="White" BackgroundColor="#AD0000" Clicked="UnfavoriteButtonClicked" Grid.Column="2"/>
+          <Button Text="unfavorite" TextColor="White" Clicked="UnfavoriteButtonClicked" Grid.Column="2"/>
         </Grid>
       </DataTemplate>
     </dataControls:RadListView.ItemSwipeContentTemplate>
   </dataControls:RadListView>
+
 </ContentPage>

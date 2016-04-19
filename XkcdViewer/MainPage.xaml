@@ -9,10 +9,9 @@
 
   <ContentPage.Resources>
     <ResourceDictionary>
-     <!--<converters:InvertBoolenConverter x:Key="InvertBoolConverter"/>
-      <converters:UrlToImageSourceConverter x:Key="ImageSourceConverter"/>-->
       <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter"/>
       <converters:ImageHeightConverter x:Key="HeightConverter"/>
+      <converters:IsGardenConverter x:Key="GardenConverter"/>
     </ResourceDictionary>
   </ContentPage.Resources>
 
@@ -25,21 +24,24 @@
 
       <dataControls:RadListView x:Name="MyRadListView"
                                 ItemsSource="{Binding Comics}"
-                                IsItemSwipeEnabled="True" 
-                                IsItemsReorderEnabled="True" 
-                                SwipeThreshold="10">
+                                IsItemSwipeEnabled="True"
+                                IsItemsReorderEnabled="True"
+                                SwipeThreshold="10" >
         <dataControls:RadListView.ItemTemplate>
           <DataTemplate>
             <listView:ListViewTemplateCell>
               <listView:ListViewTemplateCell.View>
-                <Grid Padding="0,0,0,10">
+                <Grid Padding="10">
                   <StackLayout BackgroundColor="White">
                     <StackLayout Orientation="Horizontal" >
                       <Label Text="{Binding Num}" TextColor="Gray" FontSize="Small"/>
                       <Label Text=" - " TextColor="Gray" FontSize="Small" />
                       <Label Text="{Binding Title}" TextColor="Black" FontSize="Small"/>
                     </StackLayout>
-                    <Image Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}" HeightRequest="{Binding Converter={StaticResource HeightConverter}}"/>
+                    <!-- IsVisible="{Binding Title, Converter={StaticResource GardenConverter}}" -->
+                    <Image Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}"
+                            
+                           HeightRequest="{Binding Converter={StaticResource HeightConverter}}"/>
                   </StackLayout>
                 </Grid>
               </listView:ListViewTemplateCell.View>
@@ -54,8 +56,8 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="100"/>
               </Grid.ColumnDefinitions>
-              <Button Text="favorite" TextColor="White" BackgroundColor="#008001" Clicked="FavoriteButtonClicked"/>
-              <Button Text="unfavorite" TextColor="White" BackgroundColor="#AD0000" Clicked="UnfavoriteButtonClicked" Grid.Column="2"/>
+              <Button Text="favorite" TextColor="White" Clicked="FavoriteButtonClicked" />
+              <Button Text="unfavorite" TextColor="White" Clicked="UnfavoriteButtonClicked" Grid.Column="2"/>
             </Grid>
           </DataTemplate>
         </dataControls:RadListView.ItemSwipeContentTemplate>
@@ -66,13 +68,23 @@
           <ColumnDefinition/>
           <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ProgressBar Progress="{Binding Progress}" VerticalOptions="Center" Grid.ColumnSpan="2"/>
+
         <Button x:Name="GetNextComicButton"
-              Text="Get Previous Comic"
-              Clicked="GetNextComicButton_OnClicked"  />
+                Text="Get Previous Comic"
+                Clicked="GetNextComicButton_OnClicked"
+                Grid.Row="1"
+                Grid.Column="0" />
 
         <Button x:Name="NavigateToFavsButton"
                 Text="See Favs"
                 Clicked="NavigateToFavsButton_OnClicked"
+                Grid.Row="1"
                 Grid.Column="1"/>
       </Grid>
     </Grid>

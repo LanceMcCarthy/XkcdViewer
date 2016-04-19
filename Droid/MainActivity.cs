@@ -1,11 +1,5 @@
-﻿using System;
-
-using Android.App;
-using Android.Content;
+﻿using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 
 [assembly: Xamarin.Forms.ExportRenderer(typeof(Telerik.XamarinForms.DataControls.RadListView), typeof(Telerik.XamarinForms.DataControlsRenderer.Android.ListViewRenderer))]
@@ -22,6 +16,8 @@ namespace XkcdViewer.Droid
             Telerik.XamarinForms.Common.Android.TelerikForms.Init();
             LoadApplication (new App ());
 		}
-	}
+    }
 }
+
+
 

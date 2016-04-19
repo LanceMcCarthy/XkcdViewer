@@ -36,5 +36,16 @@ namespace XkcdViewer
                 MyRadListView.EndItemSwipe();
             }
         }
+
+        public void OnDeleteFav(object sender, EventArgs e)
+        {
+            var mi = (MenuItem) sender;
+            var comic = mi.CommandParameter as Comic;
+
+            if (App.ViewModel.FavoriteComics.Contains(comic))
+            {
+                App.ViewModel.FavoriteComics.Remove(comic);
+            }
+        }
     }
 }

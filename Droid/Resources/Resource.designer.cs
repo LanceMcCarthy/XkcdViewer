@@ -26,6 +26,8 @@ namespace XkcdViewer.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::PCLStorage.Resource.String.ApplicationName = global::XkcdViewer.Droid.Resource.String.ApplicationName;
+			global::PCLStorage.Resource.String.Hello = global::XkcdViewer.Droid.Resource.String.Hello;
 			global::Telerik.XamarinForms.Common.Android.Resource.Animation.abc_fade_in = global::XkcdViewer.Droid.Resource.Animation.abc_fade_in;
 			global::Telerik.XamarinForms.Common.Android.Resource.Animation.abc_fade_out = global::XkcdViewer.Droid.Resource.Animation.abc_fade_out;
 			global::Telerik.XamarinForms.Common.Android.Resource.Animation.abc_grow_fade_in_from_bottom = global::XkcdViewer.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;
@@ -5220,8 +5222,8 @@ namespace XkcdViewer.Droid
 			// aapt resource value: 0x7f02006f
 			public const int mr_ic_settings_light = 2130837615;
 			
-			// aapt resource value: 0x7f020075
-			public const int notification_template_icon_bg = 2130837621;
+			// aapt resource value: 0x7f020076
+			public const int notification_template_icon_bg = 2130837622;
 			
 			// aapt resource value: 0x7f020070
 			public const int pressable_item_background = 2130837616;
@@ -5237,6 +5239,9 @@ namespace XkcdViewer.Droid
 			
 			// aapt resource value: 0x7f020074
 			public const int shade_right = 2130837620;
+			
+			// aapt resource value: 0x7f020075
+			public const int XKCD_small_logo = 2130837621;
 			
 			static Drawable()
 			{

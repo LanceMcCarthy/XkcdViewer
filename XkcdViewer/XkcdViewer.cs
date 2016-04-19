@@ -1,4 +1,13 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using PCLStorage;
+using Xamarin.Forms;
+using XkcdViewer.Models;
 using XkcdViewer.ViewModels;
 
 namespace XkcdViewer
@@ -7,29 +16,29 @@ namespace XkcdViewer
 	{
 	    private static MainViewModel viewModel;
 	    public static MainViewModel ViewModel => viewModel ?? (viewModel = new MainViewModel());
-
-
-	    public App ()
+        
+	    public App()
 		{
-            //MainPage = new MainPage();
-
-            MainPage = new NavigationPage(new MainPage());
+            MainPage = new BasePage(new MainPage());
         }
 
-		protected override void OnStart ()
+		protected override void OnStart()
 		{
-			// Handle when your app starts
-		}
+            Debug.WriteLine($"------------OnStart() fired-----------");
+        }
 
-		protected override void OnSleep ()
+		protected override async void OnSleep()
 		{
-			// Handle when your app sleeps
-		}
+            Debug.WriteLine($"------------OnSleep() fired-----------");
 
-		protected override void OnResume ()
+		    if (ViewModel.FavoriteComics.Any())
+                await ViewModel.SaveFavoritesAsync(ViewModel.FavoriteComics);
+        }
+
+		protected override void OnResume()
 		{
-			// Handle when your app resumes
-		}
+            Debug.WriteLine("----------OnResume() Fired-----------");
+        }
 	}
 }
 

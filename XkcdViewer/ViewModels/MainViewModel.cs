@@ -3,10 +3,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using ModernHttpClient;
 using Newtonsoft.Json;
@@ -21,32 +19,19 @@ namespace XkcdViewer.ViewModels
         #region fields
 
         private ObservableCollection<Comic> comics;
-        private bool isBusy;
-
-        private int lastComicNumber;
         private ObservableCollection<Comic> favoriteComics;
-
-        private bool gettingComic;
+        private bool isBusy;
+        private int lastComicNumber;
+        
         private double progress;
 
         #endregion
 
         public MainViewModel()
         {
-            LoadData();
+            InitializeViewModel();
         }
-
-        private async void LoadData()
-        {
-            var loadedFavs = await LoadFavoritesAsync();
-
-            if (loadedFavs != null)
-                FavoriteComics = loadedFavs;
-
-            //Get the latest comic to start'er up
-            await App.ViewModel.GetComic();
-        }
-
+        
         #region properties
 
         public ObservableCollection<Comic> Comics
@@ -64,12 +49,7 @@ namespace XkcdViewer.ViewModels
         public bool IsBusy
         {
             get { return isBusy; }
-            set
-            {
-                if (isBusy == value) return;
-                isBusy = value;
-                OnPropertyChanged();
-            }
+            set { isBusy = value; OnPropertyChanged(); }
         }
 
         public double Progress
@@ -81,6 +61,20 @@ namespace XkcdViewer.ViewModels
         #endregion
 
         #region methods
+
+        /// <summary>
+        /// Runs any neccessary utilities and methods when MainViewModel is instantiated
+        /// </summary>
+        private async void InitializeViewModel()
+        {
+            var loadedFavs = await LoadFavoritesAsync();
+
+            if (loadedFavs != null)
+                FavoriteComics = loadedFavs;
+
+            //Get the latest comic to start'er up
+            await App.ViewModel.GetComic();
+        }
 
         /// <summary>
         /// Gets latest Comic from XKCD
@@ -105,6 +99,65 @@ namespace XkcdViewer.ViewModels
         }
 
         /// <summary>
+        /// Stand-in replacement for HttpClient.GetStringAsync. This will report download progress.
+        /// </summary>
+        /// <param name="url">Url of where to download the string from</param>
+        /// <param name="progessReporter">Args for reporting progress of the download operation</param>
+        /// <returns>String result of the GET request (can be json or text)</returns>
+        private static async Task<string> DownloadStringWithProgressAsync(string url, IProgress<DownloadProgressArgs> progessReporter)
+        {
+            try
+            {
+                using (var client = new HttpClient(new NativeMessageHandler()))
+                {
+                    client.DefaultRequestHeaders.ExpectContinue = false;
+
+                    var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
+                    await response.Content.LoadIntoBufferAsync();
+
+                    using (var stream = await response.Content.ReadAsStreamAsync())
+                    {
+                        int receivedBytes = 0;
+                        var totalBytes = Convert.ToInt32(response.Content.Headers.ContentLength);
+
+                        while (true)
+                        {
+                            var buffer = new byte[4096];
+                            int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+
+                            if (bytesRead == 0)
+                            {
+                                await Task.Yield();
+                                break;
+                            }
+
+                            receivedBytes += bytesRead;
+
+                            if (progessReporter != null)
+                            {
+                                var args = new DownloadProgressArgs(receivedBytes, totalBytes);
+                                progessReporter.Report(args);
+                            }
+
+                            Debug.WriteLine($"INCREMENTAL - Bytes read: {bytesRead}");
+                        }
+
+                        Debug.WriteLine($"TOTAL - Bytes read: {receivedBytes}");
+
+                        stream.Position = 0;
+                        var stringContent = new StreamReader(stream);
+                        return stringContent.ReadToEnd();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"DownloadStringWithProgressAsync Exception\r\n{ex}");
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Gets a specific comic from XKCD
         /// </summary>
         /// <param name="comicNumber">Comic number</param>
@@ -113,42 +166,31 @@ namespace XkcdViewer.ViewModels
         {
             try
             {
-                string jsonResult;
-                string url = lastComicNumber == 0 ? "https://xkcd.com/info.0.json" : "https://xkcd.com/" + $"{comicNumber - 1}" + "/info.0.json";
+                var url = lastComicNumber == 0 ? "https://xkcd.com/info.0.json" : "https://xkcd.com/" + $"{comicNumber - 1}" + "/info.0.json";
+                
+                //reset the Progress
+                Progress = 0;
 
-                //TODO temporary commented out so that I can test download progress approach
-                //using (var client = new HttpClient(new NativeMessageHandler()))
-                //{
-                //    jsonResult = await client.GetStringAsync(url);
-                //}
+                //--- download comic json, with progress reports ---//
+                var progressReporter = new Progress<DownloadProgressArgs>();
+                progressReporter.ProgressChanged += ProgressReporter_ProgressChanged;
+                
+                var jsonResult = await DownloadStringWithProgressAsync(url, progressReporter);
 
-                //--------------temp-----------------//
+                progressReporter.ProgressChanged -= ProgressReporter_ProgressChanged;
 
-                this.Progress = 0;
-
-                var progressReporter = new Progress<DownloadBytesProgress>();
-
-                progressReporter.ProgressChanged += (s, args) =>
-                {
-                    this.Progress = (int) (100 * args.PercentComplete);
-                };
-
-                jsonResult = await DownloadStringWithProgressAsync(url, progressReporter);
-
-                //----------------------------------//
 
                 if (string.IsNullOrEmpty(jsonResult))
-                {
-                    Debug.WriteLine("There were no results");
-                    return new Comic();
-                }
+                    return new Comic { Title = "Whoops", Transcript = $"There was no XKCD comic to be found here" };
 
                 var result = JsonConvert.DeserializeObject<Comic>(jsonResult);
 
                 if (result == null)
-                    return new Comic { Title = "No Result" };
+                    return new Comic { Title = "Json Schmason", Transcript = $"Someone didnt like the way the comic's json tasted and spit it back out" };
 
+                //keep track of what comic number we got last
                 lastComicNumber = result.Num;
+
                 return result;
             }
             catch (Exception ex)
@@ -157,7 +199,12 @@ namespace XkcdViewer.ViewModels
                 return new Comic { Title = "Exception", Transcript = $"Error getting comic: {ex.Message}" };
             }
         }
-
+        
+        /// <summary>
+        /// Saves Favorites collection to phone storage
+        /// </summary>
+        /// <param name="favs">Favorites collection to save</param>
+        /// <returns></returns>
         public async Task<bool> SaveFavoritesAsync(ObservableCollection<Comic> favs)
         {
             try
@@ -195,6 +242,10 @@ namespace XkcdViewer.ViewModels
             }
         }
 
+        /// <summary>
+        /// Loads Favorites from local storage
+        /// </summary>
+        /// <returns>Collection of saved Favorites</returns>
         public async Task<ObservableCollection<Comic>> LoadFavoritesAsync()
         {
             try
@@ -236,52 +287,14 @@ namespace XkcdViewer.ViewModels
 
         #endregion
 
-        private async Task<string> DownloadStringWithProgressAsync(string urlToGet, IProgress<DownloadBytesProgress> progessReporter)
+        #region event handlers
+
+        private void ProgressReporter_ProgressChanged(object sender, DownloadProgressArgs args)
         {
-            int receivedBytes = 0;
-
-            //
-            
-            using (var client = new HttpClient(new NativeMessageHandler()))
-            {
-                client.DefaultRequestHeaders.ExpectContinue = false;
-
-                var response = await client.GetAsync(urlToGet, HttpCompletionOption.ResponseHeadersRead); 
-                
-                using (var stream = await response.Content.ReadAsStreamAsync())
-                {
-                    var totalBytes = Convert.ToInt32(response.Content.Headers.ContentLength);
-
-                    while (true)
-                    {
-                        var buffer = new byte[4096];
-                        int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
-
-                        if (bytesRead == 0)
-                        {
-                            await Task.Yield();
-                            break;
-                        }
-
-                        receivedBytes += bytesRead;
-
-                        if (progessReporter != null)
-                        {
-                            var args = new DownloadBytesProgress(urlToGet, receivedBytes, totalBytes);
-                            progessReporter.Report(args);
-                        }
-
-                        Debug.WriteLine("Bytes read: {0}", bytesRead);
-                    }
-
-                    Debug.WriteLine("TOTAL Bytes read: {0}", receivedBytes);
-
-                    stream.Position = 0;
-                    var stringContent = new StreamReader(stream);
-                    return stringContent.ReadToEnd();
-                }
-            }
+            this.Progress = (int) args.PercentComplete;
         }
+
+        #endregion
         
         #region INPC
 
@@ -294,25 +307,5 @@ namespace XkcdViewer.ViewModels
         }
 
         #endregion
-    }
-
-    public class DownloadBytesProgress
-    {
-        public DownloadBytesProgress(string fileName, int bytesReceived, int totalBytes)
-        {
-            Filename = fileName;
-            BytesReceived = bytesReceived;
-            TotalBytes = totalBytes;
-        }
-
-        public int TotalBytes { get; private set; }
-
-        public int BytesReceived { get; private set; }
-
-        public float PercentComplete { get { return (float) BytesReceived / TotalBytes; } }
-
-        public string Filename { get; private set; }
-
-        public bool IsFinished { get { return BytesReceived == TotalBytes; } }
     }
 }

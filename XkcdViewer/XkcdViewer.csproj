@@ -44,6 +44,7 @@
       <DependentUpon>FavoritesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Comic.cs" />
+    <Compile Include="Models\DownloadProgressArgs.cs" />
     <Compile Include="Models\ISaveAndLoad.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

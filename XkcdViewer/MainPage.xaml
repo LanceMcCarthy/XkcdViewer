@@ -40,8 +40,8 @@
                     </StackLayout>
                     <!-- IsVisible="{Binding Title, Converter={StaticResource GardenConverter}}" -->
                     <Image Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}"
-                            
                            HeightRequest="{Binding Converter={StaticResource HeightConverter}}"/>
+                    <Label Text="{Binding Transcript}" TextColor="Black" FontSize="Small"/>
                   </StackLayout>
                 </Grid>
               </listView:ListViewTemplateCell.View>

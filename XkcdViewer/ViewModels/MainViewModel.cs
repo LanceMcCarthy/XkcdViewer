@@ -10,6 +10,7 @@ using ModernHttpClient;
 using Newtonsoft.Json;
 using PCLStorage;
 using XkcdViewer.Annotations;
+using XkcdViewer.Common;
 using XkcdViewer.Models;
 
 namespace XkcdViewer.ViewModels
@@ -97,66 +98,7 @@ namespace XkcdViewer.ViewModels
                 IsBusy = false;
             }
         }
-
-        /// <summary>
-        /// Stand-in replacement for HttpClient.GetStringAsync. This will report download progress.
-        /// </summary>
-        /// <param name="url">Url of where to download the string from</param>
-        /// <param name="progessReporter">Args for reporting progress of the download operation</param>
-        /// <returns>String result of the GET request (can be json or text)</returns>
-        private static async Task<string> DownloadStringWithProgressAsync(string url, IProgress<DownloadProgressArgs> progessReporter)
-        {
-            try
-            {
-                using (var client = new HttpClient(new NativeMessageHandler()))
-                {
-                    client.DefaultRequestHeaders.ExpectContinue = false;
-
-                    var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
-                    await response.Content.LoadIntoBufferAsync();
-
-                    using (var stream = await response.Content.ReadAsStreamAsync())
-                    {
-                        int receivedBytes = 0;
-                        var totalBytes = Convert.ToInt32(response.Content.Headers.ContentLength);
-
-                        while (true)
-                        {
-                            var buffer = new byte[4096];
-                            int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
-
-                            if (bytesRead == 0)
-                            {
-                                await Task.Yield();
-                                break;
-                            }
-
-                            receivedBytes += bytesRead;
-
-                            if (progessReporter != null)
-                            {
-                                var args = new DownloadProgressArgs(receivedBytes, totalBytes);
-                                progessReporter.Report(args);
-                            }
-
-                            Debug.WriteLine($"INCREMENTAL - Bytes read: {bytesRead}");
-                        }
-
-                        Debug.WriteLine($"TOTAL - Bytes read: {receivedBytes}");
-
-                        stream.Position = 0;
-                        var stringContent = new StreamReader(stream);
-                        return stringContent.ReadToEnd();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"DownloadStringWithProgressAsync Exception\r\n{ex}");
-                return null;
-            }
-        }
-
+        
         /// <summary>
         /// Gets a specific comic from XKCD
         /// </summary>
@@ -175,7 +117,7 @@ namespace XkcdViewer.ViewModels
                 var progressReporter = new Progress<DownloadProgressArgs>();
                 progressReporter.ProgressChanged += ProgressReporter_ProgressChanged;
                 
-                var jsonResult = await DownloadStringWithProgressAsync(url, progressReporter);
+                var jsonResult = await Helpers.DownloadStringWithProgressAsync(url, progressReporter);
 
                 progressReporter.ProgressChanged -= ProgressReporter_ProgressChanged;
 

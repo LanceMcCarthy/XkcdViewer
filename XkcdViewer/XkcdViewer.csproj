@@ -35,6 +35,7 @@
     <Compile Include="BasePage.xaml.cs">
       <DependentUpon>BasePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\Helpers.cs" />
     <Compile Include="Converters\ComicToImageSourceConverter.cs" />
     <Compile Include="Converters\ImageHeightConverter.cs" />
     <Compile Include="Converters\InvertBoolConverter.cs" />

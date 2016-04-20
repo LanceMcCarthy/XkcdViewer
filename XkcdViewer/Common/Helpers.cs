@@ -16,7 +16,7 @@ namespace XkcdViewer.Common
         /// </summary>
         /// <param name="url">Url of where to download the stream from</param>
         /// <param name="progessReporter">Args for reporting progress of the download operation</param>
-        /// <returns>Stream content of the GET request result</returns>
+        /// <returns>Stream content result of the GET request</returns>
         public static async Task<Stream> DownloadStreamWithProgressAsync(string url, IProgress<DownloadProgressArgs> progessReporter)
         {
             try
@@ -30,7 +30,7 @@ namespace XkcdViewer.Common
                     //Important - this makes it possible to rewind and re-read the stream
                     await response.Content.LoadIntoBufferAsync();
 
-                    //NOTE - This Stream will need to be closed by the caller
+                    //NOTE - This Stream will need to be disposed by the caller
                     var stream = await response.Content.ReadAsStreamAsync();
 
                     int receivedBytes = 0;
@@ -43,7 +43,8 @@ namespace XkcdViewer.Common
 
                         if (bytesRead == 0)
                         {
-                            await Task.Yield();
+                            //TODO Investigate further if this Yield is needed
+                            //await Task.Yield();
                             break;
                         }
 
@@ -75,7 +76,7 @@ namespace XkcdViewer.Common
         /// </summary>
         /// <param name="url">Url of where to download the stream from</param>
         /// <param name="progessReporter">Args for reporting progress of the download operation</param>
-        /// <returns>Stream content of the GET request result</returns>
+        /// <returns>String content result of the GET request</returns>
         public static async Task<string> DownloadStringWithProgressAsync(string url, IProgress<DownloadProgressArgs> progessReporter)
         {
             using (var stream = await DownloadStreamWithProgressAsync(url, progessReporter))

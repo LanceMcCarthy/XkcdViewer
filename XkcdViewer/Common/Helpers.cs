@@ -26,41 +26,41 @@ namespace XkcdViewer.Common
                     client.DefaultRequestHeaders.ExpectContinue = false;
 
                     var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
-
-                    //Important - this makes it possible to rewind and re-read the stream
-                    await response.Content.LoadIntoBufferAsync();
-
+                    
                     //NOTE - This Stream will need to be disposed by the caller
                     var stream = await response.Content.ReadAsStreamAsync();
 
+                    var buffer = new byte[4096];
                     int receivedBytes = 0;
                     var totalBytes = Convert.ToInt32(response.Content.Headers.ContentLength);
 
+                    //This is the seekable stream that will be returned
+                    var memStream = new MemoryStream();
+
                     while (true)
                     {
-                        var buffer = new byte[4096];
                         int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
 
+                        //write the current loop's data into the MemoryStream
+                        await memStream.WriteAsync(buffer, 0, bytesRead);
+
+                        //break out when done
                         if (bytesRead == 0)
-                        {
-                            //TODO Investigate further if this Yield is needed
-                            //await Task.Yield();
                             break;
-                        }
 
                         receivedBytes += bytesRead;
 
                         if (progessReporter != null)
                         {
-                            var args = new DownloadProgressArgs(receivedBytes, receivedBytes);
+                            var args = new DownloadProgressArgs(receivedBytes, totalBytes);
                             progessReporter.Report(args);
                         }
 
                         Debug.WriteLine($"Progress: {receivedBytes} of {totalBytes} bytes read");
                     }
                     
-                    stream.Position = 0;
-                    return stream;
+                    memStream.Position = 0;
+                    return memStream;
                 }
             }
             catch (Exception ex)

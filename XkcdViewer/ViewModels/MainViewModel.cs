@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -25,6 +24,7 @@ namespace XkcdViewer.ViewModels
         private int lastComicNumber;
         
         private double progress;
+        private string isBusyMessage;
 
         #endregion
 
@@ -51,6 +51,12 @@ namespace XkcdViewer.ViewModels
         {
             get { return isBusy; }
             set { isBusy = value; OnPropertyChanged(); }
+        }
+
+        public string IsBusyMessage
+        {
+            get { return isBusyMessage; }
+            set { isBusyMessage = value; OnPropertyChanged();}
         }
 
         public double Progress
@@ -113,11 +119,11 @@ namespace XkcdViewer.ViewModels
                 //reset the Progress
                 Progress = 0;
 
-                //--- download comic json, with progress reports ---//
+                //--- download comic json, with progress reporting in case of very slow network ---//
                 var progressReporter = new Progress<DownloadProgressArgs>();
                 progressReporter.ProgressChanged += ProgressReporter_ProgressChanged;
-                
-                var jsonResult = await Helpers.DownloadStringWithProgressAsync(url, progressReporter);
+
+                var jsonResult = await new HttpClient(new NativeMessageHandler()).DownloadStringWithProgressAsync(url, progressReporter);
 
                 progressReporter.ProgressChanged -= ProgressReporter_ProgressChanged;
 
@@ -226,7 +232,7 @@ namespace XkcdViewer.ViewModels
                 IsBusy = false;
             }
         }
-
+        
         #endregion
 
         #region event handlers

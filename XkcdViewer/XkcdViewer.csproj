@@ -35,7 +35,7 @@
     <Compile Include="BasePage.xaml.cs">
       <DependentUpon>BasePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Common\Helpers.cs" />
+    <Compile Include="Common\HttpClientExtensions.cs" />
     <Compile Include="Converters\ComicToImageSourceConverter.cs" />
     <Compile Include="Converters\ImageHeightConverter.cs" />
     <Compile Include="Converters\InvertBoolConverter.cs" />
@@ -45,7 +45,7 @@
       <DependentUpon>FavoritesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Comic.cs" />
-    <Compile Include="Models\DownloadProgressArgs.cs" />
+    <Compile Include="Common\DownloadProgressArgs.cs" />
     <Compile Include="Models\ISaveAndLoad.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

@@ -26,6 +26,8 @@
                                 ItemsSource="{Binding Comics}"
                                 IsItemSwipeEnabled="True"
                                 IsItemsReorderEnabled="True"
+                                IsPullToRefreshEnabled="True"
+                                RefreshRequested="MyRadListView_OnRefreshRequested"
                                 SwipeThreshold="10" >
         <dataControls:RadListView.ItemTemplate>
           <DataTemplate>
@@ -41,7 +43,6 @@
                     <!-- IsVisible="{Binding Title, Converter={StaticResource GardenConverter}}" -->
                     <Image Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}"
                            HeightRequest="{Binding Converter={StaticResource HeightConverter}}"/>
-                    <Label Text="{Binding Transcript}" TextColor="Black" FontSize="Small"/>
                   </StackLayout>
                 </Grid>
               </listView:ListViewTemplateCell.View>
@@ -64,28 +65,18 @@
       </dataControls:RadListView>
 
       <Grid Grid.Row="1">
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition/>
-          <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ProgressBar Progress="{Binding Progress}" VerticalOptions="Center" Grid.ColumnSpan="2"/>
+        <ProgressBar Progress="{Binding Progress}" VerticalOptions="Center" />
 
-        <Button x:Name="GetNextComicButton"
-                Text="Get Previous Comic"
-                Clicked="GetNextComicButton_OnClicked"
-                Grid.Row="1"
-                Grid.Column="0" />
 
         <Button x:Name="NavigateToFavsButton"
                 Text="See Favs"
                 Clicked="NavigateToFavsButton_OnClicked"
-                Grid.Row="1"
-                Grid.Column="1"/>
+                Grid.Row="1"/>
       </Grid>
     </Grid>
   </ContentPage.Content>

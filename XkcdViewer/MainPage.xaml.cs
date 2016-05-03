@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Telerik.XamarinForms.DataControls.ListView;
 using Xamarin.Forms;
 using XkcdViewer.Models;
 
@@ -45,7 +46,12 @@ namespace XkcdViewer
 	    {
 	        Navigation.PushAsync(new FavoritesPage());
 	    }
-        
-    }
+
+	    private async void MyRadListView_OnRefreshRequested(object sender, PullToRefreshRequestedEventArgs e)
+	    {
+            await App.ViewModel.GetComic();
+            MyRadListView.EndRefresh();
+        }
+	}
 }
 

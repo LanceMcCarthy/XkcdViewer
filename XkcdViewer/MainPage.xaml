@@ -57,8 +57,8 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="100"/>
               </Grid.ColumnDefinitions>
-              <Button Text="favorite" TextColor="White" Clicked="FavoriteButtonClicked" />
-              <Button Text="unfavorite" TextColor="White" Clicked="UnfavoriteButtonClicked" Grid.Column="2"/>
+              <Button Text="favorite" BackgroundColor="Green" TextColor="White" Clicked="FavoriteButtonClicked" />
+              <Button Text="unfavorite" BackgroundColor="Red" TextColor="White" Clicked="UnfavoriteButtonClicked" Grid.Column="2"/>
             </Grid>
           </DataTemplate>
         </dataControls:RadListView.ItemSwipeContentTemplate>
@@ -72,7 +72,6 @@
 
         <ProgressBar Progress="{Binding Progress}" VerticalOptions="Center" />
 
-
         <Button x:Name="NavigateToFavsButton"
                 Text="See Favs"
                 Clicked="NavigateToFavsButton_OnClicked"
@@ -81,4 +80,3 @@
     </Grid>
   </ContentPage.Content>
 </ContentPage>
-<!-- -->

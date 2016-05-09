@@ -33,17 +33,24 @@
           <DataTemplate>
             <listView:ListViewTemplateCell>
               <listView:ListViewTemplateCell.View>
-                <Grid Padding="10">
-                  <StackLayout BackgroundColor="White">
-                    <StackLayout Orientation="Horizontal" >
-                      <Label Text="{Binding Num}" TextColor="Gray" FontSize="Small"/>
-                      <Label Text=" - " TextColor="Gray" FontSize="Small" />
-                      <Label Text="{Binding Title}" TextColor="Black" FontSize="Small"/>
+                <Grid Padding="10" BackgroundColor="Gray">
+                  <Grid x:Name="ItemContentGrid">
+                    
+                  </Grid>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                  </Grid.RowDefinitions>
+
+                  <StackLayout Orientation="Horizontal"  BackgroundColor="#00005E">
+                      <Label Text="{Binding Num}" TextColor="White" FontSize="Small"/>
+                      <Label Text=" - " TextColor="#C8C8C8" FontSize="Small" />
+                      <Label Text="{Binding Title}" TextColor="White" FontSize="Small"/>
                     </StackLayout>
-                    <!-- IsVisible="{Binding Title, Converter={StaticResource GardenConverter}}" -->
-                    <Image Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}"
-                           HeightRequest="{Binding Converter={StaticResource HeightConverter}}"/>
-                  </StackLayout>
+
+                  <!-- IsVisible="{Binding Title, Converter={StaticResource GardenConverter}}" 
+                    HeightRequest="{Binding Converter={StaticResource HeightConverter}}" -->
+                  <Image Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}" Grid.Row="1"/>
                 </Grid>
               </listView:ListViewTemplateCell.View>
             </listView:ListViewTemplateCell>
@@ -52,13 +59,7 @@
         <dataControls:RadListView.ItemSwipeContentTemplate>
           <DataTemplate>
             <Grid>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="100"/>
-              </Grid.ColumnDefinitions>
-              <Button Text="favorite" BackgroundColor="Green" TextColor="White" Clicked="FavoriteButtonClicked" />
-              <Button Text="unfavorite" BackgroundColor="Red" TextColor="White" Clicked="UnfavoriteButtonClicked" Grid.Column="2"/>
+              <Button Text="favorite" BackgroundColor="Green" TextColor="White" Clicked="FavoriteButtonClicked" HorizontalOptions="Start" WidthRequest="100"/>
             </Grid>
           </DataTemplate>
         </dataControls:RadListView.ItemSwipeContentTemplate>

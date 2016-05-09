@@ -39,12 +39,7 @@
     <dataControls:RadListView.ItemSwipeContentTemplate>
       <DataTemplate>
         <Grid>
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="100"/>
-          </Grid.ColumnDefinitions>
-          <Button Text="unfavorite" TextColor="White" Clicked="UnfavoriteButtonClicked" Grid.Column="2"/>
+          <Button Text="unfavorite" TextColor="White" Clicked="UnfavoriteButtonClicked" HorizontalOptions="Start" WidthRequest="100"/>
         </Grid>
       </DataTemplate>
     </dataControls:RadListView.ItemSwipeContentTemplate>

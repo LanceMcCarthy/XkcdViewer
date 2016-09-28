@@ -4,13 +4,11 @@
              xmlns:converters="clr-namespace:Portable.Converters;assembly=XkcdViewer.Forms.Portable"
              x:Class="Portable.App">
   
-  <Application.Resources>
-    <ResourceDictionary>
-      <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter"/>
-      <converters:ImageHeightConverter x:Key="HeightConverter"/>
-      <converters:IsGardenConverter x:Key="GardenConverter"/>
-      <converters:IsFavoriteToStringConverter x:Key="IsFavoriteToStringConverter" />
-    </ResourceDictionary>
-  </Application.Resources>
+  <!--<Application.Resources>
+    <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter"/>
+    <converters:ImageHeightConverter x:Key="HeightConverter"/>
+    <converters:IsGardenConverter x:Key="GardenConverter"/>
+    <converters:IsFavoriteToStringConverter x:Key="IsFavoriteToStringConverter" />
+  </Application.Resources>-->
   
 </Application>

@@ -9,13 +9,20 @@
     <viewModels:DetailsPageViewModel/>
   </ContentPage.BindingContext>
   
+   <ContentPage.Resources>
+    <ResourceDictionary>
+      <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter"/>
+      <converters:IsFavoriteToStringConverter x:Key="IsFavoriteToStringConverter" />
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition/>
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
     
-    <Image Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+    <Image Source="{Binding SelectedComic, Converter={StaticResource ComicToImageSourceConverter}}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
     
     <Button Text="{Binding IsFavorite, Converter={StaticResource IsFavoriteToStringConverter}}"
             Command="{Binding ToggleFavoriteCommand}"

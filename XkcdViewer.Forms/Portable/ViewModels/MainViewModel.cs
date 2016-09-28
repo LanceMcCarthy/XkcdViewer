@@ -22,7 +22,7 @@ namespace Portable.ViewModels
 
         private ObservableCollection<Comic> comics;
         private ObservableCollection<Comic> favoriteComics;
-        private Comic selectedComic;
+        //private Comic selectedComic;
         private bool isBusy;
         private int lastComicNumber;
         private double progress;
@@ -50,11 +50,11 @@ namespace Portable.ViewModels
             set { favoriteComics = value; }
         }
 
-        public Comic SelectedComic
-        {
-            get { return selectedComic; }
-            set { selectedComic = value; OnPropertyChanged();}
-        }
+        //public Comic SelectedComic
+        //{
+        //    get { return selectedComic; }
+        //    set { selectedComic = value; OnPropertyChanged();}
+        //}
 
         public bool IsBusy
         {

@@ -5,23 +5,27 @@
              xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
              xmlns:behaviors="clr-namespace:Portable.Behaviors;assembly=XkcdViewer.Forms.Portable"
              xmlns:portable="clr-namespace:Portable;assembly=XkcdViewer.Forms.Portable"
+             xmlns:converters="clr-namespace:Portable.Converters;assembly=XkcdViewer.Forms.Portable"
              x:Class="Portable.MainPage"
              BindingContext="{x:Static portable:App.ViewModel}">
 
-  <!--<ContentPage.Resources>
+  <ContentPage.Resources>
     <ResourceDictionary>
       <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter"/>
       <converters:ImageHeightConverter x:Key="HeightConverter"/>
       <converters:IsGardenConverter x:Key="GardenConverter"/>
     </ResourceDictionary>
-  </ContentPage.Resources>-->
+  </ContentPage.Resources>
 
   <ContentPage.Content>
     <Grid>
       <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
         <RowDefinition Height="*"/>
         <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
+
+      <ProgressBar Progress="{Binding Progress}" VerticalOptions="Center" />
 
       <dataControls:RadListView x:Name="MyRadListView"
                                 ItemsSource="{Binding Comics}"
@@ -29,14 +33,15 @@
                                 IsItemsReorderEnabled="True"
                                 IsPullToRefreshEnabled="True"
                                 RefreshRequested="MyRadListView_OnRefreshRequested"
-                                SelectionMode="Single"
-                                SelectedItem="{Binding SelectedComic, Mode=TwoWay}"
-                                SwipeThreshold="50" >
-        <dataControls:RadListView.Behaviors>
+                                SelectionMode="None"
+                                ItemTapped="MyRadListView_OnItemTapped"
+                                SwipeThreshold="50" 
+                                Grid.Row="1">
+        <!--<dataControls:RadListView.Behaviors>
           <behaviors:EventToCommandBehavior EventName="ItemTapped"
                                             Command="{Binding LoadDetailsCommand}"
                                             CommandParameter="{Binding SelectedComic}"/>
-        </dataControls:RadListView.Behaviors>
+        </dataControls:RadListView.Behaviors>-->
         <dataControls:RadListView.ItemTemplate>
           <DataTemplate>
             <listView:ListViewTemplateCell>
@@ -73,18 +78,10 @@
         </dataControls:RadListView.ItemSwipeContentTemplate>
       </dataControls:RadListView>
 
-      <Grid Grid.Row="1">
-        <Grid.RowDefinitions>
-          <RowDefinition Height="Auto"/>
-          <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <ProgressBar Progress="{Binding Progress}" VerticalOptions="Center" />
-
+      <Grid Grid.Row="2">
         <Button x:Name="NavigateToFavsButton"
                 Text="See Favs"
-                Clicked="NavigateToFavsButton_OnClicked"
-                Grid.Row="1"/>
+                Clicked="NavigateToFavsButton_OnClicked"/>
       </Grid>
     </Grid>
   </ContentPage.Content>

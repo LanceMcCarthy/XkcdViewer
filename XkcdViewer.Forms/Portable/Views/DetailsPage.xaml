@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Portable.ViewModels;assembly=XkcdViewer.Forms.Portable"
+             xmlns:converters="clr-namespace:Portable.Converters;assembly=XkcdViewer.Forms.Portable"
+             x:Class="Portable.Views.DetailsPage">
+  
+  <ContentPage.BindingContext>
+    <viewModels:DetailsPageViewModel/>
+  </ContentPage.BindingContext>
+  
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    
+    <Image Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+    
+    <Button Text="{Binding IsFavorite, Converter={StaticResource IsFavoriteToStringConverter}}"
+            Command="{Binding ToggleFavoriteCommand}"
+            Grid.Row="1" />
+  </Grid>
+</ContentPage>

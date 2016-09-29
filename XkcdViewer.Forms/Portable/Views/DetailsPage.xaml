@@ -4,28 +4,56 @@
              xmlns:viewModels="clr-namespace:Portable.ViewModels;assembly=XkcdViewer.Forms.Portable"
              xmlns:converters="clr-namespace:Portable.Converters;assembly=XkcdViewer.Forms.Portable"
              x:Class="Portable.Views.DetailsPage">
-  
-  <ContentPage.BindingContext>
-    <viewModels:DetailsPageViewModel/>
-  </ContentPage.BindingContext>
-  
-   <ContentPage.Resources>
+
+  <ContentPage.Resources>
     <ResourceDictionary>
       <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter"/>
       <converters:IsFavoriteToStringConverter x:Key="IsFavoriteToStringConverter" />
+      <converters:IsFavoriteIconConverter x:Key="IsFavoriteIconConverter"/>
     </ResourceDictionary>
   </ContentPage.Resources>
-  
+
+  <ContentPage.BindingContext>
+    <viewModels:DetailsPageViewModel/>
+  </ContentPage.BindingContext>
+
+  <ContentPage.ToolbarItems>
+    <ToolbarItem x:Name="ShareToolbarItem" 
+                 Text="share" 
+                 Command="{Binding ShareCommand}"
+                 CommandParameter="{Binding SelectedComic}">
+      <ToolbarItem.Icon>
+        <OnPlatform x:TypeArguments="FileImageSource"
+                    WinPhone="ic_share.png"
+                    Android="ic_share.png"
+                    iOS="ic_share.png"/>
+      </ToolbarItem.Icon>
+    </ToolbarItem>
+    <ToolbarItem x:Name="ToggleFavoriteToolbarItem" 
+                 Text="{Binding IsFavorite, Converter={StaticResource IsFavoriteToStringConverter}}"
+                 Command="{Binding ToggleFavoriteCommand}"
+                 CommandParameter="{Binding SelectedComic}"
+                 Icon="{Binding IsFavorite, Converter={StaticResource IsFavoriteIconConverter}}" >
+    </ToolbarItem>
+  </ContentPage.ToolbarItems>
+
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition/>
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-    
-    <Image Source="{Binding SelectedComic, Converter={StaticResource ComicToImageSourceConverter}}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
-    
-    <Button Text="{Binding IsFavorite, Converter={StaticResource IsFavoriteToStringConverter}}"
-            Command="{Binding ToggleFavoriteCommand}"
-            Grid.Row="1" />
+
+    <Image Source="{Binding SelectedComic, Converter={StaticResource ComicToImageSourceConverter}}"
+           HorizontalOptions="FillAndExpand"
+           VerticalOptions="FillAndExpand"/>
+
+    <!--<StackLayout Grid.Row="1">
+       <Button Text="{Binding IsFavorite, Converter={StaticResource IsFavoriteToStringConverter}}"
+              Command="{Binding ToggleFavoriteCommand}"
+              CommandParameter="{Binding SelectedComic}"/>
+     <Button Text="Share"
+              Command="{Binding ShareCommand}"
+              CommandParameter="{Binding SelectedComic}"/>
+    </StackLayout>-->
   </Grid>
 </ContentPage>

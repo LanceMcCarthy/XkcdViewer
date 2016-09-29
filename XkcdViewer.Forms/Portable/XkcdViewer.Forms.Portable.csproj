@@ -39,7 +39,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BasePage.xaml.cs">
+    <Compile Include="Views\BasePage.xaml.cs">
       <DependentUpon>BasePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Behaviors\BehaviorBase.cs" />
@@ -49,13 +49,15 @@
     <Compile Include="Converters\ComicToImageSourceConverter.cs" />
     <Compile Include="Converters\ImageHeightConverter.cs" />
     <Compile Include="Converters\InvertBoolConverter.cs" />
+    <Compile Include="Converters\IsFavoriteIconConverter.cs" />
     <Compile Include="Converters\IsFavoriteToStringConverter.cs" />
     <Compile Include="Converters\IsGardenConverter.cs" />
+    <Compile Include="Converters\RadSelectedltemEventArgsConverter.cs" />
     <Compile Include="Converters\UrlToImageSourceConverter.cs" />
-    <Compile Include="FavoritesPage.xaml.cs">
+    <Compile Include="Views\FavoritesPage.xaml.cs">
       <DependentUpon>FavoritesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Comic.cs" />
@@ -63,6 +65,7 @@
     <Compile Include="Properties\Annotations1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\DetailsPageViewModel.cs" />
+    <Compile Include="ViewModels\FavoritesPageViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\DetailsPage.xaml.cs">
       <DependentUpon>DetailsPage.xaml</DependentUpon>
@@ -124,19 +127,19 @@
     <Content Include="Images\MrSadSideburns.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BasePage.xaml">
+    <EmbeddedResource Include="Views\BasePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FavoritesPage.xaml">
+    <EmbeddedResource Include="Views\FavoritesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MainPage.xaml">
+    <EmbeddedResource Include="Views\MainPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>
       </SubType>

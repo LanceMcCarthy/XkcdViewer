@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace Portable
+namespace Portable.Views
 {
     public partial class BasePage : NavigationPage
     {

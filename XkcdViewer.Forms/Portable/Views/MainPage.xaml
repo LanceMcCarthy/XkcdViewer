@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
+             xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+             xmlns:behaviors="clr-namespace:Portable.Behaviors;assembly=XkcdViewer.Forms.Portable"
+             xmlns:portable="clr-namespace:Portable;assembly=XkcdViewer.Forms.Portable"
+             xmlns:converters="clr-namespace:Portable.Converters;assembly=XkcdViewer.Forms.Portable"
+             x:Class="Portable.Views.MainPage"
+             BindingContext="{x:Static portable:App.ViewModel}">
+
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter"/>
+      <converters:ImageHeightConverter x:Key="HeightConverter"/>
+      <converters:IsGardenConverter x:Key="GardenConverter"/>
+      <converters:RadSelectedltemEventArgsConverter x:Key="SelectedltemArgsToBinding" />
+    
+      <DataTemplate x:Name="PortaitTemplate" x:Key="PortaitTemplate">
+        <listView:ListViewTemplateCell>
+          <listView:ListViewTemplateCell.View>
+            <Grid Padding="10" BackgroundColor="Gray">
+              <Grid x:Name="ItemContentGrid">
+
+              </Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+              </Grid.RowDefinitions>
+
+              <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding Num}" TextColor="White" FontSize="Small"/>
+                <Label Text=" - " TextColor="#C8C8C8" FontSize="Small" />
+                <Label Text="{Binding Title}" TextColor="White" FontSize="Small"/>
+              </StackLayout>
+
+              <!-- IsVisible="{Binding Title, Converter={StaticResource GardenConverter}}" 
+                    HeightRequest="{Binding Converter={StaticResource HeightConverter}}" -->
+              <Image Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}" Grid.Row="1"/>
+            </Grid>
+          </listView:ListViewTemplateCell.View>
+            </listView:ListViewTemplateCell>
+      </DataTemplate>
+      
+      <DataTemplate x:Name="LandscapeTemplate" x:Key="LandscapeTemplate">
+        <listView:ListViewTemplateCell>
+              <listView:ListViewTemplateCell.View>
+                <Grid Padding="10" BackgroundColor="Green">
+                  <Grid x:Name="ItemContentGrid">
+
+                  </Grid>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                  </Grid.RowDefinitions>
+
+                  <StackLayout Orientation="Horizontal">
+                    <Label Text="{Binding Num}" TextColor="White" FontSize="Small"/>
+                    <Label Text=" - " TextColor="#C8C8C8" FontSize="Small" />
+                    <Label Text="{Binding Title}" TextColor="White" FontSize="Small"/>
+                  </StackLayout>
+
+                  <!-- IsVisible="{Binding Title, Converter={StaticResource GardenConverter}}" 
+                    HeightRequest="{Binding Converter={StaticResource HeightConverter}}" -->
+                  <Image Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}" Grid.Row="1"/>
+                </Grid>
+              </listView:ListViewTemplateCell.View>
+            </listView:ListViewTemplateCell>
+      </DataTemplate>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+
+  <ContentPage.Content>
+    <Grid>
+      <Grid.RowDefinitions>
+        <!--<RowDefinition Height="Auto"/>-->
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+
+      <dataControls:RadListView x:Name="MyRadListView"
+                                ItemsSource="{Binding Comics}"
+                                IsItemSwipeEnabled="True"
+                                IsItemsReorderEnabled="True"
+                                IsPullToRefreshEnabled="True"
+                                RefreshRequested="MyRadListView_OnRefreshRequested"
+                                SelectionMode="Single"
+                                ItemTemplate="{StaticResource PortaitTemplate}"
+                                SwipeThreshold="50" 
+                                Grid.Row="0">
+        <dataControls:RadListView.LayoutDefinition>
+          <listView:ListViewLinearLayout VerticalItemSpacing="6" HorizontalItemSpacing="6"/>
+        </dataControls:RadListView.LayoutDefinition>
+        <dataControls:RadListView.Behaviors>
+          <behaviors:EventToCommandBehavior EventName="ItemTapped" 
+                                            Command="{Binding LoadDetailsCommand}"
+                                            Converter="{StaticResource SelectedltemArgsToBinding}"/>
+        </dataControls:RadListView.Behaviors>
+        <dataControls:RadListView.ItemSwipeContentTemplate>
+          <DataTemplate>
+            <Grid>
+              <Button Text="favorite" BackgroundColor="Green" TextColor="White" Clicked="FavoriteButtonClicked" HorizontalOptions="Start" WidthRequest="100"/>
+            </Grid>
+          </DataTemplate>
+        </dataControls:RadListView.ItemSwipeContentTemplate>
+      </dataControls:RadListView>
+
+      <Grid Grid.Row="1">
+        <Button x:Name="NavigateToFavsButton"
+                Text="See Favorites"
+                Command="{Binding GoToFavoritesCommand}"/>
+      </Grid>
+      
+      <Grid x:Name="BusyOverlayGrid" BackgroundColor="#AA000000" IsVisible="{Binding IsBusy}" Grid.Row="0" Grid.RowSpan="2">
+        <StackLayout HorizontalOptions="Fill" VerticalOptions="Center" BackgroundColor="Black">
+          <ProgressBar Progress="{Binding Progress}" VerticalOptions="Center" Margin="20,0,20,10" />
+          <Label Text="{Binding IsBusyMessage}" TextColor="White" Margin="20,0,20,0" HorizontalOptions="Center" LineBreakMode="WordWrap"/>
+        </StackLayout>
+        
+      </Grid>
+    </Grid>
+  </ContentPage.Content>
+</ContentPage>

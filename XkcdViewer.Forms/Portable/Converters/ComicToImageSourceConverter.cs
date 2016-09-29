@@ -16,9 +16,7 @@ namespace Portable.Converters
 
             if (comic.Title == "Garden" || string.IsNullOrEmpty(comic.Img))
             {
-                //return ImageSource.FromFile("Images/MrSadSideburns.png");
-
-                return ImageSource.FromFile("ic_xkcd_light.png");
+                return ImageSource.FromFile("garden_256.png");
             }
             else
             {

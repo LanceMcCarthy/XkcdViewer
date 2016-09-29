@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Portable.ViewModels;
+using Portable.Views;
 using Xamarin.Forms;
 
 namespace Portable

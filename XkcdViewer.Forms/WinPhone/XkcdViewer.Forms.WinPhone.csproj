@@ -124,6 +124,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="garden_256.png" />
+    <Content Include="ic_favorite_add.png" />
+    <Content Include="ic_favorite_remove.png" />
+    <Content Include="ic_share.png" />
     <Content Include="ic_xkcd_light.png" />
     <Content Include="README_FIRST.txt" />
     <Content Include="SplashScreenImage.jpg">

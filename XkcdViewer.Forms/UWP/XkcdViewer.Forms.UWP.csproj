@@ -114,6 +114,10 @@
     <Content Include="Assets\Square44x44Logo.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.png" />
+    <Content Include="garden_256.png" />
+    <Content Include="ic_favorite_add.png" />
+    <Content Include="ic_favorite_remove.png" />
+    <Content Include="ic_share.png" />
     <Content Include="ic_xkcd_light.png" />
   </ItemGroup>
   <ItemGroup>

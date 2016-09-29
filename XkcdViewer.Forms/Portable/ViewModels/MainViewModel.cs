@@ -28,6 +28,7 @@ namespace Portable.ViewModels
         private double progress;
         private string isBusyMessage;
         private Command<Comic> loadDetailsCommand;
+        private Command goToFavoritesCommand;
 
         #endregion
 
@@ -242,21 +243,67 @@ namespace Portable.ViewModels
             }
         }
 
+        public async Task<bool> AddFavoriteAsync(Comic comic)
+        {
+            try
+            {
+                App.ViewModel.FavoriteComics.Add(comic);
+                await SaveFavoritesAsync(this.comics);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"AddFavoriteAsync Exception: {ex}");
+                return false;
+            }
+        }
+
+        public async Task<bool> RemoveFavoriteAsync(Comic comic)
+        {
+            try
+            {
+                App.ViewModel.FavoriteComics.Remove(comic);
+                await SaveFavoritesAsync(this.comics);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"RemoveFavoriteAsync Exception: {ex}");
+                return false;
+            }
+            
+        }
+
         #endregion
 
         #region Commands
 
-        public Command<Comic> LoadDetailsCommand => loadDetailsCommand ?? (loadDetailsCommand = new Command<Comic>((c) =>
-                                                    {
-                                                        if (c == null)
-                                                            return;
+        /// <summary>
+        /// Navigates to a new instance of DetailsPage and passes the SelectedComic to the DetailsPageViewModel
+        /// </summary>
+        public Command<Comic> LoadDetailsCommand => loadDetailsCommand ?? (loadDetailsCommand = new Command<Comic>( async (comic) =>
+        {
+            if (comic == null)
+                return;
 
-                                                        var detailsPage = new DetailsPage();
-                                                        var dpvm = detailsPage.BindingContext as DetailsPageViewModel;
-                                                        if (dpvm != null) dpvm.SelectedComic = c;
+            var detailsPage = new DetailsPage();
+            var dpvm = detailsPage.BindingContext as DetailsPageViewModel;
 
-                                                        App.RootPage.Navigation.PushAsync(detailsPage);
-                                                    }));
+            if (dpvm != null)
+                dpvm.SelectedComic = comic;
+
+            await App.RootPage.Navigation.PushAsync(detailsPage);
+
+        }));
+
+        public Command GoToFavoritesCommand => goToFavoritesCommand ?? (goToFavoritesCommand = new Command(async () =>
+        {
+            var favsPage = new FavoritesPage();
+            favsPage.Title = "Favorites";
+            favsPage.Icon = "";
+
+            await App.RootPage.Navigation.PushAsync(favsPage);
+        }));
 
         #endregion
 

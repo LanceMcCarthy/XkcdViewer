@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -15,11 +16,12 @@ namespace Portable.ViewModels
     {
         private Comic selectedComic;
         private bool isFavorite;
-        private Command toggleFavoriteCommand;
+        private Command<Comic> toggleFavoriteCommand;
+        private Command<Comic> shareCommand;
 
         public DetailsPageViewModel()
         {
-            
+
         }
 
         public Comic SelectedComic
@@ -38,19 +40,25 @@ namespace Portable.ViewModels
             set { isFavorite = value; OnPropertyChanged(); }
         }
 
-        public Command ToggleFavoriteCommand => toggleFavoriteCommand ?? (toggleFavoriteCommand = new Command(() =>
-        {
-            if (IsFavorite)
-            {
-                App.ViewModel.FavoriteComics.Remove(selectedComic);
-                IsFavorite = false;
-            }
-            else
-            {
-                App.ViewModel.FavoriteComics.Add(selectedComic);
-                IsFavorite = true;
-            }
-        }));
+        public Command<Comic> ToggleFavoriteCommand => toggleFavoriteCommand ?? (toggleFavoriteCommand = new Command<Comic>( async (comic) =>
+       {
+           if (IsFavorite)
+           {
+               if(await App.ViewModel.RemoveFavoriteAsync(comic))
+                   IsFavorite = false; //if removing the fav was successful, update current state
+           }
+           else
+           {
+               if(await App.ViewModel.AddFavoriteAsync(comic))
+                   IsFavorite = true; //if adding the fav was successful, update current state
+           }
+       }));
+
+        public Command<Comic> ShareCommand => shareCommand ?? (shareCommand = new Command<Comic>((comic) =>
+                                             {
+                                                 if (comic == null) return;
+                                                 Debug.WriteLine($"ShareCommand fired - SelectedComic: {comic.Title}");
+                                             }));
 
         #region INPC
 

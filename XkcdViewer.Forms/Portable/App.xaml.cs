@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using Portable.ViewModels;
 using Portable.Views;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Portable
 {
     public partial class App : Application
     {
-        private static MainViewModel viewModel;
-        public static MainViewModel ViewModel => viewModel ?? (viewModel = new MainViewModel());
+        public static MainViewModel ViewModel => ViewModelLocator.Main;
 
         public static BasePage RootPage { get; set; }
 

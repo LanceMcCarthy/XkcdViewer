@@ -6,8 +6,9 @@
              xmlns:behaviors="clr-namespace:Portable.Behaviors;assembly=XkcdViewer.Forms.Portable"
              xmlns:portable="clr-namespace:Portable;assembly=XkcdViewer.Forms.Portable"
              xmlns:converters="clr-namespace:Portable.Converters;assembly=XkcdViewer.Forms.Portable"
+             xmlns:viewModels="clr-namespace:Portable.ViewModels;assembly=XkcdViewer.Forms.Portable"
              x:Class="Portable.Views.MainPage"
-             BindingContext="{x:Static portable:App.ViewModel}">
+             BindingContext="{x:Static viewModels:ViewModelLocator.Main}">
 
   <ContentPage.Resources>
     <ResourceDictionary>

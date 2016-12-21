@@ -29,7 +29,7 @@ namespace Portable.ViewModels
         private string isBusyMessage;
         private Command<Comic> loadDetailsCommand;
         private Command goToFavoritesCommand;
-
+        
         #endregion
 
         public MainViewModel()
@@ -208,6 +208,17 @@ namespace Portable.ViewModels
         {
             try
             {
+                if (ViewModelLocator.IsDesignTime)
+                {
+                    return new ObservableCollection<Comic>
+                    {
+                        new Comic() {Title = "Title One"},
+                        new Comic() {Title = "Title Two"},
+                        new Comic() {Title = "Title Three"},
+                        new Comic() {Title = "Title Four"}
+                    };
+                }
+
                 Debug.WriteLine($"---LoadFavoritesAsync called----");
 
                 IsBusy = true;

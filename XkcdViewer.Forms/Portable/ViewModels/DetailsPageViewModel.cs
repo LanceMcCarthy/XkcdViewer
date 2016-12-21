@@ -21,7 +21,13 @@ namespace Portable.ViewModels
 
         public DetailsPageViewModel()
         {
-
+            if (ViewModelLocator.IsDesignTime)
+            {
+                SelectedComic = new Comic()
+                {
+                    Title = "Selected Comic!"
+                };
+            }
         }
 
         public Comic SelectedComic

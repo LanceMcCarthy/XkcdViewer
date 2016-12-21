@@ -7,11 +7,12 @@
              xmlns:portable="clr-namespace:Portable;assembly=XkcdViewer.Forms.Portable"
              xmlns:viewModels="clr-namespace:Portable.ViewModels;assembly=XkcdViewer.Forms.Portable"
              xmlns:behaviors="clr-namespace:Portable.Behaviors;assembly=XkcdViewer.Forms.Portable"
+             BindingContext="{x:Static viewModels:ViewModelLocator.Favorites}"
              x:Class="Portable.Views.FavoritesPage">
   
-  <ContentPage.BindingContext>
+  <!--<ContentPage.BindingContext>
     <viewModels:FavoritesPageViewModel/>
-  </ContentPage.BindingContext>
+  </ContentPage.BindingContext>-->
   
   <ContentPage.Resources>
     <ResourceDictionary>

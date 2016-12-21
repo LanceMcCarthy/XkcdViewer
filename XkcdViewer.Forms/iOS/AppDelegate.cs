@@ -28,11 +28,12 @@ namespace XkcdViewer.Forms.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            new Telerik.XamarinForms.DataControlsRenderer.iOS.ListViewRenderer();
-            new Telerik.XamarinForms.ChartRenderer.iOS.PieChartRenderer();
             new Telerik.XamarinForms.ChartRenderer.iOS.CartesianChartRenderer();
-            new Telerik.XamarinForms.InputRenderer.iOS.CalendarRenderer();
+            new Telerik.XamarinForms.ChartRenderer.iOS.PieChartRenderer();
             new Telerik.XamarinForms.PrimitivesRenderer.iOS.SideDrawerRenderer();
+            new Telerik.XamarinForms.DataControlsRenderer.iOS.ListViewRenderer();
+            new Telerik.XamarinForms.InputRenderer.iOS.CalendarRenderer();
+            new Telerik.XamarinForms.InputRenderer.iOS.DataFormRenderer();
 
             global::Xamarin.Forms.Forms.Init();
             Telerik.XamarinForms.Common.iOS.TelerikForms.Init();

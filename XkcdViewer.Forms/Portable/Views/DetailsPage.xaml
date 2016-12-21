@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:Portable.ViewModels;assembly=XkcdViewer.Forms.Portable"
              xmlns:converters="clr-namespace:Portable.Converters;assembly=XkcdViewer.Forms.Portable"
+             BindingContext="{x:Static viewModels:ViewModelLocator.Details}"
              x:Class="Portable.Views.DetailsPage">
 
   <ContentPage.Resources>
@@ -12,10 +13,6 @@
       <converters:IsFavoriteIconConverter x:Key="IsFavoriteIconConverter"/>
     </ResourceDictionary>
   </ContentPage.Resources>
-
-  <ContentPage.BindingContext>
-    <viewModels:DetailsPageViewModel/>
-  </ContentPage.BindingContext>
 
   <ContentPage.ToolbarItems>
     <ToolbarItem x:Name="ShareToolbarItem" 

@@ -314,6 +314,38 @@
           "lib/netstandard1.0/_._": {}
         }
       },
+      "SkiaSharp/1.55.1": {
+        "compile": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        }
+      },
+      "SkiaSharp.Views/1.55.1": {
+        "dependencies": {
+          "SkiaSharp": "1.55.1"
+        },
+        "compile": {
+          "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
+        }
+      },
+      "SkiaSharp.Views.Forms/1.55.1": {
+        "dependencies": {
+          "SkiaSharp": "1.55.1",
+          "SkiaSharp.Views": "1.55.1",
+          "Xamarin.Forms": "2.3.0"
+        },
+        "compile": {
+          "lib/uap10.0/SkiaSharp.Views.Forms.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.Views.Forms.dll": {}
+        }
+      },
       "System.AppContext/4.1.0": {
         "dependencies": {
           "System.Collections": "4.0.11",
@@ -2049,6 +2081,51 @@
           }
         }
       },
+      "Telerik.UI.for.Xamarin/2017.1.1220.4": {
+        "dependencies": {
+          "Xamarin.Forms": "2.3.2.127"
+        },
+        "compile": {
+          "lib/uap10.0/Telerik.Core.dll": {},
+          "lib/uap10.0/Telerik.Data.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Input.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Chart.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.ChartRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControls.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataVisualization.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Input.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Primitives.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.PrimitivesRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Telerik.Core.dll": {},
+          "lib/uap10.0/Telerik.Data.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Input.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Chart.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.ChartRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControls.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataVisualization.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Input.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Primitives.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.PrimitivesRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.SkiaSharp.dll": {}
+        }
+      },
       "Xamarin.Forms/2.3.3.175": {
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
@@ -2602,6 +2679,38 @@
       "runtime.win8-arm.runtime.native.System.IO.Compression/4.0.1": {
         "native": {
           "runtimes/win8-arm/native/clrcompression.dll": {}
+        }
+      },
+      "SkiaSharp/1.55.1": {
+        "compile": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        }
+      },
+      "SkiaSharp.Views/1.55.1": {
+        "dependencies": {
+          "SkiaSharp": "1.55.1"
+        },
+        "compile": {
+          "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
+        }
+      },
+      "SkiaSharp.Views.Forms/1.55.1": {
+        "dependencies": {
+          "SkiaSharp": "1.55.1",
+          "SkiaSharp.Views": "1.55.1",
+          "Xamarin.Forms": "2.3.0"
+        },
+        "compile": {
+          "lib/uap10.0/SkiaSharp.Views.Forms.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.Views.Forms.dll": {}
         }
       },
       "System.AppContext/4.1.0": {
@@ -4191,6 +4300,51 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "Telerik.UI.for.Xamarin/2017.1.1220.4": {
+        "dependencies": {
+          "Xamarin.Forms": "2.3.2.127"
+        },
+        "compile": {
+          "lib/uap10.0/Telerik.Core.dll": {},
+          "lib/uap10.0/Telerik.Data.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Input.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Chart.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.ChartRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControls.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataVisualization.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Input.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Primitives.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.PrimitivesRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Telerik.Core.dll": {},
+          "lib/uap10.0/Telerik.Data.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Input.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Chart.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.ChartRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControls.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataVisualization.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Input.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Primitives.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.PrimitivesRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.SkiaSharp.dll": {}
+        }
+      },
       "Xamarin.Forms/2.3.3.175": {
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
@@ -4783,6 +4937,38 @@
         },
         "native": {
           "runtimes/win8-arm-aot/native/_._": {}
+        }
+      },
+      "SkiaSharp/1.55.1": {
+        "compile": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        }
+      },
+      "SkiaSharp.Views/1.55.1": {
+        "dependencies": {
+          "SkiaSharp": "1.55.1"
+        },
+        "compile": {
+          "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
+        }
+      },
+      "SkiaSharp.Views.Forms/1.55.1": {
+        "dependencies": {
+          "SkiaSharp": "1.55.1",
+          "SkiaSharp.Views": "1.55.1",
+          "Xamarin.Forms": "2.3.0"
+        },
+        "compile": {
+          "lib/uap10.0/SkiaSharp.Views.Forms.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.Views.Forms.dll": {}
         }
       },
       "System.AppContext/4.1.0": {
@@ -6372,6 +6558,51 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "Telerik.UI.for.Xamarin/2017.1.1220.4": {
+        "dependencies": {
+          "Xamarin.Forms": "2.3.2.127"
+        },
+        "compile": {
+          "lib/uap10.0/Telerik.Core.dll": {},
+          "lib/uap10.0/Telerik.Data.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Input.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Chart.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.ChartRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControls.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataVisualization.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Input.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Primitives.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.PrimitivesRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Telerik.Core.dll": {},
+          "lib/uap10.0/Telerik.Data.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Input.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Chart.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.ChartRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControls.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataVisualization.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Input.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Primitives.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.PrimitivesRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.SkiaSharp.dll": {}
+        }
+      },
       "Xamarin.Forms/2.3.3.175": {
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
@@ -6934,6 +7165,38 @@
         },
         "runtime": {
           "runtimes/win/lib/netcore50/System.Private.Uri.dll": {}
+        }
+      },
+      "SkiaSharp/1.55.1": {
+        "compile": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        }
+      },
+      "SkiaSharp.Views/1.55.1": {
+        "dependencies": {
+          "SkiaSharp": "1.55.1"
+        },
+        "compile": {
+          "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
+        }
+      },
+      "SkiaSharp.Views.Forms/1.55.1": {
+        "dependencies": {
+          "SkiaSharp": "1.55.1",
+          "SkiaSharp.Views": "1.55.1",
+          "Xamarin.Forms": "2.3.0"
+        },
+        "compile": {
+          "lib/uap10.0/SkiaSharp.Views.Forms.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.Views.Forms.dll": {}
         }
       },
       "System.AppContext/4.1.0": {
@@ -8521,6 +8784,51 @@
         },
         "runtime": {
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
+        }
+      },
+      "Telerik.UI.for.Xamarin/2017.1.1220.4": {
+        "dependencies": {
+          "Xamarin.Forms": "2.3.2.127"
+        },
+        "compile": {
+          "lib/uap10.0/Telerik.Core.dll": {},
+          "lib/uap10.0/Telerik.Data.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Input.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Chart.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.ChartRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControls.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataVisualization.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Input.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Primitives.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.PrimitivesRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Telerik.Core.dll": {},
+          "lib/uap10.0/Telerik.Data.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Input.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Chart.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.ChartRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControls.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataVisualization.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Input.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Primitives.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.PrimitivesRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.SkiaSharp.dll": {}
         }
       },
       "Xamarin.Forms/2.3.3.175": {
@@ -9126,6 +9434,38 @@
           "runtimes/aot/lib/netcore50/System.Private.Uri.dll": {}
         }
       },
+      "SkiaSharp/1.55.1": {
+        "compile": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        }
+      },
+      "SkiaSharp.Views/1.55.1": {
+        "dependencies": {
+          "SkiaSharp": "1.55.1"
+        },
+        "compile": {
+          "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
+        }
+      },
+      "SkiaSharp.Views.Forms/1.55.1": {
+        "dependencies": {
+          "SkiaSharp": "1.55.1",
+          "SkiaSharp.Views": "1.55.1",
+          "Xamarin.Forms": "2.3.0"
+        },
+        "compile": {
+          "lib/uap10.0/SkiaSharp.Views.Forms.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.Views.Forms.dll": {}
+        }
+      },
       "System.AppContext/4.1.0": {
         "dependencies": {
           "System.Collections": "4.0.11",
@@ -10713,6 +11053,51 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "Telerik.UI.for.Xamarin/2017.1.1220.4": {
+        "dependencies": {
+          "Xamarin.Forms": "2.3.2.127"
+        },
+        "compile": {
+          "lib/uap10.0/Telerik.Core.dll": {},
+          "lib/uap10.0/Telerik.Data.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Input.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Chart.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.ChartRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControls.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataVisualization.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Input.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Primitives.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.PrimitivesRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Telerik.Core.dll": {},
+          "lib/uap10.0/Telerik.Data.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Input.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Chart.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.ChartRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControls.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataVisualization.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Input.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Primitives.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.PrimitivesRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.SkiaSharp.dll": {}
+        }
+      },
       "Xamarin.Forms/2.3.3.175": {
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
@@ -11275,6 +11660,38 @@
         },
         "runtime": {
           "runtimes/win/lib/netcore50/System.Private.Uri.dll": {}
+        }
+      },
+      "SkiaSharp/1.55.1": {
+        "compile": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        }
+      },
+      "SkiaSharp.Views/1.55.1": {
+        "dependencies": {
+          "SkiaSharp": "1.55.1"
+        },
+        "compile": {
+          "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
+        }
+      },
+      "SkiaSharp.Views.Forms/1.55.1": {
+        "dependencies": {
+          "SkiaSharp": "1.55.1",
+          "SkiaSharp.Views": "1.55.1",
+          "Xamarin.Forms": "2.3.0"
+        },
+        "compile": {
+          "lib/uap10.0/SkiaSharp.Views.Forms.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.Views.Forms.dll": {}
         }
       },
       "System.AppContext/4.1.0": {
@@ -12864,6 +13281,51 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "Telerik.UI.for.Xamarin/2017.1.1220.4": {
+        "dependencies": {
+          "Xamarin.Forms": "2.3.2.127"
+        },
+        "compile": {
+          "lib/uap10.0/Telerik.Core.dll": {},
+          "lib/uap10.0/Telerik.Data.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Input.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Chart.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.ChartRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControls.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataVisualization.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Input.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Primitives.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.PrimitivesRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Telerik.Core.dll": {},
+          "lib/uap10.0/Telerik.Data.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Input.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Chart.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.ChartRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControls.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataVisualization.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Input.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Primitives.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.PrimitivesRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.SkiaSharp.dll": {}
+        }
+      },
       "Xamarin.Forms/2.3.3.175": {
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
@@ -13465,6 +13927,38 @@
         },
         "runtime": {
           "runtimes/aot/lib/netcore50/System.Private.Uri.dll": {}
+        }
+      },
+      "SkiaSharp/1.55.1": {
+        "compile": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        }
+      },
+      "SkiaSharp.Views/1.55.1": {
+        "dependencies": {
+          "SkiaSharp": "1.55.1"
+        },
+        "compile": {
+          "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
+        }
+      },
+      "SkiaSharp.Views.Forms/1.55.1": {
+        "dependencies": {
+          "SkiaSharp": "1.55.1",
+          "SkiaSharp.Views": "1.55.1",
+          "Xamarin.Forms": "2.3.0"
+        },
+        "compile": {
+          "lib/uap10.0/SkiaSharp.Views.Forms.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.Views.Forms.dll": {}
         }
       },
       "System.AppContext/4.1.0": {
@@ -15052,6 +15546,51 @@
         },
         "runtime": {
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
+        }
+      },
+      "Telerik.UI.for.Xamarin/2017.1.1220.4": {
+        "dependencies": {
+          "Xamarin.Forms": "2.3.2.127"
+        },
+        "compile": {
+          "lib/uap10.0/Telerik.Core.dll": {},
+          "lib/uap10.0/Telerik.Data.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Input.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Chart.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.ChartRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControls.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataVisualization.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Input.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Primitives.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.PrimitivesRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Telerik.Core.dll": {},
+          "lib/uap10.0/Telerik.Data.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Input.UWP.dll": {},
+          "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Chart.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.ChartRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Common.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControls.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.DataVisualization.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Input.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.Primitives.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.PrimitivesRenderer.UWP.dll": {},
+          "lib/uap10.0/Telerik.XamarinForms.SkiaSharp.dll": {}
         }
       },
       "Xamarin.Forms/2.3.3.175": {
@@ -16398,6 +16937,77 @@
         "runtime.win8-arm.runtime.native.System.IO.Compression.4.0.1.nupkg.sha512",
         "runtime.win8-arm.runtime.native.System.IO.Compression.nuspec",
         "runtimes/win8-arm/native/clrcompression.dll"
+      ]
+    },
+    "SkiaSharp/1.55.1": {
+      "sha512": "bVbdDNK0fY3cypJn6eu7X3+Hf89abs0MET8ScHTwVOZL383wFnMVjfUM/2yhazRoLbiK6TsKaX+2OTHqQMW/qg==",
+      "type": "package",
+      "path": "SkiaSharp/1.55.1",
+      "files": [
+        "SkiaSharp.1.55.1.nupkg.sha512",
+        "SkiaSharp.nuspec",
+        "build/XamarinMac/SkiaSharp.targets",
+        "build/XamarinMac/libSkiaSharp.dylib",
+        "build/net45/SkiaSharp.dll.config",
+        "build/net45/SkiaSharp.targets",
+        "build/net45/mac/libSkiaSharp.dylib",
+        "build/net45/x64/libSkiaSharp.dll",
+        "build/net45/x86/libSkiaSharp.dll",
+        "build/uap10.0/SkiaSharp.targets",
+        "build/uap10.0/arm/libSkiaSharp.dll",
+        "build/uap10.0/x64/libSkiaSharp.dll",
+        "build/uap10.0/x86/libSkiaSharp.dll",
+        "lib/MonoAndroid/SkiaSharp.dll",
+        "lib/MonoAndroid/SkiaSharp.xml",
+        "lib/XamarinMac/SkiaSharp.dll",
+        "lib/XamarinMac/SkiaSharp.xml",
+        "lib/XamariniOS/SkiaSharp.dll",
+        "lib/XamariniOS/SkiaSharp.xml",
+        "lib/XamarintvOS/SkiaSharp.dll",
+        "lib/XamarintvOS/SkiaSharp.xml",
+        "lib/net45/SkiaSharp.dll",
+        "lib/net45/SkiaSharp.dll.config",
+        "lib/net45/SkiaSharp.xml",
+        "lib/portable-net45+win8+wpa81+wp8/SkiaSharp.dll",
+        "lib/portable-net45+win8+wpa81+wp8/SkiaSharp.xml",
+        "lib/uap10.0/SkiaSharp.dll",
+        "lib/uap10.0/SkiaSharp.xml"
+      ]
+    },
+    "SkiaSharp.Views/1.55.1": {
+      "sha512": "xbo8bX4sFUaqxezodlnbBIpYD2B7kiEj3CYvjY3TOWE2hF/A2pdgluFY+hisMWpY5szypba1NbFwOhu1SNzMsA==",
+      "type": "package",
+      "path": "SkiaSharp.Views/1.55.1",
+      "files": [
+        "SkiaSharp.Views.1.55.1.nupkg.sha512",
+        "SkiaSharp.Views.nuspec",
+        "build/uap10.0/SkiaSharp.Views.targets",
+        "build/uap10.0/arm/libEGL.dll",
+        "build/uap10.0/arm/libGLESv2.dll",
+        "build/uap10.0/x64/libEGL.dll",
+        "build/uap10.0/x64/libGLESv2.dll",
+        "build/uap10.0/x86/libEGL.dll",
+        "build/uap10.0/x86/libGLESv2.dll",
+        "lib/MonoAndroid/SkiaSharp.Views.Android.dll",
+        "lib/XamarinMac/SkiaSharp.Views.Mac.dll",
+        "lib/XamariniOS/SkiaSharp.Views.iOS.dll",
+        "lib/XamarintvOS/SkiaSharp.Views.tvOS.dll",
+        "lib/net45/SkiaSharp.Views.Desktop.dll",
+        "lib/net45/SkiaSharp.Views.WPF.dll",
+        "lib/uap10.0/SkiaSharp.Views.UWP.dll"
+      ]
+    },
+    "SkiaSharp.Views.Forms/1.55.1": {
+      "sha512": "sTvtMPkF821PSwiEJbhaaFcaceD1VHp5hYv0X6LBp6ch4NLChY7wi7Y6noRTNpR+xZTV2qlB4tSDybXdpu+EFg==",
+      "type": "package",
+      "path": "SkiaSharp.Views.Forms/1.55.1",
+      "files": [
+        "SkiaSharp.Views.Forms.1.55.1.nupkg.sha512",
+        "SkiaSharp.Views.Forms.nuspec",
+        "lib/MonoAndroid/SkiaSharp.Views.Forms.dll",
+        "lib/XamariniOS/SkiaSharp.Views.Forms.dll",
+        "lib/portable-net45+win8+wpa81+wp8/SkiaSharp.Views.Forms.dll",
+        "lib/uap10.0/SkiaSharp.Views.Forms.dll"
       ]
     },
     "System.AppContext/4.1.0": {
@@ -21302,6 +21912,429 @@
         "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll"
       ]
     },
+    "Telerik.UI.for.Xamarin/2017.1.1220.4": {
+      "sha512": "Lj3QR6WvPIqCZT2xVFZHwd5YIgjPFyTIi50l0I3BJlw83kt19BGpQdvSQFPyahnO7Ow/2JUhRKZvgdcOx2Q5Lg==",
+      "type": "package",
+      "path": "Telerik.UI.for.Xamarin/2017.1.1220.4",
+      "files": [
+        "Telerik.UI.for.Xamarin.2017.1.1220.4.nupkg.sha512",
+        "Telerik.UI.for.Xamarin.nuspec",
+        "lib/MonoAndroid10/Telerik.Xamarin.Android.Chart.dll",
+        "lib/MonoAndroid10/Telerik.Xamarin.Android.Common.dll",
+        "lib/MonoAndroid10/Telerik.Xamarin.Android.Data.dll",
+        "lib/MonoAndroid10/Telerik.Xamarin.Android.Gauges.dll",
+        "lib/MonoAndroid10/Telerik.Xamarin.Android.Input.dll",
+        "lib/MonoAndroid10/Telerik.Xamarin.Android.List.dll",
+        "lib/MonoAndroid10/Telerik.Xamarin.Android.Primitives.dll",
+        "lib/MonoAndroid10/Telerik.XamarinForms.Chart.dll",
+        "lib/MonoAndroid10/Telerik.XamarinForms.ChartRenderer.Android.dll",
+        "lib/MonoAndroid10/Telerik.XamarinForms.Common.Android.dll",
+        "lib/MonoAndroid10/Telerik.XamarinForms.Common.dll",
+        "lib/MonoAndroid10/Telerik.XamarinForms.DataControls.dll",
+        "lib/MonoAndroid10/Telerik.XamarinForms.DataControlsRenderer.Android.dll",
+        "lib/MonoAndroid10/Telerik.XamarinForms.DataVisualization.dll",
+        "lib/MonoAndroid10/Telerik.XamarinForms.Input.dll",
+        "lib/MonoAndroid10/Telerik.XamarinForms.InputRenderer.Android.dll",
+        "lib/MonoAndroid10/Telerik.XamarinForms.Primitives.dll",
+        "lib/MonoAndroid10/Telerik.XamarinForms.PrimitivesRenderer.Android.dll",
+        "lib/MonoAndroid10/Telerik.XamarinForms.SkiaSharp.dll",
+        "lib/WP80/Telerik.Windows.Controls.Chart.dll",
+        "lib/WP80/Telerik.Windows.Controls.Input.dll",
+        "lib/WP80/Telerik.Windows.Controls.Primitives.dll",
+        "lib/WP80/Telerik.Windows.Core.dll",
+        "lib/WP80/Telerik.XamarinForms.Chart.dll",
+        "lib/WP80/Telerik.XamarinForms.ChartRenderer.WinPhone.dll",
+        "lib/WP80/Telerik.XamarinForms.Common.WinPhone.dll",
+        "lib/WP80/Telerik.XamarinForms.Common.dll",
+        "lib/WP80/Telerik.XamarinForms.DataVisualization.dll",
+        "lib/WP80/Telerik.XamarinForms.Input.dll",
+        "lib/WP80/Telerik.XamarinForms.InputRenderer.WinPhone.dll",
+        "lib/WP80/Telerik.XamarinForms.SkiaSharp.dll",
+        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20+uap10.0/Telerik.XamarinForms.Chart.dll",
+        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20+uap10.0/Telerik.XamarinForms.Common.dll",
+        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20+uap10.0/Telerik.XamarinForms.DataControls.dll",
+        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20+uap10.0/Telerik.XamarinForms.DataVisualization.dll",
+        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20+uap10.0/Telerik.XamarinForms.Input.dll",
+        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20+uap10.0/Telerik.XamarinForms.Primitives.dll",
+        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20+uap10.0/Telerik.XamarinForms.SkiaSharp.dll",
+        "lib/uap10.0/ListView/Resources/reorder-handle-dark.png",
+        "lib/uap10.0/ListView/Resources/reorder-handle-light.png",
+        "lib/uap10.0/Telerik.Core.dll",
+        "lib/uap10.0/Telerik.Core/Properties/default.rd.xml",
+        "lib/uap10.0/Telerik.Data.dll",
+        "lib/uap10.0/Telerik.Data/Properties/default.rd.xml",
+        "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP.dll",
+        "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP.pdb",
+        "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP.pri",
+        "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP/Telerik.UI.Xaml.Chart.UWP.xr.xml",
+        "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP/Themes/Generic.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP/Themes/Generic.xbf",
+        "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP/Themes/ThemeResourcesDark.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP/Themes/ThemeResourcesDark.xbf",
+        "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP/Themes/ThemeResourcesLight.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Chart.UWP/Themes/ThemeResourcesLight.xbf",
+        "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP.dll",
+        "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP.pdb",
+        "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP.pri",
+        "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP/ListView/Resources/reorder-handle-dark.png",
+        "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP/ListView/Resources/reorder-handle-light.png",
+        "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP/Telerik.UI.Xaml.Controls.Data.UWP.xr.xml",
+        "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP/Themes/DataForm.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP/Themes/DataForm.xbf",
+        "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP/Themes/Generic.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP/Themes/Generic.xbf",
+        "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP/Themes/Listbox.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP/Themes/Listbox.xbf",
+        "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP/Themes/ThemeResourcesDark.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP/Themes/ThemeResourcesDark.xbf",
+        "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP/Themes/ThemeResourcesLight.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Controls.Data.UWP/Themes/ThemeResourcesLight.xbf",
+        "lib/uap10.0/Telerik.UI.Xaml.Input.UWP.dll",
+        "lib/uap10.0/Telerik.UI.Xaml.Input.UWP.pdb",
+        "lib/uap10.0/Telerik.UI.Xaml.Input.UWP.pri",
+        "lib/uap10.0/Telerik.UI.Xaml.Input.UWP/Telerik.UI.Xaml.Input.UWP.xr.xml",
+        "lib/uap10.0/Telerik.UI.Xaml.Input.UWP/Themes/Calendar.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Input.UWP/Themes/Calendar.xbf",
+        "lib/uap10.0/Telerik.UI.Xaml.Input.UWP/Themes/CommonResources.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Input.UWP/Themes/CommonResources.xbf",
+        "lib/uap10.0/Telerik.UI.Xaml.Input.UWP/Themes/Generic.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Input.UWP/Themes/Generic.xbf",
+        "lib/uap10.0/Telerik.UI.Xaml.Input.UWP/Themes/Resources.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Input.UWP/Themes/Resources.xbf",
+        "lib/uap10.0/Telerik.UI.Xaml.Input.UWP/Themes/ThemeResourcesDark.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Input.UWP/Themes/ThemeResourcesDark.xbf",
+        "lib/uap10.0/Telerik.UI.Xaml.Input.UWP/Themes/ThemeResourcesLight.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Input.UWP/Themes/ThemeResourcesLight.xbf",
+        "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP.dll",
+        "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP.pdb",
+        "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP.pri",
+        "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP/Telerik.UI.Xaml.Primitives.UWP.xr.xml",
+        "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP/Themes/Generic.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP/Themes/Generic.xbf",
+        "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP/Themes/HubTilePalette.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP/Themes/HubTilePalette.xbf",
+        "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP/Themes/Resources.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP/Themes/Resources.xbf",
+        "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP/Themes/SharedResources.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP/Themes/SharedResources.xbf",
+        "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeColorsDark.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeColorsDark.xbf",
+        "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeColorsLight.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeColorsLight.xbf",
+        "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeResourcesDark.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeResourcesDark.xbf",
+        "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeResourcesLight.xaml",
+        "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeResourcesLight.xbf",
+        "lib/uap10.0/Telerik.XamarinForms.Chart.dll",
+        "lib/uap10.0/Telerik.XamarinForms.ChartRenderer.UWP.dll",
+        "lib/uap10.0/Telerik.XamarinForms.ChartRenderer.UWP.pdb",
+        "lib/uap10.0/Telerik.XamarinForms.ChartRenderer.UWP.pri",
+        "lib/uap10.0/Telerik.XamarinForms.Common.UWP.dll",
+        "lib/uap10.0/Telerik.XamarinForms.Common.UWP.pdb",
+        "lib/uap10.0/Telerik.XamarinForms.Common.UWP.pri",
+        "lib/uap10.0/Telerik.XamarinForms.Common.dll",
+        "lib/uap10.0/Telerik.XamarinForms.DataControls.dll",
+        "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.dll",
+        "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.pdb",
+        "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.pri",
+        "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.rd.xml",
+        "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.xr.xml",
+        "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP/Properties/Telerik.XamarinForms.DataControlsRenderer.UWP.rd.xml",
+        "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP/Resources/DataControlsTemplatesUWP.xbf",
+        "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP/Telerik.XamarinForms.DataControlsRenderer.UWP.xr.xml",
+        "lib/uap10.0/Telerik.XamarinForms.DataVisualization.dll",
+        "lib/uap10.0/Telerik.XamarinForms.Input.dll",
+        "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.dll",
+        "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.pdb",
+        "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.pri",
+        "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.xr.xml",
+        "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP/Telerik.XamarinForms.InputRenderer.UWP.xr.xml",
+        "lib/uap10.0/Telerik.XamarinForms.Primitives.dll",
+        "lib/uap10.0/Telerik.XamarinForms.PrimitivesRenderer.UWP.dll",
+        "lib/uap10.0/Telerik.XamarinForms.PrimitivesRenderer.UWP.pdb",
+        "lib/uap10.0/Telerik.XamarinForms.PrimitivesRenderer.UWP.pri",
+        "lib/uap10.0/Telerik.XamarinForms.SkiaSharp.dll",
+        "lib/win81/Telerik.Core.XML",
+        "lib/win81/Telerik.Core.dll",
+        "lib/win81/Telerik.Core.pri",
+        "lib/win81/Telerik.Data.XML",
+        "lib/win81/Telerik.Data.dll",
+        "lib/win81/Telerik.Data.pri",
+        "lib/win81/Telerik.UI.Xaml.Chart.XML",
+        "lib/win81/Telerik.UI.Xaml.Chart.dll",
+        "lib/win81/Telerik.UI.Xaml.Chart.pri",
+        "lib/win81/Telerik.UI.Xaml.Chart/CustomDictionary.xml",
+        "lib/win81/Telerik.UI.Xaml.Chart/Telerik.UI.Xaml.Chart.xr.xml",
+        "lib/win81/Telerik.UI.Xaml.Chart/Themes/Generic.xaml",
+        "lib/win81/Telerik.UI.Xaml.Chart/Themes/Generic.xbf",
+        "lib/win81/Telerik.UI.Xaml.Chart/Themes/ThemeResourcesDark.xaml",
+        "lib/win81/Telerik.UI.Xaml.Chart/Themes/ThemeResourcesDark.xbf",
+        "lib/win81/Telerik.UI.Xaml.Chart/Themes/ThemeResourcesLight.xaml",
+        "lib/win81/Telerik.UI.Xaml.Chart/Themes/ThemeResourcesLight.xbf",
+        "lib/win81/Telerik.UI.Xaml.Controls.Data.XML",
+        "lib/win81/Telerik.UI.Xaml.Controls.Data.dll",
+        "lib/win81/Telerik.UI.Xaml.Controls.Data.pri",
+        "lib/win81/Telerik.UI.Xaml.Controls.Data/ListView/Resources/reorder-handle-dark.png",
+        "lib/win81/Telerik.UI.Xaml.Controls.Data/ListView/Resources/reorder-handle-light.png",
+        "lib/win81/Telerik.UI.Xaml.Controls.Data/Telerik.UI.Xaml.Controls.Data.xr.xml",
+        "lib/win81/Telerik.UI.Xaml.Controls.Data/Themes/DataForm.xaml",
+        "lib/win81/Telerik.UI.Xaml.Controls.Data/Themes/DataForm.xbf",
+        "lib/win81/Telerik.UI.Xaml.Controls.Data/Themes/Generic.xaml",
+        "lib/win81/Telerik.UI.Xaml.Controls.Data/Themes/Generic.xbf",
+        "lib/win81/Telerik.UI.Xaml.Controls.Data/Themes/Listbox.xaml",
+        "lib/win81/Telerik.UI.Xaml.Controls.Data/Themes/Listbox.xbf",
+        "lib/win81/Telerik.UI.Xaml.Controls.Data/Themes/ThemeResourcesDark.xaml",
+        "lib/win81/Telerik.UI.Xaml.Controls.Data/Themes/ThemeResourcesDark.xbf",
+        "lib/win81/Telerik.UI.Xaml.Controls.Data/Themes/ThemeResourcesLight.xaml",
+        "lib/win81/Telerik.UI.Xaml.Controls.Data/Themes/ThemeResourcesLight.xbf",
+        "lib/win81/Telerik.UI.Xaml.Input.XML",
+        "lib/win81/Telerik.UI.Xaml.Input.dll",
+        "lib/win81/Telerik.UI.Xaml.Input.pri",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/antique.jpg",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/basic-group.png",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/brightness.png",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/cancel.png",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/compare.png",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/contrast.png",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/effects.png",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/fliph.png",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/flipv.png",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/grayscale.jpg",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/hue.png",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/lomo.jpg",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/minus.png",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/moonlight.jpg",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/negative.jpg",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/noeffect.jpg",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/plus.png",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/posterize.jpg",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/redo.png",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/resize.png",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/rotateCCW.png",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/rotateCW.png",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/saturation.png",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/save.png",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/sepia.jpg",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/sharpness.png",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/temperature.png",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/transform.png",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/undo.png",
+        "lib/win81/Telerik.UI.Xaml.Input/ImageEditor/Icons/vibrance.png",
+        "lib/win81/Telerik.UI.Xaml.Input/Telerik.UI.Xaml.Input.xr.xml",
+        "lib/win81/Telerik.UI.Xaml.Input/Themes/Calendar.xaml",
+        "lib/win81/Telerik.UI.Xaml.Input/Themes/Calendar.xbf",
+        "lib/win81/Telerik.UI.Xaml.Input/Themes/CommonResources.xaml",
+        "lib/win81/Telerik.UI.Xaml.Input/Themes/CommonResources.xbf",
+        "lib/win81/Telerik.UI.Xaml.Input/Themes/Generic.xaml",
+        "lib/win81/Telerik.UI.Xaml.Input/Themes/Generic.xbf",
+        "lib/win81/Telerik.UI.Xaml.Input/Themes/ImageEditor.xaml",
+        "lib/win81/Telerik.UI.Xaml.Input/Themes/ImageEditor.xbf",
+        "lib/win81/Telerik.UI.Xaml.Input/Themes/ImageEditorStyles.xaml",
+        "lib/win81/Telerik.UI.Xaml.Input/Themes/ImageEditorStyles.xbf",
+        "lib/win81/Telerik.UI.Xaml.Input/Themes/Resources.xaml",
+        "lib/win81/Telerik.UI.Xaml.Input/Themes/Resources.xbf",
+        "lib/win81/Telerik.UI.Xaml.Input/Themes/ThemeResourcesDark.xaml",
+        "lib/win81/Telerik.UI.Xaml.Input/Themes/ThemeResourcesDark.xbf",
+        "lib/win81/Telerik.UI.Xaml.Input/Themes/ThemeResourcesLight.xaml",
+        "lib/win81/Telerik.UI.Xaml.Input/Themes/ThemeResourcesLight.xbf",
+        "lib/win81/Telerik.UI.Xaml.Primitives.XML",
+        "lib/win81/Telerik.UI.Xaml.Primitives.dll",
+        "lib/win81/Telerik.UI.Xaml.Primitives.pri",
+        "lib/win81/Telerik.UI.Xaml.Primitives/Telerik.UI.Xaml.Primitives.xr.xml",
+        "lib/win81/Telerik.UI.Xaml.Primitives/Themes/Generic.xaml",
+        "lib/win81/Telerik.UI.Xaml.Primitives/Themes/Generic.xbf",
+        "lib/win81/Telerik.UI.Xaml.Primitives/Themes/HubTilePalette.xaml",
+        "lib/win81/Telerik.UI.Xaml.Primitives/Themes/HubTilePalette.xbf",
+        "lib/win81/Telerik.UI.Xaml.Primitives/Themes/Resources.xaml",
+        "lib/win81/Telerik.UI.Xaml.Primitives/Themes/Resources.xbf",
+        "lib/win81/Telerik.UI.Xaml.Primitives/Themes/SharedResources.xaml",
+        "lib/win81/Telerik.UI.Xaml.Primitives/Themes/SharedResources.xbf",
+        "lib/win81/Telerik.UI.Xaml.Primitives/Themes/ThemeColorsDark.xaml",
+        "lib/win81/Telerik.UI.Xaml.Primitives/Themes/ThemeColorsDark.xbf",
+        "lib/win81/Telerik.UI.Xaml.Primitives/Themes/ThemeColorsLight.xaml",
+        "lib/win81/Telerik.UI.Xaml.Primitives/Themes/ThemeColorsLight.xbf",
+        "lib/win81/Telerik.UI.Xaml.Primitives/Themes/ThemeResourcesDark.xaml",
+        "lib/win81/Telerik.UI.Xaml.Primitives/Themes/ThemeResourcesDark.xbf",
+        "lib/win81/Telerik.UI.Xaml.Primitives/Themes/ThemeResourcesLight.xaml",
+        "lib/win81/Telerik.UI.Xaml.Primitives/Themes/ThemeResourcesLight.xbf",
+        "lib/win81/Telerik.XamarinForms.Chart.dll",
+        "lib/win81/Telerik.XamarinForms.ChartRenderer.WinRT.Windows.dll",
+        "lib/win81/Telerik.XamarinForms.ChartRenderer.WinRT.Windows.dll.CodeAnalysisLog.xml",
+        "lib/win81/Telerik.XamarinForms.ChartRenderer.WinRT.Windows.pdb",
+        "lib/win81/Telerik.XamarinForms.ChartRenderer.WinRT.Windows.pri",
+        "lib/win81/Telerik.XamarinForms.Common.WinRT.Windows.dll",
+        "lib/win81/Telerik.XamarinForms.Common.WinRT.Windows.pdb",
+        "lib/win81/Telerik.XamarinForms.Common.WinRT.Windows.pri",
+        "lib/win81/Telerik.XamarinForms.Common.dll",
+        "lib/win81/Telerik.XamarinForms.DataControls.dll",
+        "lib/win81/Telerik.XamarinForms.DataControlsRenderer.WinRT.Windows.dll",
+        "lib/win81/Telerik.XamarinForms.DataControlsRenderer.WinRT.Windows.pdb",
+        "lib/win81/Telerik.XamarinForms.DataControlsRenderer.WinRT.Windows.pri",
+        "lib/win81/Telerik.XamarinForms.DataControlsRenderer.WinRT.Windows.xr.xml",
+        "lib/win81/Telerik.XamarinForms.DataControlsRenderer.WinRT.Windows/Resources/DataControlsTemplates.xbf",
+        "lib/win81/Telerik.XamarinForms.DataControlsRenderer.WinRT.Windows/Telerik.XamarinForms.DataControlsRenderer.WinRT.Windows.xr.xml",
+        "lib/win81/Telerik.XamarinForms.DataVisualization.dll",
+        "lib/win81/Telerik.XamarinForms.Input.dll",
+        "lib/win81/Telerik.XamarinForms.InputRenderer.WinRT.Windows.dll",
+        "lib/win81/Telerik.XamarinForms.InputRenderer.WinRT.Windows.dll.CodeAnalysisLog.xml",
+        "lib/win81/Telerik.XamarinForms.InputRenderer.WinRT.Windows.pdb",
+        "lib/win81/Telerik.XamarinForms.InputRenderer.WinRT.Windows.pri",
+        "lib/win81/Telerik.XamarinForms.InputRenderer.WinRT.Windows.xr.xml",
+        "lib/win81/Telerik.XamarinForms.InputRenderer.WinRT.Windows/Resources/InputControlsTemplates.xbf",
+        "lib/win81/Telerik.XamarinForms.InputRenderer.WinRT.Windows/Telerik.XamarinForms.InputRenderer.WinRT.Windows.xr.xml",
+        "lib/win81/Telerik.XamarinForms.Primitives.dll",
+        "lib/win81/Telerik.XamarinForms.PrimitivesRenderer.WinRT.Windows.dll",
+        "lib/win81/Telerik.XamarinForms.PrimitivesRenderer.WinRT.Windows.pdb",
+        "lib/win81/Telerik.XamarinForms.PrimitivesRenderer.WinRT.Windows.pri",
+        "lib/win81/Telerik.XamarinForms.SkiaSharp.dll",
+        "lib/wpa81/Telerik.Core.XML",
+        "lib/wpa81/Telerik.Core.dll",
+        "lib/wpa81/Telerik.Core.pri",
+        "lib/wpa81/Telerik.Data.XML",
+        "lib/wpa81/Telerik.Data.dll",
+        "lib/wpa81/Telerik.Data.pri",
+        "lib/wpa81/Telerik.UI.Xaml.Chart.XML",
+        "lib/wpa81/Telerik.UI.Xaml.Chart.dll",
+        "lib/wpa81/Telerik.UI.Xaml.Chart.pri",
+        "lib/wpa81/Telerik.UI.Xaml.Chart/CustomDictionary.xml",
+        "lib/wpa81/Telerik.UI.Xaml.Chart/Telerik.UI.Xaml.Chart.xr.xml",
+        "lib/wpa81/Telerik.UI.Xaml.Chart/Themes/Generic.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Chart/Themes/Generic.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Chart/Themes/ThemeResourcesDark.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Chart/Themes/ThemeResourcesDark.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Chart/Themes/ThemeResourcesLight.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Chart/Themes/ThemeResourcesLight.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Controls.Data.XML",
+        "lib/wpa81/Telerik.UI.Xaml.Controls.Data.dll",
+        "lib/wpa81/Telerik.UI.Xaml.Controls.Data.pri",
+        "lib/wpa81/Telerik.UI.Xaml.Controls.Data/ListView/Resources/reorder-handle-dark.png",
+        "lib/wpa81/Telerik.UI.Xaml.Controls.Data/ListView/Resources/reorder-handle-light.png",
+        "lib/wpa81/Telerik.UI.Xaml.Controls.Data/Telerik.UI.Xaml.Controls.Data.xr.xml",
+        "lib/wpa81/Telerik.UI.Xaml.Controls.Data/Themes/DataForm.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Controls.Data/Themes/DataForm.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Controls.Data/Themes/Generic.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Controls.Data/Themes/Generic.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Controls.Data/Themes/ListBox.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Controls.Data/Themes/ListBox.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Controls.Data/Themes/ThemeResourcesDark.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Controls.Data/Themes/ThemeResourcesDark.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Controls.Data/Themes/ThemeResourcesLight.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Controls.Data/Themes/ThemeResourcesLight.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Input.XML",
+        "lib/wpa81/Telerik.UI.Xaml.Input.dll",
+        "lib/wpa81/Telerik.UI.Xaml.Input.pri",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/antique.jpg",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/basic-group.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/brightness.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/cancel.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/compare.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/contrast.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/effects.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/fliph.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/flipv.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/grayscale.jpg",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/hue.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/lomo.jpg",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/minus.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/moonlight.jpg",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/negative.jpg",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/noeffect.jpg",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/plus.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/posterize.jpg",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/redo.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/resize.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/rotateCCW.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/rotateCW.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/saturation.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/save.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/sepia.jpg",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/sharpness.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/temperature.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/transform.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/undo.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/ImageEditor/Icons/vibrance.png",
+        "lib/wpa81/Telerik.UI.Xaml.Input/Telerik.UI.Xaml.Input.xr.xml",
+        "lib/wpa81/Telerik.UI.Xaml.Input/Themes/Calendar.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Input/Themes/Calendar.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Input/Themes/CommonResources.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Input/Themes/CommonResources.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Input/Themes/Generic.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Input/Themes/Generic.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Input/Themes/ImageEditor.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Input/Themes/ImageEditor.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Input/Themes/ImageEditorStyles.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Input/Themes/ImageEditorStyles.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Input/Themes/Resources.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Input/Themes/Resources.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Input/Themes/ThemeResourcesDark.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Input/Themes/ThemeResourcesDark.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Input/Themes/ThemeResourcesLight.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Input/Themes/ThemeResourcesLight.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Primitives.XML",
+        "lib/wpa81/Telerik.UI.Xaml.Primitives.dll",
+        "lib/wpa81/Telerik.UI.Xaml.Primitives.pri",
+        "lib/wpa81/Telerik.UI.Xaml.Primitives/Telerik.UI.Xaml.Primitives.xr.xml",
+        "lib/wpa81/Telerik.UI.Xaml.Primitives/Themes/Generic.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Primitives/Themes/Generic.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Primitives/Themes/HubTilePalette.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Primitives/Themes/HubTilePalette.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Primitives/Themes/Resources.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Primitives/Themes/Resources.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Primitives/Themes/SharedResources.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Primitives/Themes/SharedResources.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Primitives/Themes/ThemeColorsDark.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Primitives/Themes/ThemeColorsDark.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Primitives/Themes/ThemeColorsLight.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Primitives/Themes/ThemeColorsLight.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Primitives/Themes/ThemeResourcesDark.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Primitives/Themes/ThemeResourcesDark.xbf",
+        "lib/wpa81/Telerik.UI.Xaml.Primitives/Themes/ThemeResourcesLight.xaml",
+        "lib/wpa81/Telerik.UI.Xaml.Primitives/Themes/ThemeResourcesLight.xbf",
+        "lib/wpa81/Telerik.XamarinForms.Chart.dll",
+        "lib/wpa81/Telerik.XamarinForms.ChartRenderer.WinRT.WindowsPhone.dll",
+        "lib/wpa81/Telerik.XamarinForms.ChartRenderer.WinRT.WindowsPhone.dll.CodeAnalysisLog.xml",
+        "lib/wpa81/Telerik.XamarinForms.ChartRenderer.WinRT.WindowsPhone.pdb",
+        "lib/wpa81/Telerik.XamarinForms.ChartRenderer.WinRT.WindowsPhone.pri",
+        "lib/wpa81/Telerik.XamarinForms.Common.WinRT.WindowsPhone.dll",
+        "lib/wpa81/Telerik.XamarinForms.Common.WinRT.WindowsPhone.pdb",
+        "lib/wpa81/Telerik.XamarinForms.Common.WinRT.WindowsPhone.pri",
+        "lib/wpa81/Telerik.XamarinForms.Common.dll",
+        "lib/wpa81/Telerik.XamarinForms.DataControls.dll",
+        "lib/wpa81/Telerik.XamarinForms.DataControlsRenderer.WinRT.WindowsPhone.dll",
+        "lib/wpa81/Telerik.XamarinForms.DataControlsRenderer.WinRT.WindowsPhone.pdb",
+        "lib/wpa81/Telerik.XamarinForms.DataControlsRenderer.WinRT.WindowsPhone.pri",
+        "lib/wpa81/Telerik.XamarinForms.DataControlsRenderer.WinRT.WindowsPhone.xr.xml",
+        "lib/wpa81/Telerik.XamarinForms.DataControlsRenderer.WinRT.WindowsPhone/Resources/DataControlsTemplates.xbf",
+        "lib/wpa81/Telerik.XamarinForms.DataControlsRenderer.WinRT.WindowsPhone/Telerik.XamarinForms.DataControlsRenderer.WinRT.WindowsPhone.xr.xml",
+        "lib/wpa81/Telerik.XamarinForms.DataVisualization.dll",
+        "lib/wpa81/Telerik.XamarinForms.Input.dll",
+        "lib/wpa81/Telerik.XamarinForms.InputRenderer.WinRT.WindowsPhone.dll",
+        "lib/wpa81/Telerik.XamarinForms.InputRenderer.WinRT.WindowsPhone.dll.CodeAnalysisLog.xml",
+        "lib/wpa81/Telerik.XamarinForms.InputRenderer.WinRT.WindowsPhone.pdb",
+        "lib/wpa81/Telerik.XamarinForms.InputRenderer.WinRT.WindowsPhone.pri",
+        "lib/wpa81/Telerik.XamarinForms.InputRenderer.WinRT.WindowsPhone.xr.xml",
+        "lib/wpa81/Telerik.XamarinForms.InputRenderer.WinRT.WindowsPhone/Resources/InputControlsTemplates.xbf",
+        "lib/wpa81/Telerik.XamarinForms.InputRenderer.WinRT.WindowsPhone/Telerik.XamarinForms.InputRenderer.WinRT.WindowsPhone.xr.xml",
+        "lib/wpa81/Telerik.XamarinForms.Primitives.dll",
+        "lib/wpa81/Telerik.XamarinForms.PrimitivesRenderer.WinRT.WindowsPhone.dll",
+        "lib/wpa81/Telerik.XamarinForms.PrimitivesRenderer.WinRT.WindowsPhone.pdb",
+        "lib/wpa81/Telerik.XamarinForms.PrimitivesRenderer.WinRT.WindowsPhone.pri",
+        "lib/wpa81/Telerik.XamarinForms.SkiaSharp.dll",
+        "lib/xamarinios10/Telerik.Xamarin.iOS.dll",
+        "lib/xamarinios10/Telerik.XamarinForms.Chart.dll",
+        "lib/xamarinios10/Telerik.XamarinForms.ChartRenderer.iOS.dll",
+        "lib/xamarinios10/Telerik.XamarinForms.Common.dll",
+        "lib/xamarinios10/Telerik.XamarinForms.Common.iOS.dll",
+        "lib/xamarinios10/Telerik.XamarinForms.DataControls.dll",
+        "lib/xamarinios10/Telerik.XamarinForms.DataControlsRenderer.iOS.dll",
+        "lib/xamarinios10/Telerik.XamarinForms.DataVisualization.dll",
+        "lib/xamarinios10/Telerik.XamarinForms.Input.dll",
+        "lib/xamarinios10/Telerik.XamarinForms.InputRenderer.iOS.dll",
+        "lib/xamarinios10/Telerik.XamarinForms.Primitives.dll",
+        "lib/xamarinios10/Telerik.XamarinForms.PrimitivesRenderer.iOS.dll",
+        "lib/xamarinios10/Telerik.XamarinForms.SkiaSharp.dll"
+      ]
+    },
     "Xamarin.Forms/2.3.3.175": {
       "sha512": "ykrHIH6of2zy1NyZ4taaz42iyVlyw/rx6wHOm2TU3/yMEe9ptPUtfZ8kkjAyxJn1nsOjzIGsU8QufMogKLWPtg==",
       "type": "package",
@@ -21470,6 +22503,8 @@
     "": [
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.2.2",
       "PCLStorage >= 1.0.1",
+      "SkiaSharp.Views.Forms >= 1.55.1",
+      "Telerik.UI.for.Xamarin >= 2017.1.1220.4",
       "Xamarin.Forms >= 2.3.3.175",
       "modernhttpclient >= 2.4.2"
     ],

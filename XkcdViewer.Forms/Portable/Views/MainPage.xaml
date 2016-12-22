@@ -8,6 +8,7 @@
              xmlns:converters="clr-namespace:Portable.Converters;assembly=XkcdViewer.Forms.Portable"
              xmlns:viewModels="clr-namespace:Portable.ViewModels;assembly=XkcdViewer.Forms.Portable"
              x:Class="Portable.Views.MainPage"
+             Title="Xkcd Viewer"
              BindingContext="{x:Static viewModels:ViewModelLocator.Main}">
 
   <ContentPage.Resources>
@@ -78,6 +79,8 @@
         <RowDefinition Height="*"/>
         <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
+      
+      <Label Text="pull to see previous comic" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#33000000"/>
 
       <dataControls:RadListView x:Name="MyRadListView"
                                 ItemsSource="{Binding Comics}"
@@ -117,7 +120,6 @@
           <ProgressBar Progress="{Binding Progress}" VerticalOptions="Center" Margin="20,0,20,10" />
           <Label Text="{Binding IsBusyMessage}" TextColor="White" Margin="20,0,20,0" HorizontalOptions="Center" LineBreakMode="WordWrap"/>
         </StackLayout>
-        
       </Grid>
     </Grid>
   </ContentPage.Content>

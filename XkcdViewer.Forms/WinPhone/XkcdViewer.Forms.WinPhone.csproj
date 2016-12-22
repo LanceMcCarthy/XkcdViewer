@@ -182,35 +182,61 @@
       <HintPath>..\..\packages\PCLStorage.1.0.1\lib\wp8\PCLStorage.Abstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.Windows.Controls.Chart">
-      <HintPath>$(BinariesFolder)\WindowsPhone\Telerik.Windows.Controls.Chart.dll</HintPath>
+    <Reference Include="SkiaSharp, Version=1.55.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SkiaSharp.1.55.1\lib\portable-net45+win8+wpa81+wp8\SkiaSharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.Windows.Controls.Input">
-      <HintPath>$(BinariesFolder)\WindowsPhone\Telerik.Windows.Controls.Input.dll</HintPath>
+    <Reference Include="SkiaSharp.Views.Forms, Version=1.55.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SkiaSharp.Views.Forms.1.55.1\lib\portable-net45+win8+wpa81+wp8\SkiaSharp.Views.Forms.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.Windows.Controls.Primitives">
-      <HintPath>$(BinariesFolder)\WindowsPhone\Telerik.Windows.Controls.Primitives.dll</HintPath>
+    <Reference Include="Telerik.Windows.Controls.Chart, Version=2017.1.1220.3040, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.1220.4\lib\WP80\Telerik.Windows.Controls.Chart.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.Windows.Core">
-      <HintPath>$(BinariesFolder)\WindowsPhone\Telerik.Windows.Core.dll</HintPath>
+    <Reference Include="Telerik.Windows.Controls.Input, Version=2017.1.1220.3040, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.1220.4\lib\WP80\Telerik.Windows.Controls.Input.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.XamarinForms.Chart">
-      <HintPath>$(BinariesFolder)\XamarinForms\Common\Telerik.XamarinForms.Chart.dll</HintPath>
+    <Reference Include="Telerik.Windows.Controls.Primitives, Version=2017.1.1220.3040, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.1220.4\lib\WP80\Telerik.Windows.Controls.Primitives.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.XamarinForms.ChartRenderer.WinPhone">
-      <HintPath>$(BinariesFolder)\XamarinForms\WindowsPhone\Telerik.XamarinForms.ChartRenderer.WinPhone.dll</HintPath>
+    <Reference Include="Telerik.Windows.Core, Version=2017.1.1220.3040, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.1220.4\lib\WP80\Telerik.Windows.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.XamarinForms.Common">
-      <HintPath>$(BinariesFolder)\XamarinForms\Common\Telerik.XamarinForms.Common.dll</HintPath>
+    <Reference Include="Telerik.XamarinForms.Chart, Version=2017.1.1220.233, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.1220.4\lib\WP80\Telerik.XamarinForms.Chart.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.XamarinForms.Common.WinPhone">
-      <HintPath>$(BinariesFolder)\XamarinForms\WindowsPhone\Telerik.XamarinForms.Common.WinPhone.dll</HintPath>
+    <Reference Include="Telerik.XamarinForms.ChartRenderer.WinPhone, Version=2017.1.1220.233, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.1220.4\lib\WP80\Telerik.XamarinForms.ChartRenderer.WinPhone.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.XamarinForms.Input">
-      <HintPath>$(BinariesFolder)\XamarinForms\Common\Telerik.XamarinForms.Input.dll</HintPath>
+    <Reference Include="Telerik.XamarinForms.Common, Version=2017.1.1220.233, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.1220.4\lib\WP80\Telerik.XamarinForms.Common.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.XamarinForms.InputRenderer.WinPhone">
-      <HintPath>$(BinariesFolder)\XamarinForms\WindowsPhone\Telerik.XamarinForms.InputRenderer.WinPhone.dll</HintPath>
+    <Reference Include="Telerik.XamarinForms.Common.WinPhone, Version=2017.1.1220.233, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.1220.4\lib\WP80\Telerik.XamarinForms.Common.WinPhone.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.XamarinForms.DataVisualization, Version=2017.1.1220.233, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.1220.4\lib\WP80\Telerik.XamarinForms.DataVisualization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.XamarinForms.Input, Version=2017.1.1220.233, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.1220.4\lib\WP80\Telerik.XamarinForms.Input.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.XamarinForms.InputRenderer.WinPhone, Version=2017.1.1220.233, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.1220.4\lib\WP80\Telerik.XamarinForms.InputRenderer.WinPhone.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.XamarinForms.SkiaSharp, Version=2017.1.1220.233, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.1220.4\lib\WP80\Telerik.XamarinForms.SkiaSharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.3.3.175\lib\WP80\Xamarin.Forms.Core.dll</HintPath>

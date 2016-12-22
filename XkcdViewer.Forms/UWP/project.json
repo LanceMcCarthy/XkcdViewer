@@ -3,6 +3,8 @@
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "modernhttpclient": "2.4.2",
     "PCLStorage": "1.0.1",
+    "SkiaSharp.Views.Forms": "1.55.1",
+    "Telerik.UI.for.Xamarin": "2017.1.1220.4",
     "Xamarin.Forms": "2.3.3.175"
   },
   "frameworks": {

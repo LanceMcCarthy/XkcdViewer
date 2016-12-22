@@ -35,22 +35,10 @@
   </ContentPage.ToolbarItems>
 
   <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition/>
-      <RowDefinition Height="Auto"/>
-    </Grid.RowDefinitions>
-
-    <Image Source="{Binding SelectedComic, Converter={StaticResource ComicToImageSourceConverter}}"
+    <ScrollView>
+      <Image Source="{Binding SelectedComic, Converter={StaticResource ComicToImageSourceConverter}}"
            HorizontalOptions="FillAndExpand"
            VerticalOptions="FillAndExpand"/>
-
-    <!--<StackLayout Grid.Row="1">
-       <Button Text="{Binding IsFavorite, Converter={StaticResource IsFavoriteToStringConverter}}"
-              Command="{Binding ToggleFavoriteCommand}"
-              CommandParameter="{Binding SelectedComic}"/>
-     <Button Text="Share"
-              Command="{Binding ShareCommand}"
-              CommandParameter="{Binding SelectedComic}"/>
-    </StackLayout>-->
+    </ScrollView>
   </Grid>
 </ContentPage>

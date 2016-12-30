@@ -1,5 +1,6 @@
 ﻿{
   "dependencies": {
+    "Microsoft.Net.Http": "2.2.29",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "modernhttpclient": "2.4.2",
     "PCLStorage": "1.0.1",

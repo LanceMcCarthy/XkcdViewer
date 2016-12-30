@@ -20,9 +20,10 @@ namespace Portable.ViewModels
     {
         #region fields
 
+        private readonly HttpClient client;
+
         private ObservableCollection<Comic> comics;
         private ObservableCollection<Comic> favoriteComics;
-        //private Comic selectedComic;
         private bool isBusy;
         private int lastComicNumber;
         private double progress;
@@ -35,6 +36,8 @@ namespace Portable.ViewModels
         public MainViewModel()
         {
             InitializeViewModel();
+
+            client = new HttpClient(new NativeMessageHandler());
         }
         
         #region properties
@@ -102,8 +105,8 @@ namespace Portable.ViewModels
             try
             {
                 IsBusy = true;
-                Comics.Insert(0, await GetComicAsync(lastComicNumber));
-                //Comics.Add(await GetComicAsync(lastComicNumber));
+                var comic = await GetComicAsync(lastComicNumber);
+                Comics.Insert(0, comic);
             }
             catch (Exception ex)
             {
@@ -126,30 +129,22 @@ namespace Portable.ViewModels
             {
                 var url = lastComicNumber == 0 ? "https://xkcd.com/info.0.json" : "https://xkcd.com/" + $"{comicNumber - 1}" + "/info.0.json";
                 
-                //reset the Progress
-                Progress = 0;
+                using (var response = await client.GetAsync(url, HttpCompletionOption.ResponseContentRead))
+                {
+                    var jsonResult = await response.Content.ReadAsStringAsync();
 
-                //--- download comic json, with progress reporting in case of very slow network ---//
-                var progressReporter = new Progress<DownloadProgressArgs>();
-                progressReporter.ProgressChanged += ProgressReporter_ProgressChanged;
+                    if (string.IsNullOrEmpty(jsonResult))
+                        return new Comic { Title = "Whoops", Transcript = $"There was no comic to be found" };
 
-                var jsonResult = await new HttpClient(new NativeMessageHandler()).DownloadStringWithProgressAsync(url, progressReporter);
+                    var result = JsonConvert.DeserializeObject<Comic>(jsonResult);
 
-                progressReporter.ProgressChanged -= ProgressReporter_ProgressChanged;
+                    if (result == null)
+                        return new Comic { Title = "Json Schmason", Transcript = $"Someone didnt like the way the comic's json tasted and spit it back out" };
+                    
+                    lastComicNumber = result.Num;
 
-
-                if (string.IsNullOrEmpty(jsonResult))
-                    return new Comic { Title = "Whoops", Transcript = $"There was no XKCD comic to be found here" };
-
-                var result = JsonConvert.DeserializeObject<Comic>(jsonResult);
-
-                if (result == null)
-                    return new Comic { Title = "Json Schmason", Transcript = $"Someone didnt like the way the comic's json tasted and spit it back out" };
-
-                //keep track of what comic number we got last
-                lastComicNumber = result.Num;
-
-                return result;
+                    return result;
+                }
             }
             catch (Exception ex)
             {

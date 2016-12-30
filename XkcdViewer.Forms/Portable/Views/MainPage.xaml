@@ -75,17 +75,16 @@
   <ContentPage.Content>
     <Grid>
       <Grid.RowDefinitions>
-        <!--<RowDefinition Height="Auto"/>-->
         <RowDefinition Height="*"/>
         <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
       
-      <Label Text="pull to see previous comic" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#33000000"/>
+      <Label Text="pull to load previous comic" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#33000000"/>
 
       <dataControls:RadListView x:Name="MyRadListView"
                                 ItemsSource="{Binding Comics}"
                                 IsItemSwipeEnabled="True"
-                                IsItemsReorderEnabled="True"
+                                IsItemsReorderEnabled="False"
                                 IsPullToRefreshEnabled="True"
                                 RefreshRequested="MyRadListView_OnRefreshRequested"
                                 SelectionMode="Single"
@@ -109,17 +108,18 @@
         </dataControls:RadListView.ItemSwipeContentTemplate>
       </dataControls:RadListView>
 
+      <Grid BackgroundColor="#F0FFFFFF" IsVisible="{Binding IsBusy}" VerticalOptions="End" HorizontalOptions="Fill" Grid.Row="0">
+        <StackLayout HorizontalOptions="Fill" VerticalOptions="Center">
+          <!--<ProgressBar Progress="{Binding Progress}" VerticalOptions="Center" Margin="10,0,10,10" />-->
+          <ActivityIndicator IsRunning="{Binding IsBusy}" />
+          <Label Text="{Binding IsBusyMessage}" TextColor="Black" Margin="10,0,10,0" HorizontalOptions="Center" LineBreakMode="WordWrap"/>
+        </StackLayout>
+      </Grid>
+
       <Grid Grid.Row="1">
         <Button x:Name="NavigateToFavsButton"
                 Text="See Favorites"
                 Command="{Binding GoToFavoritesCommand}"/>
-      </Grid>
-      
-      <Grid x:Name="BusyOverlayGrid" BackgroundColor="#AA000000" IsVisible="{Binding IsBusy}" Grid.Row="0" Grid.RowSpan="2">
-        <StackLayout HorizontalOptions="Fill" VerticalOptions="Center" BackgroundColor="Black">
-          <ProgressBar Progress="{Binding Progress}" VerticalOptions="Center" Margin="20,0,20,10" />
-          <Label Text="{Binding IsBusyMessage}" TextColor="White" Margin="20,0,20,0" HorizontalOptions="Center" LineBreakMode="WordWrap"/>
-        </StackLayout>
       </Grid>
     </Grid>
   </ContentPage.Content>

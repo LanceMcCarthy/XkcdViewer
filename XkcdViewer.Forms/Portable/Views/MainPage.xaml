@@ -14,10 +14,8 @@
   <ContentPage.Resources>
     <ResourceDictionary>
       <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter"/>
-      <converters:ImageHeightConverter x:Key="HeightConverter"/>
-      <converters:IsGardenConverter x:Key="GardenConverter"/>
       <converters:RadSelectedltemEventArgsConverter x:Key="SelectedltemArgsToBinding" />
-    
+
       <DataTemplate x:Name="PortaitTemplate" x:Key="PortaitTemplate">
         <listView:ListViewTemplateCell>
           <listView:ListViewTemplateCell.View>
@@ -36,38 +34,34 @@
                 <Label Text="{Binding Title}" TextColor="White" FontSize="Small"/>
               </StackLayout>
 
-              <!-- IsVisible="{Binding Title, Converter={StaticResource GardenConverter}}" 
-                    HeightRequest="{Binding Converter={StaticResource HeightConverter}}" -->
               <Image Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}" Grid.Row="1"/>
             </Grid>
           </listView:ListViewTemplateCell.View>
-            </listView:ListViewTemplateCell>
+        </listView:ListViewTemplateCell>
       </DataTemplate>
-      
+
       <DataTemplate x:Name="LandscapeTemplate" x:Key="LandscapeTemplate">
         <listView:ListViewTemplateCell>
-              <listView:ListViewTemplateCell.View>
-                <Grid Padding="10" BackgroundColor="Green">
-                  <Grid x:Name="ItemContentGrid">
+          <listView:ListViewTemplateCell.View>
+            <Grid Padding="10" BackgroundColor="Green">
+              <Grid x:Name="ItemContentGrid">
 
-                  </Grid>
-                  <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                  </Grid.RowDefinitions>
+              </Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+              </Grid.RowDefinitions>
 
-                  <StackLayout Orientation="Horizontal">
-                    <Label Text="{Binding Num}" TextColor="White" FontSize="Small"/>
-                    <Label Text=" - " TextColor="#C8C8C8" FontSize="Small" />
-                    <Label Text="{Binding Title}" TextColor="White" FontSize="Small"/>
-                  </StackLayout>
+              <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding Num}" TextColor="White" FontSize="Small"/>
+                <Label Text=" - " TextColor="#C8C8C8" FontSize="Small" />
+                <Label Text="{Binding Title}" TextColor="White" FontSize="Small"/>
+              </StackLayout>
 
-                  <!-- IsVisible="{Binding Title, Converter={StaticResource GardenConverter}}" 
-                    HeightRequest="{Binding Converter={StaticResource HeightConverter}}" -->
-                  <Image Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}" Grid.Row="1"/>
-                </Grid>
-              </listView:ListViewTemplateCell.View>
-            </listView:ListViewTemplateCell>
+              <Image Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}" Grid.Row="1"/>
+            </Grid>
+          </listView:ListViewTemplateCell.View>
+        </listView:ListViewTemplateCell>
       </DataTemplate>
     </ResourceDictionary>
   </ContentPage.Resources>

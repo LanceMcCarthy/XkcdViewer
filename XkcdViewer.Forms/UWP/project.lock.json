@@ -316,6 +316,16 @@
           "lib/portable-win8+wpa81/PCLStorage.dll": {}
         }
       },
+      "Plugin.Share/5.0.0": {
+        "compile": {
+          "lib/UAP10/Plugin.Share.Abstractions.dll": {},
+          "lib/UAP10/Plugin.Share.dll": {}
+        },
+        "runtime": {
+          "lib/UAP10/Plugin.Share.Abstractions.dll": {},
+          "lib/UAP10/Plugin.Share.dll": {}
+        }
+      },
       "runtime.native.System.IO.Compression/4.1.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.0.1",
@@ -340,7 +350,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "SkiaSharp/1.55.1": {
+      "SkiaSharp/1.56.0": {
         "compile": {
           "lib/uap10.0/SkiaSharp.dll": {}
         },
@@ -348,9 +358,9 @@
           "lib/uap10.0/SkiaSharp.dll": {}
         }
       },
-      "SkiaSharp.Views/1.55.1": {
+      "SkiaSharp.Views/1.56.0": {
         "dependencies": {
-          "SkiaSharp": "1.55.1"
+          "SkiaSharp": "1.56.0"
         },
         "compile": {
           "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
@@ -359,10 +369,10 @@
           "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
         }
       },
-      "SkiaSharp.Views.Forms/1.55.1": {
+      "SkiaSharp.Views.Forms/1.56.0": {
         "dependencies": {
-          "SkiaSharp": "1.55.1",
-          "SkiaSharp.Views": "1.55.1",
+          "SkiaSharp": "1.56.0",
+          "SkiaSharp.Views": "1.56.0",
           "Xamarin.Forms": "2.3.0"
         },
         "compile": {
@@ -2107,7 +2117,7 @@
           }
         }
       },
-      "Telerik.UI.for.Xamarin/2017.1.1220.4": {
+      "Telerik.UI.for.Xamarin/2017.1.10118.10": {
         "dependencies": {
           "Xamarin.Forms": "2.3.2.127"
         },
@@ -2429,6 +2439,16 @@
           "lib/portable-win8+wpa81/PCLStorage.dll": {}
         }
       },
+      "Plugin.Share/5.0.0": {
+        "compile": {
+          "lib/UAP10/Plugin.Share.Abstractions.dll": {},
+          "lib/UAP10/Plugin.Share.dll": {}
+        },
+        "runtime": {
+          "lib/UAP10/Plugin.Share.Abstractions.dll": {},
+          "lib/UAP10/Plugin.Share.dll": {}
+        }
+      },
       "runtime.any.System.Collections/4.0.11": {
         "dependencies": {
           "System.Runtime": "4.1.0"
@@ -2733,7 +2753,7 @@
           "runtimes/win8-arm/native/clrcompression.dll": {}
         }
       },
-      "SkiaSharp/1.55.1": {
+      "SkiaSharp/1.56.0": {
         "compile": {
           "lib/uap10.0/SkiaSharp.dll": {}
         },
@@ -2741,9 +2761,9 @@
           "lib/uap10.0/SkiaSharp.dll": {}
         }
       },
-      "SkiaSharp.Views/1.55.1": {
+      "SkiaSharp.Views/1.56.0": {
         "dependencies": {
-          "SkiaSharp": "1.55.1"
+          "SkiaSharp": "1.56.0"
         },
         "compile": {
           "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
@@ -2752,10 +2772,10 @@
           "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
         }
       },
-      "SkiaSharp.Views.Forms/1.55.1": {
+      "SkiaSharp.Views.Forms/1.56.0": {
         "dependencies": {
-          "SkiaSharp": "1.55.1",
-          "SkiaSharp.Views": "1.55.1",
+          "SkiaSharp": "1.56.0",
+          "SkiaSharp.Views": "1.56.0",
           "Xamarin.Forms": "2.3.0"
         },
         "compile": {
@@ -4352,7 +4372,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Telerik.UI.for.Xamarin/2017.1.1220.4": {
+      "Telerik.UI.for.Xamarin/2017.1.10118.10": {
         "dependencies": {
           "Xamarin.Forms": "2.3.2.127"
         },
@@ -4673,6 +4693,16 @@
         "runtime": {
           "lib/portable-win8+wpa81/PCLStorage.Abstractions.dll": {},
           "lib/portable-win8+wpa81/PCLStorage.dll": {}
+        }
+      },
+      "Plugin.Share/5.0.0": {
+        "compile": {
+          "lib/UAP10/Plugin.Share.Abstractions.dll": {},
+          "lib/UAP10/Plugin.Share.dll": {}
+        },
+        "runtime": {
+          "lib/UAP10/Plugin.Share.Abstractions.dll": {},
+          "lib/UAP10/Plugin.Share.dll": {}
         }
       },
       "runtime.aot.System.Collections/4.0.10": {
@@ -5017,7 +5047,7 @@
           "runtimes/win8-arm-aot/native/_._": {}
         }
       },
-      "SkiaSharp/1.55.1": {
+      "SkiaSharp/1.56.0": {
         "compile": {
           "lib/uap10.0/SkiaSharp.dll": {}
         },
@@ -5025,9 +5055,9 @@
           "lib/uap10.0/SkiaSharp.dll": {}
         }
       },
-      "SkiaSharp.Views/1.55.1": {
+      "SkiaSharp.Views/1.56.0": {
         "dependencies": {
-          "SkiaSharp": "1.55.1"
+          "SkiaSharp": "1.56.0"
         },
         "compile": {
           "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
@@ -5036,10 +5066,10 @@
           "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
         }
       },
-      "SkiaSharp.Views.Forms/1.55.1": {
+      "SkiaSharp.Views.Forms/1.56.0": {
         "dependencies": {
-          "SkiaSharp": "1.55.1",
-          "SkiaSharp.Views": "1.55.1",
+          "SkiaSharp": "1.56.0",
+          "SkiaSharp.Views": "1.56.0",
           "Xamarin.Forms": "2.3.0"
         },
         "compile": {
@@ -6636,7 +6666,7 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Telerik.UI.for.Xamarin/2017.1.1220.4": {
+      "Telerik.UI.for.Xamarin/2017.1.10118.10": {
         "dependencies": {
           "Xamarin.Forms": "2.3.2.127"
         },
@@ -6962,6 +6992,16 @@
           "lib/portable-win8+wpa81/PCLStorage.dll": {}
         }
       },
+      "Plugin.Share/5.0.0": {
+        "compile": {
+          "lib/UAP10/Plugin.Share.Abstractions.dll": {},
+          "lib/UAP10/Plugin.Share.dll": {}
+        },
+        "runtime": {
+          "lib/UAP10/Plugin.Share.Abstractions.dll": {},
+          "lib/UAP10/Plugin.Share.dll": {}
+        }
+      },
       "runtime.any.System.Collections/4.0.11": {
         "dependencies": {
           "System.Runtime": "4.1.0"
@@ -7271,7 +7311,7 @@
           "runtimes/win/lib/netcore50/System.Private.Uri.dll": {}
         }
       },
-      "SkiaSharp/1.55.1": {
+      "SkiaSharp/1.56.0": {
         "compile": {
           "lib/uap10.0/SkiaSharp.dll": {}
         },
@@ -7279,9 +7319,9 @@
           "lib/uap10.0/SkiaSharp.dll": {}
         }
       },
-      "SkiaSharp.Views/1.55.1": {
+      "SkiaSharp.Views/1.56.0": {
         "dependencies": {
-          "SkiaSharp": "1.55.1"
+          "SkiaSharp": "1.56.0"
         },
         "compile": {
           "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
@@ -7290,10 +7330,10 @@
           "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
         }
       },
-      "SkiaSharp.Views.Forms/1.55.1": {
+      "SkiaSharp.Views.Forms/1.56.0": {
         "dependencies": {
-          "SkiaSharp": "1.55.1",
-          "SkiaSharp.Views": "1.55.1",
+          "SkiaSharp": "1.56.0",
+          "SkiaSharp.Views": "1.56.0",
           "Xamarin.Forms": "2.3.0"
         },
         "compile": {
@@ -8890,7 +8930,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Telerik.UI.for.Xamarin/2017.1.1220.4": {
+      "Telerik.UI.for.Xamarin/2017.1.10118.10": {
         "dependencies": {
           "Xamarin.Forms": "2.3.2.127"
         },
@@ -9215,6 +9255,16 @@
         "runtime": {
           "lib/portable-win8+wpa81/PCLStorage.Abstractions.dll": {},
           "lib/portable-win8+wpa81/PCLStorage.dll": {}
+        }
+      },
+      "Plugin.Share/5.0.0": {
+        "compile": {
+          "lib/UAP10/Plugin.Share.Abstractions.dll": {},
+          "lib/UAP10/Plugin.Share.dll": {}
+        },
+        "runtime": {
+          "lib/UAP10/Plugin.Share.Abstractions.dll": {},
+          "lib/UAP10/Plugin.Share.dll": {}
         }
       },
       "runtime.aot.System.Collections/4.0.10": {
@@ -9564,7 +9614,7 @@
           "runtimes/aot/lib/netcore50/System.Private.Uri.dll": {}
         }
       },
-      "SkiaSharp/1.55.1": {
+      "SkiaSharp/1.56.0": {
         "compile": {
           "lib/uap10.0/SkiaSharp.dll": {}
         },
@@ -9572,9 +9622,9 @@
           "lib/uap10.0/SkiaSharp.dll": {}
         }
       },
-      "SkiaSharp.Views/1.55.1": {
+      "SkiaSharp.Views/1.56.0": {
         "dependencies": {
-          "SkiaSharp": "1.55.1"
+          "SkiaSharp": "1.56.0"
         },
         "compile": {
           "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
@@ -9583,10 +9633,10 @@
           "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
         }
       },
-      "SkiaSharp.Views.Forms/1.55.1": {
+      "SkiaSharp.Views.Forms/1.56.0": {
         "dependencies": {
-          "SkiaSharp": "1.55.1",
-          "SkiaSharp.Views": "1.55.1",
+          "SkiaSharp": "1.56.0",
+          "SkiaSharp.Views": "1.56.0",
           "Xamarin.Forms": "2.3.0"
         },
         "compile": {
@@ -11183,7 +11233,7 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Telerik.UI.for.Xamarin/2017.1.1220.4": {
+      "Telerik.UI.for.Xamarin/2017.1.10118.10": {
         "dependencies": {
           "Xamarin.Forms": "2.3.2.127"
         },
@@ -11509,6 +11559,16 @@
           "lib/portable-win8+wpa81/PCLStorage.dll": {}
         }
       },
+      "Plugin.Share/5.0.0": {
+        "compile": {
+          "lib/UAP10/Plugin.Share.Abstractions.dll": {},
+          "lib/UAP10/Plugin.Share.dll": {}
+        },
+        "runtime": {
+          "lib/UAP10/Plugin.Share.Abstractions.dll": {},
+          "lib/UAP10/Plugin.Share.dll": {}
+        }
+      },
       "runtime.any.System.Collections/4.0.11": {
         "dependencies": {
           "System.Runtime": "4.1.0"
@@ -11818,7 +11878,7 @@
           "runtimes/win/lib/netcore50/System.Private.Uri.dll": {}
         }
       },
-      "SkiaSharp/1.55.1": {
+      "SkiaSharp/1.56.0": {
         "compile": {
           "lib/uap10.0/SkiaSharp.dll": {}
         },
@@ -11826,9 +11886,9 @@
           "lib/uap10.0/SkiaSharp.dll": {}
         }
       },
-      "SkiaSharp.Views/1.55.1": {
+      "SkiaSharp.Views/1.56.0": {
         "dependencies": {
-          "SkiaSharp": "1.55.1"
+          "SkiaSharp": "1.56.0"
         },
         "compile": {
           "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
@@ -11837,10 +11897,10 @@
           "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
         }
       },
-      "SkiaSharp.Views.Forms/1.55.1": {
+      "SkiaSharp.Views.Forms/1.56.0": {
         "dependencies": {
-          "SkiaSharp": "1.55.1",
-          "SkiaSharp.Views": "1.55.1",
+          "SkiaSharp": "1.56.0",
+          "SkiaSharp.Views": "1.56.0",
           "Xamarin.Forms": "2.3.0"
         },
         "compile": {
@@ -13437,7 +13497,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Telerik.UI.for.Xamarin/2017.1.1220.4": {
+      "Telerik.UI.for.Xamarin/2017.1.10118.10": {
         "dependencies": {
           "Xamarin.Forms": "2.3.2.127"
         },
@@ -13762,6 +13822,16 @@
         "runtime": {
           "lib/portable-win8+wpa81/PCLStorage.Abstractions.dll": {},
           "lib/portable-win8+wpa81/PCLStorage.dll": {}
+        }
+      },
+      "Plugin.Share/5.0.0": {
+        "compile": {
+          "lib/UAP10/Plugin.Share.Abstractions.dll": {},
+          "lib/UAP10/Plugin.Share.dll": {}
+        },
+        "runtime": {
+          "lib/UAP10/Plugin.Share.Abstractions.dll": {},
+          "lib/UAP10/Plugin.Share.dll": {}
         }
       },
       "runtime.aot.System.Collections/4.0.10": {
@@ -14111,7 +14181,7 @@
           "runtimes/aot/lib/netcore50/System.Private.Uri.dll": {}
         }
       },
-      "SkiaSharp/1.55.1": {
+      "SkiaSharp/1.56.0": {
         "compile": {
           "lib/uap10.0/SkiaSharp.dll": {}
         },
@@ -14119,9 +14189,9 @@
           "lib/uap10.0/SkiaSharp.dll": {}
         }
       },
-      "SkiaSharp.Views/1.55.1": {
+      "SkiaSharp.Views/1.56.0": {
         "dependencies": {
-          "SkiaSharp": "1.55.1"
+          "SkiaSharp": "1.56.0"
         },
         "compile": {
           "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
@@ -14130,10 +14200,10 @@
           "lib/uap10.0/SkiaSharp.Views.UWP.dll": {}
         }
       },
-      "SkiaSharp.Views.Forms/1.55.1": {
+      "SkiaSharp.Views.Forms/1.56.0": {
         "dependencies": {
-          "SkiaSharp": "1.55.1",
-          "SkiaSharp.Views": "1.55.1",
+          "SkiaSharp": "1.56.0",
+          "SkiaSharp.Views": "1.56.0",
           "Xamarin.Forms": "2.3.0"
         },
         "compile": {
@@ -15730,7 +15800,7 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Telerik.UI.for.Xamarin/2017.1.1220.4": {
+      "Telerik.UI.for.Xamarin/2017.1.10118.10": {
         "dependencies": {
           "Xamarin.Forms": "2.3.2.127"
         },
@@ -16333,6 +16403,55 @@
         "lib/wp8/PCLStorage.Abstractions.xml",
         "lib/wp8/PCLStorage.dll",
         "lib/wp8/PCLStorage.xml"
+      ]
+    },
+    "Plugin.Share/5.0.0": {
+      "sha512": "zJ372zj0jLlffXHRVE+NfgoSlpi730/RHOsihqKm6hX7Llcd1XYX+LjBCXA6OmGfXcOnmcYpAGJV1SPEamhP3A==",
+      "type": "package",
+      "path": "Plugin.Share/5.0.0",
+      "files": [
+        "Plugin.Share.5.0.0.nupkg.sha512",
+        "Plugin.Share.nuspec",
+        "lib/MonoAndroid10/Plugin.Share.Abstractions.dll",
+        "lib/MonoAndroid10/Plugin.Share.Abstractions.pdb",
+        "lib/MonoAndroid10/Plugin.Share.Abstractions.xml",
+        "lib/MonoAndroid10/Plugin.Share.dll",
+        "lib/MonoAndroid10/Plugin.Share.pdb",
+        "lib/MonoAndroid10/Plugin.Share.xml",
+        "lib/UAP10/Plugin.Share.Abstractions.dll",
+        "lib/UAP10/Plugin.Share.Abstractions.pdb",
+        "lib/UAP10/Plugin.Share.Abstractions.xml",
+        "lib/UAP10/Plugin.Share.dll",
+        "lib/UAP10/Plugin.Share.pdb",
+        "lib/UAP10/Plugin.Share.xml",
+        "lib/Xamarin.iOS10/Plugin.Share.Abstractions.dll",
+        "lib/Xamarin.iOS10/Plugin.Share.Abstractions.xml",
+        "lib/Xamarin.iOS10/Plugin.Share.dll",
+        "lib/Xamarin.iOS10/Plugin.Share.xml",
+        "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10/Plugin.Share.Abstractions.dll",
+        "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10/Plugin.Share.Abstractions.pdb",
+        "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10/Plugin.Share.Abstractions.xml",
+        "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10/Plugin.Share.dll",
+        "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10/Plugin.Share.pdb",
+        "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10/Plugin.Share.xml",
+        "lib/win8/Plugin.Share.Abstractions.dll",
+        "lib/win8/Plugin.Share.Abstractions.pdb",
+        "lib/win8/Plugin.Share.Abstractions.xml",
+        "lib/win8/Plugin.Share.dll",
+        "lib/win8/Plugin.Share.pdb",
+        "lib/win8/Plugin.Share.xml",
+        "lib/wp8/Plugin.Share.Abstractions.dll",
+        "lib/wp8/Plugin.Share.Abstractions.pdb",
+        "lib/wp8/Plugin.Share.Abstractions.xml",
+        "lib/wp8/Plugin.Share.dll",
+        "lib/wp8/Plugin.Share.pdb",
+        "lib/wp8/Plugin.Share.xml",
+        "lib/wpa81/Plugin.Share.Abstractions.dll",
+        "lib/wpa81/Plugin.Share.Abstractions.pdb",
+        "lib/wpa81/Plugin.Share.Abstractions.xml",
+        "lib/wpa81/Plugin.Share.dll",
+        "lib/wpa81/Plugin.Share.pdb",
+        "lib/wpa81/Plugin.Share.xml"
       ]
     },
     "runtime.any.System.Collections/4.0.11": {
@@ -17297,12 +17416,12 @@
         "runtimes/win8-arm/native/clrcompression.dll"
       ]
     },
-    "SkiaSharp/1.55.1": {
-      "sha512": "bVbdDNK0fY3cypJn6eu7X3+Hf89abs0MET8ScHTwVOZL383wFnMVjfUM/2yhazRoLbiK6TsKaX+2OTHqQMW/qg==",
+    "SkiaSharp/1.56.0": {
+      "sha512": "Sun5BbgbBEbXhs+wKaJ/MM4/GRO1ooJBiHNvx7bAMQzvfoDdzxJUbvZPUfavclenX/6gGNApTvOLBjLw8WKO+Q==",
       "type": "package",
-      "path": "SkiaSharp/1.55.1",
+      "path": "SkiaSharp/1.56.0",
       "files": [
-        "SkiaSharp.1.55.1.nupkg.sha512",
+        "SkiaSharp.1.56.0.nupkg.sha512",
         "SkiaSharp.nuspec",
         "build/XamarinMac/SkiaSharp.targets",
         "build/XamarinMac/libSkiaSharp.dylib",
@@ -17332,12 +17451,12 @@
         "lib/uap10.0/SkiaSharp.xml"
       ]
     },
-    "SkiaSharp.Views/1.55.1": {
-      "sha512": "xbo8bX4sFUaqxezodlnbBIpYD2B7kiEj3CYvjY3TOWE2hF/A2pdgluFY+hisMWpY5szypba1NbFwOhu1SNzMsA==",
+    "SkiaSharp.Views/1.56.0": {
+      "sha512": "bXCMV9UWUYUp7sWQtUxP5NxF8qdfgEIxAmoUL0BVYZoEO2lBLXcyQ2s4O43/yWDXH/rAEMtN4jheGjY4KcnpNw==",
       "type": "package",
-      "path": "SkiaSharp.Views/1.55.1",
+      "path": "SkiaSharp.Views/1.56.0",
       "files": [
-        "SkiaSharp.Views.1.55.1.nupkg.sha512",
+        "SkiaSharp.Views.1.56.0.nupkg.sha512",
         "SkiaSharp.Views.nuspec",
         "build/uap10.0/SkiaSharp.Views.targets",
         "build/uap10.0/arm/libEGL.dll",
@@ -17355,12 +17474,12 @@
         "lib/uap10.0/SkiaSharp.Views.UWP.dll"
       ]
     },
-    "SkiaSharp.Views.Forms/1.55.1": {
-      "sha512": "sTvtMPkF821PSwiEJbhaaFcaceD1VHp5hYv0X6LBp6ch4NLChY7wi7Y6noRTNpR+xZTV2qlB4tSDybXdpu+EFg==",
+    "SkiaSharp.Views.Forms/1.56.0": {
+      "sha512": "47NB2+FvOjwRy6T80WABulr56xPfAWTFeS44OAhOW1Tg7ctnecCeytn9MvFASkcjTDRni94LNSKj8uGwNp8T+g==",
       "type": "package",
-      "path": "SkiaSharp.Views.Forms/1.55.1",
+      "path": "SkiaSharp.Views.Forms/1.56.0",
       "files": [
-        "SkiaSharp.Views.Forms.1.55.1.nupkg.sha512",
+        "SkiaSharp.Views.Forms.1.56.0.nupkg.sha512",
         "SkiaSharp.Views.Forms.nuspec",
         "lib/MonoAndroid/SkiaSharp.Views.Forms.dll",
         "lib/XamariniOS/SkiaSharp.Views.Forms.dll",
@@ -22270,12 +22389,12 @@
         "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll"
       ]
     },
-    "Telerik.UI.for.Xamarin/2017.1.1220.4": {
-      "sha512": "Lj3QR6WvPIqCZT2xVFZHwd5YIgjPFyTIi50l0I3BJlw83kt19BGpQdvSQFPyahnO7Ow/2JUhRKZvgdcOx2Q5Lg==",
+    "Telerik.UI.for.Xamarin/2017.1.10118.10": {
+      "sha512": "atcQUvqGEfpC/X35h4L1vGOZ3QpGn0qiB0tUkjLNPJjqbHWpukuhSwhbLC+LRihHlrAVKDfqS5YUc22Lr43lBQ==",
       "type": "package",
-      "path": "Telerik.UI.for.Xamarin/2017.1.1220.4",
+      "path": "Telerik.UI.for.Xamarin/2017.1.10118.10",
       "files": [
-        "Telerik.UI.for.Xamarin.2017.1.1220.4.nupkg.sha512",
+        "Telerik.UI.for.Xamarin.2017.1.10118.10.nupkg.sha512",
         "Telerik.UI.for.Xamarin.nuspec",
         "lib/MonoAndroid10/Telerik.Xamarin.Android.Chart.dll",
         "lib/MonoAndroid10/Telerik.Xamarin.Android.Common.dll",
@@ -22384,14 +22503,17 @@
         "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeResourcesLight.xaml",
         "lib/uap10.0/Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeResourcesLight.xbf",
         "lib/uap10.0/Telerik.XamarinForms.Chart.dll",
+        "lib/uap10.0/Telerik.XamarinForms.ChartRenderer.UWP.XML",
         "lib/uap10.0/Telerik.XamarinForms.ChartRenderer.UWP.dll",
         "lib/uap10.0/Telerik.XamarinForms.ChartRenderer.UWP.pdb",
         "lib/uap10.0/Telerik.XamarinForms.ChartRenderer.UWP.pri",
+        "lib/uap10.0/Telerik.XamarinForms.Common.UWP.XML",
         "lib/uap10.0/Telerik.XamarinForms.Common.UWP.dll",
         "lib/uap10.0/Telerik.XamarinForms.Common.UWP.pdb",
         "lib/uap10.0/Telerik.XamarinForms.Common.UWP.pri",
         "lib/uap10.0/Telerik.XamarinForms.Common.dll",
         "lib/uap10.0/Telerik.XamarinForms.DataControls.dll",
+        "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.XML",
         "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.dll",
         "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.pdb",
         "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP.pri",
@@ -22402,12 +22524,14 @@
         "lib/uap10.0/Telerik.XamarinForms.DataControlsRenderer.UWP/Telerik.XamarinForms.DataControlsRenderer.UWP.xr.xml",
         "lib/uap10.0/Telerik.XamarinForms.DataVisualization.dll",
         "lib/uap10.0/Telerik.XamarinForms.Input.dll",
+        "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.XML",
         "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.dll",
         "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.pdb",
         "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.pri",
         "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP.xr.xml",
         "lib/uap10.0/Telerik.XamarinForms.InputRenderer.UWP/Telerik.XamarinForms.InputRenderer.UWP.xr.xml",
         "lib/uap10.0/Telerik.XamarinForms.Primitives.dll",
+        "lib/uap10.0/Telerik.XamarinForms.PrimitivesRenderer.UWP.XML",
         "lib/uap10.0/Telerik.XamarinForms.PrimitivesRenderer.UWP.dll",
         "lib/uap10.0/Telerik.XamarinForms.PrimitivesRenderer.UWP.pdb",
         "lib/uap10.0/Telerik.XamarinForms.PrimitivesRenderer.UWP.pri",
@@ -22516,15 +22640,17 @@
         "lib/win81/Telerik.UI.Xaml.Primitives/Themes/ThemeResourcesLight.xaml",
         "lib/win81/Telerik.UI.Xaml.Primitives/Themes/ThemeResourcesLight.xbf",
         "lib/win81/Telerik.XamarinForms.Chart.dll",
+        "lib/win81/Telerik.XamarinForms.ChartRenderer.WinRT.Windows.XML",
         "lib/win81/Telerik.XamarinForms.ChartRenderer.WinRT.Windows.dll",
-        "lib/win81/Telerik.XamarinForms.ChartRenderer.WinRT.Windows.dll.CodeAnalysisLog.xml",
         "lib/win81/Telerik.XamarinForms.ChartRenderer.WinRT.Windows.pdb",
         "lib/win81/Telerik.XamarinForms.ChartRenderer.WinRT.Windows.pri",
+        "lib/win81/Telerik.XamarinForms.Common.WinRT.Windows.XML",
         "lib/win81/Telerik.XamarinForms.Common.WinRT.Windows.dll",
         "lib/win81/Telerik.XamarinForms.Common.WinRT.Windows.pdb",
         "lib/win81/Telerik.XamarinForms.Common.WinRT.Windows.pri",
         "lib/win81/Telerik.XamarinForms.Common.dll",
         "lib/win81/Telerik.XamarinForms.DataControls.dll",
+        "lib/win81/Telerik.XamarinForms.DataControlsRenderer.WinRT.Windows.XML",
         "lib/win81/Telerik.XamarinForms.DataControlsRenderer.WinRT.Windows.dll",
         "lib/win81/Telerik.XamarinForms.DataControlsRenderer.WinRT.Windows.pdb",
         "lib/win81/Telerik.XamarinForms.DataControlsRenderer.WinRT.Windows.pri",
@@ -22533,14 +22659,15 @@
         "lib/win81/Telerik.XamarinForms.DataControlsRenderer.WinRT.Windows/Telerik.XamarinForms.DataControlsRenderer.WinRT.Windows.xr.xml",
         "lib/win81/Telerik.XamarinForms.DataVisualization.dll",
         "lib/win81/Telerik.XamarinForms.Input.dll",
+        "lib/win81/Telerik.XamarinForms.InputRenderer.WinRT.Windows.XML",
         "lib/win81/Telerik.XamarinForms.InputRenderer.WinRT.Windows.dll",
-        "lib/win81/Telerik.XamarinForms.InputRenderer.WinRT.Windows.dll.CodeAnalysisLog.xml",
         "lib/win81/Telerik.XamarinForms.InputRenderer.WinRT.Windows.pdb",
         "lib/win81/Telerik.XamarinForms.InputRenderer.WinRT.Windows.pri",
         "lib/win81/Telerik.XamarinForms.InputRenderer.WinRT.Windows.xr.xml",
         "lib/win81/Telerik.XamarinForms.InputRenderer.WinRT.Windows/Resources/InputControlsTemplates.xbf",
         "lib/win81/Telerik.XamarinForms.InputRenderer.WinRT.Windows/Telerik.XamarinForms.InputRenderer.WinRT.Windows.xr.xml",
         "lib/win81/Telerik.XamarinForms.Primitives.dll",
+        "lib/win81/Telerik.XamarinForms.PrimitivesRenderer.WinRT.Windows.XML",
         "lib/win81/Telerik.XamarinForms.PrimitivesRenderer.WinRT.Windows.dll",
         "lib/win81/Telerik.XamarinForms.PrimitivesRenderer.WinRT.Windows.pdb",
         "lib/win81/Telerik.XamarinForms.PrimitivesRenderer.WinRT.Windows.pri",
@@ -22649,15 +22776,17 @@
         "lib/wpa81/Telerik.UI.Xaml.Primitives/Themes/ThemeResourcesLight.xaml",
         "lib/wpa81/Telerik.UI.Xaml.Primitives/Themes/ThemeResourcesLight.xbf",
         "lib/wpa81/Telerik.XamarinForms.Chart.dll",
+        "lib/wpa81/Telerik.XamarinForms.ChartRenderer.WinRT.WindowsPhone.XML",
         "lib/wpa81/Telerik.XamarinForms.ChartRenderer.WinRT.WindowsPhone.dll",
-        "lib/wpa81/Telerik.XamarinForms.ChartRenderer.WinRT.WindowsPhone.dll.CodeAnalysisLog.xml",
         "lib/wpa81/Telerik.XamarinForms.ChartRenderer.WinRT.WindowsPhone.pdb",
         "lib/wpa81/Telerik.XamarinForms.ChartRenderer.WinRT.WindowsPhone.pri",
+        "lib/wpa81/Telerik.XamarinForms.Common.WinRT.WindowsPhone.XML",
         "lib/wpa81/Telerik.XamarinForms.Common.WinRT.WindowsPhone.dll",
         "lib/wpa81/Telerik.XamarinForms.Common.WinRT.WindowsPhone.pdb",
         "lib/wpa81/Telerik.XamarinForms.Common.WinRT.WindowsPhone.pri",
         "lib/wpa81/Telerik.XamarinForms.Common.dll",
         "lib/wpa81/Telerik.XamarinForms.DataControls.dll",
+        "lib/wpa81/Telerik.XamarinForms.DataControlsRenderer.WinRT.WindowsPhone.XML",
         "lib/wpa81/Telerik.XamarinForms.DataControlsRenderer.WinRT.WindowsPhone.dll",
         "lib/wpa81/Telerik.XamarinForms.DataControlsRenderer.WinRT.WindowsPhone.pdb",
         "lib/wpa81/Telerik.XamarinForms.DataControlsRenderer.WinRT.WindowsPhone.pri",
@@ -22666,14 +22795,15 @@
         "lib/wpa81/Telerik.XamarinForms.DataControlsRenderer.WinRT.WindowsPhone/Telerik.XamarinForms.DataControlsRenderer.WinRT.WindowsPhone.xr.xml",
         "lib/wpa81/Telerik.XamarinForms.DataVisualization.dll",
         "lib/wpa81/Telerik.XamarinForms.Input.dll",
+        "lib/wpa81/Telerik.XamarinForms.InputRenderer.WinRT.WindowsPhone.XML",
         "lib/wpa81/Telerik.XamarinForms.InputRenderer.WinRT.WindowsPhone.dll",
-        "lib/wpa81/Telerik.XamarinForms.InputRenderer.WinRT.WindowsPhone.dll.CodeAnalysisLog.xml",
         "lib/wpa81/Telerik.XamarinForms.InputRenderer.WinRT.WindowsPhone.pdb",
         "lib/wpa81/Telerik.XamarinForms.InputRenderer.WinRT.WindowsPhone.pri",
         "lib/wpa81/Telerik.XamarinForms.InputRenderer.WinRT.WindowsPhone.xr.xml",
         "lib/wpa81/Telerik.XamarinForms.InputRenderer.WinRT.WindowsPhone/Resources/InputControlsTemplates.xbf",
         "lib/wpa81/Telerik.XamarinForms.InputRenderer.WinRT.WindowsPhone/Telerik.XamarinForms.InputRenderer.WinRT.WindowsPhone.xr.xml",
         "lib/wpa81/Telerik.XamarinForms.Primitives.dll",
+        "lib/wpa81/Telerik.XamarinForms.PrimitivesRenderer.WinRT.WindowsPhone.XML",
         "lib/wpa81/Telerik.XamarinForms.PrimitivesRenderer.WinRT.WindowsPhone.dll",
         "lib/wpa81/Telerik.XamarinForms.PrimitivesRenderer.WinRT.WindowsPhone.pdb",
         "lib/wpa81/Telerik.XamarinForms.PrimitivesRenderer.WinRT.WindowsPhone.pri",
@@ -22862,8 +22992,9 @@
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.2.2",
       "Microsoft.Net.Http >= 2.2.29",
       "PCLStorage >= 1.0.1",
-      "SkiaSharp.Views.Forms >= 1.55.1",
-      "Telerik.UI.for.Xamarin >= 2017.1.1220.4",
+      "Plugin.Share >= 5.0.0",
+      "SkiaSharp.Views.Forms >= 1.56.0",
+      "Telerik.UI.for.Xamarin >= 2017.1.10118.10",
       "Xamarin.Forms >= 2.3.3.175",
       "modernhttpclient >= 2.4.2"
     ],

@@ -9,18 +9,11 @@
              xmlns:behaviors="clr-namespace:Portable.Behaviors;assembly=XkcdViewer.Forms.Portable"
              BindingContext="{x:Static viewModels:ViewModelLocator.Favorites}"
              x:Class="Portable.Views.FavoritesPage">
-  
-  <!--<ContentPage.BindingContext>
-    <viewModels:FavoritesPageViewModel/>
-  </ContentPage.BindingContext>-->
-  
+
   <ContentPage.Resources>
     <ResourceDictionary>
       <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter"/>
-      <converters:ImageHeightConverter x:Key="HeightConverter"/>
       <converters:RadSelectedltemEventArgsConverter x:Key="SelectedltemArgsToBinding" />
-      <converters:IsFavoriteToStringConverter x:Key="IsFavoriteToStringConverter" />
-      <converters:IsFavoriteIconConverter x:Key="IsFavoriteIconConverter"/>
 
       <DataTemplate x:Name="PortaitTemplate" x:Key="PortaitTemplate">
         <listView:ListViewTemplateCell>
@@ -40,8 +33,30 @@
                 <Label Text="{Binding Title}" TextColor="White" FontSize="Small"/>
               </StackLayout>
 
-              <!-- IsVisible="{Binding Title, Converter={StaticResource GardenConverter}}" 
-                    HeightRequest="{Binding Converter={StaticResource HeightConverter}}" -->
+              <Image Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}" Grid.Row="1"/>
+            </Grid>
+          </listView:ListViewTemplateCell.View>
+        </listView:ListViewTemplateCell>
+      </DataTemplate>
+
+      <DataTemplate x:Name="LandscapeTemplate" x:Key="LandscapeTemplate">
+        <listView:ListViewTemplateCell>
+          <listView:ListViewTemplateCell.View>
+            <Grid Padding="10" BackgroundColor="Green">
+              <Grid x:Name="ItemContentGrid">
+
+              </Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+              </Grid.RowDefinitions>
+
+              <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding Num}" TextColor="White" FontSize="Small"/>
+                <Label Text=" - " TextColor="#C8C8C8" FontSize="Small" />
+                <Label Text="{Binding Title}" TextColor="White" FontSize="Small"/>
+              </StackLayout>
+              
               <Image Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}" Grid.Row="1"/>
             </Grid>
           </listView:ListViewTemplateCell.View>
@@ -56,17 +71,13 @@
                             ItemTemplate="{StaticResource PortaitTemplate}"
                             SelectionMode="Single"
                             SwipeThreshold="50">
+    <dataControls:RadListView.LayoutDefinition>
+      <listView:ListViewLinearLayout VerticalItemSpacing="6" HorizontalItemSpacing="6"/>
+    </dataControls:RadListView.LayoutDefinition>
     <dataControls:RadListView.Behaviors>
       <behaviors:EventToCommandBehavior EventName="ItemTapped"
                                         Command="{Binding LoadDetailsCommand}"
                                         Converter="{StaticResource SelectedltemArgsToBinding}"/>
     </dataControls:RadListView.Behaviors>
-    <!--<dataControls:RadListView.ItemSwipeContentTemplate>
-      <DataTemplate>
-        <Grid>
-          <Button Text="unfavorite" TextColor="White" Command="{Binding RemoveFavoritesCommand}" HorizontalOptions="Start" WidthRequest="100"/>
-        </Grid>
-      </DataTemplate>
-    </dataControls:RadListView.ItemSwipeContentTemplate>-->
   </dataControls:RadListView>
 </ContentPage>

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Plugin.Share;
+using Plugin.Share.Abstractions;
 using Portable.Annotations;
 using Portable.Models;
 using Xamarin.Forms;
@@ -46,25 +48,39 @@ namespace Portable.ViewModels
             set { isFavorite = value; OnPropertyChanged(); }
         }
 
-        public Command<Comic> ToggleFavoriteCommand => toggleFavoriteCommand ?? (toggleFavoriteCommand = new Command<Comic>( async (comic) =>
-       {
-           if (IsFavorite)
-           {
-               if(await App.ViewModel.RemoveFavoriteAsync(comic))
-                   IsFavorite = false; //if removing the fav was successful, update current state
+        public Command<Comic> ToggleFavoriteCommand => toggleFavoriteCommand ?? (toggleFavoriteCommand = new Command<Comic>(async (comic) =>
+      {
+          if (IsFavorite)
+          {
+              if (await App.ViewModel.RemoveFavoriteAsync(comic))
+                  IsFavorite = false; //if removing the fav was successful, update current state
            }
-           else
-           {
-               if(await App.ViewModel.AddFavoriteAsync(comic))
-                   IsFavorite = true; //if adding the fav was successful, update current state
+          else
+          {
+              if (await App.ViewModel.AddFavoriteAsync(comic))
+                  IsFavorite = true; //if adding the fav was successful, update current state
            }
-       }));
+      }));
 
-        public Command<Comic> ShareCommand => shareCommand ?? (shareCommand = new Command<Comic>((comic) =>
-                                             {
-                                                 if (comic == null) return;
-                                                 Debug.WriteLine($"ShareCommand fired - SelectedComic: {comic.Title}");
-                                             }));
+        public Command<Comic> ShareCommand => shareCommand ?? (shareCommand = new Command<Comic>(async (comic) =>
+        {
+            if (comic == null)
+                return;
+
+            Debug.WriteLine($"ShareCommand fired - SelectedComic: {comic.Title}");
+
+            await CrossShare.Current.Share(
+                new ShareMessage
+                {
+                    Title = comic.Title,
+                    Text = comic.Transcript,
+                    Url = comic.Img
+                }, 
+                new ShareOptions
+                {
+                    ExcludedUIActivityTypes = new[] { ShareUIActivityType.PostToFacebook }
+                });
+        }));
 
         #region INPC
 

@@ -12,10 +12,8 @@ namespace Portable.Converters
             {
                 return ImageSource.FromFile("Images/MrSadSideburns.png");
             }
-            else
-            {
-                return ImageSource.FromUri(new Uri((string)value));
-            }
+
+            return ImageSource.FromUri(new Uri((string)value));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

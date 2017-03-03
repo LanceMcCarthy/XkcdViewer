@@ -810,6 +810,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Drawable.mr_ic_play_dark = global::XkcdViewer.Forms.Android.Resource.Drawable.mr_ic_play_dark;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Drawable.mr_ic_play_light = global::XkcdViewer.Forms.Android.Resource.Drawable.mr_ic_play_light;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Drawable.notification_template_icon_bg = global::XkcdViewer.Forms.Android.Resource.Drawable.notification_template_icon_bg;
+			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Drawable.tab_view_popup_background = global::XkcdViewer.Forms.Android.Resource.Drawable.tab_view_popup_background;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.BetweenTicks = global::XkcdViewer.Forms.Android.Resource.Id.BetweenTicks;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.Bottom = global::XkcdViewer.Forms.Android.Resource.Id.Bottom;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.Clip = global::XkcdViewer.Forms.Android.Resource.Id.Clip;
@@ -996,6 +997,8 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.start = global::XkcdViewer.Forms.Android.Resource.Id.start;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.status_bar_latest_event_content = global::XkcdViewer.Forms.Android.Resource.Id.status_bar_latest_event_content;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.submit_area = global::XkcdViewer.Forms.Android.Resource.Id.submit_area;
+			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.tabItemImageView = global::XkcdViewer.Forms.Android.Resource.Id.tabItemImageView;
+			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.tabItemTextView = global::XkcdViewer.Forms.Android.Resource.Id.tabItemTextView;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.tabMode = global::XkcdViewer.Forms.Android.Resource.Id.tabMode;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.text = global::XkcdViewer.Forms.Android.Resource.Id.text;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.text2 = global::XkcdViewer.Forms.Android.Resource.Id.text2;
@@ -1098,6 +1101,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Layout.select_dialog_multichoice_material = global::XkcdViewer.Forms.Android.Resource.Layout.select_dialog_multichoice_material;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Layout.select_dialog_singlechoice_material = global::XkcdViewer.Forms.Android.Resource.Layout.select_dialog_singlechoice_material;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Layout.support_simple_spinner_dropdown_item = global::XkcdViewer.Forms.Android.Resource.Layout.support_simple_spinner_dropdown_item;
+			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Layout.tab_item_view = global::XkcdViewer.Forms.Android.Resource.Layout.tab_item_view;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Layout.tooltip_container = global::XkcdViewer.Forms.Android.Resource.Layout.tooltip_container;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Layout.trackball_container = global::XkcdViewer.Forms.Android.Resource.Layout.trackball_container;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Layout.trial_message = global::XkcdViewer.Forms.Android.Resource.Layout.trial_message;
@@ -4719,6 +4723,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_integer_editor = global::XkcdViewer.Forms.Android.Resource.Id.data_form_integer_editor;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_list_editor = global::XkcdViewer.Forms.Android.Resource.Id.data_form_list_editor;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_number_picker_editor = global::XkcdViewer.Forms.Android.Resource.Id.data_form_number_picker_editor;
+			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_rad_autocomplete_editor = global::XkcdViewer.Forms.Android.Resource.Id.data_form_rad_autocomplete_editor;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_radio_group = global::XkcdViewer.Forms.Android.Resource.Id.data_form_radio_group;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_root_layout = global::XkcdViewer.Forms.Android.Resource.Id.data_form_root_layout;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_seekbar_editor = global::XkcdViewer.Forms.Android.Resource.Id.data_form_seekbar_editor;
@@ -4923,6 +4928,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_list_editor = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_list_editor;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_list_editor_item = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_list_editor_item;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_number_picker = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_number_picker;
+			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_rad_autocomplete_editor = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_rad_autocomplete_editor;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_radio_group_editor = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_radio_group_editor;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_root_layout = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_root_layout;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_seek_bar_editor = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_seek_bar_editor;
@@ -6631,6 +6637,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.shade_bottom = global::XkcdViewer.Forms.Android.Resource.Drawable.shade_bottom;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.shade_corner = global::XkcdViewer.Forms.Android.Resource.Drawable.shade_corner;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.shade_right = global::XkcdViewer.Forms.Android.Resource.Drawable.shade_right;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.tab_view_popup_background = global::XkcdViewer.Forms.Android.Resource.Drawable.tab_view_popup_background;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.token_bg = global::XkcdViewer.Forms.Android.Resource.Drawable.token_bg;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.token_default = global::XkcdViewer.Forms.Android.Resource.Drawable.token_default;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.token_selected = global::XkcdViewer.Forms.Android.Resource.Drawable.token_selected;
@@ -6695,6 +6702,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.data_form_integer_editor = global::XkcdViewer.Forms.Android.Resource.Id.data_form_integer_editor;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.data_form_list_editor = global::XkcdViewer.Forms.Android.Resource.Id.data_form_list_editor;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.data_form_number_picker_editor = global::XkcdViewer.Forms.Android.Resource.Id.data_form_number_picker_editor;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.data_form_rad_autocomplete_editor = global::XkcdViewer.Forms.Android.Resource.Id.data_form_rad_autocomplete_editor;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.data_form_radio_group = global::XkcdViewer.Forms.Android.Resource.Id.data_form_radio_group;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.data_form_root_layout = global::XkcdViewer.Forms.Android.Resource.Id.data_form_root_layout;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.data_form_seekbar_editor = global::XkcdViewer.Forms.Android.Resource.Id.data_form_seekbar_editor;
@@ -6829,6 +6837,8 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.submit_area = global::XkcdViewer.Forms.Android.Resource.Id.submit_area;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.suggestion_img = global::XkcdViewer.Forms.Android.Resource.Id.suggestion_img;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.suggestion_text = global::XkcdViewer.Forms.Android.Resource.Id.suggestion_text;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.tabItemImageView = global::XkcdViewer.Forms.Android.Resource.Id.tabItemImageView;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.tabItemTextView = global::XkcdViewer.Forms.Android.Resource.Id.tabItemTextView;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.tabMode = global::XkcdViewer.Forms.Android.Resource.Id.tabMode;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.text = global::XkcdViewer.Forms.Android.Resource.Id.text;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.text1 = global::XkcdViewer.Forms.Android.Resource.Id.text1;
@@ -6905,6 +6915,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.data_form_list_editor = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_list_editor;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.data_form_list_editor_item = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_list_editor_item;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.data_form_number_picker = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_number_picker;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.data_form_rad_autocomplete_editor = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_rad_autocomplete_editor;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.data_form_radio_group_editor = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_radio_group_editor;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.data_form_root_layout = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_root_layout;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.data_form_seek_bar_editor = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_seek_bar_editor;
@@ -6960,6 +6971,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.simple_list_item = global::XkcdViewer.Forms.Android.Resource.Layout.simple_list_item;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.suggestion_item_layout = global::XkcdViewer.Forms.Android.Resource.Layout.suggestion_item_layout;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.support_simple_spinner_dropdown_item = global::XkcdViewer.Forms.Android.Resource.Layout.support_simple_spinner_dropdown_item;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.tab_item_view = global::XkcdViewer.Forms.Android.Resource.Layout.tab_item_view;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.table_layout = global::XkcdViewer.Forms.Android.Resource.Layout.table_layout;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.token = global::XkcdViewer.Forms.Android.Resource.Layout.token;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.tooltip_container = global::XkcdViewer.Forms.Android.Resource.Layout.tooltip_container;
@@ -8576,6 +8588,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Drawable.mr_ic_play_dark = global::XkcdViewer.Forms.Android.Resource.Drawable.mr_ic_play_dark;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Drawable.mr_ic_play_light = global::XkcdViewer.Forms.Android.Resource.Drawable.mr_ic_play_light;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Drawable.notification_template_icon_bg = global::XkcdViewer.Forms.Android.Resource.Drawable.notification_template_icon_bg;
+			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Drawable.tab_view_popup_background = global::XkcdViewer.Forms.Android.Resource.Drawable.tab_view_popup_background;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.action0 = global::XkcdViewer.Forms.Android.Resource.Id.action0;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.action_bar = global::XkcdViewer.Forms.Android.Resource.Id.action_bar;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.action_bar_activity_content = global::XkcdViewer.Forms.Android.Resource.Id.action_bar_activity_content;
@@ -8720,6 +8733,8 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.start = global::XkcdViewer.Forms.Android.Resource.Id.start;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.status_bar_latest_event_content = global::XkcdViewer.Forms.Android.Resource.Id.status_bar_latest_event_content;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.submit_area = global::XkcdViewer.Forms.Android.Resource.Id.submit_area;
+			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.tabItemImageView = global::XkcdViewer.Forms.Android.Resource.Id.tabItemImageView;
+			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.tabItemTextView = global::XkcdViewer.Forms.Android.Resource.Id.tabItemTextView;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.tabMode = global::XkcdViewer.Forms.Android.Resource.Id.tabMode;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.text = global::XkcdViewer.Forms.Android.Resource.Id.text;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.text2 = global::XkcdViewer.Forms.Android.Resource.Id.text2;
@@ -8809,6 +8824,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Layout.select_dialog_multichoice_material = global::XkcdViewer.Forms.Android.Resource.Layout.select_dialog_multichoice_material;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Layout.select_dialog_singlechoice_material = global::XkcdViewer.Forms.Android.Resource.Layout.select_dialog_singlechoice_material;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Layout.support_simple_spinner_dropdown_item = global::XkcdViewer.Forms.Android.Resource.Layout.support_simple_spinner_dropdown_item;
+			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Layout.tab_item_view = global::XkcdViewer.Forms.Android.Resource.Layout.tab_item_view;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Layout.tooltip_container = global::XkcdViewer.Forms.Android.Resource.Layout.tooltip_container;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Layout.trial_message = global::XkcdViewer.Forms.Android.Resource.Layout.trial_message;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.String.ApplicationName = global::XkcdViewer.Forms.Android.Resource.String.ApplicationName;
@@ -10534,14 +10550,14 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f010156
 			public const int majorTicksFillColor = 2130772310;
 			
-			// aapt resource value: 0x7f01015f
-			public const int majorTicksHeight = 2130772319;
+			// aapt resource value: 0x7f01015d
+			public const int majorTicksLength = 2130772317;
 			
 			// aapt resource value: 0x7f010157
 			public const int majorTicksStrokeColor = 2130772311;
 			
-			// aapt resource value: 0x7f01015d
-			public const int majorTicksWidth = 2130772317;
+			// aapt resource value: 0x7f01015f
+			public const int majorTicksWidth = 2130772319;
 			
 			// aapt resource value: 0x7f010122
 			public const int maxActionInlineWidth = 2130772258;
@@ -10636,14 +10652,14 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f010158
 			public const int minorTicksFillColor = 2130772312;
 			
-			// aapt resource value: 0x7f010160
-			public const int minorTicksHeight = 2130772320;
+			// aapt resource value: 0x7f01015e
+			public const int minorTicksLength = 2130772318;
 			
 			// aapt resource value: 0x7f010159
 			public const int minorTicksStrokeColor = 2130772313;
 			
-			// aapt resource value: 0x7f01015e
-			public const int minorTicksWidth = 2130772318;
+			// aapt resource value: 0x7f010160
+			public const int minorTicksWidth = 2130772320;
 			
 			// aapt resource value: 0x7f010047
 			public const int multiChoiceItemLayout = 2130772039;
@@ -12419,8 +12435,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0200b8
 			public const int mr_ic_play_light = 2130837688;
 			
-			// aapt resource value: 0x7f0200c2
-			public const int notification_template_icon_bg = 2130837698;
+			// aapt resource value: 0x7f0200c3
+			public const int notification_template_icon_bg = 2130837699;
 			
 			// aapt resource value: 0x7f0200b9
 			public const int pressable_item_background = 2130837689;
@@ -12438,16 +12454,19 @@ namespace XkcdViewer.Forms.Android
 			public const int shade_right = 2130837693;
 			
 			// aapt resource value: 0x7f0200be
-			public const int token_bg = 2130837694;
+			public const int tab_view_popup_background = 2130837694;
 			
 			// aapt resource value: 0x7f0200bf
-			public const int token_default = 2130837695;
+			public const int token_bg = 2130837695;
 			
 			// aapt resource value: 0x7f0200c0
-			public const int token_selected = 2130837696;
+			public const int token_default = 2130837696;
 			
 			// aapt resource value: 0x7f0200c1
-			public const int token_text_color = 2130837697;
+			public const int token_selected = 2130837697;
+			
+			// aapt resource value: 0x7f0200c2
+			public const int token_text_color = 2130837698;
 			
 			static Drawable()
 			{
@@ -12564,8 +12583,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080041
 			public const int Year = 2131230785;
 			
-			// aapt resource value: 0x7f0800e3
-			public const int action0 = 2131230947;
+			// aapt resource value: 0x7f0800e4
+			public const int action0 = 2131230948;
 			
 			// aapt resource value: 0x7f080082
 			public const int action_bar = 2131230850;
@@ -12591,8 +12610,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080083
 			public const int action_context_bar = 2131230851;
 			
-			// aapt resource value: 0x7f0800e7
-			public const int action_divider = 2131230951;
+			// aapt resource value: 0x7f0800e8
+			public const int action_divider = 2131230952;
 			
 			// aapt resource value: 0x7f080003
 			public const int action_menu_divider = 2131230723;
@@ -12618,8 +12637,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f08001e
 			public const int always = 2131230750;
 			
-			// aapt resource value: 0x7f0800b5
-			public const int areaText = 2131230901;
+			// aapt resource value: 0x7f0800b6
+			public const int areaText = 2131230902;
 			
 			// aapt resource value: 0x7f08001b
 			public const int beginning = 2131230747;
@@ -12630,8 +12649,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f08006c
 			public const int buttonPanel = 2131230828;
 			
-			// aapt resource value: 0x7f0800e4
-			public const int cancel_action = 2131230948;
+			// aapt resource value: 0x7f0800e5
+			public const int cancel_action = 2131230949;
 			
 			// aapt resource value: 0x7f08002b
 			public const int center = 2131230763;
@@ -12642,32 +12661,32 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f08002d
 			public const int center_vertical = 2131230765;
 			
-			// aapt resource value: 0x7f080106
-			public const int chart_data_point_content_container = 2131230982;
+			// aapt resource value: 0x7f080109
+			public const int chart_data_point_content_container = 2131230985;
 			
-			// aapt resource value: 0x7f0800f6
-			public const int chart_layout_root = 2131230966;
-			
-			// aapt resource value: 0x7f0800ad
-			public const int chart_tooltip_category = 2131230893;
-			
-			// aapt resource value: 0x7f080105
-			public const int chart_tooltip_pointer = 2131230981;
+			// aapt resource value: 0x7f0800f7
+			public const int chart_layout_root = 2131230967;
 			
 			// aapt resource value: 0x7f0800ae
-			public const int chart_tooltip_value = 2131230894;
+			public const int chart_tooltip_category = 2131230894;
 			
-			// aapt resource value: 0x7f0800b6
-			public const int chart_trackball_category = 2131230902;
+			// aapt resource value: 0x7f080108
+			public const int chart_tooltip_pointer = 2131230984;
 			
-			// aapt resource value: 0x7f0800b8
-			public const int chart_trackball_value = 2131230904;
+			// aapt resource value: 0x7f0800af
+			public const int chart_tooltip_value = 2131230895;
+			
+			// aapt resource value: 0x7f0800b7
+			public const int chart_trackball_category = 2131230903;
+			
+			// aapt resource value: 0x7f0800b9
+			public const int chart_trackball_value = 2131230905;
 			
 			// aapt resource value: 0x7f08007a
 			public const int checkbox = 2131230842;
 			
-			// aapt resource value: 0x7f0800ea
-			public const int chronometer = 2131230954;
+			// aapt resource value: 0x7f0800eb
+			public const int chronometer = 2131230955;
 			
 			// aapt resource value: 0x7f080033
 			public const int clip_horizontal = 2131230771;
@@ -12675,8 +12694,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080034
 			public const int clip_vertical = 2131230772;
 			
-			// aapt resource value: 0x7f0800b1
-			public const int closeText = 2131230897;
+			// aapt resource value: 0x7f0800b2
+			public const int closeText = 2131230898;
 			
 			// aapt resource value: 0x7f08001f
 			public const int collapseActionView = 2131230751;
@@ -12733,34 +12752,37 @@ namespace XkcdViewer.Forms.Android
 			public const int data_form_number_picker_editor = 2131230882;
 			
 			// aapt resource value: 0x7f0800a3
-			public const int data_form_radio_group = 2131230883;
+			public const int data_form_rad_autocomplete_editor = 2131230883;
 			
 			// aapt resource value: 0x7f0800a4
-			public const int data_form_root_layout = 2131230884;
+			public const int data_form_radio_group = 2131230884;
 			
 			// aapt resource value: 0x7f0800a5
-			public const int data_form_seekbar_editor = 2131230885;
+			public const int data_form_root_layout = 2131230885;
 			
 			// aapt resource value: 0x7f0800a6
-			public const int data_form_spinner_editor = 2131230886;
+			public const int data_form_seekbar_editor = 2131230886;
 			
 			// aapt resource value: 0x7f0800a7
-			public const int data_form_switch_editor = 2131230887;
+			public const int data_form_spinner_editor = 2131230887;
 			
 			// aapt resource value: 0x7f0800a8
-			public const int data_form_text_editor = 2131230888;
+			public const int data_form_switch_editor = 2131230888;
 			
 			// aapt resource value: 0x7f0800a9
-			public const int data_form_text_viewer = 2131230889;
+			public const int data_form_text_editor = 2131230889;
+			
+			// aapt resource value: 0x7f0800aa
+			public const int data_form_text_viewer = 2131230890;
 			
 			// aapt resource value: 0x7f080098
 			public const int data_form_text_viewer_header = 2131230872;
 			
-			// aapt resource value: 0x7f0800aa
-			public const int data_form_time_editor = 2131230890;
-			
 			// aapt resource value: 0x7f0800ab
-			public const int data_form_toggle_editor = 2131230891;
+			public const int data_form_time_editor = 2131230891;
+			
+			// aapt resource value: 0x7f0800ac
+			public const int data_form_toggle_editor = 2131230892;
 			
 			// aapt resource value: 0x7f08009d
 			public const int data_form_validation_container = 2131230877;
@@ -12777,20 +12799,20 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080068
 			public const int default_activity_button = 2131230824;
 			
-			// aapt resource value: 0x7f0800ba
-			public const int design_bottom_sheet = 2131230906;
+			// aapt resource value: 0x7f0800bb
+			public const int design_bottom_sheet = 2131230907;
+			
+			// aapt resource value: 0x7f0800c2
+			public const int design_menu_item_action_area = 2131230914;
 			
 			// aapt resource value: 0x7f0800c1
-			public const int design_menu_item_action_area = 2131230913;
+			public const int design_menu_item_action_area_stub = 2131230913;
 			
 			// aapt resource value: 0x7f0800c0
-			public const int design_menu_item_action_area_stub = 2131230912;
+			public const int design_menu_item_text = 2131230912;
 			
 			// aapt resource value: 0x7f0800bf
-			public const int design_menu_item_text = 2131230911;
-			
-			// aapt resource value: 0x7f0800be
-			public const int design_navigation_view = 2131230910;
+			public const int design_navigation_view = 2131230911;
 			
 			// aapt resource value: 0x7f08000e
 			public const int disableHome = 2131230734;
@@ -12801,14 +12823,14 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080084
 			public const int edit_query = 2131230852;
 			
-			// aapt resource value: 0x7f0800f7
-			public const int emptyContent = 2131230967;
+			// aapt resource value: 0x7f0800f8
+			public const int emptyContent = 2131230968;
 			
 			// aapt resource value: 0x7f08001c
 			public const int end = 2131230748;
 			
-			// aapt resource value: 0x7f0800ef
-			public const int end_padder = 2131230959;
+			// aapt resource value: 0x7f0800f0
+			public const int end_padder = 2131230960;
 			
 			// aapt resource value: 0x7f080023
 			public const int enterAlways = 2131230755;
@@ -12837,14 +12859,14 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080038
 			public const int @fixed = 2131230776;
 			
-			// aapt resource value: 0x7f0800fa
-			public const int groupHeaderCollapseImage = 2131230970;
-			
 			// aapt resource value: 0x7f0800fb
-			public const int groupHeaderText = 2131230971;
+			public const int groupHeaderCollapseImage = 2131230971;
 			
-			// aapt resource value: 0x7f0800af
-			public const int highText = 2131230895;
+			// aapt resource value: 0x7f0800fc
+			public const int groupHeaderText = 2131230972;
+			
+			// aapt resource value: 0x7f0800b0
+			public const int highText = 2131230896;
 			
 			// aapt resource value: 0x7f080005
 			public const int home = 2131230725;
@@ -12864,20 +12886,20 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080067
 			public const int image = 2131230823;
 			
-			// aapt resource value: 0x7f0800c2
-			public const int imageView = 2131230914;
-			
-			// aapt resource value: 0x7f0800ee
-			public const int info = 2131230958;
-			
-			// aapt resource value: 0x7f0800c4
-			public const int inline_event_end = 2131230916;
-			
 			// aapt resource value: 0x7f0800c3
-			public const int inline_event_start = 2131230915;
+			public const int imageView = 2131230915;
+			
+			// aapt resource value: 0x7f0800ef
+			public const int info = 2131230959;
 			
 			// aapt resource value: 0x7f0800c5
-			public const int inline_event_title = 2131230917;
+			public const int inline_event_end = 2131230917;
+			
+			// aapt resource value: 0x7f0800c4
+			public const int inline_event_start = 2131230916;
+			
+			// aapt resource value: 0x7f0800c6
+			public const int inline_event_title = 2131230918;
 			
 			// aapt resource value: 0x7f080045
 			public const int inner = 2131230789;
@@ -12888,20 +12910,20 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f08002f
 			public const int left = 2131230767;
 			
-			// aapt resource value: 0x7f0800c6
-			public const int legendItemIconView = 2131230918;
-			
 			// aapt resource value: 0x7f0800c7
-			public const int legendItemTitleView = 2131230919;
+			public const int legendItemIconView = 2131230919;
 			
-			// aapt resource value: 0x7f0800f9
-			public const int legendListView = 2131230969;
+			// aapt resource value: 0x7f0800c8
+			public const int legendItemTitleView = 2131230920;
 			
-			// aapt resource value: 0x7f0800e8
-			public const int line1 = 2131230952;
+			// aapt resource value: 0x7f0800fa
+			public const int legendListView = 2131230970;
 			
-			// aapt resource value: 0x7f0800ec
-			public const int line3 = 2131230956;
+			// aapt resource value: 0x7f0800e9
+			public const int line1 = 2131230953;
+			
+			// aapt resource value: 0x7f0800ed
+			public const int line3 = 2131230957;
 			
 			// aapt resource value: 0x7f08000b
 			public const int listMode = 2131230731;
@@ -12909,11 +12931,11 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080069
 			public const int list_item = 2131230825;
 			
-			// aapt resource value: 0x7f0800b2
-			public const int lowText = 2131230898;
+			// aapt resource value: 0x7f0800b3
+			public const int lowText = 2131230899;
 			
-			// aapt resource value: 0x7f0800e6
-			public const int media_actions = 2131230950;
+			// aapt resource value: 0x7f0800e7
+			public const int media_actions = 2131230951;
 			
 			// aapt resource value: 0x7f08001d
 			public const int middle = 2131230749;
@@ -12921,92 +12943,92 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080037
 			public const int mini = 2131230775;
 			
-			// aapt resource value: 0x7f0800d3
-			public const int mr_art = 2131230931;
-			
-			// aapt resource value: 0x7f0800c8
-			public const int mr_chooser_list = 2131230920;
-			
-			// aapt resource value: 0x7f0800cb
-			public const int mr_chooser_route_desc = 2131230923;
+			// aapt resource value: 0x7f0800d4
+			public const int mr_art = 2131230932;
 			
 			// aapt resource value: 0x7f0800c9
-			public const int mr_chooser_route_icon = 2131230921;
-			
-			// aapt resource value: 0x7f0800ca
-			public const int mr_chooser_route_name = 2131230922;
-			
-			// aapt resource value: 0x7f0800d0
-			public const int mr_close = 2131230928;
-			
-			// aapt resource value: 0x7f0800d6
-			public const int mr_control_divider = 2131230934;
-			
-			// aapt resource value: 0x7f0800dc
-			public const int mr_control_play_pause = 2131230940;
-			
-			// aapt resource value: 0x7f0800df
-			public const int mr_control_subtitle = 2131230943;
-			
-			// aapt resource value: 0x7f0800de
-			public const int mr_control_title = 2131230942;
-			
-			// aapt resource value: 0x7f0800dd
-			public const int mr_control_title_container = 2131230941;
-			
-			// aapt resource value: 0x7f0800d1
-			public const int mr_custom_control = 2131230929;
-			
-			// aapt resource value: 0x7f0800d2
-			public const int mr_default_control = 2131230930;
-			
-			// aapt resource value: 0x7f0800cd
-			public const int mr_dialog_area = 2131230925;
+			public const int mr_chooser_list = 2131230921;
 			
 			// aapt resource value: 0x7f0800cc
-			public const int mr_expandable_area = 2131230924;
+			public const int mr_chooser_route_desc = 2131230924;
 			
-			// aapt resource value: 0x7f0800e0
-			public const int mr_group_expand_collapse = 2131230944;
+			// aapt resource value: 0x7f0800ca
+			public const int mr_chooser_route_icon = 2131230922;
 			
-			// aapt resource value: 0x7f0800d4
-			public const int mr_media_main_control = 2131230932;
+			// aapt resource value: 0x7f0800cb
+			public const int mr_chooser_route_name = 2131230923;
 			
-			// aapt resource value: 0x7f0800cf
-			public const int mr_name = 2131230927;
-			
-			// aapt resource value: 0x7f0800d5
-			public const int mr_playback_control = 2131230933;
-			
-			// aapt resource value: 0x7f0800ce
-			public const int mr_title_bar = 2131230926;
+			// aapt resource value: 0x7f0800d1
+			public const int mr_close = 2131230929;
 			
 			// aapt resource value: 0x7f0800d7
-			public const int mr_volume_control = 2131230935;
+			public const int mr_control_divider = 2131230935;
+			
+			// aapt resource value: 0x7f0800dd
+			public const int mr_control_play_pause = 2131230941;
+			
+			// aapt resource value: 0x7f0800e0
+			public const int mr_control_subtitle = 2131230944;
+			
+			// aapt resource value: 0x7f0800df
+			public const int mr_control_title = 2131230943;
+			
+			// aapt resource value: 0x7f0800de
+			public const int mr_control_title_container = 2131230942;
+			
+			// aapt resource value: 0x7f0800d2
+			public const int mr_custom_control = 2131230930;
+			
+			// aapt resource value: 0x7f0800d3
+			public const int mr_default_control = 2131230931;
+			
+			// aapt resource value: 0x7f0800ce
+			public const int mr_dialog_area = 2131230926;
+			
+			// aapt resource value: 0x7f0800cd
+			public const int mr_expandable_area = 2131230925;
+			
+			// aapt resource value: 0x7f0800e1
+			public const int mr_group_expand_collapse = 2131230945;
+			
+			// aapt resource value: 0x7f0800d5
+			public const int mr_media_main_control = 2131230933;
+			
+			// aapt resource value: 0x7f0800d0
+			public const int mr_name = 2131230928;
+			
+			// aapt resource value: 0x7f0800d6
+			public const int mr_playback_control = 2131230934;
+			
+			// aapt resource value: 0x7f0800cf
+			public const int mr_title_bar = 2131230927;
 			
 			// aapt resource value: 0x7f0800d8
-			public const int mr_volume_group_list = 2131230936;
+			public const int mr_volume_control = 2131230936;
 			
-			// aapt resource value: 0x7f0800da
-			public const int mr_volume_item_icon = 2131230938;
+			// aapt resource value: 0x7f0800d9
+			public const int mr_volume_group_list = 2131230937;
 			
 			// aapt resource value: 0x7f0800db
-			public const int mr_volume_slider = 2131230939;
+			public const int mr_volume_item_icon = 2131230939;
+			
+			// aapt resource value: 0x7f0800dc
+			public const int mr_volume_slider = 2131230940;
 			
 			// aapt resource value: 0x7f080016
 			public const int multiply = 2131230742;
 			
-			// aapt resource value: 0x7f080100
-			public const int name = 2131230976;
-			
-			// aapt resource value: 0x7f0800e1
-			public const int navItemsLayout = 2131230945;
+			// aapt resource value: 0x7f080103
+			public const int name = 2131230979;
 			
 			// aapt resource value: 0x7f0800e2
-			public const int navigationItemText = 2131230946;
+			public const int navItemsLayout = 2131230946;
 			
-			// aapt resource value: 0x7f0800bd
-			public const int navigation_header_container = 2131230909;
+			// aapt resource value: 0x7f0800e3
+			public const int navigationItemText = 2131230947;
+			
+			// aapt resource value: 0x7f0800be
+			public const int navigation_header_container = 2131230910;
 			
 			// aapt resource value: 0x7f080021
 			public const int never = 2131230753;
@@ -13017,20 +13039,20 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f08000c
 			public const int normal = 2131230732;
 			
+			// aapt resource value: 0x7f0800f2
+			public const int number_picker_minus = 2131230962;
+			
+			// aapt resource value: 0x7f0800f4
+			public const int number_picker_plus = 2131230964;
+			
 			// aapt resource value: 0x7f0800f1
-			public const int number_picker_minus = 2131230961;
+			public const int number_picker_root = 2131230961;
 			
 			// aapt resource value: 0x7f0800f3
-			public const int number_picker_plus = 2131230963;
+			public const int number_picker_view = 2131230963;
 			
-			// aapt resource value: 0x7f0800f0
-			public const int number_picker_root = 2131230960;
-			
-			// aapt resource value: 0x7f0800f2
-			public const int number_picker_view = 2131230962;
-			
-			// aapt resource value: 0x7f0800b0
-			public const int openText = 2131230896;
+			// aapt resource value: 0x7f0800b1
+			public const int openText = 2131230897;
 			
 			// aapt resource value: 0x7f080046
 			public const int outer = 2131230790;
@@ -13044,11 +13066,11 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080029
 			public const int pin = 2131230761;
 			
-			// aapt resource value: 0x7f0800f4
-			public const int popup_event_time = 2131230964;
-			
 			// aapt resource value: 0x7f0800f5
-			public const int popup_event_title = 2131230965;
+			public const int popup_event_time = 2131230965;
+			
+			// aapt resource value: 0x7f0800f6
+			public const int popup_event_title = 2131230966;
 			
 			// aapt resource value: 0x7f080006
 			public const int progress_circular = 2131230726;
@@ -13059,8 +13081,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f08007c
 			public const int radio = 2131230844;
 			
-			// aapt resource value: 0x7f0800f8
-			public const int renderSurface = 2131230968;
+			// aapt resource value: 0x7f0800f9
+			public const int renderSurface = 2131230969;
 			
 			// aapt resource value: 0x7f080030
 			public const int right = 2131230768;
@@ -13131,14 +13153,14 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080013
 			public const int showTitle = 2131230739;
 			
-			// aapt resource value: 0x7f0800ff
-			public const int sliding_tabs = 2131230975;
+			// aapt resource value: 0x7f080102
+			public const int sliding_tabs = 2131230978;
+			
+			// aapt resource value: 0x7f0800bd
+			public const int snackbar_action = 2131230909;
 			
 			// aapt resource value: 0x7f0800bc
-			public const int snackbar_action = 2131230908;
-			
-			// aapt resource value: 0x7f0800bb
-			public const int snackbar_text = 2131230907;
+			public const int snackbar_text = 2131230908;
 			
 			// aapt resource value: 0x7f080027
 			public const int snap = 2131230759;
@@ -13161,35 +13183,41 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080031
 			public const int start = 2131230769;
 			
-			// aapt resource value: 0x7f0800e5
-			public const int status_bar_latest_event_content = 2131230949;
+			// aapt resource value: 0x7f0800e6
+			public const int status_bar_latest_event_content = 2131230950;
 			
 			// aapt resource value: 0x7f08008d
 			public const int submit_area = 2131230861;
 			
-			// aapt resource value: 0x7f0800fd
-			public const int suggestion_img = 2131230973;
-			
 			// aapt resource value: 0x7f0800fe
-			public const int suggestion_text = 2131230974;
+			public const int suggestion_img = 2131230974;
+			
+			// aapt resource value: 0x7f0800ff
+			public const int suggestion_text = 2131230975;
+			
+			// aapt resource value: 0x7f080101
+			public const int tabItemImageView = 2131230977;
+			
+			// aapt resource value: 0x7f080100
+			public const int tabItemTextView = 2131230976;
 			
 			// aapt resource value: 0x7f08000d
 			public const int tabMode = 2131230733;
 			
-			// aapt resource value: 0x7f0800ed
-			public const int text = 2131230957;
+			// aapt resource value: 0x7f0800ee
+			public const int text = 2131230958;
 			
-			// aapt resource value: 0x7f0800fc
-			public const int text1 = 2131230972;
+			// aapt resource value: 0x7f0800fd
+			public const int text1 = 2131230973;
 			
-			// aapt resource value: 0x7f0800eb
-			public const int text2 = 2131230955;
+			// aapt resource value: 0x7f0800ec
+			public const int text2 = 2131230956;
 			
 			// aapt resource value: 0x7f080075
 			public const int textSpacerNoButtons = 2131230837;
 			
-			// aapt resource value: 0x7f0800e9
-			public const int time = 2131230953;
+			// aapt resource value: 0x7f0800ea
+			public const int time = 2131230954;
 			
 			// aapt resource value: 0x7f08006b
 			public const int title = 2131230827;
@@ -13197,17 +13225,17 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080070
 			public const int title_template = 2131230832;
 			
-			// aapt resource value: 0x7f080101
-			public const int tokenimage = 2131230977;
-			
-			// aapt resource value: 0x7f080102
-			public const int tokentext = 2131230978;
-			
 			// aapt resource value: 0x7f080104
-			public const int toolbar = 2131230980;
+			public const int tokenimage = 2131230980;
 			
-			// aapt resource value: 0x7f0800ac
-			public const int tooltip_content_container = 2131230892;
+			// aapt resource value: 0x7f080105
+			public const int tokentext = 2131230981;
+			
+			// aapt resource value: 0x7f080107
+			public const int toolbar = 2131230983;
+			
+			// aapt resource value: 0x7f0800ad
+			public const int tooltip_content_container = 2131230893;
 			
 			// aapt resource value: 0x7f080032
 			public const int top = 2131230770;
@@ -13215,11 +13243,11 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f08006f
 			public const int topPanel = 2131230831;
 			
-			// aapt resource value: 0x7f0800b9
-			public const int touch_outside = 2131230905;
+			// aapt resource value: 0x7f0800ba
+			public const int touch_outside = 2131230906;
 			
-			// aapt resource value: 0x7f0800b7
-			public const int trackball_points_list = 2131230903;
+			// aapt resource value: 0x7f0800b8
+			public const int trackball_points_list = 2131230904;
 			
 			// aapt resource value: 0x7f080009
 			public const int up = 2131230729;
@@ -13233,8 +13261,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f08000a
 			public const int view_offset_helper = 2131230730;
 			
-			// aapt resource value: 0x7f0800d9
-			public const int volume_item_container = 2131230937;
+			// aapt resource value: 0x7f0800da
+			public const int volume_item_container = 2131230938;
 			
 			// aapt resource value: 0x7f080022
 			public const int withText = 2131230754;
@@ -13242,14 +13270,14 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080015
 			public const int wrap_content = 2131230741;
 			
-			// aapt resource value: 0x7f0800b3
-			public const int xText = 2131230899;
-			
-			// aapt resource value: 0x7f080103
-			public const int xview = 2131230979;
-			
 			// aapt resource value: 0x7f0800b4
-			public const int yText = 2131230900;
+			public const int xText = 2131230900;
+			
+			// aapt resource value: 0x7f080106
+			public const int xview = 2131230982;
+			
+			// aapt resource value: 0x7f0800b5
+			public const int yText = 2131230901;
 			
 			static Id()
 			{
@@ -13453,220 +13481,226 @@ namespace XkcdViewer.Forms.Android
 			public const int data_form_number_picker = 2130903081;
 			
 			// aapt resource value: 0x7f03002a
-			public const int data_form_radio_group_editor = 2130903082;
+			public const int data_form_rad_autocomplete_editor = 2130903082;
 			
 			// aapt resource value: 0x7f03002b
-			public const int data_form_root_layout = 2130903083;
+			public const int data_form_radio_group_editor = 2130903083;
 			
 			// aapt resource value: 0x7f03002c
-			public const int data_form_seek_bar_editor = 2130903084;
+			public const int data_form_root_layout = 2130903084;
 			
 			// aapt resource value: 0x7f03002d
-			public const int data_form_segmented_editor = 2130903085;
+			public const int data_form_seek_bar_editor = 2130903085;
 			
 			// aapt resource value: 0x7f03002e
-			public const int data_form_spinner_editor = 2130903086;
+			public const int data_form_segmented_editor = 2130903086;
 			
 			// aapt resource value: 0x7f03002f
-			public const int data_form_spinner_item = 2130903087;
+			public const int data_form_spinner_editor = 2130903087;
 			
 			// aapt resource value: 0x7f030030
-			public const int data_form_switch_editor = 2130903088;
+			public const int data_form_spinner_item = 2130903088;
 			
 			// aapt resource value: 0x7f030031
-			public const int data_form_text_editor = 2130903089;
+			public const int data_form_switch_editor = 2130903089;
 			
 			// aapt resource value: 0x7f030032
-			public const int data_form_text_viewer = 2130903090;
+			public const int data_form_text_editor = 2130903090;
 			
 			// aapt resource value: 0x7f030033
-			public const int data_form_time_editor = 2130903091;
+			public const int data_form_text_viewer = 2130903091;
 			
 			// aapt resource value: 0x7f030034
-			public const int data_form_toggle_button_editor = 2130903092;
+			public const int data_form_time_editor = 2130903092;
 			
 			// aapt resource value: 0x7f030035
-			public const int default_tooltip_content = 2130903093;
+			public const int data_form_toggle_button_editor = 2130903093;
 			
 			// aapt resource value: 0x7f030036
-			public const int default_tooltip_ohlc_content = 2130903094;
+			public const int default_tooltip_content = 2130903094;
 			
 			// aapt resource value: 0x7f030037
-			public const int default_tooltip_scatter_bubble_content = 2130903095;
+			public const int default_tooltip_ohlc_content = 2130903095;
 			
 			// aapt resource value: 0x7f030038
-			public const int default_tooltip_scatter_content = 2130903096;
+			public const int default_tooltip_scatter_bubble_content = 2130903096;
 			
 			// aapt resource value: 0x7f030039
-			public const int default_trackball_content = 2130903097;
+			public const int default_tooltip_scatter_content = 2130903097;
 			
 			// aapt resource value: 0x7f03003a
-			public const int default_trackball_item_content = 2130903098;
+			public const int default_trackball_content = 2130903098;
 			
 			// aapt resource value: 0x7f03003b
-			public const int design_bottom_sheet_dialog = 2130903099;
+			public const int default_trackball_item_content = 2130903099;
 			
 			// aapt resource value: 0x7f03003c
-			public const int design_layout_snackbar = 2130903100;
+			public const int design_bottom_sheet_dialog = 2130903100;
 			
 			// aapt resource value: 0x7f03003d
-			public const int design_layout_snackbar_include = 2130903101;
+			public const int design_layout_snackbar = 2130903101;
 			
 			// aapt resource value: 0x7f03003e
-			public const int design_layout_tab_icon = 2130903102;
+			public const int design_layout_snackbar_include = 2130903102;
 			
 			// aapt resource value: 0x7f03003f
-			public const int design_layout_tab_text = 2130903103;
+			public const int design_layout_tab_icon = 2130903103;
 			
 			// aapt resource value: 0x7f030040
-			public const int design_menu_item_action_area = 2130903104;
+			public const int design_layout_tab_text = 2130903104;
 			
 			// aapt resource value: 0x7f030041
-			public const int design_navigation_item = 2130903105;
+			public const int design_menu_item_action_area = 2130903105;
 			
 			// aapt resource value: 0x7f030042
-			public const int design_navigation_item_header = 2130903106;
+			public const int design_navigation_item = 2130903106;
 			
 			// aapt resource value: 0x7f030043
-			public const int design_navigation_item_separator = 2130903107;
+			public const int design_navigation_item_header = 2130903107;
 			
 			// aapt resource value: 0x7f030044
-			public const int design_navigation_item_subheader = 2130903108;
+			public const int design_navigation_item_separator = 2130903108;
 			
 			// aapt resource value: 0x7f030045
-			public const int design_navigation_menu = 2130903109;
+			public const int design_navigation_item_subheader = 2130903109;
 			
 			// aapt resource value: 0x7f030046
-			public const int design_navigation_menu_item = 2130903110;
+			public const int design_navigation_menu = 2130903110;
 			
 			// aapt resource value: 0x7f030047
-			public const int drawer_blur_fade_layer = 2130903111;
+			public const int design_navigation_menu_item = 2130903111;
 			
 			// aapt resource value: 0x7f030048
-			public const int inline_event = 2130903112;
+			public const int drawer_blur_fade_layer = 2130903112;
 			
 			// aapt resource value: 0x7f030049
-			public const int legend_item_view = 2130903113;
+			public const int inline_event = 2130903113;
 			
 			// aapt resource value: 0x7f03004a
-			public const int linear_layout = 2130903114;
+			public const int legend_item_view = 2130903114;
 			
 			// aapt resource value: 0x7f03004b
-			public const int mr_chooser_dialog = 2130903115;
+			public const int linear_layout = 2130903115;
 			
 			// aapt resource value: 0x7f03004c
-			public const int mr_chooser_list_item = 2130903116;
+			public const int mr_chooser_dialog = 2130903116;
 			
 			// aapt resource value: 0x7f03004d
-			public const int mr_controller_material_dialog_b = 2130903117;
+			public const int mr_chooser_list_item = 2130903117;
 			
 			// aapt resource value: 0x7f03004e
-			public const int mr_controller_volume_item = 2130903118;
+			public const int mr_controller_material_dialog_b = 2130903118;
 			
 			// aapt resource value: 0x7f03004f
-			public const int mr_playback_control = 2130903119;
+			public const int mr_controller_volume_item = 2130903119;
 			
 			// aapt resource value: 0x7f030050
-			public const int mr_volume_control = 2130903120;
+			public const int mr_playback_control = 2130903120;
 			
 			// aapt resource value: 0x7f030051
-			public const int navigation_drawer_content = 2130903121;
+			public const int mr_volume_control = 2130903121;
 			
 			// aapt resource value: 0x7f030052
-			public const int navigation_item_view = 2130903122;
+			public const int navigation_drawer_content = 2130903122;
 			
 			// aapt resource value: 0x7f030053
-			public const int notification_media_action = 2130903123;
+			public const int navigation_item_view = 2130903123;
 			
 			// aapt resource value: 0x7f030054
-			public const int notification_media_cancel_action = 2130903124;
+			public const int notification_media_action = 2130903124;
 			
 			// aapt resource value: 0x7f030055
-			public const int notification_template_big_media = 2130903125;
+			public const int notification_media_cancel_action = 2130903125;
 			
 			// aapt resource value: 0x7f030056
-			public const int notification_template_big_media_narrow = 2130903126;
+			public const int notification_template_big_media = 2130903126;
 			
 			// aapt resource value: 0x7f030057
-			public const int notification_template_lines = 2130903127;
+			public const int notification_template_big_media_narrow = 2130903127;
 			
 			// aapt resource value: 0x7f030058
-			public const int notification_template_media = 2130903128;
+			public const int notification_template_lines = 2130903128;
 			
 			// aapt resource value: 0x7f030059
-			public const int notification_template_part_chronometer = 2130903129;
+			public const int notification_template_media = 2130903129;
 			
 			// aapt resource value: 0x7f03005a
-			public const int notification_template_part_time = 2130903130;
+			public const int notification_template_part_chronometer = 2130903130;
 			
 			// aapt resource value: 0x7f03005b
-			public const int number_picker = 2130903131;
+			public const int notification_template_part_time = 2130903131;
 			
 			// aapt resource value: 0x7f03005c
-			public const int ohlc_trackball_item_content = 2130903132;
+			public const int number_picker = 2130903132;
 			
 			// aapt resource value: 0x7f03005d
-			public const int on_demand_automatic = 2130903133;
+			public const int ohlc_trackball_item_content = 2130903133;
 			
 			// aapt resource value: 0x7f03005e
-			public const int on_demand_manual = 2130903134;
+			public const int on_demand_automatic = 2130903134;
 			
 			// aapt resource value: 0x7f03005f
-			public const int popup_event = 2130903135;
+			public const int on_demand_manual = 2130903135;
 			
 			// aapt resource value: 0x7f030060
-			public const int radchartbase = 2130903136;
+			public const int popup_event = 2130903136;
 			
 			// aapt resource value: 0x7f030061
-			public const int radlegendcontrol = 2130903137;
+			public const int radchartbase = 2130903137;
 			
 			// aapt resource value: 0x7f030062
-			public const int range_trackball_item_content = 2130903138;
+			public const int radlegendcontrol = 2130903138;
 			
 			// aapt resource value: 0x7f030063
-			public const int select_dialog_item_material = 2130903139;
+			public const int range_trackball_item_content = 2130903139;
 			
 			// aapt resource value: 0x7f030064
-			public const int select_dialog_multichoice_material = 2130903140;
+			public const int select_dialog_item_material = 2130903140;
 			
 			// aapt resource value: 0x7f030065
-			public const int select_dialog_singlechoice_material = 2130903141;
+			public const int select_dialog_multichoice_material = 2130903141;
 			
 			// aapt resource value: 0x7f030066
-			public const int simple_empty_content = 2130903142;
+			public const int select_dialog_singlechoice_material = 2130903142;
 			
 			// aapt resource value: 0x7f030067
-			public const int simple_group_header_item = 2130903143;
+			public const int simple_empty_content = 2130903143;
 			
 			// aapt resource value: 0x7f030068
-			public const int simple_list_item = 2130903144;
+			public const int simple_group_header_item = 2130903144;
 			
 			// aapt resource value: 0x7f030069
-			public const int suggestion_item_layout = 2130903145;
+			public const int simple_list_item = 2130903145;
 			
 			// aapt resource value: 0x7f03006a
-			public const int support_simple_spinner_dropdown_item = 2130903146;
+			public const int suggestion_item_layout = 2130903146;
 			
 			// aapt resource value: 0x7f03006b
-			public const int table_layout = 2130903147;
+			public const int support_simple_spinner_dropdown_item = 2130903147;
 			
 			// aapt resource value: 0x7f03006c
-			public const int tabs = 2130903148;
+			public const int tab_item_view = 2130903148;
 			
 			// aapt resource value: 0x7f03006d
-			public const int token = 2130903149;
+			public const int table_layout = 2130903149;
 			
 			// aapt resource value: 0x7f03006e
-			public const int toolbar = 2130903150;
+			public const int tabs = 2130903150;
 			
 			// aapt resource value: 0x7f03006f
-			public const int tooltip_container = 2130903151;
+			public const int token = 2130903151;
 			
 			// aapt resource value: 0x7f030070
-			public const int trackball_container = 2130903152;
+			public const int toolbar = 2130903152;
 			
 			// aapt resource value: 0x7f030071
-			public const int trial_message = 2130903153;
+			public const int tooltip_container = 2130903153;
+			
+			// aapt resource value: 0x7f030072
+			public const int trackball_container = 2130903154;
+			
+			// aapt resource value: 0x7f030073
+			public const int trial_message = 2130903155;
 			
 			static Layout()
 			{
@@ -16503,14 +16537,14 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 4
 			public const int GaugeScale_majorTicksFillColor = 4;
 			
-			// aapt resource value: 13
-			public const int GaugeScale_majorTicksHeight = 13;
+			// aapt resource value: 11
+			public const int GaugeScale_majorTicksLength = 11;
 			
 			// aapt resource value: 5
 			public const int GaugeScale_majorTicksStrokeColor = 5;
 			
-			// aapt resource value: 11
-			public const int GaugeScale_majorTicksWidth = 11;
+			// aapt resource value: 13
+			public const int GaugeScale_majorTicksWidth = 13;
 			
 			// aapt resource value: 0
 			public const int GaugeScale_maximum = 0;
@@ -16524,14 +16558,14 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 6
 			public const int GaugeScale_minorTicksFillColor = 6;
 			
-			// aapt resource value: 14
-			public const int GaugeScale_minorTicksHeight = 14;
+			// aapt resource value: 12
+			public const int GaugeScale_minorTicksLength = 12;
 			
 			// aapt resource value: 7
 			public const int GaugeScale_minorTicksStrokeColor = 7;
 			
-			// aapt resource value: 12
-			public const int GaugeScale_minorTicksWidth = 12;
+			// aapt resource value: 14
+			public const int GaugeScale_minorTicksWidth = 14;
 			
 			// aapt resource value: 23
 			public const int GaugeScale_strokeColor = 23;

@@ -119,32 +119,32 @@
       <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Primitives.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.XamarinForms.Chart, Version=2017.1.10118.233, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.10118.10\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20+uap10.0\Telerik.XamarinForms.Chart.dll</HintPath>
+    <Reference Include="Telerik.XamarinForms.Chart, Version=2017.1.10203.233, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.10203.4\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20+uap10.0\Telerik.XamarinForms.Chart.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.XamarinForms.Common, Version=2017.1.10118.233, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.10118.10\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20+uap10.0\Telerik.XamarinForms.Common.dll</HintPath>
+    <Reference Include="Telerik.XamarinForms.Common, Version=2017.1.10203.233, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.10203.4\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20+uap10.0\Telerik.XamarinForms.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.XamarinForms.DataControls, Version=2017.1.10118.233, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.10118.10\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20+uap10.0\Telerik.XamarinForms.DataControls.dll</HintPath>
+    <Reference Include="Telerik.XamarinForms.DataControls, Version=2017.1.10203.233, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.10203.4\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20+uap10.0\Telerik.XamarinForms.DataControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.XamarinForms.DataVisualization, Version=2017.1.10118.233, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.10118.10\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20+uap10.0\Telerik.XamarinForms.DataVisualization.dll</HintPath>
+    <Reference Include="Telerik.XamarinForms.DataVisualization, Version=2017.1.10203.233, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.10203.4\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20+uap10.0\Telerik.XamarinForms.DataVisualization.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.XamarinForms.Input, Version=2017.1.10118.233, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.10118.10\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20+uap10.0\Telerik.XamarinForms.Input.dll</HintPath>
+    <Reference Include="Telerik.XamarinForms.Input, Version=2017.1.10203.233, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.10203.4\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20+uap10.0\Telerik.XamarinForms.Input.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.XamarinForms.Primitives, Version=2017.1.10118.233, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.10118.10\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20+uap10.0\Telerik.XamarinForms.Primitives.dll</HintPath>
+    <Reference Include="Telerik.XamarinForms.Primitives, Version=2017.1.10203.233, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.10203.4\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20+uap10.0\Telerik.XamarinForms.Primitives.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.XamarinForms.SkiaSharp, Version=2017.1.10118.233, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.10118.10\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20+uap10.0\Telerik.XamarinForms.SkiaSharp.dll</HintPath>
+    <Reference Include="Telerik.XamarinForms.SkiaSharp, Version=2017.1.10203.233, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2017.1.10203.4\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20+uap10.0\Telerik.XamarinForms.SkiaSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">

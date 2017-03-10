@@ -1,63 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
+using Cimbalino.Toolkit.Services;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
-using Portable.Annotations;
+using Portable.Common;
 using Portable.Models;
 using Xamarin.Forms;
 
 namespace Portable.ViewModels
 {
-    public class DetailsPageViewModel : INotifyPropertyChanged
+    public class DetailsPageViewModel : PageBaseViewModel
     {
+        private readonly NavigationService navigationService;
+        private readonly FavoritesPageViewModel favoritesViewModel;
+
         private Comic selectedComic;
         private bool isFavorite;
         private Command<Comic> toggleFavoriteCommand;
         private Command<Comic> shareCommand;
 
-        public DetailsPageViewModel()
+        public DetailsPageViewModel(NavigationService navService, FavoritesPageViewModel favsViewModel)
         {
-            if (ViewModelLocator.IsDesignTime)
-            {
-                SelectedComic = new Comic()
-                {
-                    Title = "Selected Comic!"
-                };
-            }
+            this.navigationService = navService;
+            this.favoritesViewModel = favsViewModel;
         }
 
         public Comic SelectedComic
         {
             get { return selectedComic; }
-            set { selectedComic = value; OnPropertyChanged(); }
+            set { Set(() => SelectedComic, ref selectedComic, value); }
         }
 
         public bool IsFavorite
         {
             get
             {
-                isFavorite = App.ViewModel.FavoriteComics.Contains(selectedComic);
+                isFavorite = favoritesViewModel.FavoriteComics.Contains(selectedComic);
                 return isFavorite;
             }
-            set { isFavorite = value; OnPropertyChanged(); }
+            set
+            {
+                Set(ref isFavorite, value);
+            }
         }
 
         public Command<Comic> ToggleFavoriteCommand => toggleFavoriteCommand ?? (toggleFavoriteCommand = new Command<Comic>(async (comic) =>
       {
           if (IsFavorite)
           {
-              if (await App.ViewModel.RemoveFavoriteAsync(comic))
+              if (await favoritesViewModel.RemoveFavoriteAsync(comic))
                   IsFavorite = false; //if removing the fav was successful, update current state
            }
           else
           {
-              if (await App.ViewModel.AddFavoriteAsync(comic))
+              if (await favoritesViewModel.AddFavoriteAsync(comic))
                   IsFavorite = true; //if adding the fav was successful, update current state
            }
       }));
@@ -82,16 +78,19 @@ namespace Portable.ViewModels
                 });
         }));
 
-        #region INPC
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public override Task OnNavigatedToAsync(NavigationServiceNavigationEventArgs eventArgs)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if (eventArgs?.Parameter != null)
+            {
+                SelectedComic = eventArgs.Parameter as Comic;
+            }
+
+            return base.OnNavigatedToAsync(eventArgs);
         }
 
-        #endregion
+        public override Task OnNavigatedFromAsync(NavigationServiceNavigationEventArgs eventArgs)
+        {
+            return base.OnNavigatedFromAsync(eventArgs);
+        }
     }
 }

@@ -3,10 +3,11 @@
     "Microsoft.Net.Http": "2.2.29",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "modernhttpclient": "2.4.2",
+    "MvvmLightLibs": "5.3.0",
     "PCLStorage": "1.0.1",
     "Plugin.Share": "5.0.0",
     "SkiaSharp.Views.Forms": "1.56.0",
-    "Telerik.UI.for.Xamarin": "2017.1.10118.10",
+    "Telerik.UI.for.Xamarin": "2017.1.10301.12",
     "Xamarin.Forms": "2.3.3.175"
   },
   "frameworks": {

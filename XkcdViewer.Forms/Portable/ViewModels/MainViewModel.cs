@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Net.Http;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Cimbalino.Toolkit.Services;
 using ModernHttpClient;
 using Newtonsoft.Json;
-using PCLStorage;
-using Portable.Annotations;
 using Portable.Common;
 using Portable.Models;
 using Portable.Views;
@@ -16,84 +13,53 @@ using Xamarin.Forms;
 
 namespace Portable.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : PageBaseViewModel
     {
         #region fields
 
+        private readonly NavigationService navigationService;
         private readonly HttpClient client;
 
         private ObservableCollection<Comic> comics;
-        private ObservableCollection<Comic> favoriteComics;
-        private bool isBusy;
         private int lastComicNumber;
         private double progress;
-        private string isBusyMessage;
         private Command<Comic> loadDetailsCommand;
         private Command goToFavoritesCommand;
-        
+        private Command getComicCommand;
+
         #endregion
 
-        public MainViewModel()
+        public MainViewModel(NavigationService navService)
         {
+            this.navigationService = navService;
+
             InitializeViewModel();
 
             client = new HttpClient(new NativeMessageHandler());
+            
         }
-        
+
         #region properties
 
         public ObservableCollection<Comic> Comics
         {
             get { return comics ?? (comics = new ObservableCollection<Comic>()); }
-            set { comics = value; OnPropertyChanged(); }
-        }
-
-        public ObservableCollection<Comic> FavoriteComics
-        {
-            get { return favoriteComics ?? (favoriteComics = new ObservableCollection<Comic>()); }
-            set { favoriteComics = value; }
-        }
-
-        //public Comic SelectedComic
-        //{
-        //    get { return selectedComic; }
-        //    set { selectedComic = value; OnPropertyChanged();}
-        //}
-
-        public bool IsBusy
-        {
-            get { return isBusy; }
-            set { isBusy = value; OnPropertyChanged(); }
-        }
-
-        public string IsBusyMessage
-        {
-            get { return isBusyMessage; }
-            set { isBusyMessage = value; OnPropertyChanged();}
+            set { Set(ref comics, value); }
         }
 
         public double Progress
         {
             get { return progress; }
-            set { progress = value; OnPropertyChanged(); }
+            set { Set(ref progress, value); }
         }
 
         #endregion
 
         #region methods
 
-        /// <summary>
-        /// Runs any neccessary utilities and methods when MainViewModel is instantiated
-        /// </summary>
         private async void InitializeViewModel()
         {
-            var loadedFavs = await LoadFavoritesAsync();
-
-            if (loadedFavs != null)
-                FavoriteComics = loadedFavs;
-
-            //Get the latest comic to start'er up
-            await App.ViewModel.GetComic();
+            await GetComic();
         }
 
         /// <summary>
@@ -153,133 +119,6 @@ namespace Portable.ViewModels
             }
         }
         
-        /// <summary>
-        /// Saves Favorites collection to phone storage
-        /// </summary>
-        /// <param name="favs">Favorites collection to save</param>
-        /// <returns></returns>
-        public async Task<bool> SaveFavoritesAsync(ObservableCollection<Comic> favs)
-        {
-            try
-            {
-                Debug.WriteLine($"---SaveFavoritesAsync called----");
-
-                IsBusy = true;
-
-                //using PCLStorage
-                var favsAsJson = JsonConvert.SerializeObject(favs);
-                var file = await FileSystem.Current.LocalStorage.CreateFileAsync("FavoritesJsonData.txt", CreationCollisionOption.ReplaceExisting);
-                await file.WriteAllTextAsync(favsAsJson);
-
-                Debug.WriteLine($"---SaveFavoritesAsync: {favs.Count} favorites saved");
-
-                return true;
-
-                //using DependencyService
-                //var favsAsJson = JsonConvert.SerializeObject(ViewModel.FavoriteComics);
-                //DependencyService.Get<ISaveAndLoad>().SaveText("FavoritesJsonData.txt", favsAsJson);
-            }
-            catch (JsonException ex)
-            {
-                Debug.WriteLine($"SaveFavoritesAsync JSONException: {ex}");
-                return false;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"SaveFavoritesAsync Exception: {ex}");
-                return false;
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        /// <summary>
-        /// Loads Favorites from local storage
-        /// </summary>
-        /// <returns>Collection of saved Favorites</returns>
-        public async Task<ObservableCollection<Comic>> LoadFavoritesAsync()
-        {
-            try
-            {
-                if (ViewModelLocator.IsDesignTime)
-                {
-                    return new ObservableCollection<Comic>
-                    {
-                        new Comic() {Title = "Title One"},
-                        new Comic() {Title = "Title Two"},
-                        new Comic() {Title = "Title Three"},
-                        new Comic() {Title = "Title Four"}
-                    };
-                }
-
-                Debug.WriteLine($"---LoadFavoritesAsync called----");
-
-                IsBusy = true;
-
-                //using PCLStorage implementaiotn
-                var file = await FileSystem.Current.LocalStorage.GetFileAsync("FavoritesJsonData.txt");
-
-                var favsAsJson = await file.ReadAllTextAsync();
-                var favsCollection = JsonConvert.DeserializeObject<ObservableCollection<Comic>>(favsAsJson);
-
-                Debug.WriteLine($"---LoadFavoritesAsync: {favsCollection.Count} favorites loaded");
-
-                return favsCollection;
-
-                //using DependencyService
-                //var favsAsJson = DependencyService.Get<ISaveAndLoad>().LoadText("FavoritesJsonData.txt");
-                //var favsCollection = JsonConvert.DeserializeObject<ObservableCollection<Comic>>(favsAsJson);
-                //ViewModel.FavoriteComics = favsCollection;
-            }
-            catch (JsonException ex)
-            {
-                Debug.WriteLine($"LoadFavoritesAsync JSONException: {ex}");
-                return null;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"LoadFavoritesAsync Exception: {ex}");
-                return null;
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        public async Task<bool> AddFavoriteAsync(Comic comic)
-        {
-            try
-            {
-                App.ViewModel.FavoriteComics.Add(comic);
-                await SaveFavoritesAsync(this.comics);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"AddFavoriteAsync Exception: {ex}");
-                return false;
-            }
-        }
-
-        public async Task<bool> RemoveFavoriteAsync(Comic comic)
-        {
-            try
-            {
-                App.ViewModel.FavoriteComics.Remove(comic);
-                await SaveFavoritesAsync(this.comics);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"RemoveFavoriteAsync Exception: {ex}");
-                return false;
-            }
-            
-        }
-
         #endregion
 
         #region Commands
@@ -287,28 +126,38 @@ namespace Portable.ViewModels
         /// <summary>
         /// Navigates to a new instance of DetailsPage and passes the SelectedComic to the DetailsPageViewModel
         /// </summary>
-        public Command<Comic> LoadDetailsCommand => loadDetailsCommand ?? (loadDetailsCommand = new Command<Comic>( async (comic) =>
+        public Command<Comic> LoadDetailsCommand => loadDetailsCommand ?? (loadDetailsCommand = new Command<Comic>( (comic) =>
         {
             if (comic == null)
                 return;
 
-            var detailsPage = new DetailsPage();
-            var dpvm = detailsPage.BindingContext as DetailsPageViewModel;
+            //var detailsPage = new DetailsPage();
+            //var dpvm = detailsPage.BindingContext as DetailsPageViewModel;
 
-            if (dpvm != null)
-                dpvm.SelectedComic = comic;
+            //if (dpvm != null)
+            //    dpvm.SelectedComic = comic;
 
-            await App.RootPage.Navigation.PushAsync(detailsPage);
+            //await App.RootPage.Navigation.PushAsync(detailsPage);
 
+            this.navigationService.Navigate(typeof(DetailsPage), comic);
         }));
 
-        public Command GoToFavoritesCommand => goToFavoritesCommand ?? (goToFavoritesCommand = new Command(async () =>
+        public Command GoToFavoritesCommand => goToFavoritesCommand ?? (goToFavoritesCommand = new Command(() =>
         {
-            var favsPage = new FavoritesPage();
-            favsPage.Title = "Favorites";
-            favsPage.Icon = "";
+            //var favsPage = new FavoritesPage
+            //{
+            //    Title = "Favorites",
+            //    Icon = ""
+            //};
 
-            await App.RootPage.Navigation.PushAsync(favsPage);
+            //await App.RootPage.Navigation.PushAsync(favsPage);
+
+            navigationService.Navigate<FavoritesPage>();
+        }));
+
+        public Command GetComicCommand => getComicCommand ?? (getComicCommand = new Command(async () =>
+        {
+            await GetComic();
         }));
 
         #endregion
@@ -322,16 +171,14 @@ namespace Portable.ViewModels
 
         #endregion
 
-        #region INPC
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public override Task OnNavigatedToAsync(NavigationServiceNavigationEventArgs eventArgs)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            return base.OnNavigatedToAsync(eventArgs);
         }
 
-        #endregion
+        public override Task OnNavigatedFromAsync(NavigationServiceNavigationEventArgs eventArgs)
+        {
+            return base.OnNavigatedFromAsync(eventArgs);
+        }
     }
 }

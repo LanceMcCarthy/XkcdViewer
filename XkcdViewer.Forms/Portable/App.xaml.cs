@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Cimbalino.Toolkit.Services;
+using GalaSoft.MvvmLight.Ioc;
+using Portable.Common;
 using Portable.ViewModels;
 using Portable.Views;
 using Xamarin.Forms;
@@ -13,15 +11,13 @@ namespace Portable
 {
     public partial class App : Application
     {
-        public static MainViewModel ViewModel => ViewModelLocator.Main;
-
-        public static BasePage RootPage { get; set; }
-
+        private static INavigationService Navigation => SimpleIoc.Default.GetInstance<INavigationService>();
+        
         public App()
         {
-            RootPage = new BasePage(new MainPage());
-            MainPage = RootPage;
+            MainPage = new ExtendedNavigationPage(Navigation, new MainPage { Icon = "ic_xkcd_light.png" });
         }
+        
 
         protected override void OnStart()
         {

@@ -1,37 +1,46 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
-using Portable.Annotations;
+using Portable.Common;
 using Portable.Models;
 using Portable.Views;
 using Xamarin.Forms;
 
 namespace Portable.ViewModels
 {
-    public class FavoritesPageViewModel : INotifyPropertyChanged
+    public class FavoritesPageViewModel : PageBaseViewModel
     {
+        private readonly NavigationService navigationService;
+
+        private ObservableCollection<Comic> favoriteComics;
         private Command<Comic> loadDetailsCommand;
         private Command removeFavoritesCommand;
         private Command<Comic> shareCommand;
         private ObservableCollection<Comic> selectedFavorites;
 
-        public FavoritesPageViewModel()
+        public FavoritesPageViewModel(NavigationService navService)
         {
-            
+            this.navigationService = navService;
+
+            InitializeViewModel();
         }
 
-        public ObservableCollection<Comic> FavoriteComics => App.ViewModel.FavoriteComics;
+        private async void InitializeViewModel()
+        {
+            FavoriteComics = await FileHelpers.LoadFavoritesAsync();
+        }
+
+        public ObservableCollection<Comic> FavoriteComics
+        {
+            get { return favoriteComics ?? (favoriteComics = new ObservableCollection<Comic>()); }
+            set { favoriteComics = value; }
+        }
 
         public ObservableCollection<Comic> SelectedFavorites
         {
             get { return selectedFavorites ?? ( selectedFavorites = new ObservableCollection<Comic>()); }
-            set { selectedFavorites = value; OnPropertyChanged();}
+            set { Set(ref selectedFavorites, value); }
         }
 
         #region Commands
@@ -41,13 +50,15 @@ namespace Portable.ViewModels
             if (comic == null)
                 return;
 
-            var detailsPage = new DetailsPage();
-            var dpvm = detailsPage.BindingContext as DetailsPageViewModel;
+            //var detailsPage = new DetailsPage();
+            //var dpvm = detailsPage.BindingContext as DetailsPageViewModel;
 
-            if (dpvm != null)
-                dpvm.SelectedComic = comic;
+            //if (dpvm != null)
+            //    dpvm.SelectedComic = comic;
 
-            App.RootPage.Navigation.PushAsync(detailsPage);
+            //App.RootPage.Navigation.PushAsync(detailsPage);
+
+            this.navigationService.Navigate(typeof(DetailsPage), comic);
 
         }));
 
@@ -55,9 +66,11 @@ namespace Portable.ViewModels
         {
             foreach (var selectedFavorite in SelectedFavorites)
             {
-                await App.ViewModel.RemoveFavoriteAsync(selectedFavorite);
+                FavoriteComics.Remove(selectedFavorite);
             }
-            
+
+            await FileHelpers.SaveFavoritesAsync(FavoriteComics);
+
         }));
 
         public Command<Comic> ShareCommand => shareCommand ?? (shareCommand = new Command<Comic>((comic) =>
@@ -68,17 +81,38 @@ namespace Portable.ViewModels
 
 
         #endregion
+        
 
-        #region INPC
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public async Task<bool> RemoveFavoriteAsync(Comic comic)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            try
+            {
+                FavoriteComics.Remove(comic);
+                await FileHelpers.SaveFavoritesAsync(FavoriteComics);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"RemoveFavoriteAsync Exception: {ex}");
+                return false;
+            }
         }
 
-        #endregion
+        public async Task<bool> AddFavoriteAsync(Comic comic)
+        {
+            try
+            {
+                FavoriteComics.Add(comic);
+                await FileHelpers.SaveFavoritesAsync(FavoriteComics);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"AddFavoriteAsync Exception: {ex}");
+                return false;
+            }
+        }
     }
 }

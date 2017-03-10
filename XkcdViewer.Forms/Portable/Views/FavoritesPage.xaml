@@ -1,14 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:dataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
-             xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
-             xmlns:converters="clr-namespace:Portable.Converters;assembly=XkcdViewer.Forms.Portable"
-             xmlns:portable="clr-namespace:Portable;assembly=XkcdViewer.Forms.Portable"
-             xmlns:viewModels="clr-namespace:Portable.ViewModels;assembly=XkcdViewer.Forms.Portable"
-             xmlns:behaviors="clr-namespace:Portable.Behaviors;assembly=XkcdViewer.Forms.Portable"
-             BindingContext="{x:Static viewModels:ViewModelLocator.Favorites}"
-             x:Class="Portable.Views.FavoritesPage">
+<common:PageBase xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:dataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
+                 xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+                 xmlns:converters="clr-namespace:Portable.Converters;assembly=XkcdViewer.Forms.Portable"
+                 xmlns:portable="clr-namespace:Portable;assembly=XkcdViewer.Forms.Portable"
+                 xmlns:viewModels="clr-namespace:Portable.ViewModels;assembly=XkcdViewer.Forms.Portable"
+                 xmlns:behaviors="clr-namespace:Portable.Behaviors;assembly=XkcdViewer.Forms.Portable"
+                 xmlns:common="clr-namespace:Portable.Common;assembly=XkcdViewer.Forms.Portable"
+                 BindingContext="{x:Static viewModels:ViewModelLocator.Favorites}"
+                 Title="Favorites"
+                 x:Class="Portable.Views.FavoritesPage">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -86,6 +88,7 @@
 
     <dataControls:RadListView x:Name="MyRadListView"
                               ItemsSource="{Binding FavoriteComics}"
+                              IsItemsReorderEnabled="True"
                               SelectedItems="{Binding SelectedFavorites, Mode=TwoWay}"
                               ItemTemplate="{StaticResource PortaitTemplate}"
                               SelectionMode="Single"
@@ -100,4 +103,4 @@
                                               Converter="{StaticResource SelectedltemArgsToBinding}" />
         </dataControls:RadListView.Behaviors>
     </dataControls:RadListView>
-</ContentPage>
+</common:PageBase>

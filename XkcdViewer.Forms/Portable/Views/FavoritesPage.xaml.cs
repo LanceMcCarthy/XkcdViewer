@@ -1,11 +1,8 @@
-﻿using System;
-using System.Diagnostics;
-using Portable.Models;
-using Xamarin.Forms;
+﻿using Portable.Common;
 
 namespace Portable.Views
 {
-    public partial class FavoritesPage : ContentPage
+    public partial class FavoritesPage : PageBase
     {
         public FavoritesPage()
         {

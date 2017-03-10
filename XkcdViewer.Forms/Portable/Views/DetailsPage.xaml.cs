@@ -1,15 +1,12 @@
-﻿using Portable.Models;
-using Portable.ViewModels;
-using Xamarin.Forms;
+﻿using Portable.Common;
 
 namespace Portable.Views
 {
-    public partial class DetailsPage : ContentPage
+    public partial class DetailsPage : PageBase
     {
         public DetailsPage()
         {
             InitializeComponent();
-            //(BindingContext as DetailsPageViewModel).SelectedComic = selectedComic;
         }
     }
 }

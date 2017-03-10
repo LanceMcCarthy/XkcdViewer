@@ -1,23 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*
+  In App.xaml:
+  <Application.Resources>
+      <vm:ViewModelLocator xmlns:vm="clr-namespace:Portable"
+                           x:Key="Locator" />
+  </Application.Resources>
+  
+  In the View:
+  DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
+
+  You can also use Blend to do all this with the tool's support.
+  See http://www.galasoft.ch/mvvm
+*/
+
+using Cimbalino.Toolkit.Services;
+using GalaSoft.MvvmLight.Ioc;
+using Microsoft.Practices.ServiceLocation;
+using Portable.Common;
 
 namespace Portable.ViewModels
 {
-    public static class ViewModelLocator
+    public class ViewModelLocator
     {
-        private static MainViewModel main;
-        private static FavoritesPageViewModel favorites;
-        private static DetailsPageViewModel details;
+        public ViewModelLocator()
+        {
+            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-        public static MainViewModel Main => main ?? (main = new MainViewModel());
+            SimpleIoc.Default.Register<INavigationService, NavigationService>();
 
-        public static FavoritesPageViewModel Favorites => favorites ?? (favorites = new FavoritesPageViewModel());
+            SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<FavoritesPageViewModel>();
+            SimpleIoc.Default.Register<DetailsPageViewModel>();
+        }
+        
+        public static MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
 
-        public static DetailsPageViewModel Details => details ?? (details = new DetailsPageViewModel());
+        public static FavoritesPageViewModel Favorites => ServiceLocator.Current.GetInstance<FavoritesPageViewModel>();
+
+        public static DetailsPageViewModel Details => ServiceLocator.Current.GetInstance<DetailsPageViewModel>();
 
         public static bool IsDesignTime { get; } = Xamarin.Forms.Application.Current == null;
+        
+        public static void Cleanup()
+        {
+            // TODO Clear the ViewModels
+        }
     }
 }

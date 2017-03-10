@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage x:Name="Page"
+<common:PageBase x:Name="Page"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:dataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
@@ -8,6 +8,7 @@
              xmlns:portable="clr-namespace:Portable;assembly=XkcdViewer.Forms.Portable"
              xmlns:converters="clr-namespace:Portable.Converters;assembly=XkcdViewer.Forms.Portable"
              xmlns:viewModels="clr-namespace:Portable.ViewModels;assembly=XkcdViewer.Forms.Portable"
+             xmlns:common="clr-namespace:Portable.Common;assembly=XkcdViewer.Forms.Portable"
              x:Class="Portable.Views.MainPage"
              Title="Xkcd Viewer"
              BindingContext="{x:Static viewModels:ViewModelLocator.Main}">
@@ -16,6 +17,7 @@
         <ResourceDictionary>
             <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter" />
             <converters:RadSelectedltemEventArgsConverter x:Key="SelectedltemArgsToBinding" />
+            <converters:RefreshRequestedArgsToBindingConverter x:Key="RefreshArgsToBindingConverter" />
             <converters:UrlToImageSourceConverter x:Key="UrlToImageSourceConverter" />
 
             <DataTemplate x:Name="PortaitTemplate"
@@ -92,18 +94,16 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
+            
 
-            <Label Text="pull to load previous comic"
+            <Label Text="pull to load previous comic" 
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
                    TextColor="#33000000" />
 
             <dataControls:RadListView x:Name="MyRadListView"
                                       ItemsSource="{Binding Comics}"
-                                      IsItemSwipeEnabled="True"
-                                      IsItemsReorderEnabled="False"
                                       IsPullToRefreshEnabled="True"
-                                      RefreshRequested="MyRadListView_OnRefreshRequested"
                                       SelectionMode="Single"
                                       ItemTemplate="{StaticResource PortaitTemplate}"
                                       SwipeThreshold="50"
@@ -116,8 +116,11 @@
                     <behaviors:EventToCommandBehavior EventName="ItemTapped"
                                                       Command="{Binding LoadDetailsCommand}"
                                                       Converter="{StaticResource SelectedltemArgsToBinding}" />
+                    <behaviors:EventToCommandBehavior EventName="RefreshRequested"
+                                                      Command="{Binding GetComicCommand}"
+                                                      Converter="{StaticResource RefreshArgsToBindingConverter}" />
                 </dataControls:RadListView.Behaviors>
-                <dataControls:RadListView.ItemSwipeContentTemplate>
+                <!--<dataControls:RadListView.ItemSwipeContentTemplate>
                     <DataTemplate>
                         <Grid>
                             <Button Text="favorite"
@@ -128,7 +131,7 @@
                                     WidthRequest="100" />
                         </Grid>
                     </DataTemplate>
-                </dataControls:RadListView.ItemSwipeContentTemplate>
+                </dataControls:RadListView.ItemSwipeContentTemplate>-->
             </dataControls:RadListView>
 
             <Grid BackgroundColor="#F0FFFFFF"
@@ -155,4 +158,5 @@
             </Grid>
         </Grid>
     </ContentPage.Content>
-</ContentPage>
+</common:PageBase>
+

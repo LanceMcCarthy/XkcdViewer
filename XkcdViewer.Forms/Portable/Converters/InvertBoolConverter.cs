@@ -3,15 +3,12 @@ using Xamarin.Forms;
 
 namespace Portable.Converters
 {
-    public class InvertBoolenConverter : IValueConverter
+    public class InvertBoolConverter : IValueConverter
     {
-        #region IValueConverter implementation
-
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (value is bool)
             {
-
                 return !(bool) value;
             }
             return value;
@@ -21,7 +18,5 @@ namespace Portable.Converters
         {
             throw new NotImplementedException();
         }
-
-        #endregion
     }
 }

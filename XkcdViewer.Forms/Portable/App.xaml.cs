@@ -11,11 +11,17 @@ namespace Portable
 {
     public partial class App : Application
     {
-        private static INavigationService Navigation => SimpleIoc.Default.GetInstance<INavigationService>();
+        private static NavigationService Navigation => SimpleIoc.Default.GetInstance<NavigationService>();
         
         public App()
         {
+            InitializeComponent();
             MainPage = new ExtendedNavigationPage(Navigation, new MainPage { Icon = "ic_xkcd_light.png" });
+        }
+
+        static App()
+        {
+            
         }
         
 

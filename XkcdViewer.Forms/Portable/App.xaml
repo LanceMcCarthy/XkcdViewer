@@ -4,15 +4,12 @@
              xmlns:converters="clr-namespace:Portable.Converters;assembly=XkcdViewer.Forms.Portable" 
              x:Class="Portable.App" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:forms="http://xamarin.com/schemas/2014/forms"
+             xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
              xmlns:viewModel="clr-namespace:Portable.ViewModels;assembly=XkcdViewer.Forms.Portable">
-  <Application.Resources>
-    <!--<converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter"/>
-    <converters:ImageHeightConverter x:Key="HeightConverter"/>
-    <converters:IsGardenConverter x:Key="GardenConverter"/>
-    <converters:IsFavoriteToStringConverter x:Key="IsFavoriteToStringConverter" />-->
-    <forms:ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    
+    <Application.Resources>
+        <ResourceDictionary>
             <viewModel:ViewModelLocator x:Key="Locator" />
-        </forms:ResourceDictionary>
-  </Application.Resources>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

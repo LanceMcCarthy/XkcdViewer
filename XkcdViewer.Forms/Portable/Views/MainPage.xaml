@@ -1,24 +1,24 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <common:PageBase x:Name="Page"
-             xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:dataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
-             xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
-             xmlns:behaviors="clr-namespace:Portable.Behaviors;assembly=XkcdViewer.Forms.Portable"
-             xmlns:portable="clr-namespace:Portable;assembly=XkcdViewer.Forms.Portable"
-             xmlns:converters="clr-namespace:Portable.Converters;assembly=XkcdViewer.Forms.Portable"
-             xmlns:viewModels="clr-namespace:Portable.ViewModels;assembly=XkcdViewer.Forms.Portable"
-             xmlns:common="clr-namespace:Portable.Common;assembly=XkcdViewer.Forms.Portable"
-             x:Class="Portable.Views.MainPage"
-             Title="Xkcd Viewer"
-             BindingContext="{x:Static viewModels:ViewModelLocator.Main}">
+                 xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:dataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
+                 xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+                 xmlns:behaviors="clr-namespace:Portable.Behaviors;assembly=XkcdViewer.Forms.Portable"
+                 xmlns:portable="clr-namespace:Portable;assembly=XkcdViewer.Forms.Portable"
+                 xmlns:converters="clr-namespace:Portable.Converters;assembly=XkcdViewer.Forms.Portable"
+                 xmlns:viewModels="clr-namespace:Portable.ViewModels;assembly=XkcdViewer.Forms.Portable"
+                 xmlns:common="clr-namespace:Portable.Common;assembly=XkcdViewer.Forms.Portable"
+                 x:Class="Portable.Views.MainPage"
+                 Title="Xkcd Viewer"
+                 BindingContext="{x:Static viewModels:ViewModelLocator.Main}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter" />
             <converters:RadSelectedltemEventArgsConverter x:Key="SelectedltemArgsToBinding" />
             <converters:RefreshRequestedArgsToBindingConverter x:Key="RefreshArgsToBindingConverter" />
             <converters:UrlToImageSourceConverter x:Key="UrlToImageSourceConverter" />
+            <converters:InvertBoolConverter x:Key="InvertBoolConverter"/>
 
             <DataTemplate x:Name="PortaitTemplate"
                           x:Key="PortaitTemplate">
@@ -94,9 +94,9 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            
 
-            <Label Text="pull to load previous comic" 
+
+            <Label Text="pull to load previous comic"
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
                    TextColor="#33000000" />
@@ -141,7 +141,6 @@
                   Grid.Row="0">
                 <StackLayout HorizontalOptions="Fill"
                              VerticalOptions="Center">
-                    <!--<ProgressBar Progress="{Binding Progress}" VerticalOptions="Center" Margin="10,0,10,10" />-->
                     <ActivityIndicator IsRunning="{Binding IsBusy}" />
                     <Label Text="{Binding IsBusyMessage}"
                            TextColor="Black"
@@ -152,9 +151,18 @@
             </Grid>
 
             <Grid Grid.Row="1">
-                <Button x:Name="NavigateToFavsButton"
-                        Text="See Favorites"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                <Button Text="favorites"
                         Command="{Binding GoToFavoritesCommand}" />
+                
+                <Button Text="get next comic"
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource InvertBoolConverter}}"
+                        Command="{Binding GetComicCommand}"
+                        Grid.Column="1"/>
             </Grid>
         </Grid>
     </ContentPage.Content>

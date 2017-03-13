@@ -12,7 +12,6 @@
   See http://www.galasoft.ch/mvvm
 */
 
-using Cimbalino.Toolkit.Services;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using Portable.Common;
@@ -25,7 +24,7 @@ namespace Portable.ViewModels
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            SimpleIoc.Default.Register<INavigationService, NavigationService>();
+            SimpleIoc.Default.Register<NavigationService>();
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<FavoritesPageViewModel>();

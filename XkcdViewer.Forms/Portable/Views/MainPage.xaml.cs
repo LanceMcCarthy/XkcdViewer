@@ -23,7 +23,7 @@ namespace Portable.Views
 
         //private async void MyRadListView_OnRefreshRequested(object sender, PullToRefreshRequestedEventArgs e)
         //{
-        //    await App.ViewModel.GetComic();
+        //    await App.ViewModel.GetNextComic();
         //    MyRadListView.EndRefresh();
         //}
     }

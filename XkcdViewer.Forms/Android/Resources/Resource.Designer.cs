@@ -810,6 +810,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Drawable.mr_ic_play_dark = global::XkcdViewer.Forms.Android.Resource.Drawable.mr_ic_play_dark;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Drawable.mr_ic_play_light = global::XkcdViewer.Forms.Android.Resource.Drawable.mr_ic_play_light;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Drawable.notification_template_icon_bg = global::XkcdViewer.Forms.Android.Resource.Drawable.notification_template_icon_bg;
+			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Drawable.tab_view_popup_background = global::XkcdViewer.Forms.Android.Resource.Drawable.tab_view_popup_background;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.BetweenTicks = global::XkcdViewer.Forms.Android.Resource.Id.BetweenTicks;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.Bottom = global::XkcdViewer.Forms.Android.Resource.Id.Bottom;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.Clip = global::XkcdViewer.Forms.Android.Resource.Id.Clip;
@@ -996,6 +997,8 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.start = global::XkcdViewer.Forms.Android.Resource.Id.start;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.status_bar_latest_event_content = global::XkcdViewer.Forms.Android.Resource.Id.status_bar_latest_event_content;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.submit_area = global::XkcdViewer.Forms.Android.Resource.Id.submit_area;
+			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.tabItemImageView = global::XkcdViewer.Forms.Android.Resource.Id.tabItemImageView;
+			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.tabItemTextView = global::XkcdViewer.Forms.Android.Resource.Id.tabItemTextView;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.tabMode = global::XkcdViewer.Forms.Android.Resource.Id.tabMode;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.text = global::XkcdViewer.Forms.Android.Resource.Id.text;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.text2 = global::XkcdViewer.Forms.Android.Resource.Id.text2;
@@ -1098,6 +1101,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Layout.select_dialog_multichoice_material = global::XkcdViewer.Forms.Android.Resource.Layout.select_dialog_multichoice_material;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Layout.select_dialog_singlechoice_material = global::XkcdViewer.Forms.Android.Resource.Layout.select_dialog_singlechoice_material;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Layout.support_simple_spinner_dropdown_item = global::XkcdViewer.Forms.Android.Resource.Layout.support_simple_spinner_dropdown_item;
+			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Layout.tab_item_view = global::XkcdViewer.Forms.Android.Resource.Layout.tab_item_view;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Layout.tooltip_container = global::XkcdViewer.Forms.Android.Resource.Layout.tooltip_container;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Layout.trackball_container = global::XkcdViewer.Forms.Android.Resource.Layout.trackball_container;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Layout.trial_message = global::XkcdViewer.Forms.Android.Resource.Layout.trial_message;
@@ -4719,6 +4723,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_integer_editor = global::XkcdViewer.Forms.Android.Resource.Id.data_form_integer_editor;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_list_editor = global::XkcdViewer.Forms.Android.Resource.Id.data_form_list_editor;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_number_picker_editor = global::XkcdViewer.Forms.Android.Resource.Id.data_form_number_picker_editor;
+			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_rad_autocomplete_editor = global::XkcdViewer.Forms.Android.Resource.Id.data_form_rad_autocomplete_editor;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_radio_group = global::XkcdViewer.Forms.Android.Resource.Id.data_form_radio_group;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_root_layout = global::XkcdViewer.Forms.Android.Resource.Id.data_form_root_layout;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_seekbar_editor = global::XkcdViewer.Forms.Android.Resource.Id.data_form_seekbar_editor;
@@ -4923,6 +4928,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_list_editor = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_list_editor;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_list_editor_item = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_list_editor_item;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_number_picker = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_number_picker;
+			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_rad_autocomplete_editor = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_rad_autocomplete_editor;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_radio_group_editor = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_radio_group_editor;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_root_layout = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_root_layout;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_seek_bar_editor = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_seek_bar_editor;
@@ -6631,6 +6637,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.shade_bottom = global::XkcdViewer.Forms.Android.Resource.Drawable.shade_bottom;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.shade_corner = global::XkcdViewer.Forms.Android.Resource.Drawable.shade_corner;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.shade_right = global::XkcdViewer.Forms.Android.Resource.Drawable.shade_right;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.tab_view_popup_background = global::XkcdViewer.Forms.Android.Resource.Drawable.tab_view_popup_background;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.token_bg = global::XkcdViewer.Forms.Android.Resource.Drawable.token_bg;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.token_default = global::XkcdViewer.Forms.Android.Resource.Drawable.token_default;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.token_selected = global::XkcdViewer.Forms.Android.Resource.Drawable.token_selected;
@@ -6695,6 +6702,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.data_form_integer_editor = global::XkcdViewer.Forms.Android.Resource.Id.data_form_integer_editor;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.data_form_list_editor = global::XkcdViewer.Forms.Android.Resource.Id.data_form_list_editor;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.data_form_number_picker_editor = global::XkcdViewer.Forms.Android.Resource.Id.data_form_number_picker_editor;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.data_form_rad_autocomplete_editor = global::XkcdViewer.Forms.Android.Resource.Id.data_form_rad_autocomplete_editor;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.data_form_radio_group = global::XkcdViewer.Forms.Android.Resource.Id.data_form_radio_group;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.data_form_root_layout = global::XkcdViewer.Forms.Android.Resource.Id.data_form_root_layout;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.data_form_seekbar_editor = global::XkcdViewer.Forms.Android.Resource.Id.data_form_seekbar_editor;
@@ -6829,6 +6837,8 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.submit_area = global::XkcdViewer.Forms.Android.Resource.Id.submit_area;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.suggestion_img = global::XkcdViewer.Forms.Android.Resource.Id.suggestion_img;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.suggestion_text = global::XkcdViewer.Forms.Android.Resource.Id.suggestion_text;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.tabItemImageView = global::XkcdViewer.Forms.Android.Resource.Id.tabItemImageView;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.tabItemTextView = global::XkcdViewer.Forms.Android.Resource.Id.tabItemTextView;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.tabMode = global::XkcdViewer.Forms.Android.Resource.Id.tabMode;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.text = global::XkcdViewer.Forms.Android.Resource.Id.text;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.text1 = global::XkcdViewer.Forms.Android.Resource.Id.text1;
@@ -6905,6 +6915,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.data_form_list_editor = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_list_editor;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.data_form_list_editor_item = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_list_editor_item;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.data_form_number_picker = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_number_picker;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.data_form_rad_autocomplete_editor = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_rad_autocomplete_editor;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.data_form_radio_group_editor = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_radio_group_editor;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.data_form_root_layout = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_root_layout;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.data_form_seek_bar_editor = global::XkcdViewer.Forms.Android.Resource.Layout.data_form_seek_bar_editor;
@@ -6960,6 +6971,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.simple_list_item = global::XkcdViewer.Forms.Android.Resource.Layout.simple_list_item;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.suggestion_item_layout = global::XkcdViewer.Forms.Android.Resource.Layout.suggestion_item_layout;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.support_simple_spinner_dropdown_item = global::XkcdViewer.Forms.Android.Resource.Layout.support_simple_spinner_dropdown_item;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.tab_item_view = global::XkcdViewer.Forms.Android.Resource.Layout.tab_item_view;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.table_layout = global::XkcdViewer.Forms.Android.Resource.Layout.table_layout;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.token = global::XkcdViewer.Forms.Android.Resource.Layout.token;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.tooltip_container = global::XkcdViewer.Forms.Android.Resource.Layout.tooltip_container;
@@ -8576,6 +8588,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Drawable.mr_ic_play_dark = global::XkcdViewer.Forms.Android.Resource.Drawable.mr_ic_play_dark;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Drawable.mr_ic_play_light = global::XkcdViewer.Forms.Android.Resource.Drawable.mr_ic_play_light;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Drawable.notification_template_icon_bg = global::XkcdViewer.Forms.Android.Resource.Drawable.notification_template_icon_bg;
+			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Drawable.tab_view_popup_background = global::XkcdViewer.Forms.Android.Resource.Drawable.tab_view_popup_background;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.action0 = global::XkcdViewer.Forms.Android.Resource.Id.action0;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.action_bar = global::XkcdViewer.Forms.Android.Resource.Id.action_bar;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.action_bar_activity_content = global::XkcdViewer.Forms.Android.Resource.Id.action_bar_activity_content;
@@ -8720,6 +8733,8 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.start = global::XkcdViewer.Forms.Android.Resource.Id.start;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.status_bar_latest_event_content = global::XkcdViewer.Forms.Android.Resource.Id.status_bar_latest_event_content;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.submit_area = global::XkcdViewer.Forms.Android.Resource.Id.submit_area;
+			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.tabItemImageView = global::XkcdViewer.Forms.Android.Resource.Id.tabItemImageView;
+			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.tabItemTextView = global::XkcdViewer.Forms.Android.Resource.Id.tabItemTextView;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.tabMode = global::XkcdViewer.Forms.Android.Resource.Id.tabMode;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.text = global::XkcdViewer.Forms.Android.Resource.Id.text;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Id.text2 = global::XkcdViewer.Forms.Android.Resource.Id.text2;
@@ -8809,6 +8824,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Layout.select_dialog_multichoice_material = global::XkcdViewer.Forms.Android.Resource.Layout.select_dialog_multichoice_material;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Layout.select_dialog_singlechoice_material = global::XkcdViewer.Forms.Android.Resource.Layout.select_dialog_singlechoice_material;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Layout.support_simple_spinner_dropdown_item = global::XkcdViewer.Forms.Android.Resource.Layout.support_simple_spinner_dropdown_item;
+			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Layout.tab_item_view = global::XkcdViewer.Forms.Android.Resource.Layout.tab_item_view;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Layout.tooltip_container = global::XkcdViewer.Forms.Android.Resource.Layout.tooltip_container;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.Layout.trial_message = global::XkcdViewer.Forms.Android.Resource.Layout.trial_message;
 			global::Telerik.XamarinForms.PrimitivesRenderer.Android.Resource.String.ApplicationName = global::XkcdViewer.Forms.Android.Resource.String.ApplicationName;

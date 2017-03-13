@@ -46,6 +46,7 @@
     <Compile Include="Common\NavigationService.cs" />
     <Compile Include="Common\PageBase.cs" />
     <Compile Include="Converters\RefreshRequestedArgsToBindingConverter.cs" />
+    <Compile Include="Services\XkcdApiService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Behaviors\BehaviorBase.cs" />

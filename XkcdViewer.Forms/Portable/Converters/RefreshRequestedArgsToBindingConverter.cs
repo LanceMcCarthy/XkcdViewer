@@ -11,7 +11,10 @@ namespace Portable.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var eventArgs = value as PullToRefreshRequestedEventArgs;
-            Debug.WriteLine($"PullToRefreshRequestedEventArgsConverter fired - EventArgs Item: {eventArgs}");
+
+            // Effectively the same as calling ListView.EndRefresh
+            if(eventArgs!=null) eventArgs.Cancel = true;
+            
             return eventArgs;
         }
 

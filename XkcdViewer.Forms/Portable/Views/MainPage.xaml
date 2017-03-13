@@ -18,7 +18,7 @@
             <converters:RadSelectedltemEventArgsConverter x:Key="SelectedltemArgsToBinding" />
             <converters:RefreshRequestedArgsToBindingConverter x:Key="RefreshArgsToBindingConverter" />
             <converters:UrlToImageSourceConverter x:Key="UrlToImageSourceConverter" />
-            <converters:InvertBoolConverter x:Key="InvertBoolConverter"/>
+            <converters:InvertBoolConverter x:Key="InvertBoolConverter" />
 
             <DataTemplate x:Name="PortaitTemplate"
                           x:Key="PortaitTemplate">
@@ -152,17 +152,17 @@
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                
+
                 <Button Text="favorites"
                         Command="{Binding GoToFavoritesCommand}" />
-                
+
                 <Button Text="get next comic"
                         IsEnabled="{Binding IsBusy, Converter={StaticResource InvertBoolConverter}}"
                         Command="{Binding GetComicCommand}"
-                        Grid.Column="1"/>
+                        Grid.Column="1" />
             </Grid>
         </Grid>
     </ContentPage.Content>

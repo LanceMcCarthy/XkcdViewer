@@ -10,16 +10,30 @@ namespace Portable.Converters
         {
             if ((bool) value)
             {
-               return Device.OnPlatform(
-                   iOS: ImageSource.FromFile("ic_favorite_remove.png"),
-                   Android: ImageSource.FromFile("ic_favorite_remove.png"),
-                   WinPhone: ImageSource.FromFile("ic_favorite_remove.png"));
+                switch (Device.RuntimePlatform)
+                {
+                    case Device.iOS:
+                        return ImageSource.FromFile("ic_favorite_remove.png");
+                    case Device.Android:
+                        return ImageSource.FromFile("ic_favorite_remove.png");
+                    case Device.Windows:
+                        return ImageSource.FromFile("ic_favorite_remove.png");
+                    default:
+                        return ImageSource.FromFile("ic_favorite_remove.png");
+                }
             }
 
-            return Device.OnPlatform(
-                   iOS: ImageSource.FromFile("ic_favorite_add.png"),
-                   Android: ImageSource.FromFile("ic_favorite_add.png"),
-                   WinPhone: ImageSource.FromFile("ic_favorite_add.png"));
+            switch (Device.RuntimePlatform)
+            {
+                case Device.iOS:
+                    return ImageSource.FromFile("ic_favorite_add.png");
+                case Device.Android:
+                    return ImageSource.FromFile("ic_favorite_add.png");
+                case Device.Windows:
+                    return ImageSource.FromFile("ic_favorite_add.png");
+                default:
+                    return ImageSource.FromFile("ic_favorite_add.png");
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

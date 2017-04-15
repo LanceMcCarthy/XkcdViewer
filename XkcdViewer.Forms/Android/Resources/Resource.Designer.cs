@@ -4149,6 +4149,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.progressBarStyle = global::XkcdViewer.Forms.Android.Resource.Attribute.progressBarStyle;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.queryBackground = global::XkcdViewer.Forms.Android.Resource.Attribute.queryBackground;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.queryHint = global::XkcdViewer.Forms.Android.Resource.Attribute.queryHint;
+			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.rad_segmented_view_type = global::XkcdViewer.Forms.Android.Resource.Attribute.rad_segmented_view_type;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.radioButtonStyle = global::XkcdViewer.Forms.Android.Resource.Attribute.radioButtonStyle;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.ratingBarStyle = global::XkcdViewer.Forms.Android.Resource.Attribute.ratingBarStyle;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.ratingBarStyleIndicator = global::XkcdViewer.Forms.Android.Resource.Attribute.ratingBarStyleIndicator;
@@ -4559,9 +4560,6 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.data_form_invalid_background = global::XkcdViewer.Forms.Android.Resource.Drawable.data_form_invalid_background;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.data_form_invalid_icon = global::XkcdViewer.Forms.Android.Resource.Drawable.data_form_invalid_icon;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.data_form_list_item_states = global::XkcdViewer.Forms.Android.Resource.Drawable.data_form_list_item_states;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.data_form_segment_checked = global::XkcdViewer.Forms.Android.Resource.Drawable.data_form_segment_checked;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.data_form_segment_item = global::XkcdViewer.Forms.Android.Resource.Drawable.data_form_segment_item;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.data_form_segment_unchecked = global::XkcdViewer.Forms.Android.Resource.Drawable.data_form_segment_unchecked;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.data_form_valid_background = global::XkcdViewer.Forms.Android.Resource.Drawable.data_form_valid_background;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.data_form_valid_icon = global::XkcdViewer.Forms.Android.Resource.Drawable.data_form_valid_icon;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.dataform_number_picker_background = global::XkcdViewer.Forms.Android.Resource.Drawable.dataform_number_picker_background;
@@ -4836,6 +4834,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.search_plate = global::XkcdViewer.Forms.Android.Resource.Id.search_plate;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.search_src_text = global::XkcdViewer.Forms.Android.Resource.Id.search_src_text;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.search_voice_btn = global::XkcdViewer.Forms.Android.Resource.Id.search_voice_btn;
+			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.segmented = global::XkcdViewer.Forms.Android.Resource.Id.segmented;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.select_dialog_listview = global::XkcdViewer.Forms.Android.Resource.Id.select_dialog_listview;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.shortcut = global::XkcdViewer.Forms.Android.Resource.Id.shortcut;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.showCustom = global::XkcdViewer.Forms.Android.Resource.Id.showCustom;
@@ -5734,6 +5733,8 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.RadCalendarView_showGridLines = global::XkcdViewer.Forms.Android.Resource.Styleable.RadCalendarView_showGridLines;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.RadCalendarView_showTitle = global::XkcdViewer.Forms.Android.Resource.Styleable.RadCalendarView_showTitle;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.RadCalendarView_weekNumberDisplayMode = global::XkcdViewer.Forms.Android.Resource.Styleable.RadCalendarView_weekNumberDisplayMode;
+			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.RadSegmentedView = global::XkcdViewer.Forms.Android.Resource.Styleable.RadSegmentedView;
+			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.RadSegmentedView_rad_segmented_view_type = global::XkcdViewer.Forms.Android.Resource.Styleable.RadSegmentedView_rad_segmented_view_type;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.RecyclerView = global::XkcdViewer.Forms.Android.Resource.Styleable.RecyclerView;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.RecyclerView_android_orientation = global::XkcdViewer.Forms.Android.Resource.Styleable.RecyclerView_android_orientation;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.RecyclerView_layoutManager = global::XkcdViewer.Forms.Android.Resource.Styleable.RecyclerView_layoutManager;
@@ -6119,6 +6120,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.queryBackground = global::XkcdViewer.Forms.Android.Resource.Attribute.queryBackground;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.queryHint = global::XkcdViewer.Forms.Android.Resource.Attribute.queryHint;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.radScrollViewStyle = global::XkcdViewer.Forms.Android.Resource.Attribute.radScrollViewStyle;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.rad_segmented_view_type = global::XkcdViewer.Forms.Android.Resource.Attribute.rad_segmented_view_type;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.radioButtonStyle = global::XkcdViewer.Forms.Android.Resource.Attribute.radioButtonStyle;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.ratingBarStyle = global::XkcdViewer.Forms.Android.Resource.Attribute.ratingBarStyle;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.ratingBarStyleIndicator = global::XkcdViewer.Forms.Android.Resource.Attribute.ratingBarStyleIndicator;
@@ -6531,9 +6533,6 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.data_form_invalid_background = global::XkcdViewer.Forms.Android.Resource.Drawable.data_form_invalid_background;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.data_form_invalid_icon = global::XkcdViewer.Forms.Android.Resource.Drawable.data_form_invalid_icon;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.data_form_list_item_states = global::XkcdViewer.Forms.Android.Resource.Drawable.data_form_list_item_states;
-			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.data_form_segment_checked = global::XkcdViewer.Forms.Android.Resource.Drawable.data_form_segment_checked;
-			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.data_form_segment_item = global::XkcdViewer.Forms.Android.Resource.Drawable.data_form_segment_item;
-			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.data_form_segment_unchecked = global::XkcdViewer.Forms.Android.Resource.Drawable.data_form_segment_unchecked;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.data_form_valid_background = global::XkcdViewer.Forms.Android.Resource.Drawable.data_form_valid_background;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.data_form_valid_icon = global::XkcdViewer.Forms.Android.Resource.Drawable.data_form_valid_icon;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.dataform_number_picker_background = global::XkcdViewer.Forms.Android.Resource.Drawable.dataform_number_picker_background;
@@ -6819,6 +6818,7 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.search_plate = global::XkcdViewer.Forms.Android.Resource.Id.search_plate;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.search_src_text = global::XkcdViewer.Forms.Android.Resource.Id.search_src_text;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.search_voice_btn = global::XkcdViewer.Forms.Android.Resource.Id.search_voice_btn;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.segmented = global::XkcdViewer.Forms.Android.Resource.Id.segmented;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.select_dialog_listview = global::XkcdViewer.Forms.Android.Resource.Id.select_dialog_listview;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.shortcut = global::XkcdViewer.Forms.Android.Resource.Id.shortcut;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.showCustom = global::XkcdViewer.Forms.Android.Resource.Id.showCustom;
@@ -7740,6 +7740,8 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RadScrollView_scrollMode = global::XkcdViewer.Forms.Android.Resource.Styleable.RadScrollView_scrollMode;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RadScrollViewTheme = global::XkcdViewer.Forms.Android.Resource.Styleable.RadScrollViewTheme;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RadScrollViewTheme_radScrollViewStyle = global::XkcdViewer.Forms.Android.Resource.Styleable.RadScrollViewTheme_radScrollViewStyle;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RadSegmentedView = global::XkcdViewer.Forms.Android.Resource.Styleable.RadSegmentedView;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RadSegmentedView_rad_segmented_view_type = global::XkcdViewer.Forms.Android.Resource.Styleable.RadSegmentedView_rad_segmented_view_type;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RecyclerView = global::XkcdViewer.Forms.Android.Resource.Styleable.RecyclerView;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RecyclerView_android_orientation = global::XkcdViewer.Forms.Android.Resource.Styleable.RecyclerView_android_orientation;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RecyclerView_layoutManager = global::XkcdViewer.Forms.Android.Resource.Styleable.RecyclerView_layoutManager;
@@ -9779,62 +9781,62 @@ namespace XkcdViewer.Forms.Android
 		public partial class Attribute
 		{
 			
-			// aapt resource value: 0x7f0101b3
-			public const int AreaSeriesStyle = 2130772403;
-			
-			// aapt resource value: 0x7f0101a7
-			public const int AxisStyle = 2130772391;
-			
-			// aapt resource value: 0x7f0101af
-			public const int BarSeriesStyle = 2130772399;
+			// aapt resource value: 0x7f0101b4
+			public const int AreaSeriesStyle = 2130772404;
 			
 			// aapt resource value: 0x7f0101a8
-			public const int CartesianAxisStyle = 2130772392;
+			public const int AxisStyle = 2130772392;
 			
-			// aapt resource value: 0x7f0101b7
-			public const int CartesianCustomAnnotationStyle = 2130772407;
-			
-			// aapt resource value: 0x7f0101b6
-			public const int CartesianPlotBandAnnotationStyle = 2130772406;
-			
-			// aapt resource value: 0x7f0101b5
-			public const int CartesianStrokedAnnotationStyle = 2130772405;
+			// aapt resource value: 0x7f0101b0
+			public const int BarSeriesStyle = 2130772400;
 			
 			// aapt resource value: 0x7f0101a9
-			public const int CategoricalAxisStyle = 2130772393;
+			public const int CartesianAxisStyle = 2130772393;
 			
-			// aapt resource value: 0x7f0101b1
-			public const int CategoricalSeriesStyle = 2130772401;
+			// aapt resource value: 0x7f0101b8
+			public const int CartesianCustomAnnotationStyle = 2130772408;
 			
-			// aapt resource value: 0x7f0101b2
-			public const int CategoricalStrokedSeriesStyle = 2130772402;
+			// aapt resource value: 0x7f0101b7
+			public const int CartesianPlotBandAnnotationStyle = 2130772407;
 			
-			// aapt resource value: 0x7f0101b4
-			public const int ChartAnnotationStyle = 2130772404;
-			
-			// aapt resource value: 0x7f0101ad
-			public const int ChartSeriesStyle = 2130772397;
+			// aapt resource value: 0x7f0101b6
+			public const int CartesianStrokedAnnotationStyle = 2130772406;
 			
 			// aapt resource value: 0x7f0101aa
-			public const int DateTimeCategoricalAxisStyle = 2130772394;
+			public const int CategoricalAxisStyle = 2130772394;
 			
-			// aapt resource value: 0x7f0101ab
-			public const int DateTimeContinuousAxisStyle = 2130772395;
+			// aapt resource value: 0x7f0101b2
+			public const int CategoricalSeriesStyle = 2130772402;
+			
+			// aapt resource value: 0x7f0101b3
+			public const int CategoricalStrokedSeriesStyle = 2130772403;
+			
+			// aapt resource value: 0x7f0101b5
+			public const int ChartAnnotationStyle = 2130772405;
 			
 			// aapt resource value: 0x7f0101ae
-			public const int LineAxisStyle = 2130772398;
+			public const int ChartSeriesStyle = 2130772398;
+			
+			// aapt resource value: 0x7f0101ab
+			public const int DateTimeCategoricalAxisStyle = 2130772395;
+			
+			// aapt resource value: 0x7f0101ac
+			public const int DateTimeContinuousAxisStyle = 2130772396;
+			
+			// aapt resource value: 0x7f0101af
+			public const int LineAxisStyle = 2130772399;
 			
 			// aapt resource value: 0x7f010004
 			public const int MediaRouteControllerWindowBackground = 2130771972;
 			
-			// aapt resource value: 0x7f0101ac
-			public const int RadChartBaseStyle = 2130772396;
+			// aapt resource value: 0x7f0101ad
+			public const int RadChartBaseStyle = 2130772397;
 			
-			// aapt resource value: 0x7f0101b0
-			public const int RangeBarSeriesStyle = 2130772400;
+			// aapt resource value: 0x7f0101b1
+			public const int RangeBarSeriesStyle = 2130772401;
 			
-			// aapt resource value: 0x7f0101b8
-			public const int TestBarSeriesStyle = 2130772408;
+			// aapt resource value: 0x7f0101b9
+			public const int TestBarSeriesStyle = 2130772409;
 			
 			// aapt resource value: 0x7f010061
 			public const int actionBarDivider = 2130772065;
@@ -9953,20 +9955,20 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0100ba
 			public const int allowStacking = 2130772154;
 			
-			// aapt resource value: 0x7f01016b
-			public const int animated = 2130772331;
-			
 			// aapt resource value: 0x7f01016c
-			public const int animationDuration = 2130772332;
+			public const int animated = 2130772332;
 			
-			// aapt resource value: 0x7f01014f
-			public const int animationStartValue = 2130772303;
+			// aapt resource value: 0x7f01016d
+			public const int animationDuration = 2130772333;
 			
-			// aapt resource value: 0x7f010188
-			public const int applyDefaultPalette = 2130772360;
+			// aapt resource value: 0x7f010150
+			public const int animationStartValue = 2130772304;
 			
-			// aapt resource value: 0x7f010185
-			public const int areBarsRounded = 2130772357;
+			// aapt resource value: 0x7f010189
+			public const int applyDefaultPalette = 2130772361;
+			
+			// aapt resource value: 0x7f010186
+			public const int areBarsRounded = 2130772358;
 			
 			// aapt resource value: 0x7f0100c1
 			public const int arrowHeadLength = 2130772161;
@@ -9977,14 +9979,14 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0100ad
 			public const int autoCompleteTextViewStyle = 2130772141;
 			
-			// aapt resource value: 0x7f010194
-			public const int axisLabelFitMode = 2130772372;
-			
-			// aapt resource value: 0x7f010191
-			public const int axisLastLabelVisibility = 2130772369;
-			
 			// aapt resource value: 0x7f010195
-			public const int axisTitle = 2130772373;
+			public const int axisLabelFitMode = 2130772373;
+			
+			// aapt resource value: 0x7f010192
+			public const int axisLastLabelVisibility = 2130772370;
+			
+			// aapt resource value: 0x7f010196
+			public const int axisTitle = 2130772374;
 			
 			// aapt resource value: 0x7f010032
 			public const int background = 2130772018;
@@ -10025,8 +10027,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f010112
 			public const int bottomSheetStyle = 2130772242;
 			
-			// aapt resource value: 0x7f010170
-			public const int bottomWidth = 2130772336;
+			// aapt resource value: 0x7f010171
+			public const int bottomWidth = 2130772337;
 			
 			// aapt resource value: 0x7f01007d
 			public const int buttonBarButtonStyle = 2130772093;
@@ -10064,8 +10066,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f01014c
 			public const int calendarStyle = 2130772300;
 			
-			// aapt resource value: 0x7f01016e
-			public const int cap = 2130772334;
+			// aapt resource value: 0x7f01016f
+			public const int cap = 2130772335;
 			
 			// aapt resource value: 0x7f01001b
 			public const int cardBackgroundColor = 2130771995;
@@ -10085,8 +10087,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f01001f
 			public const int cardUseCompatPadding = 2130771999;
 			
-			// aapt resource value: 0x7f01018a
-			public const int chartZoom = 2130772362;
+			// aapt resource value: 0x7f01018b
+			public const int chartZoom = 2130772363;
 			
 			// aapt resource value: 0x7f0100b0
 			public const int checkboxStyle = 2130772144;
@@ -10094,23 +10096,23 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0100b1
 			public const int checkedTextViewStyle = 2130772145;
 			
-			// aapt resource value: 0x7f010175
-			public const int circleFillColor = 2130772341;
+			// aapt resource value: 0x7f010176
+			public const int circleFillColor = 2130772342;
+			
+			// aapt resource value: 0x7f010174
+			public const int circleInnerRadius = 2130772340;
 			
 			// aapt resource value: 0x7f010173
-			public const int circleInnerRadius = 2130772339;
+			public const int circleRadius = 2130772339;
 			
-			// aapt resource value: 0x7f010172
-			public const int circleRadius = 2130772338;
+			// aapt resource value: 0x7f010177
+			public const int circleStrokeColor = 2130772343;
 			
-			// aapt resource value: 0x7f010176
-			public const int circleStrokeColor = 2130772342;
+			// aapt resource value: 0x7f01018d
+			public const int clipToBounds = 2130772365;
 			
-			// aapt resource value: 0x7f01018c
-			public const int clipToBounds = 2130772364;
-			
-			// aapt resource value: 0x7f01017a
-			public const int clipToPlotArea = 2130772346;
+			// aapt resource value: 0x7f01017b
+			public const int clipToPlotArea = 2130772347;
 			
 			// aapt resource value: 0x7f0100d3
 			public const int closeIcon = 2130772179;
@@ -10157,14 +10159,14 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0100a3
 			public const int colorSwitchThumbNormal = 2130772131;
 			
-			// aapt resource value: 0x7f01018f
-			public const int combineMode = 2130772367;
+			// aapt resource value: 0x7f010190
+			public const int combineMode = 2130772368;
 			
 			// aapt resource value: 0x7f0100d8
 			public const int commitIcon = 2130772184;
 			
-			// aapt resource value: 0x7f0101a4
-			public const int content = 2130772388;
+			// aapt resource value: 0x7f0101a5
+			public const int content = 2130772389;
 			
 			// aapt resource value: 0x7f01003d
 			public const int contentInsetEnd = 2130772029;
@@ -10214,11 +10216,11 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f010035
 			public const int customNavigationLayout = 2130772021;
 			
-			// aapt resource value: 0x7f01019c
-			public const int dateFormat = 2130772380;
-			
 			// aapt resource value: 0x7f01019d
-			public const int dateTimeComponent = 2130772381;
+			public const int dateFormat = 2130772381;
+			
+			// aapt resource value: 0x7f01019e
+			public const int dateTimeComponent = 2130772382;
 			
 			// aapt resource value: 0x7f0100d2
 			public const int defaultQueryHint = 2130772178;
@@ -10271,8 +10273,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f010040
 			public const int elevation = 2130772032;
 			
-			// aapt resource value: 0x7f01018d
-			public const int emptyContent = 2130772365;
+			// aapt resource value: 0x7f01018e
+			public const int emptyContent = 2130772366;
 			
 			// aapt resource value: 0x7f010135
 			public const int errorEnabled = 2130772277;
@@ -10313,8 +10315,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f010115
 			public const int fabSize = 2130772245;
 			
-			// aapt resource value: 0x7f010178
-			public const int fillColor = 2130772344;
+			// aapt resource value: 0x7f010179
+			public const int fillColor = 2130772345;
 			
 			// aapt resource value: 0x7f01013f
 			public const int fillViewport = 2130772287;
@@ -10325,8 +10327,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0100c0
 			public const int gapBetweenBars = 2130772160;
 			
-			// aapt resource value: 0x7f01017c
-			public const int gapLength = 2130772348;
+			// aapt resource value: 0x7f01017d
+			public const int gapLength = 2130772349;
 			
 			// aapt resource value: 0x7f0100d4
 			public const int goIcon = 2130772180;
@@ -10355,14 +10357,14 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f010036
 			public const int homeLayout = 2130772022;
 			
-			// aapt resource value: 0x7f0101a5
-			public const int horizontalAlignment = 2130772389;
+			// aapt resource value: 0x7f0101a6
+			public const int horizontalAlignment = 2130772390;
 			
-			// aapt resource value: 0x7f01019a
-			public const int horizontalLocation = 2130772378;
+			// aapt resource value: 0x7f01019b
+			public const int horizontalLocation = 2130772379;
 			
-			// aapt resource value: 0x7f0101a2
-			public const int horizontalOffset = 2130772386;
+			// aapt resource value: 0x7f0101a3
+			public const int horizontalOffset = 2130772387;
 			
 			// aapt resource value: 0x7f01002f
 			public const int icon = 2130772015;
@@ -10406,50 +10408,50 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f01010b
 			public const int keylines = 2130772235;
 			
-			// aapt resource value: 0x7f0101a1
-			public const int label = 2130772385;
-			
-			// aapt resource value: 0x7f01017e
-			public const int labelColor = 2130772350;
-			
-			// aapt resource value: 0x7f010182
-			public const int labelFont = 2130772354;
-			
-			// aapt resource value: 0x7f010183
-			public const int labelFontStyle = 2130772355;
-			
-			// aapt resource value: 0x7f010187
-			public const int labelFormat = 2130772359;
-			
-			// aapt resource value: 0x7f010197
-			public const int labelInterval = 2130772375;
-			
-			// aapt resource value: 0x7f010180
-			public const int labelMargin = 2130772352;
-			
-			// aapt resource value: 0x7f010193
-			public const int labelOffset = 2130772371;
-			
-			// aapt resource value: 0x7f010190
-			public const int labelRotationAngle = 2130772368;
+			// aapt resource value: 0x7f0101a2
+			public const int label = 2130772386;
 			
 			// aapt resource value: 0x7f01017f
-			public const int labelSize = 2130772351;
+			public const int labelColor = 2130772351;
 			
-			// aapt resource value: 0x7f010165
-			public const int labelsColor = 2130772325;
+			// aapt resource value: 0x7f010183
+			public const int labelFont = 2130772355;
 			
-			// aapt resource value: 0x7f010164
-			public const int labelsCount = 2130772324;
+			// aapt resource value: 0x7f010184
+			public const int labelFontStyle = 2130772356;
+			
+			// aapt resource value: 0x7f010188
+			public const int labelFormat = 2130772360;
+			
+			// aapt resource value: 0x7f010198
+			public const int labelInterval = 2130772376;
+			
+			// aapt resource value: 0x7f010181
+			public const int labelMargin = 2130772353;
+			
+			// aapt resource value: 0x7f010194
+			public const int labelOffset = 2130772372;
+			
+			// aapt resource value: 0x7f010191
+			public const int labelRotationAngle = 2130772369;
+			
+			// aapt resource value: 0x7f010180
+			public const int labelSize = 2130772352;
 			
 			// aapt resource value: 0x7f010166
-			public const int labelsLayoutMode = 2130772326;
+			public const int labelsColor = 2130772326;
+			
+			// aapt resource value: 0x7f010165
+			public const int labelsCount = 2130772325;
 			
 			// aapt resource value: 0x7f010167
-			public const int labelsOffset = 2130772327;
+			public const int labelsLayoutMode = 2130772327;
 			
-			// aapt resource value: 0x7f010163
-			public const int labelsVisible = 2130772323;
+			// aapt resource value: 0x7f010168
+			public const int labelsOffset = 2130772328;
+			
+			// aapt resource value: 0x7f010164
+			public const int labelsVisible = 2130772324;
 			
 			// aapt resource value: 0x7f0100cf
 			public const int layout = 2130772175;
@@ -10481,17 +10483,17 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0100f9
 			public const int layout_scrollInterpolator = 2130772217;
 			
-			// aapt resource value: 0x7f01016f
-			public const int length = 2130772335;
+			// aapt resource value: 0x7f010170
+			public const int length = 2130772336;
 			
-			// aapt resource value: 0x7f010198
-			public const int lineColor = 2130772376;
+			// aapt resource value: 0x7f010199
+			public const int lineColor = 2130772377;
 			
-			// aapt resource value: 0x7f010181
-			public const int lineThickness = 2130772353;
+			// aapt resource value: 0x7f010182
+			public const int lineThickness = 2130772354;
 			
-			// aapt resource value: 0x7f010155
-			public const int lineVisible = 2130772309;
+			// aapt resource value: 0x7f010156
+			public const int lineVisible = 2130772310;
 			
 			// aapt resource value: 0x7f01009b
 			public const int listChoiceBackgroundIndicator = 2130772123;
@@ -10523,8 +10525,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f010093
 			public const int listPreferredItemPaddingRight = 2130772115;
 			
-			// aapt resource value: 0x7f01016d
-			public const int location = 2130772333;
+			// aapt resource value: 0x7f01016e
+			public const int location = 2130772334;
 			
 			// aapt resource value: 0x7f010030
 			public const int logo = 2130772016;
@@ -10532,32 +10534,32 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0100ef
 			public const int logoDescription = 2130772207;
 			
-			// aapt resource value: 0x7f01019f
-			public const int majorStep = 2130772383;
-			
 			// aapt resource value: 0x7f0101a0
-			public const int majorStepUnit = 2130772384;
+			public const int majorStep = 2130772384;
 			
-			// aapt resource value: 0x7f010199
-			public const int majorTickInterval = 2130772377;
+			// aapt resource value: 0x7f0101a1
+			public const int majorStepUnit = 2130772385;
 			
-			// aapt resource value: 0x7f010192
-			public const int majorTickOffset = 2130772370;
+			// aapt resource value: 0x7f01019a
+			public const int majorTickInterval = 2130772378;
 			
-			// aapt resource value: 0x7f01015a
-			public const int majorTicksCount = 2130772314;
+			// aapt resource value: 0x7f010193
+			public const int majorTickOffset = 2130772371;
 			
-			// aapt resource value: 0x7f010156
-			public const int majorTicksFillColor = 2130772310;
-			
-			// aapt resource value: 0x7f01015d
-			public const int majorTicksLength = 2130772317;
+			// aapt resource value: 0x7f01015b
+			public const int majorTicksCount = 2130772315;
 			
 			// aapt resource value: 0x7f010157
-			public const int majorTicksStrokeColor = 2130772311;
+			public const int majorTicksFillColor = 2130772311;
 			
-			// aapt resource value: 0x7f01015f
-			public const int majorTicksWidth = 2130772319;
+			// aapt resource value: 0x7f01015e
+			public const int majorTicksLength = 2130772318;
+			
+			// aapt resource value: 0x7f010158
+			public const int majorTicksStrokeColor = 2130772312;
+			
+			// aapt resource value: 0x7f010160
+			public const int majorTicksWidth = 2130772320;
 			
 			// aapt resource value: 0x7f010122
 			public const int maxActionInlineWidth = 2130772258;
@@ -10565,14 +10567,14 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0100ea
 			public const int maxButtonHeight = 2130772202;
 			
-			// aapt resource value: 0x7f01018b
-			public const int maxZoom = 2130772363;
+			// aapt resource value: 0x7f01018c
+			public const int maxZoom = 2130772364;
 			
-			// aapt resource value: 0x7f01014d
-			public const int maximum = 2130772301;
+			// aapt resource value: 0x7f01014e
+			public const int maximum = 2130772302;
 			
-			// aapt resource value: 0x7f01019e
-			public const int maximumTicks = 2130772382;
+			// aapt resource value: 0x7f01019f
+			public const int maximumTicks = 2130772383;
 			
 			// aapt resource value: 0x7f0100c5
 			public const int measureWithLargestChild = 2130772165;
@@ -10643,23 +10645,23 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f01011a
 			public const int menu = 2130772250;
 			
-			// aapt resource value: 0x7f01014e
-			public const int minimum = 2130772302;
+			// aapt resource value: 0x7f01014f
+			public const int minimum = 2130772303;
 			
-			// aapt resource value: 0x7f01015b
-			public const int minorTicksCount = 2130772315;
-			
-			// aapt resource value: 0x7f010158
-			public const int minorTicksFillColor = 2130772312;
-			
-			// aapt resource value: 0x7f01015e
-			public const int minorTicksLength = 2130772318;
+			// aapt resource value: 0x7f01015c
+			public const int minorTicksCount = 2130772316;
 			
 			// aapt resource value: 0x7f010159
-			public const int minorTicksStrokeColor = 2130772313;
+			public const int minorTicksFillColor = 2130772313;
 			
-			// aapt resource value: 0x7f010160
-			public const int minorTicksWidth = 2130772320;
+			// aapt resource value: 0x7f01015f
+			public const int minorTicksLength = 2130772319;
+			
+			// aapt resource value: 0x7f01015a
+			public const int minorTicksStrokeColor = 2130772314;
+			
+			// aapt resource value: 0x7f010161
+			public const int minorTicksWidth = 2130772321;
 			
 			// aapt resource value: 0x7f010047
 			public const int multiChoiceItemLayout = 2130772039;
@@ -10673,8 +10675,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f01002a
 			public const int navigationMode = 2130772010;
 			
-			// aapt resource value: 0x7f010174
-			public const int offset = 2130772340;
+			// aapt resource value: 0x7f010175
+			public const int offset = 2130772341;
 			
 			// aapt resource value: 0x7f0100cd
 			public const int overlapAnchor = 2130772173;
@@ -10685,11 +10687,11 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0100f2
 			public const int paddingStart = 2130772210;
 			
-			// aapt resource value: 0x7f01018e
-			public const int palette = 2130772366;
+			// aapt resource value: 0x7f01018f
+			public const int palette = 2130772367;
 			
-			// aapt resource value: 0x7f010189
-			public const int pan = 2130772361;
+			// aapt resource value: 0x7f01018a
+			public const int pan = 2130772362;
 			
 			// aapt resource value: 0x7f010098
 			public const int panelBackground = 2130772120;
@@ -10700,8 +10702,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f010099
 			public const int panelMenuListWidth = 2130772121;
 			
-			// aapt resource value: 0x7f01017d
-			public const int plotMode = 2130772349;
+			// aapt resource value: 0x7f01017e
+			public const int plotMode = 2130772350;
 			
 			// aapt resource value: 0x7f01013e
 			public const int pointerFill = 2130772286;
@@ -10742,11 +10744,14 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f010141
 			public const int radScrollViewStyle = 2130772289;
 			
+			// aapt resource value: 0x7f01014d
+			public const int rad_segmented_view_type = 2130772301;
+			
 			// aapt resource value: 0x7f0100b3
 			public const int radioButtonStyle = 2130772147;
 			
-			// aapt resource value: 0x7f01016a
-			public const int radius = 2130772330;
+			// aapt resource value: 0x7f01016b
+			public const int radius = 2130772331;
 			
 			// aapt resource value: 0x7f0100b4
 			public const int ratingBarStyle = 2130772148;
@@ -10763,8 +10768,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f010114
 			public const int rippleColor = 2130772244;
 			
-			// aapt resource value: 0x7f010186
-			public const int roundBarsRadius = 2130772358;
+			// aapt resource value: 0x7f010187
+			public const int roundBarsRadius = 2130772359;
 			
 			// aapt resource value: 0x7f010140
 			public const int scrollMode = 2130772288;
@@ -10805,8 +10810,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f010146
 			public const int showGridLines = 2130772294;
 			
-			// aapt resource value: 0x7f01017b
-			public const int showLabels = 2130772347;
+			// aapt resource value: 0x7f01017c
+			public const int showLabels = 2130772348;
 			
 			// aapt resource value: 0x7f0100e2
 			public const int showText = 2130772194;
@@ -10838,8 +10843,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f010003
 			public const int stackFromEnd = 2130771971;
 			
-			// aapt resource value: 0x7f010168
-			public const int startAngle = 2130772328;
+			// aapt resource value: 0x7f010169
+			public const int startAngle = 2130772329;
 			
 			// aapt resource value: 0x7f0100ce
 			public const int state_above_anchor = 2130772174;
@@ -10853,14 +10858,14 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f010106
 			public const int statusBarScrim = 2130772230;
 			
-			// aapt resource value: 0x7f010179
-			public const int strokeColor = 2130772345;
+			// aapt resource value: 0x7f01017a
+			public const int strokeColor = 2130772346;
 			
-			// aapt resource value: 0x7f010184
-			public const int strokeWidth = 2130772356;
+			// aapt resource value: 0x7f010185
+			public const int strokeWidth = 2130772357;
 			
-			// aapt resource value: 0x7f010150
-			public const int strokeWidthF = 2130772304;
+			// aapt resource value: 0x7f010151
+			public const int strokeWidthF = 2130772305;
 			
 			// aapt resource value: 0x7f0100db
 			public const int submitBackground = 2130772187;
@@ -10868,8 +10873,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f01002c
 			public const int subtitle = 2130772012;
 			
-			// aapt resource value: 0x7f010153
-			public const int subtitleHorizontalOffset = 2130772307;
+			// aapt resource value: 0x7f010154
+			public const int subtitleHorizontalOffset = 2130772308;
 			
 			// aapt resource value: 0x7f0100e4
 			public const int subtitleTextAppearance = 2130772196;
@@ -10880,14 +10885,14 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f01002e
 			public const int subtitleTextStyle = 2130772014;
 			
-			// aapt resource value: 0x7f010154
-			public const int subtitleVerticalOffset = 2130772308;
+			// aapt resource value: 0x7f010155
+			public const int subtitleVerticalOffset = 2130772309;
 			
 			// aapt resource value: 0x7f0100d9
 			public const int suggestionRowLayout = 2130772185;
 			
-			// aapt resource value: 0x7f010169
-			public const int sweepAngle = 2130772329;
+			// aapt resource value: 0x7f01016a
+			public const int sweepAngle = 2130772330;
 			
 			// aapt resource value: 0x7f0100df
 			public const int switchMinWidth = 2130772191;
@@ -10988,17 +10993,17 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0100dd
 			public const int thumbTextPadding = 2130772189;
 			
-			// aapt resource value: 0x7f010196
-			public const int tickThickness = 2130772374;
+			// aapt resource value: 0x7f010197
+			public const int tickThickness = 2130772375;
+			
+			// aapt resource value: 0x7f010163
+			public const int ticksLayoutMode = 2130772323;
 			
 			// aapt resource value: 0x7f010162
-			public const int ticksLayoutMode = 2130772322;
+			public const int ticksOffset = 2130772322;
 			
-			// aapt resource value: 0x7f010161
-			public const int ticksOffset = 2130772321;
-			
-			// aapt resource value: 0x7f01015c
-			public const int ticksVisible = 2130772316;
+			// aapt resource value: 0x7f01015d
+			public const int ticksVisible = 2130772317;
 			
 			// aapt resource value: 0x7f010029
 			public const int title = 2130772009;
@@ -11006,8 +11011,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f01010a
 			public const int titleEnabled = 2130772234;
 			
-			// aapt resource value: 0x7f010151
-			public const int titleHorizontalOffset = 2130772305;
+			// aapt resource value: 0x7f010152
+			public const int titleHorizontalOffset = 2130772306;
 			
 			// aapt resource value: 0x7f0100e9
 			public const int titleMarginBottom = 2130772201;
@@ -11033,8 +11038,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f01002d
 			public const int titleTextStyle = 2130772013;
 			
-			// aapt resource value: 0x7f010152
-			public const int titleVerticalOffset = 2130772306;
+			// aapt resource value: 0x7f010153
+			public const int titleVerticalOffset = 2130772307;
 			
 			// aapt resource value: 0x7f010107
 			public const int toolbarId = 2130772231;
@@ -11045,8 +11050,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f010084
 			public const int toolbarStyle = 2130772100;
 			
-			// aapt resource value: 0x7f010171
-			public const int topWidth = 2130772337;
+			// aapt resource value: 0x7f010172
+			public const int topWidth = 2130772338;
 			
 			// aapt resource value: 0x7f0100dc
 			public const int track = 2130772188;
@@ -11054,17 +11059,17 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f010118
 			public const int useCompatPadding = 2130772248;
 			
-			// aapt resource value: 0x7f010177
-			public const int value = 2130772343;
+			// aapt resource value: 0x7f010178
+			public const int value = 2130772344;
 			
-			// aapt resource value: 0x7f0101a6
-			public const int verticalAlignment = 2130772390;
+			// aapt resource value: 0x7f0101a7
+			public const int verticalAlignment = 2130772391;
 			
-			// aapt resource value: 0x7f01019b
-			public const int verticalLocation = 2130772379;
+			// aapt resource value: 0x7f01019c
+			public const int verticalLocation = 2130772380;
 			
-			// aapt resource value: 0x7f0101a3
-			public const int verticalOffset = 2130772387;
+			// aapt resource value: 0x7f0101a4
+			public const int verticalOffset = 2130772388;
 			
 			// aapt resource value: 0x7f0100d7
 			public const int voiceIcon = 2130772183;
@@ -12118,358 +12123,349 @@ namespace XkcdViewer.Forms.Android
 			public const int data_form_list_item_states = 2130837582;
 			
 			// aapt resource value: 0x7f02004f
-			public const int data_form_segment_checked = 2130837583;
+			public const int data_form_valid_background = 2130837583;
 			
 			// aapt resource value: 0x7f020050
-			public const int data_form_segment_item = 2130837584;
+			public const int data_form_valid_icon = 2130837584;
 			
 			// aapt resource value: 0x7f020051
-			public const int data_form_segment_unchecked = 2130837585;
+			public const int dataform_number_picker_background = 2130837585;
 			
 			// aapt resource value: 0x7f020052
-			public const int data_form_valid_background = 2130837586;
+			public const int design_fab_background = 2130837586;
 			
 			// aapt resource value: 0x7f020053
-			public const int data_form_valid_icon = 2130837587;
+			public const int design_snackbar_background = 2130837587;
 			
 			// aapt resource value: 0x7f020054
-			public const int dataform_number_picker_background = 2130837588;
+			public const int events_popup_bg = 2130837588;
 			
 			// aapt resource value: 0x7f020055
-			public const int design_fab_background = 2130837589;
+			public const int garden_256 = 2130837589;
 			
 			// aapt resource value: 0x7f020056
-			public const int design_snackbar_background = 2130837590;
+			public const int gingerbread_background = 2130837590;
 			
 			// aapt resource value: 0x7f020057
-			public const int events_popup_bg = 2130837591;
+			public const int hamburger = 2130837591;
 			
 			// aapt resource value: 0x7f020058
-			public const int garden_256 = 2130837592;
+			public const int Heart = 2130837592;
 			
 			// aapt resource value: 0x7f020059
-			public const int gingerbread_background = 2130837593;
+			public const int hmb = 2130837593;
 			
 			// aapt resource value: 0x7f02005a
-			public const int hamburger = 2130837594;
+			public const int ic_audiotrack = 2130837594;
 			
 			// aapt resource value: 0x7f02005b
-			public const int Heart = 2130837595;
+			public const int ic_audiotrack_light = 2130837595;
 			
 			// aapt resource value: 0x7f02005c
-			public const int hmb = 2130837596;
+			public const int ic_bluetooth_grey = 2130837596;
 			
 			// aapt resource value: 0x7f02005d
-			public const int ic_audiotrack = 2130837597;
+			public const int ic_bluetooth_white = 2130837597;
 			
 			// aapt resource value: 0x7f02005e
-			public const int ic_audiotrack_light = 2130837598;
+			public const int ic_cast_dark = 2130837598;
 			
 			// aapt resource value: 0x7f02005f
-			public const int ic_bluetooth_grey = 2130837599;
+			public const int ic_cast_disabled_light = 2130837599;
 			
 			// aapt resource value: 0x7f020060
-			public const int ic_bluetooth_white = 2130837600;
+			public const int ic_cast_grey = 2130837600;
 			
 			// aapt resource value: 0x7f020061
-			public const int ic_cast_dark = 2130837601;
+			public const int ic_cast_light = 2130837601;
 			
 			// aapt resource value: 0x7f020062
-			public const int ic_cast_disabled_light = 2130837602;
+			public const int ic_cast_off_light = 2130837602;
 			
 			// aapt resource value: 0x7f020063
-			public const int ic_cast_grey = 2130837603;
+			public const int ic_cast_on_0_light = 2130837603;
 			
 			// aapt resource value: 0x7f020064
-			public const int ic_cast_light = 2130837604;
+			public const int ic_cast_on_1_light = 2130837604;
 			
 			// aapt resource value: 0x7f020065
-			public const int ic_cast_off_light = 2130837605;
+			public const int ic_cast_on_2_light = 2130837605;
 			
 			// aapt resource value: 0x7f020066
-			public const int ic_cast_on_0_light = 2130837606;
+			public const int ic_cast_on_light = 2130837606;
 			
 			// aapt resource value: 0x7f020067
-			public const int ic_cast_on_1_light = 2130837607;
+			public const int ic_cast_white = 2130837607;
 			
 			// aapt resource value: 0x7f020068
-			public const int ic_cast_on_2_light = 2130837608;
+			public const int ic_clear = 2130837608;
 			
 			// aapt resource value: 0x7f020069
-			public const int ic_cast_on_light = 2130837609;
+			public const int ic_close_dark = 2130837609;
 			
 			// aapt resource value: 0x7f02006a
-			public const int ic_cast_white = 2130837610;
+			public const int ic_close_light = 2130837610;
 			
 			// aapt resource value: 0x7f02006b
-			public const int ic_clear = 2130837611;
+			public const int ic_collapse = 2130837611;
 			
 			// aapt resource value: 0x7f02006c
-			public const int ic_close_dark = 2130837612;
+			public const int ic_collapse_00000 = 2130837612;
 			
 			// aapt resource value: 0x7f02006d
-			public const int ic_close_light = 2130837613;
+			public const int ic_collapse_00001 = 2130837613;
 			
 			// aapt resource value: 0x7f02006e
-			public const int ic_collapse = 2130837614;
+			public const int ic_collapse_00002 = 2130837614;
 			
 			// aapt resource value: 0x7f02006f
-			public const int ic_collapse_00000 = 2130837615;
+			public const int ic_collapse_00003 = 2130837615;
 			
 			// aapt resource value: 0x7f020070
-			public const int ic_collapse_00001 = 2130837616;
+			public const int ic_collapse_00004 = 2130837616;
 			
 			// aapt resource value: 0x7f020071
-			public const int ic_collapse_00002 = 2130837617;
+			public const int ic_collapse_00005 = 2130837617;
 			
 			// aapt resource value: 0x7f020072
-			public const int ic_collapse_00003 = 2130837618;
+			public const int ic_collapse_00006 = 2130837618;
 			
 			// aapt resource value: 0x7f020073
-			public const int ic_collapse_00004 = 2130837619;
+			public const int ic_collapse_00007 = 2130837619;
 			
 			// aapt resource value: 0x7f020074
-			public const int ic_collapse_00005 = 2130837620;
+			public const int ic_collapse_00008 = 2130837620;
 			
 			// aapt resource value: 0x7f020075
-			public const int ic_collapse_00006 = 2130837621;
+			public const int ic_collapse_00009 = 2130837621;
 			
 			// aapt resource value: 0x7f020076
-			public const int ic_collapse_00007 = 2130837622;
+			public const int ic_collapse_00010 = 2130837622;
 			
 			// aapt resource value: 0x7f020077
-			public const int ic_collapse_00008 = 2130837623;
+			public const int ic_collapse_00011 = 2130837623;
 			
 			// aapt resource value: 0x7f020078
-			public const int ic_collapse_00009 = 2130837624;
+			public const int ic_collapse_00012 = 2130837624;
 			
 			// aapt resource value: 0x7f020079
-			public const int ic_collapse_00010 = 2130837625;
+			public const int ic_collapse_00013 = 2130837625;
 			
 			// aapt resource value: 0x7f02007a
-			public const int ic_collapse_00011 = 2130837626;
+			public const int ic_collapse_00014 = 2130837626;
 			
 			// aapt resource value: 0x7f02007b
-			public const int ic_collapse_00012 = 2130837627;
+			public const int ic_collapse_00015 = 2130837627;
 			
 			// aapt resource value: 0x7f02007c
-			public const int ic_collapse_00013 = 2130837628;
+			public const int ic_collapse_dataform_group = 2130837628;
 			
 			// aapt resource value: 0x7f02007d
-			public const int ic_collapse_00014 = 2130837629;
+			public const int ic_expand = 2130837629;
 			
 			// aapt resource value: 0x7f02007e
-			public const int ic_collapse_00015 = 2130837630;
+			public const int ic_expand_00000 = 2130837630;
 			
 			// aapt resource value: 0x7f02007f
-			public const int ic_collapse_dataform_group = 2130837631;
+			public const int ic_expand_00001 = 2130837631;
 			
 			// aapt resource value: 0x7f020080
-			public const int ic_expand = 2130837632;
+			public const int ic_expand_00002 = 2130837632;
 			
 			// aapt resource value: 0x7f020081
-			public const int ic_expand_00000 = 2130837633;
+			public const int ic_expand_00003 = 2130837633;
 			
 			// aapt resource value: 0x7f020082
-			public const int ic_expand_00001 = 2130837634;
+			public const int ic_expand_00004 = 2130837634;
 			
 			// aapt resource value: 0x7f020083
-			public const int ic_expand_00002 = 2130837635;
+			public const int ic_expand_00005 = 2130837635;
 			
 			// aapt resource value: 0x7f020084
-			public const int ic_expand_00003 = 2130837636;
+			public const int ic_expand_00006 = 2130837636;
 			
 			// aapt resource value: 0x7f020085
-			public const int ic_expand_00004 = 2130837637;
+			public const int ic_expand_00007 = 2130837637;
 			
 			// aapt resource value: 0x7f020086
-			public const int ic_expand_00005 = 2130837638;
+			public const int ic_expand_00008 = 2130837638;
 			
 			// aapt resource value: 0x7f020087
-			public const int ic_expand_00006 = 2130837639;
+			public const int ic_expand_00009 = 2130837639;
 			
 			// aapt resource value: 0x7f020088
-			public const int ic_expand_00007 = 2130837640;
+			public const int ic_expand_00010 = 2130837640;
 			
 			// aapt resource value: 0x7f020089
-			public const int ic_expand_00008 = 2130837641;
+			public const int ic_expand_00011 = 2130837641;
 			
 			// aapt resource value: 0x7f02008a
-			public const int ic_expand_00009 = 2130837642;
+			public const int ic_expand_00012 = 2130837642;
 			
 			// aapt resource value: 0x7f02008b
-			public const int ic_expand_00010 = 2130837643;
+			public const int ic_expand_00013 = 2130837643;
 			
 			// aapt resource value: 0x7f02008c
-			public const int ic_expand_00011 = 2130837644;
+			public const int ic_expand_00014 = 2130837644;
 			
 			// aapt resource value: 0x7f02008d
-			public const int ic_expand_00012 = 2130837645;
+			public const int ic_expand_00015 = 2130837645;
 			
 			// aapt resource value: 0x7f02008e
-			public const int ic_expand_00013 = 2130837646;
+			public const int ic_expand_dataform_group = 2130837646;
 			
 			// aapt resource value: 0x7f02008f
-			public const int ic_expand_00014 = 2130837647;
+			public const int ic_favorite_add = 2130837647;
 			
 			// aapt resource value: 0x7f020090
-			public const int ic_expand_00015 = 2130837648;
+			public const int ic_favorite_remove = 2130837648;
 			
 			// aapt resource value: 0x7f020091
-			public const int ic_expand_dataform_group = 2130837649;
+			public const int ic_media_pause = 2130837649;
 			
 			// aapt resource value: 0x7f020092
-			public const int ic_favorite_add = 2130837650;
+			public const int ic_media_play = 2130837650;
 			
 			// aapt resource value: 0x7f020093
-			public const int ic_favorite_remove = 2130837651;
+			public const int ic_media_route_disabled_mono_dark = 2130837651;
 			
 			// aapt resource value: 0x7f020094
-			public const int ic_media_pause = 2130837652;
+			public const int ic_media_route_off_mono_dark = 2130837652;
 			
 			// aapt resource value: 0x7f020095
-			public const int ic_media_play = 2130837653;
+			public const int ic_media_route_on_0_mono_dark = 2130837653;
 			
 			// aapt resource value: 0x7f020096
-			public const int ic_media_route_disabled_mono_dark = 2130837654;
+			public const int ic_media_route_on_1_mono_dark = 2130837654;
 			
 			// aapt resource value: 0x7f020097
-			public const int ic_media_route_off_mono_dark = 2130837655;
+			public const int ic_media_route_on_2_mono_dark = 2130837655;
 			
 			// aapt resource value: 0x7f020098
-			public const int ic_media_route_on_0_mono_dark = 2130837656;
+			public const int ic_media_route_on_mono_dark = 2130837656;
 			
 			// aapt resource value: 0x7f020099
-			public const int ic_media_route_on_1_mono_dark = 2130837657;
+			public const int ic_pause_dark = 2130837657;
 			
 			// aapt resource value: 0x7f02009a
-			public const int ic_media_route_on_2_mono_dark = 2130837658;
+			public const int ic_pause_light = 2130837658;
 			
 			// aapt resource value: 0x7f02009b
-			public const int ic_media_route_on_mono_dark = 2130837659;
+			public const int ic_play_dark = 2130837659;
 			
 			// aapt resource value: 0x7f02009c
-			public const int ic_pause_dark = 2130837660;
+			public const int ic_play_light = 2130837660;
 			
 			// aapt resource value: 0x7f02009d
-			public const int ic_pause_light = 2130837661;
+			public const int ic_share = 2130837661;
 			
 			// aapt resource value: 0x7f02009e
-			public const int ic_play_dark = 2130837662;
+			public const int ic_speaker_dark = 2130837662;
 			
 			// aapt resource value: 0x7f02009f
-			public const int ic_play_light = 2130837663;
+			public const int ic_speaker_group_dark = 2130837663;
 			
 			// aapt resource value: 0x7f0200a0
-			public const int ic_share = 2130837664;
+			public const int ic_speaker_group_light = 2130837664;
 			
 			// aapt resource value: 0x7f0200a1
-			public const int ic_speaker_dark = 2130837665;
+			public const int ic_speaker_light = 2130837665;
 			
 			// aapt resource value: 0x7f0200a2
-			public const int ic_speaker_group_dark = 2130837666;
+			public const int ic_token_remove = 2130837666;
 			
 			// aapt resource value: 0x7f0200a3
-			public const int ic_speaker_group_light = 2130837667;
+			public const int ic_token_remove_pressed = 2130837667;
 			
 			// aapt resource value: 0x7f0200a4
-			public const int ic_speaker_light = 2130837668;
+			public const int ic_tv_dark = 2130837668;
 			
 			// aapt resource value: 0x7f0200a5
-			public const int ic_token_remove = 2130837669;
+			public const int ic_tv_light = 2130837669;
 			
 			// aapt resource value: 0x7f0200a6
-			public const int ic_token_remove_pressed = 2130837670;
+			public const int ic_xkcd_light = 2130837670;
 			
 			// aapt resource value: 0x7f0200a7
-			public const int ic_tv_dark = 2130837671;
+			public const int icon = 2130837671;
 			
 			// aapt resource value: 0x7f0200a8
-			public const int ic_tv_light = 2130837672;
+			public const int mr_dialog_material_background_dark = 2130837672;
 			
 			// aapt resource value: 0x7f0200a9
-			public const int ic_xkcd_light = 2130837673;
+			public const int mr_dialog_material_background_light = 2130837673;
 			
 			// aapt resource value: 0x7f0200aa
-			public const int icon = 2130837674;
+			public const int mr_ic_audiotrack_light = 2130837674;
 			
 			// aapt resource value: 0x7f0200ab
-			public const int mr_dialog_material_background_dark = 2130837675;
+			public const int mr_ic_cast_dark = 2130837675;
 			
 			// aapt resource value: 0x7f0200ac
-			public const int mr_dialog_material_background_light = 2130837676;
+			public const int mr_ic_cast_light = 2130837676;
 			
 			// aapt resource value: 0x7f0200ad
-			public const int mr_ic_audiotrack_light = 2130837677;
+			public const int mr_ic_close_dark = 2130837677;
 			
 			// aapt resource value: 0x7f0200ae
-			public const int mr_ic_cast_dark = 2130837678;
+			public const int mr_ic_close_light = 2130837678;
 			
 			// aapt resource value: 0x7f0200af
-			public const int mr_ic_cast_light = 2130837679;
+			public const int mr_ic_media_route_connecting_mono_dark = 2130837679;
 			
 			// aapt resource value: 0x7f0200b0
-			public const int mr_ic_close_dark = 2130837680;
+			public const int mr_ic_media_route_connecting_mono_light = 2130837680;
 			
 			// aapt resource value: 0x7f0200b1
-			public const int mr_ic_close_light = 2130837681;
+			public const int mr_ic_media_route_mono_dark = 2130837681;
 			
 			// aapt resource value: 0x7f0200b2
-			public const int mr_ic_media_route_connecting_mono_dark = 2130837682;
+			public const int mr_ic_media_route_mono_light = 2130837682;
 			
 			// aapt resource value: 0x7f0200b3
-			public const int mr_ic_media_route_connecting_mono_light = 2130837683;
+			public const int mr_ic_pause_dark = 2130837683;
 			
 			// aapt resource value: 0x7f0200b4
-			public const int mr_ic_media_route_mono_dark = 2130837684;
+			public const int mr_ic_pause_light = 2130837684;
 			
 			// aapt resource value: 0x7f0200b5
-			public const int mr_ic_media_route_mono_light = 2130837685;
+			public const int mr_ic_play_dark = 2130837685;
 			
 			// aapt resource value: 0x7f0200b6
-			public const int mr_ic_pause_dark = 2130837686;
-			
-			// aapt resource value: 0x7f0200b7
-			public const int mr_ic_pause_light = 2130837687;
-			
-			// aapt resource value: 0x7f0200b8
-			public const int mr_ic_play_dark = 2130837688;
-			
-			// aapt resource value: 0x7f0200b9
-			public const int mr_ic_play_light = 2130837689;
-			
-			// aapt resource value: 0x7f0200c4
-			public const int notification_template_icon_bg = 2130837700;
-			
-			// aapt resource value: 0x7f0200ba
-			public const int pressable_item_background = 2130837690;
-			
-			// aapt resource value: 0x7f0200bb
-			public const int selectable_item_background = 2130837691;
-			
-			// aapt resource value: 0x7f0200bc
-			public const int shade_bottom = 2130837692;
-			
-			// aapt resource value: 0x7f0200bd
-			public const int shade_corner = 2130837693;
-			
-			// aapt resource value: 0x7f0200be
-			public const int shade_right = 2130837694;
-			
-			// aapt resource value: 0x7f0200bf
-			public const int tab_view_popup_background = 2130837695;
-			
-			// aapt resource value: 0x7f0200c0
-			public const int token_bg = 2130837696;
+			public const int mr_ic_play_light = 2130837686;
 			
 			// aapt resource value: 0x7f0200c1
-			public const int token_default = 2130837697;
+			public const int notification_template_icon_bg = 2130837697;
 			
-			// aapt resource value: 0x7f0200c2
-			public const int token_selected = 2130837698;
+			// aapt resource value: 0x7f0200b7
+			public const int pressable_item_background = 2130837687;
 			
-			// aapt resource value: 0x7f0200c3
-			public const int token_text_color = 2130837699;
+			// aapt resource value: 0x7f0200b8
+			public const int selectable_item_background = 2130837688;
+			
+			// aapt resource value: 0x7f0200b9
+			public const int shade_bottom = 2130837689;
+			
+			// aapt resource value: 0x7f0200ba
+			public const int shade_corner = 2130837690;
+			
+			// aapt resource value: 0x7f0200bb
+			public const int shade_right = 2130837691;
+			
+			// aapt resource value: 0x7f0200bc
+			public const int tab_view_popup_background = 2130837692;
+			
+			// aapt resource value: 0x7f0200bd
+			public const int token_bg = 2130837693;
+			
+			// aapt resource value: 0x7f0200be
+			public const int token_default = 2130837694;
+			
+			// aapt resource value: 0x7f0200bf
+			public const int token_selected = 2130837695;
+			
+			// aapt resource value: 0x7f0200c0
+			public const int token_text_color = 2130837696;
 			
 			static Drawable()
 			{
@@ -12484,56 +12480,56 @@ namespace XkcdViewer.Forms.Android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f080049
-			public const int BetweenTicks = 2131230793;
+			// aapt resource value: 0x7f08004b
+			public const int BetweenTicks = 2131230795;
 			
 			// aapt resource value: 0x7f080042
 			public const int Block = 2131230786;
 			
-			// aapt resource value: 0x7f080056
-			public const int Bottom = 2131230806;
-			
-			// aapt resource value: 0x7f08004f
-			public const int Clip = 2131230799;
-			
-			// aapt resource value: 0x7f08004c
-			public const int Cluster = 2131230796;
-			
 			// aapt resource value: 0x7f080058
-			public const int Date = 2131230808;
+			public const int Bottom = 2131230808;
 			
-			// aapt resource value: 0x7f080059
-			public const int Day = 2131230809;
+			// aapt resource value: 0x7f080051
+			public const int Clip = 2131230801;
+			
+			// aapt resource value: 0x7f08004e
+			public const int Cluster = 2131230798;
 			
 			// aapt resource value: 0x7f08005a
-			public const int DayOfWeek = 2131230810;
+			public const int Date = 2131230810;
 			
 			// aapt resource value: 0x7f08005b
-			public const int DayOfYear = 2131230811;
-			
-			// aapt resource value: 0x7f080050
-			public const int Hidden = 2131230800;
+			public const int Day = 2131230811;
 			
 			// aapt resource value: 0x7f08005c
-			public const int Hour = 2131230812;
+			public const int DayOfWeek = 2131230812;
+			
+			// aapt resource value: 0x7f08005d
+			public const int DayOfYear = 2131230813;
+			
+			// aapt resource value: 0x7f080052
+			public const int Hidden = 2131230802;
+			
+			// aapt resource value: 0x7f08005e
+			public const int Hour = 2131230814;
 			
 			// aapt resource value: 0x7f080043
 			public const int Inline = 2131230787;
 			
-			// aapt resource value: 0x7f080054
-			public const int Left = 2131230804;
+			// aapt resource value: 0x7f080056
+			public const int Left = 2131230806;
 			
-			// aapt resource value: 0x7f08005d
-			public const int Millisecond = 2131230813;
+			// aapt resource value: 0x7f08005f
+			public const int Millisecond = 2131230815;
 			
-			// aapt resource value: 0x7f08005e
-			public const int Minute = 2131230814;
+			// aapt resource value: 0x7f080060
+			public const int Minute = 2131230816;
 			
 			// aapt resource value: 0x7f08003f
 			public const int Month = 2131230783;
 			
-			// aapt resource value: 0x7f080052
-			public const int Multiline = 2131230802;
+			// aapt resource value: 0x7f080054
+			public const int Multiline = 2131230804;
 			
 			// aapt resource value: 0x7f08003c
 			public const int Multiple = 2131230780;
@@ -12541,44 +12537,44 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080044
 			public const int None = 2131230788;
 			
-			// aapt resource value: 0x7f08004a
-			public const int OnTicks = 2131230794;
+			// aapt resource value: 0x7f08004c
+			public const int OnTicks = 2131230796;
 			
-			// aapt resource value: 0x7f08004b
-			public const int OnTicksPadded = 2131230795;
+			// aapt resource value: 0x7f08004d
+			public const int OnTicksPadded = 2131230797;
 			
-			// aapt resource value: 0x7f08005f
-			public const int Quarter = 2131230815;
+			// aapt resource value: 0x7f080061
+			public const int Quarter = 2131230817;
 			
 			// aapt resource value: 0x7f08003d
 			public const int Range = 2131230781;
 			
+			// aapt resource value: 0x7f080057
+			public const int Right = 2131230807;
+			
 			// aapt resource value: 0x7f080055
-			public const int Right = 2131230805;
+			public const int Rotate = 2131230805;
 			
-			// aapt resource value: 0x7f080053
-			public const int Rotate = 2131230803;
-			
-			// aapt resource value: 0x7f080060
-			public const int Second = 2131230816;
+			// aapt resource value: 0x7f080062
+			public const int Second = 2131230818;
 			
 			// aapt resource value: 0x7f08003e
 			public const int Single = 2131230782;
 			
-			// aapt resource value: 0x7f08004d
-			public const int Stack = 2131230797;
+			// aapt resource value: 0x7f08004f
+			public const int Stack = 2131230799;
 			
-			// aapt resource value: 0x7f08004e
-			public const int Stack100 = 2131230798;
+			// aapt resource value: 0x7f080050
+			public const int Stack100 = 2131230800;
 			
-			// aapt resource value: 0x7f080061
-			public const int TimeOfDay = 2131230817;
+			// aapt resource value: 0x7f080063
+			public const int TimeOfDay = 2131230819;
 			
-			// aapt resource value: 0x7f080057
-			public const int Top = 2131230807;
+			// aapt resource value: 0x7f080059
+			public const int Top = 2131230809;
 			
-			// aapt resource value: 0x7f080051
-			public const int Visible = 2131230801;
+			// aapt resource value: 0x7f080053
+			public const int Visible = 2131230803;
 			
 			// aapt resource value: 0x7f080040
 			public const int Week = 2131230784;
@@ -12586,35 +12582,35 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080041
 			public const int Year = 2131230785;
 			
-			// aapt resource value: 0x7f0800e4
-			public const int action0 = 2131230948;
+			// aapt resource value: 0x7f0800e5
+			public const int action0 = 2131230949;
 			
-			// aapt resource value: 0x7f080082
-			public const int action_bar = 2131230850;
+			// aapt resource value: 0x7f080083
+			public const int action_bar = 2131230851;
 			
 			// aapt resource value: 0x7f080001
 			public const int action_bar_activity_content = 2131230721;
 			
-			// aapt resource value: 0x7f080081
-			public const int action_bar_container = 2131230849;
+			// aapt resource value: 0x7f080082
+			public const int action_bar_container = 2131230850;
 			
-			// aapt resource value: 0x7f08007d
-			public const int action_bar_root = 2131230845;
+			// aapt resource value: 0x7f08007e
+			public const int action_bar_root = 2131230846;
 			
 			// aapt resource value: 0x7f080002
 			public const int action_bar_spinner = 2131230722;
 			
-			// aapt resource value: 0x7f080063
-			public const int action_bar_subtitle = 2131230819;
+			// aapt resource value: 0x7f080065
+			public const int action_bar_subtitle = 2131230821;
 			
-			// aapt resource value: 0x7f080062
-			public const int action_bar_title = 2131230818;
+			// aapt resource value: 0x7f080064
+			public const int action_bar_title = 2131230820;
 			
-			// aapt resource value: 0x7f080083
-			public const int action_context_bar = 2131230851;
+			// aapt resource value: 0x7f080084
+			public const int action_context_bar = 2131230852;
 			
-			// aapt resource value: 0x7f0800e8
-			public const int action_divider = 2131230952;
+			// aapt resource value: 0x7f0800e9
+			public const int action_divider = 2131230953;
 			
 			// aapt resource value: 0x7f080003
 			public const int action_menu_divider = 2131230723;
@@ -12622,26 +12618,26 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080004
 			public const int action_menu_presenter = 2131230724;
 			
+			// aapt resource value: 0x7f080080
+			public const int action_mode_bar = 2131230848;
+			
 			// aapt resource value: 0x7f08007f
-			public const int action_mode_bar = 2131230847;
+			public const int action_mode_bar_stub = 2131230847;
 			
-			// aapt resource value: 0x7f08007e
-			public const int action_mode_bar_stub = 2131230846;
+			// aapt resource value: 0x7f080066
+			public const int action_mode_close_button = 2131230822;
 			
-			// aapt resource value: 0x7f080064
-			public const int action_mode_close_button = 2131230820;
+			// aapt resource value: 0x7f080067
+			public const int activity_chooser_view_content = 2131230823;
 			
-			// aapt resource value: 0x7f080065
-			public const int activity_chooser_view_content = 2131230821;
-			
-			// aapt resource value: 0x7f080071
-			public const int alertTitle = 2131230833;
+			// aapt resource value: 0x7f080073
+			public const int alertTitle = 2131230835;
 			
 			// aapt resource value: 0x7f08001e
 			public const int always = 2131230750;
 			
-			// aapt resource value: 0x7f0800b6
-			public const int areaText = 2131230902;
+			// aapt resource value: 0x7f0800b7
+			public const int areaText = 2131230903;
 			
 			// aapt resource value: 0x7f08001b
 			public const int beginning = 2131230747;
@@ -12649,11 +12645,11 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f08002a
 			public const int bottom = 2131230762;
 			
-			// aapt resource value: 0x7f08006c
-			public const int buttonPanel = 2131230828;
+			// aapt resource value: 0x7f08006e
+			public const int buttonPanel = 2131230830;
 			
-			// aapt resource value: 0x7f0800e5
-			public const int cancel_action = 2131230949;
+			// aapt resource value: 0x7f0800e6
+			public const int cancel_action = 2131230950;
 			
 			// aapt resource value: 0x7f08002b
 			public const int center = 2131230763;
@@ -12664,32 +12660,32 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f08002d
 			public const int center_vertical = 2131230765;
 			
-			// aapt resource value: 0x7f080109
-			public const int chart_data_point_content_container = 2131230985;
+			// aapt resource value: 0x7f08010a
+			public const int chart_data_point_content_container = 2131230986;
 			
-			// aapt resource value: 0x7f0800f7
-			public const int chart_layout_root = 2131230967;
-			
-			// aapt resource value: 0x7f0800ae
-			public const int chart_tooltip_category = 2131230894;
-			
-			// aapt resource value: 0x7f080108
-			public const int chart_tooltip_pointer = 2131230984;
+			// aapt resource value: 0x7f0800f8
+			public const int chart_layout_root = 2131230968;
 			
 			// aapt resource value: 0x7f0800af
-			public const int chart_tooltip_value = 2131230895;
+			public const int chart_tooltip_category = 2131230895;
 			
-			// aapt resource value: 0x7f0800b7
-			public const int chart_trackball_category = 2131230903;
+			// aapt resource value: 0x7f080109
+			public const int chart_tooltip_pointer = 2131230985;
 			
-			// aapt resource value: 0x7f0800b9
-			public const int chart_trackball_value = 2131230905;
+			// aapt resource value: 0x7f0800b0
+			public const int chart_tooltip_value = 2131230896;
 			
-			// aapt resource value: 0x7f08007a
-			public const int checkbox = 2131230842;
+			// aapt resource value: 0x7f0800b8
+			public const int chart_trackball_category = 2131230904;
 			
-			// aapt resource value: 0x7f0800eb
-			public const int chronometer = 2131230955;
+			// aapt resource value: 0x7f0800ba
+			public const int chart_trackball_value = 2131230906;
+			
+			// aapt resource value: 0x7f08007c
+			public const int checkbox = 2131230844;
+			
+			// aapt resource value: 0x7f0800ec
+			public const int chronometer = 2131230956;
 			
 			// aapt resource value: 0x7f080033
 			public const int clip_horizontal = 2131230771;
@@ -12697,143 +12693,143 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080034
 			public const int clip_vertical = 2131230772;
 			
-			// aapt resource value: 0x7f0800b2
-			public const int closeText = 2131230898;
+			// aapt resource value: 0x7f0800b3
+			public const int closeText = 2131230899;
 			
 			// aapt resource value: 0x7f08001f
 			public const int collapseActionView = 2131230751;
 			
-			// aapt resource value: 0x7f080072
-			public const int contentPanel = 2131230834;
+			// aapt resource value: 0x7f080074
+			public const int contentPanel = 2131230836;
 			
-			// aapt resource value: 0x7f080078
-			public const int custom = 2131230840;
+			// aapt resource value: 0x7f08007a
+			public const int custom = 2131230842;
 			
-			// aapt resource value: 0x7f080077
-			public const int customPanel = 2131230839;
-			
-			// aapt resource value: 0x7f080091
-			public const int data_form_autocomplete_editor = 2131230865;
+			// aapt resource value: 0x7f080079
+			public const int customPanel = 2131230841;
 			
 			// aapt resource value: 0x7f080092
-			public const int data_form_checkbox_editor = 2131230866;
+			public const int data_form_autocomplete_editor = 2131230866;
 			
 			// aapt resource value: 0x7f080093
-			public const int data_form_date_editor = 2131230867;
+			public const int data_form_checkbox_editor = 2131230867;
 			
 			// aapt resource value: 0x7f080094
-			public const int data_form_decimal_editor = 2131230868;
-			
-			// aapt resource value: 0x7f08009c
-			public const int data_form_editor_container = 2131230876;
-			
-			// aapt resource value: 0x7f080097
-			public const int data_form_editor_group_container = 2131230871;
-			
-			// aapt resource value: 0x7f080099
-			public const int data_form_editor_image = 2131230873;
-			
-			// aapt resource value: 0x7f08009f
-			public const int data_form_expandable_group_expand_button = 2131230879;
-			
-			// aapt resource value: 0x7f080096
-			public const int data_form_group_header = 2131230870;
+			public const int data_form_date_editor = 2131230868;
 			
 			// aapt resource value: 0x7f080095
-			public const int data_form_group_header_container = 2131230869;
-			
-			// aapt resource value: 0x7f08009a
-			public const int data_form_header_container = 2131230874;
-			
-			// aapt resource value: 0x7f0800a0
-			public const int data_form_integer_editor = 2131230880;
-			
-			// aapt resource value: 0x7f0800a1
-			public const int data_form_list_editor = 2131230881;
-			
-			// aapt resource value: 0x7f0800a2
-			public const int data_form_number_picker_editor = 2131230882;
-			
-			// aapt resource value: 0x7f0800a3
-			public const int data_form_rad_autocomplete_editor = 2131230883;
-			
-			// aapt resource value: 0x7f0800a4
-			public const int data_form_radio_group = 2131230884;
-			
-			// aapt resource value: 0x7f0800a5
-			public const int data_form_root_layout = 2131230885;
-			
-			// aapt resource value: 0x7f0800a6
-			public const int data_form_seekbar_editor = 2131230886;
-			
-			// aapt resource value: 0x7f0800a7
-			public const int data_form_spinner_editor = 2131230887;
-			
-			// aapt resource value: 0x7f0800a8
-			public const int data_form_switch_editor = 2131230888;
-			
-			// aapt resource value: 0x7f0800a9
-			public const int data_form_text_editor = 2131230889;
-			
-			// aapt resource value: 0x7f0800aa
-			public const int data_form_text_viewer = 2131230890;
-			
-			// aapt resource value: 0x7f080098
-			public const int data_form_text_viewer_header = 2131230872;
-			
-			// aapt resource value: 0x7f0800ab
-			public const int data_form_time_editor = 2131230891;
-			
-			// aapt resource value: 0x7f0800ac
-			public const int data_form_toggle_editor = 2131230892;
+			public const int data_form_decimal_editor = 2131230869;
 			
 			// aapt resource value: 0x7f08009d
-			public const int data_form_validation_container = 2131230877;
+			public const int data_form_editor_container = 2131230877;
+			
+			// aapt resource value: 0x7f080098
+			public const int data_form_editor_group_container = 2131230872;
+			
+			// aapt resource value: 0x7f08009a
+			public const int data_form_editor_image = 2131230874;
+			
+			// aapt resource value: 0x7f0800a0
+			public const int data_form_expandable_group_expand_button = 2131230880;
+			
+			// aapt resource value: 0x7f080097
+			public const int data_form_group_header = 2131230871;
+			
+			// aapt resource value: 0x7f080096
+			public const int data_form_group_header_container = 2131230870;
 			
 			// aapt resource value: 0x7f08009b
-			public const int data_form_validation_icon = 2131230875;
+			public const int data_form_header_container = 2131230875;
+			
+			// aapt resource value: 0x7f0800a1
+			public const int data_form_integer_editor = 2131230881;
+			
+			// aapt resource value: 0x7f0800a2
+			public const int data_form_list_editor = 2131230882;
+			
+			// aapt resource value: 0x7f0800a3
+			public const int data_form_number_picker_editor = 2131230883;
+			
+			// aapt resource value: 0x7f0800a4
+			public const int data_form_rad_autocomplete_editor = 2131230884;
+			
+			// aapt resource value: 0x7f0800a5
+			public const int data_form_radio_group = 2131230885;
+			
+			// aapt resource value: 0x7f0800a6
+			public const int data_form_root_layout = 2131230886;
+			
+			// aapt resource value: 0x7f0800a7
+			public const int data_form_seekbar_editor = 2131230887;
+			
+			// aapt resource value: 0x7f0800a8
+			public const int data_form_spinner_editor = 2131230888;
+			
+			// aapt resource value: 0x7f0800a9
+			public const int data_form_switch_editor = 2131230889;
+			
+			// aapt resource value: 0x7f0800aa
+			public const int data_form_text_editor = 2131230890;
+			
+			// aapt resource value: 0x7f0800ab
+			public const int data_form_text_viewer = 2131230891;
+			
+			// aapt resource value: 0x7f080099
+			public const int data_form_text_viewer_header = 2131230873;
+			
+			// aapt resource value: 0x7f0800ac
+			public const int data_form_time_editor = 2131230892;
+			
+			// aapt resource value: 0x7f0800ad
+			public const int data_form_toggle_editor = 2131230893;
 			
 			// aapt resource value: 0x7f08009e
-			public const int data_form_validation_message_view = 2131230878;
+			public const int data_form_validation_container = 2131230878;
 			
-			// aapt resource value: 0x7f080080
-			public const int decor_content_parent = 2131230848;
+			// aapt resource value: 0x7f08009c
+			public const int data_form_validation_icon = 2131230876;
 			
-			// aapt resource value: 0x7f080068
-			public const int default_activity_button = 2131230824;
+			// aapt resource value: 0x7f08009f
+			public const int data_form_validation_message_view = 2131230879;
 			
-			// aapt resource value: 0x7f0800bb
-			public const int design_bottom_sheet = 2131230907;
+			// aapt resource value: 0x7f080081
+			public const int decor_content_parent = 2131230849;
+			
+			// aapt resource value: 0x7f08006a
+			public const int default_activity_button = 2131230826;
+			
+			// aapt resource value: 0x7f0800bc
+			public const int design_bottom_sheet = 2131230908;
+			
+			// aapt resource value: 0x7f0800c3
+			public const int design_menu_item_action_area = 2131230915;
 			
 			// aapt resource value: 0x7f0800c2
-			public const int design_menu_item_action_area = 2131230914;
+			public const int design_menu_item_action_area_stub = 2131230914;
 			
 			// aapt resource value: 0x7f0800c1
-			public const int design_menu_item_action_area_stub = 2131230913;
+			public const int design_menu_item_text = 2131230913;
 			
 			// aapt resource value: 0x7f0800c0
-			public const int design_menu_item_text = 2131230912;
-			
-			// aapt resource value: 0x7f0800bf
-			public const int design_navigation_view = 2131230911;
+			public const int design_navigation_view = 2131230912;
 			
 			// aapt resource value: 0x7f08000e
 			public const int disableHome = 2131230734;
 			
-			// aapt resource value: 0x7f080047
-			public const int edge = 2131230791;
+			// aapt resource value: 0x7f080049
+			public const int edge = 2131230793;
 			
-			// aapt resource value: 0x7f080084
-			public const int edit_query = 2131230852;
+			// aapt resource value: 0x7f080085
+			public const int edit_query = 2131230853;
 			
-			// aapt resource value: 0x7f0800f8
-			public const int emptyContent = 2131230968;
+			// aapt resource value: 0x7f0800f9
+			public const int emptyContent = 2131230969;
 			
 			// aapt resource value: 0x7f08001c
 			public const int end = 2131230748;
 			
-			// aapt resource value: 0x7f0800f0
-			public const int end_padder = 2131230960;
+			// aapt resource value: 0x7f0800f1
+			public const int end_padder = 2131230961;
 			
 			// aapt resource value: 0x7f080023
 			public const int enterAlways = 2131230755;
@@ -12844,11 +12840,11 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080025
 			public const int exitUntilCollapsed = 2131230757;
 			
-			// aapt resource value: 0x7f080066
-			public const int expand_activities_button = 2131230822;
+			// aapt resource value: 0x7f080068
+			public const int expand_activities_button = 2131230824;
 			
-			// aapt resource value: 0x7f080079
-			public const int expanded_menu = 2131230841;
+			// aapt resource value: 0x7f08007b
+			public const int expanded_menu = 2131230843;
 			
 			// aapt resource value: 0x7f080035
 			public const int fill = 2131230773;
@@ -12862,14 +12858,14 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080038
 			public const int @fixed = 2131230776;
 			
-			// aapt resource value: 0x7f0800fb
-			public const int groupHeaderCollapseImage = 2131230971;
-			
 			// aapt resource value: 0x7f0800fc
-			public const int groupHeaderText = 2131230972;
+			public const int groupHeaderCollapseImage = 2131230972;
 			
-			// aapt resource value: 0x7f0800b0
-			public const int highText = 2131230896;
+			// aapt resource value: 0x7f0800fd
+			public const int groupHeaderText = 2131230973;
+			
+			// aapt resource value: 0x7f0800b1
+			public const int highText = 2131230897;
 			
 			// aapt resource value: 0x7f080005
 			public const int home = 2131230725;
@@ -12880,32 +12876,32 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f08003a
 			public const int horizontal = 2131230778;
 			
-			// aapt resource value: 0x7f08006a
-			public const int icon = 2131230826;
+			// aapt resource value: 0x7f08006c
+			public const int icon = 2131230828;
 			
 			// aapt resource value: 0x7f080020
 			public const int ifRoom = 2131230752;
 			
-			// aapt resource value: 0x7f080067
-			public const int image = 2131230823;
-			
-			// aapt resource value: 0x7f0800c3
-			public const int imageView = 2131230915;
-			
-			// aapt resource value: 0x7f0800ef
-			public const int info = 2131230959;
-			
-			// aapt resource value: 0x7f0800c5
-			public const int inline_event_end = 2131230917;
+			// aapt resource value: 0x7f080069
+			public const int image = 2131230825;
 			
 			// aapt resource value: 0x7f0800c4
-			public const int inline_event_start = 2131230916;
+			public const int imageView = 2131230916;
+			
+			// aapt resource value: 0x7f0800f0
+			public const int info = 2131230960;
 			
 			// aapt resource value: 0x7f0800c6
-			public const int inline_event_title = 2131230918;
+			public const int inline_event_end = 2131230918;
 			
-			// aapt resource value: 0x7f080045
-			public const int inner = 2131230789;
+			// aapt resource value: 0x7f0800c5
+			public const int inline_event_start = 2131230917;
+			
+			// aapt resource value: 0x7f0800c7
+			public const int inline_event_title = 2131230919;
+			
+			// aapt resource value: 0x7f080047
+			public const int inner = 2131230791;
 			
 			// aapt resource value: 0x7f080000
 			public const int item_touch_helper_previous_elevation = 2131230720;
@@ -12913,32 +12909,32 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f08002f
 			public const int left = 2131230767;
 			
-			// aapt resource value: 0x7f0800c7
-			public const int legendItemIconView = 2131230919;
-			
 			// aapt resource value: 0x7f0800c8
-			public const int legendItemTitleView = 2131230920;
+			public const int legendItemIconView = 2131230920;
 			
-			// aapt resource value: 0x7f0800fa
-			public const int legendListView = 2131230970;
+			// aapt resource value: 0x7f0800c9
+			public const int legendItemTitleView = 2131230921;
 			
-			// aapt resource value: 0x7f0800e9
-			public const int line1 = 2131230953;
+			// aapt resource value: 0x7f0800fb
+			public const int legendListView = 2131230971;
 			
-			// aapt resource value: 0x7f0800ed
-			public const int line3 = 2131230957;
+			// aapt resource value: 0x7f0800ea
+			public const int line1 = 2131230954;
+			
+			// aapt resource value: 0x7f0800ee
+			public const int line3 = 2131230958;
 			
 			// aapt resource value: 0x7f08000b
 			public const int listMode = 2131230731;
 			
-			// aapt resource value: 0x7f080069
-			public const int list_item = 2131230825;
+			// aapt resource value: 0x7f08006b
+			public const int list_item = 2131230827;
 			
-			// aapt resource value: 0x7f0800b3
-			public const int lowText = 2131230899;
+			// aapt resource value: 0x7f0800b4
+			public const int lowText = 2131230900;
 			
-			// aapt resource value: 0x7f0800e7
-			public const int media_actions = 2131230951;
+			// aapt resource value: 0x7f0800e8
+			public const int media_actions = 2131230952;
 			
 			// aapt resource value: 0x7f08001d
 			public const int middle = 2131230749;
@@ -12946,92 +12942,92 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080037
 			public const int mini = 2131230775;
 			
-			// aapt resource value: 0x7f0800d4
-			public const int mr_art = 2131230932;
-			
-			// aapt resource value: 0x7f0800c9
-			public const int mr_chooser_list = 2131230921;
-			
-			// aapt resource value: 0x7f0800cc
-			public const int mr_chooser_route_desc = 2131230924;
+			// aapt resource value: 0x7f0800d5
+			public const int mr_art = 2131230933;
 			
 			// aapt resource value: 0x7f0800ca
-			public const int mr_chooser_route_icon = 2131230922;
-			
-			// aapt resource value: 0x7f0800cb
-			public const int mr_chooser_route_name = 2131230923;
-			
-			// aapt resource value: 0x7f0800d1
-			public const int mr_close = 2131230929;
-			
-			// aapt resource value: 0x7f0800d7
-			public const int mr_control_divider = 2131230935;
-			
-			// aapt resource value: 0x7f0800dd
-			public const int mr_control_play_pause = 2131230941;
-			
-			// aapt resource value: 0x7f0800e0
-			public const int mr_control_subtitle = 2131230944;
-			
-			// aapt resource value: 0x7f0800df
-			public const int mr_control_title = 2131230943;
-			
-			// aapt resource value: 0x7f0800de
-			public const int mr_control_title_container = 2131230942;
-			
-			// aapt resource value: 0x7f0800d2
-			public const int mr_custom_control = 2131230930;
-			
-			// aapt resource value: 0x7f0800d3
-			public const int mr_default_control = 2131230931;
-			
-			// aapt resource value: 0x7f0800ce
-			public const int mr_dialog_area = 2131230926;
+			public const int mr_chooser_list = 2131230922;
 			
 			// aapt resource value: 0x7f0800cd
-			public const int mr_expandable_area = 2131230925;
+			public const int mr_chooser_route_desc = 2131230925;
 			
-			// aapt resource value: 0x7f0800e1
-			public const int mr_group_expand_collapse = 2131230945;
+			// aapt resource value: 0x7f0800cb
+			public const int mr_chooser_route_icon = 2131230923;
 			
-			// aapt resource value: 0x7f0800d5
-			public const int mr_media_main_control = 2131230933;
+			// aapt resource value: 0x7f0800cc
+			public const int mr_chooser_route_name = 2131230924;
 			
-			// aapt resource value: 0x7f0800d0
-			public const int mr_name = 2131230928;
-			
-			// aapt resource value: 0x7f0800d6
-			public const int mr_playback_control = 2131230934;
-			
-			// aapt resource value: 0x7f0800cf
-			public const int mr_title_bar = 2131230927;
+			// aapt resource value: 0x7f0800d2
+			public const int mr_close = 2131230930;
 			
 			// aapt resource value: 0x7f0800d8
-			public const int mr_volume_control = 2131230936;
+			public const int mr_control_divider = 2131230936;
+			
+			// aapt resource value: 0x7f0800de
+			public const int mr_control_play_pause = 2131230942;
+			
+			// aapt resource value: 0x7f0800e1
+			public const int mr_control_subtitle = 2131230945;
+			
+			// aapt resource value: 0x7f0800e0
+			public const int mr_control_title = 2131230944;
+			
+			// aapt resource value: 0x7f0800df
+			public const int mr_control_title_container = 2131230943;
+			
+			// aapt resource value: 0x7f0800d3
+			public const int mr_custom_control = 2131230931;
+			
+			// aapt resource value: 0x7f0800d4
+			public const int mr_default_control = 2131230932;
+			
+			// aapt resource value: 0x7f0800cf
+			public const int mr_dialog_area = 2131230927;
+			
+			// aapt resource value: 0x7f0800ce
+			public const int mr_expandable_area = 2131230926;
+			
+			// aapt resource value: 0x7f0800e2
+			public const int mr_group_expand_collapse = 2131230946;
+			
+			// aapt resource value: 0x7f0800d6
+			public const int mr_media_main_control = 2131230934;
+			
+			// aapt resource value: 0x7f0800d1
+			public const int mr_name = 2131230929;
+			
+			// aapt resource value: 0x7f0800d7
+			public const int mr_playback_control = 2131230935;
+			
+			// aapt resource value: 0x7f0800d0
+			public const int mr_title_bar = 2131230928;
 			
 			// aapt resource value: 0x7f0800d9
-			public const int mr_volume_group_list = 2131230937;
+			public const int mr_volume_control = 2131230937;
 			
-			// aapt resource value: 0x7f0800db
-			public const int mr_volume_item_icon = 2131230939;
+			// aapt resource value: 0x7f0800da
+			public const int mr_volume_group_list = 2131230938;
 			
 			// aapt resource value: 0x7f0800dc
-			public const int mr_volume_slider = 2131230940;
+			public const int mr_volume_item_icon = 2131230940;
+			
+			// aapt resource value: 0x7f0800dd
+			public const int mr_volume_slider = 2131230941;
 			
 			// aapt resource value: 0x7f080016
 			public const int multiply = 2131230742;
 			
-			// aapt resource value: 0x7f080103
-			public const int name = 2131230979;
-			
-			// aapt resource value: 0x7f0800e2
-			public const int navItemsLayout = 2131230946;
+			// aapt resource value: 0x7f080104
+			public const int name = 2131230980;
 			
 			// aapt resource value: 0x7f0800e3
-			public const int navigationItemText = 2131230947;
+			public const int navItemsLayout = 2131230947;
 			
-			// aapt resource value: 0x7f0800be
-			public const int navigation_header_container = 2131230910;
+			// aapt resource value: 0x7f0800e4
+			public const int navigationItemText = 2131230948;
+			
+			// aapt resource value: 0x7f0800bf
+			public const int navigation_header_container = 2131230911;
 			
 			// aapt resource value: 0x7f080021
 			public const int never = 2131230753;
@@ -13042,38 +13038,38 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f08000c
 			public const int normal = 2131230732;
 			
+			// aapt resource value: 0x7f0800f3
+			public const int number_picker_minus = 2131230963;
+			
+			// aapt resource value: 0x7f0800f5
+			public const int number_picker_plus = 2131230965;
+			
 			// aapt resource value: 0x7f0800f2
-			public const int number_picker_minus = 2131230962;
+			public const int number_picker_root = 2131230962;
 			
 			// aapt resource value: 0x7f0800f4
-			public const int number_picker_plus = 2131230964;
+			public const int number_picker_view = 2131230964;
 			
-			// aapt resource value: 0x7f0800f1
-			public const int number_picker_root = 2131230961;
+			// aapt resource value: 0x7f0800b2
+			public const int openText = 2131230898;
 			
-			// aapt resource value: 0x7f0800f3
-			public const int number_picker_view = 2131230963;
-			
-			// aapt resource value: 0x7f0800b1
-			public const int openText = 2131230897;
-			
-			// aapt resource value: 0x7f080046
-			public const int outer = 2131230790;
+			// aapt resource value: 0x7f080048
+			public const int outer = 2131230792;
 			
 			// aapt resource value: 0x7f080028
 			public const int parallax = 2131230760;
 			
-			// aapt resource value: 0x7f08006e
-			public const int parentPanel = 2131230830;
+			// aapt resource value: 0x7f080070
+			public const int parentPanel = 2131230832;
 			
 			// aapt resource value: 0x7f080029
 			public const int pin = 2131230761;
 			
-			// aapt resource value: 0x7f0800f5
-			public const int popup_event_time = 2131230965;
-			
 			// aapt resource value: 0x7f0800f6
-			public const int popup_event_title = 2131230966;
+			public const int popup_event_time = 2131230966;
+			
+			// aapt resource value: 0x7f0800f7
+			public const int popup_event_title = 2131230967;
 			
 			// aapt resource value: 0x7f080006
 			public const int progress_circular = 2131230726;
@@ -13081,17 +13077,17 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080007
 			public const int progress_horizontal = 2131230727;
 			
-			// aapt resource value: 0x7f08007c
-			public const int radio = 2131230844;
+			// aapt resource value: 0x7f080045
+			public const int radio = 2131230789;
 			
-			// aapt resource value: 0x7f0800f9
-			public const int renderSurface = 2131230969;
+			// aapt resource value: 0x7f0800fa
+			public const int renderSurface = 2131230970;
 			
 			// aapt resource value: 0x7f080030
 			public const int right = 2131230768;
 			
-			// aapt resource value: 0x7f080048
-			public const int round = 2131230792;
+			// aapt resource value: 0x7f08004a
+			public const int round = 2131230794;
 			
 			// aapt resource value: 0x7f080017
 			public const int screen = 2131230743;
@@ -13099,53 +13095,56 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080026
 			public const int scroll = 2131230758;
 			
+			// aapt resource value: 0x7f080078
+			public const int scrollIndicatorDown = 2131230840;
+			
+			// aapt resource value: 0x7f080075
+			public const int scrollIndicatorUp = 2131230837;
+			
 			// aapt resource value: 0x7f080076
-			public const int scrollIndicatorDown = 2131230838;
-			
-			// aapt resource value: 0x7f080073
-			public const int scrollIndicatorUp = 2131230835;
-			
-			// aapt resource value: 0x7f080074
-			public const int scrollView = 2131230836;
+			public const int scrollView = 2131230838;
 			
 			// aapt resource value: 0x7f080039
 			public const int scrollable = 2131230777;
 			
-			// aapt resource value: 0x7f080086
-			public const int search_badge = 2131230854;
-			
-			// aapt resource value: 0x7f080085
-			public const int search_bar = 2131230853;
-			
 			// aapt resource value: 0x7f080087
-			public const int search_button = 2131230855;
+			public const int search_badge = 2131230855;
 			
-			// aapt resource value: 0x7f08008c
-			public const int search_close_btn = 2131230860;
+			// aapt resource value: 0x7f080086
+			public const int search_bar = 2131230854;
 			
 			// aapt resource value: 0x7f080088
-			public const int search_edit_frame = 2131230856;
+			public const int search_button = 2131230856;
 			
-			// aapt resource value: 0x7f08008e
-			public const int search_go_btn = 2131230862;
+			// aapt resource value: 0x7f08008d
+			public const int search_close_btn = 2131230861;
 			
 			// aapt resource value: 0x7f080089
-			public const int search_mag_icon = 2131230857;
-			
-			// aapt resource value: 0x7f08008a
-			public const int search_plate = 2131230858;
-			
-			// aapt resource value: 0x7f08008b
-			public const int search_src_text = 2131230859;
+			public const int search_edit_frame = 2131230857;
 			
 			// aapt resource value: 0x7f08008f
-			public const int search_voice_btn = 2131230863;
+			public const int search_go_btn = 2131230863;
+			
+			// aapt resource value: 0x7f08008a
+			public const int search_mag_icon = 2131230858;
+			
+			// aapt resource value: 0x7f08008b
+			public const int search_plate = 2131230859;
+			
+			// aapt resource value: 0x7f08008c
+			public const int search_src_text = 2131230860;
 			
 			// aapt resource value: 0x7f080090
-			public const int select_dialog_listview = 2131230864;
+			public const int search_voice_btn = 2131230864;
 			
-			// aapt resource value: 0x7f08007b
-			public const int shortcut = 2131230843;
+			// aapt resource value: 0x7f080046
+			public const int segmented = 2131230790;
+			
+			// aapt resource value: 0x7f080091
+			public const int select_dialog_listview = 2131230865;
+			
+			// aapt resource value: 0x7f08007d
+			public const int shortcut = 2131230845;
 			
 			// aapt resource value: 0x7f080011
 			public const int showCustom = 2131230737;
@@ -13156,20 +13155,20 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080013
 			public const int showTitle = 2131230739;
 			
-			// aapt resource value: 0x7f080102
-			public const int sliding_tabs = 2131230978;
+			// aapt resource value: 0x7f080103
+			public const int sliding_tabs = 2131230979;
+			
+			// aapt resource value: 0x7f0800be
+			public const int snackbar_action = 2131230910;
 			
 			// aapt resource value: 0x7f0800bd
-			public const int snackbar_action = 2131230909;
-			
-			// aapt resource value: 0x7f0800bc
-			public const int snackbar_text = 2131230908;
+			public const int snackbar_text = 2131230909;
 			
 			// aapt resource value: 0x7f080027
 			public const int snap = 2131230759;
 			
-			// aapt resource value: 0x7f08006d
-			public const int spacer = 2131230829;
+			// aapt resource value: 0x7f08006f
+			public const int spacer = 2131230831;
 			
 			// aapt resource value: 0x7f080008
 			public const int split_action_bar = 2131230728;
@@ -13186,71 +13185,71 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080031
 			public const int start = 2131230769;
 			
-			// aapt resource value: 0x7f0800e6
-			public const int status_bar_latest_event_content = 2131230950;
+			// aapt resource value: 0x7f0800e7
+			public const int status_bar_latest_event_content = 2131230951;
 			
-			// aapt resource value: 0x7f08008d
-			public const int submit_area = 2131230861;
-			
-			// aapt resource value: 0x7f0800fe
-			public const int suggestion_img = 2131230974;
+			// aapt resource value: 0x7f08008e
+			public const int submit_area = 2131230862;
 			
 			// aapt resource value: 0x7f0800ff
-			public const int suggestion_text = 2131230975;
-			
-			// aapt resource value: 0x7f080101
-			public const int tabItemImageView = 2131230977;
+			public const int suggestion_img = 2131230975;
 			
 			// aapt resource value: 0x7f080100
-			public const int tabItemTextView = 2131230976;
+			public const int suggestion_text = 2131230976;
+			
+			// aapt resource value: 0x7f080102
+			public const int tabItemImageView = 2131230978;
+			
+			// aapt resource value: 0x7f080101
+			public const int tabItemTextView = 2131230977;
 			
 			// aapt resource value: 0x7f08000d
 			public const int tabMode = 2131230733;
 			
-			// aapt resource value: 0x7f0800ee
-			public const int text = 2131230958;
+			// aapt resource value: 0x7f0800ef
+			public const int text = 2131230959;
 			
-			// aapt resource value: 0x7f0800fd
-			public const int text1 = 2131230973;
+			// aapt resource value: 0x7f0800fe
+			public const int text1 = 2131230974;
 			
-			// aapt resource value: 0x7f0800ec
-			public const int text2 = 2131230956;
+			// aapt resource value: 0x7f0800ed
+			public const int text2 = 2131230957;
 			
-			// aapt resource value: 0x7f080075
-			public const int textSpacerNoButtons = 2131230837;
+			// aapt resource value: 0x7f080077
+			public const int textSpacerNoButtons = 2131230839;
 			
-			// aapt resource value: 0x7f0800ea
-			public const int time = 2131230954;
+			// aapt resource value: 0x7f0800eb
+			public const int time = 2131230955;
 			
-			// aapt resource value: 0x7f08006b
-			public const int title = 2131230827;
+			// aapt resource value: 0x7f08006d
+			public const int title = 2131230829;
 			
-			// aapt resource value: 0x7f080070
-			public const int title_template = 2131230832;
-			
-			// aapt resource value: 0x7f080104
-			public const int tokenimage = 2131230980;
+			// aapt resource value: 0x7f080072
+			public const int title_template = 2131230834;
 			
 			// aapt resource value: 0x7f080105
-			public const int tokentext = 2131230981;
+			public const int tokenimage = 2131230981;
 			
-			// aapt resource value: 0x7f080107
-			public const int toolbar = 2131230983;
+			// aapt resource value: 0x7f080106
+			public const int tokentext = 2131230982;
 			
-			// aapt resource value: 0x7f0800ad
-			public const int tooltip_content_container = 2131230893;
+			// aapt resource value: 0x7f080108
+			public const int toolbar = 2131230984;
+			
+			// aapt resource value: 0x7f0800ae
+			public const int tooltip_content_container = 2131230894;
 			
 			// aapt resource value: 0x7f080032
 			public const int top = 2131230770;
 			
-			// aapt resource value: 0x7f08006f
-			public const int topPanel = 2131230831;
+			// aapt resource value: 0x7f080071
+			public const int topPanel = 2131230833;
 			
-			// aapt resource value: 0x7f0800ba
-			public const int touch_outside = 2131230906;
+			// aapt resource value: 0x7f0800bb
+			public const int touch_outside = 2131230907;
 			
-			// aapt resource value: 0x7f0800b8
-			public const int trackball_points_list = 2131230904;
+			// aapt resource value: 0x7f0800b9
+			public const int trackball_points_list = 2131230905;
 			
 			// aapt resource value: 0x7f080009
 			public const int up = 2131230729;
@@ -13264,8 +13263,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f08000a
 			public const int view_offset_helper = 2131230730;
 			
-			// aapt resource value: 0x7f0800da
-			public const int volume_item_container = 2131230938;
+			// aapt resource value: 0x7f0800db
+			public const int volume_item_container = 2131230939;
 			
 			// aapt resource value: 0x7f080022
 			public const int withText = 2131230754;
@@ -13273,14 +13272,14 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080015
 			public const int wrap_content = 2131230741;
 			
-			// aapt resource value: 0x7f0800b4
-			public const int xText = 2131230900;
-			
-			// aapt resource value: 0x7f080106
-			public const int xview = 2131230982;
-			
 			// aapt resource value: 0x7f0800b5
-			public const int yText = 2131230901;
+			public const int xText = 2131230901;
+			
+			// aapt resource value: 0x7f080107
+			public const int xview = 2131230983;
+			
+			// aapt resource value: 0x7f0800b6
+			public const int yText = 2131230902;
 			
 			static Id()
 			{
@@ -15776,28 +15775,28 @@ namespace XkcdViewer.Forms.Android
 			public const int AppCompatTheme_windowNoTitle = 3;
 			
 			public static int[] AreaSeries = new int[] {
-					2130772344};
+					2130772345};
 			
 			// aapt resource value: 0
 			public const int AreaSeries_fillColor = 0;
 			
 			public static int[] Axis = new int[] {
-					2130772347,
-					2130772350,
+					2130772348,
 					2130772351,
 					2130772352,
 					2130772353,
 					2130772354,
 					2130772355,
-					2130772359,
-					2130772368,
+					2130772356,
+					2130772360,
 					2130772369,
 					2130772370,
 					2130772371,
 					2130772372,
 					2130772373,
 					2130772374,
-					2130772375};
+					2130772375,
+					2130772376};
 			
 			// aapt resource value: 12
 			public const int Axis_axisLabelFitMode = 12;
@@ -15848,11 +15847,11 @@ namespace XkcdViewer.Forms.Android
 			public const int Axis_tickThickness = 14;
 			
 			public static int[] BarSeries = new int[] {
-					2130772344,
 					2130772345,
-					2130772356,
+					2130772346,
 					2130772357,
-					2130772358};
+					2130772358,
+					2130772359};
 			
 			// aapt resource value: 3
 			public const int BarSeries_areBarsRounded = 3;
@@ -15952,8 +15951,8 @@ namespace XkcdViewer.Forms.Android
 			public const int CardView_contentPaddingTop = 11;
 			
 			public static int[] CartesianAxis = new int[] {
-					2130772378,
-					2130772379};
+					2130772379,
+					2130772380};
 			
 			// aapt resource value: 0
 			public const int CartesianAxis_horizontalLocation = 0;
@@ -15962,11 +15961,11 @@ namespace XkcdViewer.Forms.Android
 			public const int CartesianAxis_verticalLocation = 1;
 			
 			public static int[] CartesianCustomAnnotation = new int[] {
-					2130772386,
 					2130772387,
 					2130772388,
 					2130772389,
-					2130772390};
+					2130772390,
+					2130772391};
 			
 			// aapt resource value: 2
 			public const int CartesianCustomAnnotation_content = 2;
@@ -15984,15 +15983,15 @@ namespace XkcdViewer.Forms.Android
 			public const int CartesianCustomAnnotation_verticalOffset = 1;
 			
 			public static int[] CartesianPlotBandAnnotation = new int[] {
-					2130772344};
+					2130772345};
 			
 			// aapt resource value: 0
 			public const int CartesianPlotBandAnnotation_fillColor = 0;
 			
 			public static int[] CartesianStrokedAnnotation = new int[] {
-					2130772345,
-					2130772356,
-					2130772385};
+					2130772346,
+					2130772357,
+					2130772386};
 			
 			// aapt resource value: 2
 			public const int CartesianStrokedAnnotation_label = 2;
@@ -16004,9 +16003,9 @@ namespace XkcdViewer.Forms.Android
 			public const int CartesianStrokedAnnotation_strokeWidth = 1;
 			
 			public static int[] CategoricalAxis = new int[] {
-					2130772348,
 					2130772349,
-					2130772377};
+					2130772350,
+					2130772378};
 			
 			// aapt resource value: 0
 			public const int CategoricalAxis_gapLength = 0;
@@ -16018,14 +16017,14 @@ namespace XkcdViewer.Forms.Android
 			public const int CategoricalAxis_plotMode = 1;
 			
 			public static int[] CategoricalSeries = new int[] {
-					2130772367};
+					2130772368};
 			
 			// aapt resource value: 0
 			public const int CategoricalSeries_combineMode = 0;
 			
 			public static int[] CategoricalStrokedSeries = new int[] {
-					2130772345,
-					2130772356};
+					2130772346,
+					2130772357};
 			
 			// aapt resource value: 0
 			public const int CategoricalStrokedSeries_strokeColor = 0;
@@ -16034,19 +16033,19 @@ namespace XkcdViewer.Forms.Android
 			public const int CategoricalStrokedSeries_strokeWidth = 1;
 			
 			public static int[] ChartAnnotation = new int[] {
-					2130772346};
+					2130772347};
 			
 			// aapt resource value: 0
 			public const int ChartAnnotation_clipToPlotArea = 0;
 			
 			public static int[] ChartSeries = new int[] {
-					2130772346,
 					2130772347,
-					2130772350,
+					2130772348,
 					2130772351,
-					2130772354,
+					2130772352,
 					2130772355,
-					2130772359};
+					2130772356,
+					2130772360};
 			
 			// aapt resource value: 0
 			public const int ChartSeries_clipToPlotArea = 0;
@@ -16070,7 +16069,6 @@ namespace XkcdViewer.Forms.Android
 			public const int ChartSeries_showLabels = 1;
 			
 			public static int[] ChartTheme = new int[] {
-					2130772391,
 					2130772392,
 					2130772393,
 					2130772394,
@@ -16087,7 +16085,8 @@ namespace XkcdViewer.Forms.Android
 					2130772405,
 					2130772406,
 					2130772407,
-					2130772408};
+					2130772408,
+					2130772409};
 			
 			// aapt resource value: 12
 			public const int ChartTheme_AreaSeriesStyle = 12;
@@ -16258,8 +16257,8 @@ namespace XkcdViewer.Forms.Android
 			public const int CoordinatorLayout_LayoutParams_layout_keyline = 3;
 			
 			public static int[] DateTimeCategoricalAxis = new int[] {
-					2130772380,
-					2130772381};
+					2130772381,
+					2130772382};
 			
 			// aapt resource value: 0
 			public const int DateTimeCategoricalAxis_dateFormat = 0;
@@ -16268,11 +16267,11 @@ namespace XkcdViewer.Forms.Android
 			public const int DateTimeCategoricalAxis_dateTimeComponent = 1;
 			
 			public static int[] DateTimeContinuousAxis = new int[] {
-					2130772348,
 					2130772349,
-					2130772382,
+					2130772350,
 					2130772383,
-					2130772384};
+					2130772384,
+					2130772385};
 			
 			// aapt resource value: 0
 			public const int DateTimeContinuousAxis_gapLength = 0;
@@ -16386,11 +16385,11 @@ namespace XkcdViewer.Forms.Android
 			public const int ForegroundLinearLayout_foregroundInsidePadding = 2;
 			
 			public static int[] GaugeBarIndicator = new int[] {
-					2130772301,
 					2130772302,
 					2130772303,
-					2130772333,
-					2130772334};
+					2130772304,
+					2130772334,
+					2130772335};
 			
 			// aapt resource value: 2
 			public const int GaugeBarIndicator_animationStartValue = 2;
@@ -16408,11 +16407,11 @@ namespace XkcdViewer.Forms.Android
 			public const int GaugeBarIndicator_minimum = 1;
 			
 			public static int[] GaugeIndicator = new int[] {
-					2130772304,
-					2130772331,
+					2130772305,
 					2130772332,
-					2130772344,
-					2130772345};
+					2130772333,
+					2130772345,
+					2130772346};
 			
 			// aapt resource value: 1
 			public const int GaugeIndicator_animated = 1;
@@ -16432,8 +16431,7 @@ namespace XkcdViewer.Forms.Android
 			public static int[] GaugeRadialBarIndicator;
 			
 			public static int[] GaugeRadialNeedle = new int[] {
-					2130772303,
-					2130772335,
+					2130772304,
 					2130772336,
 					2130772337,
 					2130772338,
@@ -16441,7 +16439,8 @@ namespace XkcdViewer.Forms.Android
 					2130772340,
 					2130772341,
 					2130772342,
-					2130772343};
+					2130772343,
+					2130772344};
 			
 			// aapt resource value: 0
 			public const int GaugeRadialNeedle_animationStartValue = 0;
@@ -16474,9 +16473,9 @@ namespace XkcdViewer.Forms.Android
 			public const int GaugeRadialNeedle_value = 9;
 			
 			public static int[] GaugeRadialScale = new int[] {
-					2130772328,
 					2130772329,
-					2130772330};
+					2130772330,
+					2130772331};
 			
 			// aapt resource value: 2
 			public const int GaugeRadialScale_radius = 2;
@@ -16488,10 +16487,9 @@ namespace XkcdViewer.Forms.Android
 			public const int GaugeRadialScale_sweepAngle = 1;
 			
 			public static int[] GaugeScale = new int[] {
-					2130772301,
 					2130772302,
-					2130772304,
-					2130772309,
+					2130772303,
+					2130772305,
 					2130772310,
 					2130772311,
 					2130772312,
@@ -16510,8 +16508,9 @@ namespace XkcdViewer.Forms.Android
 					2130772325,
 					2130772326,
 					2130772327,
-					2130772344,
-					2130772345};
+					2130772328,
+					2130772345,
+					2130772346};
 			
 			// aapt resource value: 22
 			public const int GaugeScale_fillColor = 22;
@@ -16586,7 +16585,7 @@ namespace XkcdViewer.Forms.Android
 			public const int GaugeScale_ticksVisible = 10;
 			
 			public static int[] LineAxis = new int[] {
-					2130772376};
+					2130772377};
 			
 			// aapt resource value: 0
 			public const int LineAxis_lineColor = 0;
@@ -16912,12 +16911,12 @@ namespace XkcdViewer.Forms.Android
 			public const int RadCalendarView_weekNumberDisplayMode = 7;
 			
 			public static int[] RadChartViewBase = new int[] {
-					2130772361,
 					2130772362,
 					2130772363,
 					2130772364,
 					2130772365,
-					2130772366};
+					2130772366,
+					2130772367};
 			
 			// aapt resource value: 1
 			public const int RadChartViewBase_chartZoom = 1;
@@ -16938,11 +16937,11 @@ namespace XkcdViewer.Forms.Android
 			public const int RadChartViewBase_pan = 0;
 			
 			public static int[] RadGaugeView = new int[] {
-					2130772305,
 					2130772306,
 					2130772307,
 					2130772308,
-					2130772344};
+					2130772309,
+					2130772345};
 			
 			// aapt resource value: 4
 			public const int RadGaugeView_fillColor = 4;
@@ -16975,12 +16974,18 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0
 			public const int RadScrollViewTheme_radScrollViewStyle = 0;
 			
+			public static int[] RadSegmentedView = new int[] {
+					2130772301};
+			
+			// aapt resource value: 0
+			public const int RadSegmentedView_rad_segmented_view_type = 0;
+			
 			public static int[] RangeBarSeries = new int[] {
-					2130772344,
 					2130772345,
-					2130772356,
+					2130772346,
 					2130772357,
-					2130772358};
+					2130772358,
+					2130772359};
 			
 			// aapt resource value: 3
 			public const int RangeBarSeries_areBarsRounded = 3;

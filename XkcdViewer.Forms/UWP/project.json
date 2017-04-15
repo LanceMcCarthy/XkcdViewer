@@ -7,8 +7,8 @@
     "PCLStorage": "1.0.1",
     "Plugin.Share": "5.0.0",
     "SkiaSharp.Views.Forms": "1.56.0",
-    "Telerik.UI.for.Xamarin": "2017.1.10301.12",
-    "Xamarin.Forms": "2.3.3.175"
+    "Telerik.UI.for.Xamarin": "2017.1.10413.6",
+    "Xamarin.Forms": "2.3.4.231"
   },
   "frameworks": {
     "uap10.0": {}

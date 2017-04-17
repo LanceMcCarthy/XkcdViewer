@@ -24458,20 +24458,20 @@
     "UAP,Version=v10.0": []
   },
   "packageFolders": {
-    "C:\\Users\\lance\\.nuget\\packages\\": {}
+    "C:\\Users\\mccarthy\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
-      "projectUniqueName": "C:\\Users\\lance\\Source\\GitHub\\XkcdViewer\\XkcdViewer.Forms\\UWP\\XkcdViewer.Forms.UWP.csproj",
+      "projectUniqueName": "D:\\GitHub Master\\XkcdViewer\\XkcdViewer.Forms\\UWP\\XkcdViewer.Forms.UWP.csproj",
       "projectName": "XkcdViewer.Forms.UWP",
-      "projectPath": "C:\\Users\\lance\\Source\\GitHub\\XkcdViewer\\XkcdViewer.Forms\\UWP\\XkcdViewer.Forms.UWP.csproj",
-      "projectJsonPath": "C:\\Users\\lance\\Source\\GitHub\\XkcdViewer\\XkcdViewer.Forms\\UWP\\project.json",
+      "projectPath": "D:\\GitHub Master\\XkcdViewer\\XkcdViewer.Forms\\UWP\\XkcdViewer.Forms.UWP.csproj",
+      "projectJsonPath": "D:\\GitHub Master\\XkcdViewer\\XkcdViewer.Forms\\UWP\\project.json",
       "projectStyle": "ProjectJson",
       "frameworks": {
         "uap10.0": {
           "projectReferences": {
-            "C:\\Users\\lance\\Source\\GitHub\\XkcdViewer\\XkcdViewer.Forms\\Portable\\XkcdViewer.Forms.Portable.csproj": {
-              "projectPath": "C:\\Users\\lance\\Source\\GitHub\\XkcdViewer\\XkcdViewer.Forms\\Portable\\XkcdViewer.Forms.Portable.csproj"
+            "D:\\GitHub Master\\XkcdViewer\\XkcdViewer.Forms\\Portable\\XkcdViewer.Forms.Portable.csproj": {
+              "projectPath": "D:\\GitHub Master\\XkcdViewer\\XkcdViewer.Forms\\Portable\\XkcdViewer.Forms.Portable.csproj"
             }
           }
         }
@@ -24486,7 +24486,7 @@
       "Plugin.Share": "5.0.0",
       "SkiaSharp.Views.Forms": "1.56.0",
       "Telerik.UI.for.Xamarin": "2017.1.10413.6",
-      "Xamarin.Forms": "[2.3.4.231, )"
+      "Xamarin.Forms": "2.3.4.231"
     },
     "frameworks": {
       "uap10.0": {}

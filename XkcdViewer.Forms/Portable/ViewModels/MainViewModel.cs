@@ -22,7 +22,8 @@ namespace Portable.ViewModels
         private Command<Comic> loadDetailsCommand;
         private Command goToFavoritesCommand;
         private Command getComicCommand;
-        
+        private bool isFetching;
+
         public MainViewModel(NavigationService navService)
         {
             this.navigationService = navService;
@@ -33,10 +34,16 @@ namespace Portable.ViewModels
         
         public ObservableCollection<Comic> Comics
         {
-            get { return comics ?? (comics = new ObservableCollection<Comic>()); }
-            set { Set(ref comics, value); }
+            get => comics ?? (comics = new ObservableCollection<Comic>());
+            set => Set(ref comics, value);
         }
-        
+
+        public bool IsFetching
+        {
+            get => isFetching;
+            set => Set(ref isFetching, value);
+        }
+
         public Command<Comic> LoadDetailsCommand => loadDetailsCommand ?? (loadDetailsCommand = new Command<Comic>( (comic) =>
         {
             if (comic != null)
@@ -54,7 +61,10 @@ namespace Portable.ViewModels
         {
             try
             {
-                IsBusy = true;
+                if(IsFetching)
+                    return;
+                
+                IsFetching = IsBusy = true;
 
                 Comic comic;
 
@@ -76,7 +86,7 @@ namespace Portable.ViewModels
             }
             finally
             {
-                IsBusy = false;
+                IsFetching = IsBusy = false;
             }
         }
         

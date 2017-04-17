@@ -1,5 +1,4 @@
 ﻿using Portable.Common;
-using Telerik.XamarinForms.DataControls.ListView;
 
 namespace Portable.Views
 {
@@ -9,23 +8,6 @@ namespace Portable.Views
         {
             InitializeComponent();
         }
-
-        //private void FavoriteButtonClicked(object sender, EventArgs e)
-        //{
-        //    var button = sender as Button;
-        //    var selectedComic = button?.BindingContext as Comic;
-        //    if (selectedComic == null) return;
-
-        //    App.ViewModel.FavoriteComics.Add(selectedComic);
-
-        //    MyRadListView.EndItemSwipe();
-        //}
-
-        //private async void MyRadListView_OnRefreshRequested(object sender, PullToRefreshRequestedEventArgs e)
-        //{
-        //    await App.ViewModel.GetNextComic();
-        //    MyRadListView.EndRefresh();
-        //}
     }
 }
 

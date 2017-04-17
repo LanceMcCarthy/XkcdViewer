@@ -10,8 +10,15 @@
                  xmlns:viewModels="clr-namespace:Portable.ViewModels;assembly=XkcdViewer.Forms.Portable"
                  xmlns:common="clr-namespace:Portable.Common;assembly=XkcdViewer.Forms.Portable"
                  x:Class="Portable.Views.MainPage"
-                 Title="Xkcd Viewer"
                  BindingContext="{x:Static viewModels:ViewModelLocator.Main}">
+
+    <common:PageBase.Title>
+        <OnPlatform x:TypeArguments="x:String">
+            <On Platform="iOS">Xkcd Comic Viewer</On>
+            <On Platform="Android">Xkcd Viewer</On>
+            <On Platform="Windows">Xkcd Viewer</On>
+        </OnPlatform>
+    </common:PageBase.Title>
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -26,9 +33,6 @@
                     <listView:ListViewTemplateCell.View>
                         <Grid Padding="10"
                               BackgroundColor="Gray">
-                            <Grid x:Name="ItemContentGrid">
-
-                            </Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
@@ -47,7 +51,13 @@
                             </StackLayout>
 
                             <Image Source="{Binding Img, Converter={StaticResource UrlToImageSourceConverter}}"
-                                   Grid.Row="1" />
+                                   Grid.Row="1" >
+                                <Image.MinimumHeightRequest>
+                                    <OnPlatform x:TypeArguments="x:Double">
+                                        <On Platform="iOS">300</On>
+                                    </OnPlatform>
+                                </Image.MinimumHeightRequest>
+                            </Image>
                         </Grid>
                     </listView:ListViewTemplateCell.View>
                 </listView:ListViewTemplateCell>
@@ -103,7 +113,7 @@
 
             <dataControls:RadListView x:Name="MyRadListView"
                                       ItemsSource="{Binding Comics}"
-                                      IsPullToRefreshEnabled="True"
+                                      IsPullToRefreshEnabled="{Binding IsFetching, Converter={StaticResource InvertBoolConverter}}"
                                       SelectionMode="Single"
                                       ItemTemplate="{StaticResource PortaitTemplate}"
                                       SwipeThreshold="50"

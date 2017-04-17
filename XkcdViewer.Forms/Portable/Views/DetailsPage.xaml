@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <common:PageBase xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels="clr-namespace:Portable.ViewModels;assembly=XkcdViewer.Forms.Portable"
-             xmlns:converters="clr-namespace:Portable.Converters;assembly=XkcdViewer.Forms.Portable"
-             xmlns:common="clr-namespace:Portable.Common;assembly=XkcdViewer.Forms.Portable"
-             BindingContext="{x:Static viewModels:ViewModelLocator.Details}"
-             x:Class="Portable.Views.DetailsPage">
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:viewModels="clr-namespace:Portable.ViewModels;assembly=XkcdViewer.Forms.Portable"
+                 xmlns:converters="clr-namespace:Portable.Converters;assembly=XkcdViewer.Forms.Portable"
+                 xmlns:common="clr-namespace:Portable.Common;assembly=XkcdViewer.Forms.Portable"
+                 BindingContext="{x:Static viewModels:ViewModelLocator.Details}"
+                 x:Class="Portable.Views.DetailsPage">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -22,23 +22,25 @@
                      Command="{Binding ShareCommand}"
                      CommandParameter="{Binding SelectedComic}">
             <ToolbarItem.Icon>
-                <OnPlatform x:TypeArguments="FileImageSource"
-                            WinPhone="ic_share.png"
-                            Android="ic_share.png"
-                            iOS="ic_share.png" />
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="iOS">ic_share.png</On>
+                    <On Platform="Android">ic_share.png</On>
+                    <On Platform="Windows">ic_share.png</On>
+                </OnPlatform>
             </ToolbarItem.Icon>
         </ToolbarItem>
         <ToolbarItem x:Name="ToggleFavoriteToolbarItem"
+                     Icon="{Binding IsFavorite, Converter={StaticResource IsFavoriteIconConverter}}"
                      Text="{Binding IsFavorite, Converter={StaticResource IsFavoriteToStringConverter}}"
                      Command="{Binding ToggleFavoriteCommand}"
-                     CommandParameter="{Binding SelectedComic}"
-                     Icon="{Binding IsFavorite, Converter={StaticResource IsFavoriteIconConverter}}">
+                     CommandParameter="{Binding SelectedComic}">
         </ToolbarItem>
     </ContentPage.ToolbarItems>
 
     <Grid>
         <ScrollView>
-            <Image Source="{Binding SelectedComic.Img, Converter={StaticResource UrlToImageSourceConverter}}"
+            <Image x:Name="ComicImage"
+                   Source="{Binding SelectedComic.Img, Converter={StaticResource UrlToImageSourceConverter}}"
                    HorizontalOptions="FillAndExpand"
                    VerticalOptions="FillAndExpand" />
         </ScrollView>

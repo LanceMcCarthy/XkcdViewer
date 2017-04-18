@@ -4,13 +4,13 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-[assembly: Xamarin.Forms.ExportRenderer(typeof(Telerik.XamarinForms.Chart.RadCartesianChart), typeof(Telerik.XamarinForms.ChartRenderer.iOS.CartesianChartRenderer))]
-[assembly: Xamarin.Forms.ExportRenderer(typeof(Telerik.XamarinForms.Chart.RadPieChart), typeof(Telerik.XamarinForms.ChartRenderer.iOS.PieChartRenderer))]
-[assembly: Xamarin.Forms.ExportRenderer(typeof(Telerik.XamarinForms.Input.RadCalendar), typeof(Telerik.XamarinForms.InputRenderer.iOS.CalendarRenderer))]
+//[assembly: Xamarin.Forms.ExportRenderer(typeof(Telerik.XamarinForms.Chart.RadCartesianChart), typeof(Telerik.XamarinForms.ChartRenderer.iOS.CartesianChartRenderer))]
+//[assembly: Xamarin.Forms.ExportRenderer(typeof(Telerik.XamarinForms.Chart.RadPieChart), typeof(Telerik.XamarinForms.ChartRenderer.iOS.PieChartRenderer))]
+//[assembly: Xamarin.Forms.ExportRenderer(typeof(Telerik.XamarinForms.Input.RadCalendar), typeof(Telerik.XamarinForms.InputRenderer.iOS.CalendarRenderer))]
 [assembly: Xamarin.Forms.ExportRenderer(typeof(Telerik.XamarinForms.DataControls.RadListView), typeof(Telerik.XamarinForms.DataControlsRenderer.iOS.ListViewRenderer))]
-[assembly: Xamarin.Forms.ExportRenderer(typeof(Telerik.XamarinForms.Primitives.RadSideDrawer), typeof(Telerik.XamarinForms.PrimitivesRenderer.iOS.SideDrawerRenderer))]
-[assembly: Xamarin.Forms.ExportRenderer(typeof(Telerik.XamarinForms.Input.RadAutoComplete), typeof(Telerik.XamarinForms.InputRenderer.iOS.AutoCompleteRenderer))]
-[assembly: Xamarin.Forms.ExportRenderer(typeof(Telerik.XamarinForms.Input.RadDataForm), typeof(Telerik.XamarinForms.InputRenderer.iOS.DataFormRenderer))]
+//[assembly: Xamarin.Forms.ExportRenderer(typeof(Telerik.XamarinForms.Primitives.RadSideDrawer), typeof(Telerik.XamarinForms.PrimitivesRenderer.iOS.SideDrawerRenderer))]
+//[assembly: Xamarin.Forms.ExportRenderer(typeof(Telerik.XamarinForms.Input.RadAutoComplete), typeof(Telerik.XamarinForms.InputRenderer.iOS.AutoCompleteRenderer))]
+//[assembly: Xamarin.Forms.ExportRenderer(typeof(Telerik.XamarinForms.Input.RadDataForm), typeof(Telerik.XamarinForms.InputRenderer.iOS.DataFormRenderer))]
 
 
 namespace XkcdViewer.Forms.iOS
@@ -31,12 +31,12 @@ namespace XkcdViewer.Forms.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             new Telerik.XamarinForms.DataControlsRenderer.iOS.ListViewRenderer();
-            new Telerik.XamarinForms.ChartRenderer.iOS.PieChartRenderer();
-            new Telerik.XamarinForms.ChartRenderer.iOS.CartesianChartRenderer();
-            new Telerik.XamarinForms.InputRenderer.iOS.CalendarRenderer();
-            new Telerik.XamarinForms.InputRenderer.iOS.AutoCompleteRenderer();
-            new Telerik.XamarinForms.InputRenderer.iOS.DataFormRenderer();
-            new Telerik.XamarinForms.PrimitivesRenderer.iOS.SideDrawerRenderer();
+            //new Telerik.XamarinForms.ChartRenderer.iOS.PieChartRenderer();
+            //new Telerik.XamarinForms.ChartRenderer.iOS.CartesianChartRenderer();
+            //new Telerik.XamarinForms.InputRenderer.iOS.CalendarRenderer();
+            //new Telerik.XamarinForms.InputRenderer.iOS.AutoCompleteRenderer();
+            //new Telerik.XamarinForms.InputRenderer.iOS.DataFormRenderer();
+            //new Telerik.XamarinForms.PrimitivesRenderer.iOS.SideDrawerRenderer();
 
             global::Xamarin.Forms.Forms.Init();
             Telerik.XamarinForms.Common.iOS.TelerikForms.Init();

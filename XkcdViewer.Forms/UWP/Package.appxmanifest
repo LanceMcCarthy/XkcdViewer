@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="f736c883-f105-4d30-a719-4bf328872f5e" Publisher="CN=joaqu" Version="1.0.0.0" />
-  <mp:PhoneIdentity PhoneProductId="f736c883-f105-4d30-a719-4bf328872f5e" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="61469LanceLotSoftware.XKCDComicViewer" Publisher="CN=51B5A8B2-5D86-4826-BBE2-C92E963A4C02" Version="1.0.0.0" />
+  <mp:PhoneIdentity PhoneProductId="8f4f2ae7-ee34-417f-8764-36921b31b69b" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>XkcdViewer.Forms.UWP</DisplayName>
-    <PublisherDisplayName>mccarthy</PublisherDisplayName>
+    <DisplayName>XKCD Comic Viewer</DisplayName>
+    <PublisherDisplayName>Lancelot Software</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="XkcdViewer.Forms.UWP.App">
-      <uap:VisualElements DisplayName="Xkcd Viewer" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Xkcd comic viewer app" BackgroundColor="transparent">
+      <uap:VisualElements DisplayName="Xkcd Comic Viewer" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Xkcd comic viewer app" BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />

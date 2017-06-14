@@ -6492,10 +6492,6 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.shade_corner = global::XkcdViewer.Forms.Android.Resource.Drawable.shade_corner;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.shade_right = global::XkcdViewer.Forms.Android.Resource.Drawable.shade_right;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.tab_view_popup_background = global::XkcdViewer.Forms.Android.Resource.Drawable.tab_view_popup_background;
-			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.token_bg = global::XkcdViewer.Forms.Android.Resource.Drawable.token_bg;
-			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.token_default = global::XkcdViewer.Forms.Android.Resource.Drawable.token_default;
-			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.token_selected = global::XkcdViewer.Forms.Android.Resource.Drawable.token_selected;
-			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.token_text_color = global::XkcdViewer.Forms.Android.Resource.Drawable.token_text_color;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.Block = global::XkcdViewer.Forms.Android.Resource.Id.Block;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.Inline = global::XkcdViewer.Forms.Android.Resource.Id.Inline;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.Month = global::XkcdViewer.Forms.Android.Resource.Id.Month;
@@ -6639,7 +6635,6 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.mr_volume_item_icon = global::XkcdViewer.Forms.Android.Resource.Id.mr_volume_item_icon;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.mr_volume_slider = global::XkcdViewer.Forms.Android.Resource.Id.mr_volume_slider;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.multiply = global::XkcdViewer.Forms.Android.Resource.Id.multiply;
-			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.name = global::XkcdViewer.Forms.Android.Resource.Id.name;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.navItemsLayout = global::XkcdViewer.Forms.Android.Resource.Id.navItemsLayout;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.navigationItemText = global::XkcdViewer.Forms.Android.Resource.Id.navigationItemText;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.navigation_header_container = global::XkcdViewer.Forms.Android.Resource.Id.navigation_header_container;
@@ -6704,8 +6699,6 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.time = global::XkcdViewer.Forms.Android.Resource.Id.time;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.title = global::XkcdViewer.Forms.Android.Resource.Id.title;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.title_template = global::XkcdViewer.Forms.Android.Resource.Id.title_template;
-			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.tokenimage = global::XkcdViewer.Forms.Android.Resource.Id.tokenimage;
-			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.tokentext = global::XkcdViewer.Forms.Android.Resource.Id.tokentext;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.tooltip_content_container = global::XkcdViewer.Forms.Android.Resource.Id.tooltip_content_container;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.top = global::XkcdViewer.Forms.Android.Resource.Id.top;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.topPanel = global::XkcdViewer.Forms.Android.Resource.Id.topPanel;
@@ -6717,7 +6710,6 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.volume_item_container = global::XkcdViewer.Forms.Android.Resource.Id.volume_item_container;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.withText = global::XkcdViewer.Forms.Android.Resource.Id.withText;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.wrap_content = global::XkcdViewer.Forms.Android.Resource.Id.wrap_content;
-			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.xview = global::XkcdViewer.Forms.Android.Resource.Id.xview;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Integer.abc_config_activityDefaultDur = global::XkcdViewer.Forms.Android.Resource.Integer.abc_config_activityDefaultDur;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Integer.abc_config_activityShortDur = global::XkcdViewer.Forms.Android.Resource.Integer.abc_config_activityShortDur;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Integer.abc_max_action_buttons = global::XkcdViewer.Forms.Android.Resource.Integer.abc_max_action_buttons;
@@ -6832,7 +6824,6 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.support_simple_spinner_dropdown_item = global::XkcdViewer.Forms.Android.Resource.Layout.support_simple_spinner_dropdown_item;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.tab_item_view = global::XkcdViewer.Forms.Android.Resource.Layout.tab_item_view;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.table_layout = global::XkcdViewer.Forms.Android.Resource.Layout.table_layout;
-			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.token = global::XkcdViewer.Forms.Android.Resource.Layout.token;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.tooltip_container = global::XkcdViewer.Forms.Android.Resource.Layout.tooltip_container;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.trial_message = global::XkcdViewer.Forms.Android.Resource.Layout.trial_message;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.String.ApplicationName = global::XkcdViewer.Forms.Android.Resource.String.ApplicationName;
@@ -12155,8 +12146,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0200b6
 			public const int mr_ic_play_light = 2130837686;
 			
-			// aapt resource value: 0x7f0200c1
-			public const int notification_template_icon_bg = 2130837697;
+			// aapt resource value: 0x7f0200bd
+			public const int notification_template_icon_bg = 2130837693;
 			
 			// aapt resource value: 0x7f0200b7
 			public const int pressable_item_background = 2130837687;
@@ -12175,18 +12166,6 @@ namespace XkcdViewer.Forms.Android
 			
 			// aapt resource value: 0x7f0200bc
 			public const int tab_view_popup_background = 2130837692;
-			
-			// aapt resource value: 0x7f0200bd
-			public const int token_bg = 2130837693;
-			
-			// aapt resource value: 0x7f0200be
-			public const int token_default = 2130837694;
-			
-			// aapt resource value: 0x7f0200bf
-			public const int token_selected = 2130837695;
-			
-			// aapt resource value: 0x7f0200c0
-			public const int token_text_color = 2130837696;
 			
 			static Drawable()
 			{
@@ -12381,8 +12360,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f08002d
 			public const int center_vertical = 2131230765;
 			
-			// aapt resource value: 0x7f080108
-			public const int chart_data_point_content_container = 2131230984;
+			// aapt resource value: 0x7f080104
+			public const int chart_data_point_content_container = 2131230980;
 			
 			// aapt resource value: 0x7f0800f6
 			public const int chart_layout_root = 2131230966;
@@ -12390,8 +12369,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0800ad
 			public const int chart_tooltip_category = 2131230893;
 			
-			// aapt resource value: 0x7f080107
-			public const int chart_tooltip_pointer = 2131230983;
+			// aapt resource value: 0x7f080103
+			public const int chart_tooltip_pointer = 2131230979;
 			
 			// aapt resource value: 0x7f0800ae
 			public const int chart_tooltip_value = 2131230894;
@@ -12738,9 +12717,6 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f080016
 			public const int multiply = 2131230742;
 			
-			// aapt resource value: 0x7f080102
-			public const int name = 2131230978;
-			
 			// aapt resource value: 0x7f0800e1
 			public const int navItemsLayout = 2131230945;
 			
@@ -12942,14 +12918,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f08006e
 			public const int title_template = 2131230830;
 			
-			// aapt resource value: 0x7f080103
-			public const int tokenimage = 2131230979;
-			
-			// aapt resource value: 0x7f080104
-			public const int tokentext = 2131230980;
-			
-			// aapt resource value: 0x7f080106
-			public const int toolbar = 2131230982;
+			// aapt resource value: 0x7f080102
+			public const int toolbar = 2131230978;
 			
 			// aapt resource value: 0x7f0800ac
 			public const int tooltip_content_container = 2131230892;
@@ -12989,9 +12959,6 @@ namespace XkcdViewer.Forms.Android
 			
 			// aapt resource value: 0x7f0800b3
 			public const int xText = 2131230899;
-			
-			// aapt resource value: 0x7f080105
-			public const int xview = 2131230981;
 			
 			// aapt resource value: 0x7f0800b4
 			public const int yText = 2131230900;
@@ -13411,19 +13378,16 @@ namespace XkcdViewer.Forms.Android
 			public const int tabs = 2130903152;
 			
 			// aapt resource value: 0x7f030071
-			public const int token = 2130903153;
+			public const int toolbar = 2130903153;
 			
 			// aapt resource value: 0x7f030072
-			public const int toolbar = 2130903154;
+			public const int tooltip_container = 2130903154;
 			
 			// aapt resource value: 0x7f030073
-			public const int tooltip_container = 2130903155;
+			public const int trackball_container = 2130903155;
 			
 			// aapt resource value: 0x7f030074
-			public const int trackball_container = 2130903156;
-			
-			// aapt resource value: 0x7f030075
-			public const int trial_message = 2130903157;
+			public const int trial_message = 2130903156;
 			
 			static Layout()
 			{

@@ -5991,12 +5991,12 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.selectableItemBackgroundBorderless = global::XkcdViewer.Forms.Android.Resource.Attribute.selectableItemBackgroundBorderless;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.selectionMode = global::XkcdViewer.Forms.Android.Resource.Attribute.selectionMode;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.showAsAction = global::XkcdViewer.Forms.Android.Resource.Attribute.showAsAction;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.showCalendarTitle = global::XkcdViewer.Forms.Android.Resource.Attribute.showCalendarTitle;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.showCellDecorations = global::XkcdViewer.Forms.Android.Resource.Attribute.showCellDecorations;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.showDayNames = global::XkcdViewer.Forms.Android.Resource.Attribute.showDayNames;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.showDividers = global::XkcdViewer.Forms.Android.Resource.Attribute.showDividers;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.showGridLines = global::XkcdViewer.Forms.Android.Resource.Attribute.showGridLines;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.showText = global::XkcdViewer.Forms.Android.Resource.Attribute.showText;
-			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.showTitle = global::XkcdViewer.Forms.Android.Resource.Attribute.showTitle;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.singleChoiceItemLayout = global::XkcdViewer.Forms.Android.Resource.Attribute.singleChoiceItemLayout;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.spanCount = global::XkcdViewer.Forms.Android.Resource.Attribute.spanCount;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.spinBars = global::XkcdViewer.Forms.Android.Resource.Attribute.spinBars;
@@ -6156,6 +6156,9 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.material_grey_800 = global::XkcdViewer.Forms.Android.Resource.Color.material_grey_800;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.material_grey_850 = global::XkcdViewer.Forms.Android.Resource.Color.material_grey_850;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.material_grey_900 = global::XkcdViewer.Forms.Android.Resource.Color.material_grey_900;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.number_picker_background_theme_blue = global::XkcdViewer.Forms.Android.Resource.Color.number_picker_background_theme_blue;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.number_picker_stroke_color_theme_blue = global::XkcdViewer.Forms.Android.Resource.Color.number_picker_stroke_color_theme_blue;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.number_picker_text_color_theme_blue = global::XkcdViewer.Forms.Android.Resource.Color.number_picker_text_color_theme_blue;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.pressedColor = global::XkcdViewer.Forms.Android.Resource.Color.pressedColor;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.primary_dark_material_dark = global::XkcdViewer.Forms.Android.Resource.Color.primary_dark_material_dark;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.primary_dark_material_light = global::XkcdViewer.Forms.Android.Resource.Color.primary_dark_material_light;
@@ -6171,6 +6174,13 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.secondary_text_default_material_light = global::XkcdViewer.Forms.Android.Resource.Color.secondary_text_default_material_light;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.secondary_text_disabled_material_dark = global::XkcdViewer.Forms.Android.Resource.Color.secondary_text_disabled_material_dark;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.secondary_text_disabled_material_light = global::XkcdViewer.Forms.Android.Resource.Color.secondary_text_disabled_material_light;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.segmented_view_button_color_theme_blue = global::XkcdViewer.Forms.Android.Resource.Color.segmented_view_button_color_theme_blue;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.segmented_view_disabled_text_color_theme_blue = global::XkcdViewer.Forms.Android.Resource.Color.segmented_view_disabled_text_color_theme_blue;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.segmented_view_selected_button_color_theme_blue = global::XkcdViewer.Forms.Android.Resource.Color.segmented_view_selected_button_color_theme_blue;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.segmented_view_selected_stroke_color_theme_blue = global::XkcdViewer.Forms.Android.Resource.Color.segmented_view_selected_stroke_color_theme_blue;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.segmented_view_selected_text_color_theme_blue = global::XkcdViewer.Forms.Android.Resource.Color.segmented_view_selected_text_color_theme_blue;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.segmented_view_stroke_color_theme_blue = global::XkcdViewer.Forms.Android.Resource.Color.segmented_view_stroke_color_theme_blue;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.segmented_view_text_color_theme_blue = global::XkcdViewer.Forms.Android.Resource.Color.segmented_view_text_color_theme_blue;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.selectionColor = global::XkcdViewer.Forms.Android.Resource.Color.selectionColor;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.shadeColor = global::XkcdViewer.Forms.Android.Resource.Color.shadeColor;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Color.shadeColorCenter = global::XkcdViewer.Forms.Android.Resource.Color.shadeColorCenter;
@@ -7023,6 +7033,14 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.CardView = global::XkcdViewer.Forms.Android.Resource.Style.CardView;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.CardView_Dark = global::XkcdViewer.Forms.Android.Resource.Style.CardView_Dark;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.CardView_Light = global::XkcdViewer.Forms.Android.Resource.Style.CardView_Light;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.CustomCheckBoxEditorThemeBlue = global::XkcdViewer.Forms.Android.Resource.Style.CustomCheckBoxEditorThemeBlue;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.CustomDatePickerThemeBlue = global::XkcdViewer.Forms.Android.Resource.Style.CustomDatePickerThemeBlue;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.CustomIntegerEditorThemeBlue = global::XkcdViewer.Forms.Android.Resource.Style.CustomIntegerEditorThemeBlue;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.CustomSeekBarEditorThemeBlue = global::XkcdViewer.Forms.Android.Resource.Style.CustomSeekBarEditorThemeBlue;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.CustomSpinnerEditorThemeBlue = global::XkcdViewer.Forms.Android.Resource.Style.CustomSpinnerEditorThemeBlue;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.CustomTextEditorThemeBlue = global::XkcdViewer.Forms.Android.Resource.Style.CustomTextEditorThemeBlue;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.CustomTimePickerThemeBlue = global::XkcdViewer.Forms.Android.Resource.Style.CustomTimePickerThemeBlue;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.CustomToggleButtonEditorThemeBlue = global::XkcdViewer.Forms.Android.Resource.Style.CustomToggleButtonEditorThemeBlue;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.Platform_AppCompat = global::XkcdViewer.Forms.Android.Resource.Style.Platform_AppCompat;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.Platform_AppCompat_Light = global::XkcdViewer.Forms.Android.Resource.Style.Platform_AppCompat_Light;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.Platform_ThemeOverlay_AppCompat = global::XkcdViewer.Forms.Android.Resource.Style.Platform_ThemeOverlay_AppCompat;
@@ -7049,6 +7067,8 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.RtlOverlay_Widget_AppCompat_SearchView_MagIcon = global::XkcdViewer.Forms.Android.Resource.Style.RtlOverlay_Widget_AppCompat_SearchView_MagIcon;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton = global::XkcdViewer.Forms.Android.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton_Overflow = global::XkcdViewer.Forms.Android.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton_Overflow;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.SpinnerItem = global::XkcdViewer.Forms.Android.Resource.Style.SpinnerItem;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.SpinnerItem_DropDownItem = global::XkcdViewer.Forms.Android.Resource.Style.SpinnerItem_DropDownItem;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.TextAppearance_AppCompat = global::XkcdViewer.Forms.Android.Resource.Style.TextAppearance_AppCompat;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.TextAppearance_AppCompat_Body1 = global::XkcdViewer.Forms.Android.Resource.Style.TextAppearance_AppCompat_Body1;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Style.TextAppearance_AppCompat_Body2 = global::XkcdViewer.Forms.Android.Resource.Style.TextAppearance_AppCompat_Body2;
@@ -7580,10 +7600,10 @@ namespace XkcdViewer.Forms.Android
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RadCalendarView_displayMode = global::XkcdViewer.Forms.Android.Resource.Styleable.RadCalendarView_displayMode;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RadCalendarView_isYearModeCompact = global::XkcdViewer.Forms.Android.Resource.Styleable.RadCalendarView_isYearModeCompact;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RadCalendarView_selectionMode = global::XkcdViewer.Forms.Android.Resource.Styleable.RadCalendarView_selectionMode;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RadCalendarView_showCalendarTitle = global::XkcdViewer.Forms.Android.Resource.Styleable.RadCalendarView_showCalendarTitle;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RadCalendarView_showCellDecorations = global::XkcdViewer.Forms.Android.Resource.Styleable.RadCalendarView_showCellDecorations;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RadCalendarView_showDayNames = global::XkcdViewer.Forms.Android.Resource.Styleable.RadCalendarView_showDayNames;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RadCalendarView_showGridLines = global::XkcdViewer.Forms.Android.Resource.Styleable.RadCalendarView_showGridLines;
-			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RadCalendarView_showTitle = global::XkcdViewer.Forms.Android.Resource.Styleable.RadCalendarView_showTitle;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RadCalendarView_weekNumberDisplayMode = global::XkcdViewer.Forms.Android.Resource.Styleable.RadCalendarView_weekNumberDisplayMode;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RadScrollView = global::XkcdViewer.Forms.Android.Resource.Styleable.RadScrollView;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RadScrollView_fillViewport = global::XkcdViewer.Forms.Android.Resource.Styleable.RadScrollView_fillViewport;
@@ -10555,6 +10575,9 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0100c8
 			public const int showAsAction = 2130772168;
 			
+			// aapt resource value: 0x7f010144
+			public const int showCalendarTitle = 2130772292;
+			
 			// aapt resource value: 0x7f010147
 			public const int showCellDecorations = 2130772295;
 			
@@ -10572,9 +10595,6 @@ namespace XkcdViewer.Forms.Android
 			
 			// aapt resource value: 0x7f0100e2
 			public const int showText = 2130772194;
-			
-			// aapt resource value: 0x7f010144
-			public const int showTitle = 2130772292;
 			
 			// aapt resource value: 0x7f010048
 			public const int singleChoiceItemLayout = 2130772040;
@@ -10878,32 +10898,32 @@ namespace XkcdViewer.Forms.Android
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f0c005d
-			public const int abc_background_cache_hint_selector_material_dark = 2131492957;
+			// aapt resource value: 0x7f0c0067
+			public const int abc_background_cache_hint_selector_material_dark = 2131492967;
 			
-			// aapt resource value: 0x7f0c005e
-			public const int abc_background_cache_hint_selector_material_light = 2131492958;
+			// aapt resource value: 0x7f0c0068
+			public const int abc_background_cache_hint_selector_material_light = 2131492968;
 			
-			// aapt resource value: 0x7f0c005f
-			public const int abc_color_highlight_material = 2131492959;
+			// aapt resource value: 0x7f0c0069
+			public const int abc_color_highlight_material = 2131492969;
 			
 			// aapt resource value: 0x7f0c0004
 			public const int abc_input_method_navigation_guard = 2131492868;
 			
-			// aapt resource value: 0x7f0c0060
-			public const int abc_primary_text_disable_only_material_dark = 2131492960;
+			// aapt resource value: 0x7f0c006a
+			public const int abc_primary_text_disable_only_material_dark = 2131492970;
 			
-			// aapt resource value: 0x7f0c0061
-			public const int abc_primary_text_disable_only_material_light = 2131492961;
+			// aapt resource value: 0x7f0c006b
+			public const int abc_primary_text_disable_only_material_light = 2131492971;
 			
-			// aapt resource value: 0x7f0c0062
-			public const int abc_primary_text_material_dark = 2131492962;
+			// aapt resource value: 0x7f0c006c
+			public const int abc_primary_text_material_dark = 2131492972;
 			
-			// aapt resource value: 0x7f0c0063
-			public const int abc_primary_text_material_light = 2131492963;
+			// aapt resource value: 0x7f0c006d
+			public const int abc_primary_text_material_light = 2131492973;
 			
-			// aapt resource value: 0x7f0c0064
-			public const int abc_search_url_text = 2131492964;
+			// aapt resource value: 0x7f0c006e
+			public const int abc_search_url_text = 2131492974;
 			
 			// aapt resource value: 0x7f0c0005
 			public const int abc_search_url_text_normal = 2131492869;
@@ -10914,14 +10934,14 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0c0007
 			public const int abc_search_url_text_selected = 2131492871;
 			
+			// aapt resource value: 0x7f0c006f
+			public const int abc_secondary_text_material_dark = 2131492975;
+			
+			// aapt resource value: 0x7f0c0070
+			public const int abc_secondary_text_material_light = 2131492976;
+			
 			// aapt resource value: 0x7f0c0065
-			public const int abc_secondary_text_material_dark = 2131492965;
-			
-			// aapt resource value: 0x7f0c0066
-			public const int abc_secondary_text_material_light = 2131492966;
-			
-			// aapt resource value: 0x7f0c005b
-			public const int accent = 2131492955;
+			public const int accent = 2131492965;
 			
 			// aapt resource value: 0x7f0c0008
 			public const int accent_material_dark = 2131492872;
@@ -10944,8 +10964,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0c000d
 			public const int background_material_light = 2131492877;
 			
-			// aapt resource value: 0x7f0c0057
-			public const int black = 2131492951;
+			// aapt resource value: 0x7f0c0061
+			public const int black = 2131492961;
 			
 			// aapt resource value: 0x7f0c000e
 			public const int bright_foreground_disabled_material_dark = 2131492878;
@@ -11097,14 +11117,23 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0c002b
 			public const int material_grey_900 = 2131492907;
 			
+			// aapt resource value: 0x7f0c0059
+			public const int number_picker_background_theme_blue = 2131492953;
+			
+			// aapt resource value: 0x7f0c0057
+			public const int number_picker_stroke_color_theme_blue = 2131492951;
+			
+			// aapt resource value: 0x7f0c0058
+			public const int number_picker_text_color_theme_blue = 2131492952;
+			
 			// aapt resource value: 0x7f0c004b
 			public const int pressedColor = 2131492939;
 			
-			// aapt resource value: 0x7f0c0059
-			public const int primary = 2131492953;
+			// aapt resource value: 0x7f0c0063
+			public const int primary = 2131492963;
 			
-			// aapt resource value: 0x7f0c005a
-			public const int primaryDark = 2131492954;
+			// aapt resource value: 0x7f0c0064
+			public const int primaryDark = 2131492964;
 			
 			// aapt resource value: 0x7f0c002c
 			public const int primary_dark_material_dark = 2131492908;
@@ -11130,8 +11159,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0c0033
 			public const int primary_text_disabled_material_light = 2131492915;
 			
-			// aapt resource value: 0x7f0c0058
-			public const int red = 2131492952;
+			// aapt resource value: 0x7f0c0062
+			public const int red = 2131492962;
 			
 			// aapt resource value: 0x7f0c0034
 			public const int ripple_material_dark = 2131492916;
@@ -11151,6 +11180,27 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0c0039
 			public const int secondary_text_disabled_material_light = 2131492921;
 			
+			// aapt resource value: 0x7f0c005d
+			public const int segmented_view_button_color_theme_blue = 2131492957;
+			
+			// aapt resource value: 0x7f0c005b
+			public const int segmented_view_disabled_text_color_theme_blue = 2131492955;
+			
+			// aapt resource value: 0x7f0c005e
+			public const int segmented_view_selected_button_color_theme_blue = 2131492958;
+			
+			// aapt resource value: 0x7f0c0060
+			public const int segmented_view_selected_stroke_color_theme_blue = 2131492960;
+			
+			// aapt resource value: 0x7f0c005c
+			public const int segmented_view_selected_text_color_theme_blue = 2131492956;
+			
+			// aapt resource value: 0x7f0c005f
+			public const int segmented_view_stroke_color_theme_blue = 2131492959;
+			
+			// aapt resource value: 0x7f0c005a
+			public const int segmented_view_text_color_theme_blue = 2131492954;
+			
 			// aapt resource value: 0x7f0c004a
 			public const int selectionColor = 2131492938;
 			
@@ -11166,11 +11216,11 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0c003b
 			public const int switch_thumb_disabled_material_light = 2131492923;
 			
-			// aapt resource value: 0x7f0c0067
-			public const int switch_thumb_material_dark = 2131492967;
+			// aapt resource value: 0x7f0c0071
+			public const int switch_thumb_material_dark = 2131492977;
 			
-			// aapt resource value: 0x7f0c0068
-			public const int switch_thumb_material_light = 2131492968;
+			// aapt resource value: 0x7f0c0072
+			public const int switch_thumb_material_light = 2131492978;
 			
 			// aapt resource value: 0x7f0c003c
 			public const int switch_thumb_normal_material_dark = 2131492924;
@@ -11190,8 +11240,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0c0049
 			public const int white = 2131492937;
 			
-			// aapt resource value: 0x7f0c005c
-			public const int window_background = 2131492956;
+			// aapt resource value: 0x7f0c0066
+			public const int window_background = 2131492966;
 			
 			static Color()
 			{
@@ -13574,26 +13624,26 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0b015a
 			public const int Animation_Design_BottomSheetDialog = 2131427674;
 			
-			// aapt resource value: 0x7f0b0174
-			public const int AxisStyle = 2131427700;
-			
-			// aapt resource value: 0x7f0b0177
-			public const int AxisStyle_LineAxisStyle = 2131427703;
-			
 			// aapt resource value: 0x7f0b017e
-			public const int AxisStyle_LineAxisStyle_CartesianAxisStyle = 2131427710;
-			
-			// aapt resource value: 0x7f0b017f
-			public const int AxisStyle_LineAxisStyle_CartesianAxisStyle_CategoricalAxisStyle = 2131427711;
-			
-			// aapt resource value: 0x7f0b0180
-			public const int AxisStyle_LineAxisStyle_CartesianAxisStyle_CategoricalAxisStyle_DateTimeCategoricalAxisStyle = 2131427712;
+			public const int AxisStyle = 2131427710;
 			
 			// aapt resource value: 0x7f0b0181
-			public const int AxisStyle_LineAxisStyle_CartesianAxisStyle_CategoricalAxisStyle_TestDateTimeCategoricalAxisStyle = 2131427713;
+			public const int AxisStyle_LineAxisStyle = 2131427713;
 			
-			// aapt resource value: 0x7f0b0182
-			public const int AxisStyle_LineAxisStyle_CartesianAxisStyle_DateTimeContinuousAxisStyle = 2131427714;
+			// aapt resource value: 0x7f0b0188
+			public const int AxisStyle_LineAxisStyle_CartesianAxisStyle = 2131427720;
+			
+			// aapt resource value: 0x7f0b0189
+			public const int AxisStyle_LineAxisStyle_CartesianAxisStyle_CategoricalAxisStyle = 2131427721;
+			
+			// aapt resource value: 0x7f0b018a
+			public const int AxisStyle_LineAxisStyle_CartesianAxisStyle_CategoricalAxisStyle_DateTimeCategoricalAxisStyle = 2131427722;
+			
+			// aapt resource value: 0x7f0b018b
+			public const int AxisStyle_LineAxisStyle_CartesianAxisStyle_CategoricalAxisStyle_TestDateTimeCategoricalAxisStyle = 2131427723;
+			
+			// aapt resource value: 0x7f0b018c
+			public const int AxisStyle_LineAxisStyle_CartesianAxisStyle_DateTimeContinuousAxisStyle = 2131427724;
 			
 			// aapt resource value: 0x7f0b00a5
 			public const int Base_AlertDialog_AppCompat = 2131427493;
@@ -14036,44 +14086,68 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0b001a
 			public const int CardView_Light = 2131427354;
 			
-			// aapt resource value: 0x7f0b0183
-			public const int ChartAnnotationStyle = 2131427715;
+			// aapt resource value: 0x7f0b018d
+			public const int ChartAnnotationStyle = 2131427725;
 			
-			// aapt resource value: 0x7f0b0186
-			public const int ChartAnnotationStyle_CartesianCustomAnnotationStyle = 2131427718;
+			// aapt resource value: 0x7f0b0190
+			public const int ChartAnnotationStyle_CartesianCustomAnnotationStyle = 2131427728;
 			
-			// aapt resource value: 0x7f0b0184
-			public const int ChartAnnotationStyle_CartesianStrokedAnnotationStyle = 2131427716;
+			// aapt resource value: 0x7f0b018e
+			public const int ChartAnnotationStyle_CartesianStrokedAnnotationStyle = 2131427726;
+			
+			// aapt resource value: 0x7f0b018f
+			public const int ChartAnnotationStyle_CartesianStrokedAnnotationStyle_CartesianPlotBandAnnotationStyle = 2131427727;
+			
+			// aapt resource value: 0x7f0b0180
+			public const int ChartSeriesStyle = 2131427712;
 			
 			// aapt resource value: 0x7f0b0185
-			public const int ChartAnnotationStyle_CartesianStrokedAnnotationStyle_CartesianPlotBandAnnotationStyle = 2131427717;
+			public const int ChartSeriesStyle_CategoricalSeriesStyle = 2131427717;
+			
+			// aapt resource value: 0x7f0b0182
+			public const int ChartSeriesStyle_CategoricalSeriesStyle_BarSeriesStyle = 2131427714;
+			
+			// aapt resource value: 0x7f0b0186
+			public const int ChartSeriesStyle_CategoricalSeriesStyle_CategoricalStrokedSeriesStyle = 2131427718;
+			
+			// aapt resource value: 0x7f0b0187
+			public const int ChartSeriesStyle_CategoricalSeriesStyle_CategoricalStrokedSeriesStyle_AreaSeriesStyle = 2131427719;
+			
+			// aapt resource value: 0x7f0b0183
+			public const int ChartSeriesStyle_CategoricalSeriesStyle_RangeBarSeriesStyle = 2131427715;
+			
+			// aapt resource value: 0x7f0b0184
+			public const int ChartSeriesStyle_CategoricalSeriesStyle_TestBarSeriesStyle = 2131427716;
 			
 			// aapt resource value: 0x7f0b0176
-			public const int ChartSeriesStyle = 2131427702;
+			public const int CustomCheckBoxEditorThemeBlue = 2131427702;
 			
-			// aapt resource value: 0x7f0b017b
-			public const int ChartSeriesStyle_CategoricalSeriesStyle = 2131427707;
+			// aapt resource value: 0x7f0b0174
+			public const int CustomDatePickerThemeBlue = 2131427700;
 			
 			// aapt resource value: 0x7f0b0178
-			public const int ChartSeriesStyle_CategoricalSeriesStyle_BarSeriesStyle = 2131427704;
-			
-			// aapt resource value: 0x7f0b017c
-			public const int ChartSeriesStyle_CategoricalSeriesStyle_CategoricalStrokedSeriesStyle = 2131427708;
-			
-			// aapt resource value: 0x7f0b017d
-			public const int ChartSeriesStyle_CategoricalSeriesStyle_CategoricalStrokedSeriesStyle_AreaSeriesStyle = 2131427709;
+			public const int CustomIntegerEditorThemeBlue = 2131427704;
 			
 			// aapt resource value: 0x7f0b0179
-			public const int ChartSeriesStyle_CategoricalSeriesStyle_RangeBarSeriesStyle = 2131427705;
+			public const int CustomSeekBarEditorThemeBlue = 2131427705;
+			
+			// aapt resource value: 0x7f0b017b
+			public const int CustomSpinnerEditorThemeBlue = 2131427707;
+			
+			// aapt resource value: 0x7f0b0177
+			public const int CustomTextEditorThemeBlue = 2131427703;
+			
+			// aapt resource value: 0x7f0b0175
+			public const int CustomTimePickerThemeBlue = 2131427701;
 			
 			// aapt resource value: 0x7f0b017a
-			public const int ChartSeriesStyle_CategoricalSeriesStyle_TestBarSeriesStyle = 2131427706;
+			public const int CustomToggleButtonEditorThemeBlue = 2131427706;
 			
-			// aapt resource value: 0x7f0b0188
-			public const int MyTheme = 2131427720;
+			// aapt resource value: 0x7f0b0192
+			public const int MyTheme = 2131427730;
 			
-			// aapt resource value: 0x7f0b0189
-			public const int MyTheme_Base = 2131427721;
+			// aapt resource value: 0x7f0b0193
+			public const int MyTheme_Base = 2131427731;
 			
 			// aapt resource value: 0x7f0b0032
 			public const int Platform_AppCompat = 2131427378;
@@ -14105,8 +14179,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0b0036
 			public const int Platform_Widget_AppCompat_Spinner = 2131427382;
 			
-			// aapt resource value: 0x7f0b0175
-			public const int RadChartBaseStyle = 2131427701;
+			// aapt resource value: 0x7f0b017f
+			public const int RadChartBaseStyle = 2131427711;
 			
 			// aapt resource value: 0x7f0b0172
 			public const int RadScrollViewStyle = 2131427698;
@@ -14155,6 +14229,12 @@ namespace XkcdViewer.Forms.Android
 			
 			// aapt resource value: 0x7f0b0050
 			public const int RtlUnderlay_Widget_AppCompat_ActionButton_Overflow = 2131427408;
+			
+			// aapt resource value: 0x7f0b017c
+			public const int SpinnerItem = 2131427708;
+			
+			// aapt resource value: 0x7f0b017d
+			public const int SpinnerItem_DropDownItem = 2131427709;
 			
 			// aapt resource value: 0x7f0b00d1
 			public const int TextAppearance_AppCompat = 2131427537;
@@ -14396,8 +14476,8 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 0x7f0b010d
 			public const int Theme_AppCompat_NoActionBar = 2131427597;
 			
-			// aapt resource value: 0x7f0b0187
-			public const int Theme_ChartTheme = 2131427719;
+			// aapt resource value: 0x7f0b0191
+			public const int Theme_ChartTheme = 2131427729;
 			
 			// aapt resource value: 0x7f0b0163
 			public const int Theme_Design = 2131427683;
@@ -16380,6 +16460,9 @@ namespace XkcdViewer.Forms.Android
 			// aapt resource value: 5
 			public const int RadCalendarView_selectionMode = 5;
 			
+			// aapt resource value: 1
+			public const int RadCalendarView_showCalendarTitle = 1;
+			
 			// aapt resource value: 4
 			public const int RadCalendarView_showCellDecorations = 4;
 			
@@ -16388,9 +16471,6 @@ namespace XkcdViewer.Forms.Android
 			
 			// aapt resource value: 3
 			public const int RadCalendarView_showGridLines = 3;
-			
-			// aapt resource value: 1
-			public const int RadCalendarView_showTitle = 1;
 			
 			// aapt resource value: 7
 			public const int RadCalendarView_weekNumberDisplayMode = 7;

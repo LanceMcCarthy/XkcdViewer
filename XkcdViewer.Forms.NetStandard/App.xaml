@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="XkcdViewer.Forms.NetStandard.App" 
+             xmlns:viewModels="clr-namespace:XkcdViewer.Forms.NetStandard.ViewModels;assembly=XkcdViewer.Forms.NetStandard">
+    
+    <Application.Resources>
+        <ResourceDictionary>
+            <viewModels:ViewModelLocator x:Key="Locator" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

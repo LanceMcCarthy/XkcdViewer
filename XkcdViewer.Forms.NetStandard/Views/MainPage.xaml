@@ -1,169 +1,63 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<common:PageBase x:Name="Page"
-                 xmlns="http://xamarin.com/schemas/2014/forms"
-                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                 xmlns:dataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
-                 xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
-                 xmlns:viewModels="clr-namespace:XkcdViewer.Forms.NetStandard.ViewModels;assembly=XkcdViewer.Forms.NetStandard"
-                 xmlns:common="clr-namespace:XkcdViewer.Forms.NetStandard.Common;assembly=XkcdViewer.Forms.NetStandard"
-                 xmlns:converters="clr-namespace:XkcdViewer.Forms.NetStandard.Converters;assembly=XkcdViewer.Forms.NetStandard"
-                 xmlns:behaviors="clr-namespace:XkcdViewer.Forms.NetStandard.Behaviors;assembly=XkcdViewer.Forms.NetStandard"
-                 x:Class="XkcdViewer.Forms.NetStandard.Views.MainPage"
-                 BindingContext="{x:Static viewModels:ViewModelLocator.Main}">
+<ContentPage x:Name="Page"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
+             xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+             x:Class="XkcdViewer.Forms.NetStandard.Views.MainPage">
 
-  <common:PageBase.Title>
-    <OnPlatform x:TypeArguments="x:String">
-      <On Platform="iOS">Xkcd Comic Viewer</On>
-      <On Platform="Android">Xkcd Viewer</On>
-      <On Platform="Windows">Xkcd Viewer</On>
-    </OnPlatform>
-  </common:PageBase.Title>
+    <ContentPage.Title>
+        <OnPlatform x:TypeArguments="x:String">
+            <On Platform="iOS">Xkcd Comic Viewer</On>
+            <On Platform="Android">Xkcd Viewer</On>
+            <On Platform="Windows">Xkcd Viewer</On>
+        </OnPlatform>
+    </ContentPage.Title>
 
-  <ContentPage.Resources>
-    <ResourceDictionary>
-      <converters:UrlToImageSourceConverter x:Key="UrlToImageSourceConverter" />
-      <converters:InvertBoolConverter x:Key="InvertBoolConverter" />
-
-      <DataTemplate x:Name="PortaitTemplate"
-                    x:Key="PortaitTemplate">
-        <listView:ListViewTemplateCell>
-          <listView:ListViewTemplateCell.View>
-            <Grid Padding="10"
-                  BackgroundColor="Gray">
-              <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-              </Grid.RowDefinitions>
-
-              <StackLayout Orientation="Horizontal">
-                <Label Text="{Binding Num}"
-                       TextColor="White"
-                       FontSize="Small" />
-                <Label Text=" - "
-                       TextColor="#C8C8C8"
-                       FontSize="Small" />
-                <Label Text="{Binding Title}"
-                       TextColor="White"
-                       FontSize="Small" />
-              </StackLayout>
-
-              <Image Source="{Binding Img, Converter={StaticResource UrlToImageSourceConverter}}"
-                     Grid.Row="1" >
-                <Image.MinimumHeightRequest>
-                  <OnPlatform x:TypeArguments="x:Double">
-                    <On Platform="iOS">300</On>
-                  </OnPlatform>
-                </Image.MinimumHeightRequest>
-              </Image>
-            </Grid>
-          </listView:ListViewTemplateCell.View>
-        </listView:ListViewTemplateCell>
-      </DataTemplate>
-
-      <DataTemplate x:Name="LandscapeTemplate"
-                    x:Key="LandscapeTemplate">
-        <listView:ListViewTemplateCell>
-          <listView:ListViewTemplateCell.View>
-            <Grid Padding="10"
-                  BackgroundColor="Green">
-              <Grid x:Name="ItemContentGrid">
-
-              </Grid>
-              <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-              </Grid.RowDefinitions>
-
-              <StackLayout Orientation="Horizontal">
-                <Label Text="{Binding Num}"
-                       TextColor="White"
-                       FontSize="Small" />
-                <Label Text=" - "
-                       TextColor="#C8C8C8"
-                       FontSize="Small" />
-                <Label Text="{Binding Title}"
-                       TextColor="White"
-                       FontSize="Small" />
-              </StackLayout>
-
-              <Image Source="{Binding Img, Converter={StaticResource UrlToImageSourceConverter}}"
-                     Grid.Row="1" />
-            </Grid>
-          </listView:ListViewTemplateCell.View>
-        </listView:ListViewTemplateCell>
-      </DataTemplate>
-    </ResourceDictionary>
-  </ContentPage.Resources>
-
-  <ContentPage.ToolbarItems>
-    <ToolbarItem Text="favs2"
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="favs"
                  Icon="ic_edit_favs.png"
-                 Command="{Binding GoToFavoritesCommand}"/>
-    <ToolbarItem Text="next"
-                 Icon="ic_next.png"
-                 Command="{Binding GetComicCommand}"/>
-  </ContentPage.ToolbarItems>
-
-  <ContentPage.Content>
+                     Clicked="FavsPageToolbarItem_Clicked" />
+        <ToolbarItem Text="next"
+                     Icon="ic_next.png" 
+                     Clicked="GetNextToolbarItem_Clicked"/>
+    </ContentPage.ToolbarItems>
+    
     <Grid>
-      <Grid.RowDefinitions>
-        <RowDefinition Height="*" />
-        <RowDefinition Height="Auto" />
-      </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
+        <Label Text="pull to load previous comic"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               TextColor="{StaticResource LightGrayTextColor}" />
 
-      <Label Text="pull to load previous comic"
-             HorizontalOptions="Center"
-             VerticalOptions="Center"
-             TextColor="#BDBDBD" />
+        <dataControls:RadListView x:Name="MyRadListView"
+                                  ItemsSource="{Binding Comics}"
+                                  IsPullToRefreshEnabled="{Binding IsFetching, Converter={StaticResource InvertBoolConverter}}"
+                                  SelectionMode="Single" 
+                                  RefreshRequested="Lv_RefreshRequested"
+                                  ItemTapped="Lv_ItemTapped"
+                                  ItemTemplate="{StaticResource PortaitTemplate}"
+                                  LayoutDefinition="{StaticResource ComicLinearLayout}"/>
 
-      <dataControls:RadListView x:Name="MyRadListView"
-                                ItemsSource="{Binding Comics}"
-                                IsPullToRefreshEnabled="{Binding IsFetching, Converter={StaticResource InvertBoolConverter}}"
-                                SelectionMode="Single"
-                                ItemTemplate="{StaticResource PortaitTemplate}"
-                                SwipeThreshold="50"
-                                Grid.Row="0">
-        <dataControls:RadListView.LayoutDefinition>
-          <listView:ListViewLinearLayout VerticalItemSpacing="6"
-                                         HorizontalItemSpacing="6" />
-        </dataControls:RadListView.LayoutDefinition>
-        <dataControls:RadListView.Behaviors>
-          <behaviors:EventToCommandBehavior EventName="ItemTapped"
-                                            Command="{Binding LoadDetailsCommand}"/>
-          <behaviors:EventToCommandBehavior EventName="RefreshRequested"
-                                            Command="{Binding GetComicCommand}"/>
-        </dataControls:RadListView.Behaviors>
-        <!--<dataControls:RadListView.ItemSwipeContentTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Button Text="favorite"
-                                    BackgroundColor="Green"
-                                    TextColor="White"
-                                    Clicked="FavoriteButtonClicked"
-                                    HorizontalOptions="Start"
-                                    WidthRequest="100" />
-                        </Grid>
-                    </DataTemplate>
-                </dataControls:RadListView.ItemSwipeContentTemplate>-->
-      </dataControls:RadListView>
-
-      <Grid BackgroundColor="#F0FFFFFF"
-            IsVisible="{Binding IsBusy}"
-            VerticalOptions="End"
-            HorizontalOptions="Fill"
-            Grid.Row="0">
-        <StackLayout HorizontalOptions="Fill"
-                     VerticalOptions="Center">
-          <ActivityIndicator IsRunning="{Binding IsBusy}" />
-          <Label Text="{Binding IsBusyMessage}"
-                 TextColor="Black"
-                 Margin="10,0,10,0"
-                 HorizontalOptions="Center"
-                 LineBreakMode="WordWrap" />
-        </StackLayout>
-      </Grid>
+        <Grid BackgroundColor="{StaticResource TransparentBackgroundColor}"
+              IsVisible="{Binding IsBusy}"
+              VerticalOptions="End"
+              HorizontalOptions="Fill"
+              Grid.Row="0">
+            <StackLayout HorizontalOptions="Fill"
+                         VerticalOptions="Center">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" />
+                <Label Text="{Binding IsBusyMessage}"
+                       TextColor="Black"
+                       Margin="10,0,10,0"
+                       HorizontalOptions="Center"
+                       LineBreakMode="WordWrap" />
+            </StackLayout>
+        </Grid>
     </Grid>
-  </ContentPage.Content>
-</common:PageBase>
+</ContentPage>
 

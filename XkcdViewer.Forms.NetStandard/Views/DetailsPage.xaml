@@ -1,21 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<common:PageBase xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                 xmlns:viewModels="clr-namespace:XkcdViewer.Forms.NetStandard.ViewModels;assembly=XkcdViewer.Forms.NetStandard"
-                 xmlns:converters="clr-namespace:XkcdViewer.Forms.NetStandard.Converters;assembly=XkcdViewer.Forms.NetStandard"
-                 xmlns:common="clr-namespace:XkcdViewer.Forms.NetStandard.Common;assembly=XkcdViewer.Forms.NetStandard"
-                 BindingContext="{x:Static viewModels:ViewModelLocator.Details}"
                  x:Class="XkcdViewer.Forms.NetStandard.Views.DetailsPage">
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter" />
-            <converters:IsFavoriteToStringConverter x:Key="IsFavoriteToStringConverter" />
-            <converters:IsFavoriteIconConverter x:Key="IsFavoriteIconConverter" />
-            <converters:UrlToImageSourceConverter x:Key="UrlToImageSourceConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
+    
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="ShareToolbarItem"
                      Text="share"
@@ -45,4 +32,4 @@
                    VerticalOptions="FillAndExpand" />
         </ScrollView>
     </Grid>
-</common:PageBase>
+</ContentPage>

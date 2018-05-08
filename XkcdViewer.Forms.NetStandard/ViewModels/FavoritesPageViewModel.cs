@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Telerik.XamarinForms.DataControls.ListView;
 using Xamarin.Forms;
@@ -9,58 +8,42 @@ using XkcdViewer.Forms.NetStandard.Views;
 
 namespace XkcdViewer.Forms.NetStandard.ViewModels
 {
-    public class FavoritesPageViewModel : PageBaseViewModel
+    public class FavoritesPageViewModel : ViewModelBase
     {
-        private readonly NavigationService navigationService;
-
-        private ObservableCollection<Comic> favoriteComics;
-        private Command loadDetailsCommand;
         private Command removeFavoritesCommand;
         private Command<Comic> shareCommand;
         private ObservableCollection<Comic> selectedFavorites;
 
-        public FavoritesPageViewModel(NavigationService navService)
+        public FavoritesPageViewModel()
         {
-            this.navigationService = navService;
 
-            InitializeViewModel();
         }
-
-        private void InitializeViewModel()
-        {
-            FavoriteComics = FileHelpers.LoadFavorites();
-        }
-
-        public ObservableCollection<Comic> FavoriteComics
-        {
-            get => favoriteComics ?? (favoriteComics = new ObservableCollection<Comic>());
-            set => Set(ref favoriteComics, value);
-        }
+        
+        public ObservableCollection<Comic> FavoriteComics => FavoritesManager.Current.Favorites;
 
         public ObservableCollection<Comic> SelectedFavorites
         {
             get => selectedFavorites ?? ( selectedFavorites = new ObservableCollection<Comic>());
             set => Set(ref selectedFavorites, value);
         }
-
-        #region Commands
         
-        public Command LoadDetailsCommand => loadDetailsCommand ?? (loadDetailsCommand = new Command(args =>
+        public Command RemoveFavoritesCommand => removeFavoritesCommand ?? (removeFavoritesCommand = new Command((comic) =>
         {
-            if ((args as ItemTapEventArgs)?.Item is Comic comic)
+            for (int i = 0; i < SelectedFavorites.Count - 1; i++)
             {
-                navigationService.Navigate(typeof(DetailsPage), comic);
-            }
-        }));
+                FavoriteComics.Remove(SelectedFavorites[i]);
 
-        public Command RemoveFavoritesCommand => removeFavoritesCommand ?? (removeFavoritesCommand = new Command(async (comic) =>
-        {
-            foreach (var selectedFavorite in SelectedFavorites)
-            {
-                FavoriteComics.Remove(selectedFavorite);
+                // Since we may be removing several items, we dont want to trigger a save until all of the items have been removed
+                if (i == SelectedFavorites.Count - 1)
+                {
+                    // passing "False" prevents a save operation
+                    FavoritesManager.Current.RemoveFavorite(SelectedFavorites[i], false);
+                }
+                else
+                {
+                    FavoritesManager.Current.RemoveFavorite(SelectedFavorites[i]);
+                }
             }
-
-            FileHelpers.SaveFavorites(FavoriteComics);
         }));
 
         public Command<Comic> ShareCommand => shareCommand ?? (shareCommand = new Command<Comic>((comic) =>
@@ -68,39 +51,5 @@ namespace XkcdViewer.Forms.NetStandard.ViewModels
             if (comic == null) return;
             Debug.WriteLine($"ShareCommand fired - SelectedComic: {comic.Title}");
         }));
-
-
-        #endregion
-        
-
-        public bool RemoveFavorite(Comic comic)
-        {
-            try
-            {
-                FavoriteComics.Remove(comic);
-                FileHelpers.SaveFavorites(FavoriteComics);
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"RemoveFavoriteAsync Exception: {ex}");
-                return false;
-            }
-        }
-
-        public bool AddFavorite(Comic comic)
-        {
-            try
-            {
-                FavoriteComics.Add(comic);
-                return FileHelpers.SaveFavorites(FavoriteComics);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"AddFavoriteAsync Exception: {ex}");
-                return false;
-            }
-        }
     }
 }

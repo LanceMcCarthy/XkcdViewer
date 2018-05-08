@@ -1,6 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Threading.Tasks;
-using Cimbalino.Toolkit.Services;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
 using Xamarin.Forms;
@@ -9,30 +7,23 @@ using XkcdViewer.Forms.NetStandard.Models;
 
 namespace XkcdViewer.Forms.NetStandard.ViewModels
 {
-    public class DetailsPageViewModel : PageBaseViewModel
+    public class DetailsPageViewModel : ViewModelBase
     {
-        private readonly NavigationService navigationService;
-        private readonly FavoritesPageViewModel favoritesViewModel;
-
         private Comic selectedComic;
         private bool isFavorite;
         private Command<Comic> toggleFavoriteCommand;
         private Command<Comic> shareCommand;
 
-        public DetailsPageViewModel(NavigationService navService, FavoritesPageViewModel favsViewModel)
+        public DetailsPageViewModel(Comic comic)
         {
-            this.navigationService = navService;
-            this.favoritesViewModel = favsViewModel;
+            SelectedComic = comic;
+            IsFavorite = FavoritesManager.Current.IsFavorite(SelectedComic);
         }
 
         public Comic SelectedComic
         {
             get => selectedComic;
-            set
-            {
-                Set(ref selectedComic, value);
-                IsFavorite = favoritesViewModel.FavoriteComics.Contains(selectedComic);
-            }
+            set => Set(ref selectedComic, value);
         }
 
         public bool IsFavorite
@@ -45,13 +36,13 @@ namespace XkcdViewer.Forms.NetStandard.ViewModels
         {
             if (IsFavorite)
             {
-                if (favoritesViewModel.RemoveFavorite(comic))
-                    IsFavorite = false; //if removing the fav was successful, update current state
+                FavoritesManager.Current.RemoveFavorite(comic);
+                IsFavorite = false;
             }
             else
             {
-                if (favoritesViewModel.AddFavorite(comic))
-                    IsFavorite = true; //if adding the fav was successful, update current state
+                FavoritesManager.Current.AddFavorite(comic);
+                IsFavorite = true;
             }
         }));
 
@@ -74,20 +65,6 @@ namespace XkcdViewer.Forms.NetStandard.ViewModels
                     ExcludedUIActivityTypes = new[] { ShareUIActivityType.PostToFacebook }
                 });
         }));
-
-        public override Task OnNavigatedToAsync(NavigationServiceNavigationEventArgs eventArgs)
-        {
-            if (eventArgs?.Parameter != null)
-            {
-                SelectedComic = eventArgs.Parameter as Comic;
-            }
-
-            return base.OnNavigatedToAsync(eventArgs);
-        }
-
-        public override Task OnNavigatedFromAsync(NavigationServiceNavigationEventArgs eventArgs)
-        {
-            return base.OnNavigatedFromAsync(eventArgs);
-        }
+        
     }
 }

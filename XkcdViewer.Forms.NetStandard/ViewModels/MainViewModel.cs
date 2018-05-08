@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Cimbalino.Toolkit.Services;
 using Telerik.XamarinForms.DataControls.ListView;
 using Xamarin.Forms;
 using XkcdViewer.Forms.NetStandard.Common;
@@ -12,25 +11,26 @@ using XkcdViewer.Forms.NetStandard.Views;
 
 namespace XkcdViewer.Forms.NetStandard.ViewModels
 {
-    public class MainViewModel : PageBaseViewModel
+    public class MainViewModel : ViewModelBase
     {
-        private readonly NavigationService navigationService;
-        private XkcdApiService apiService;
         private bool isInitialized;
         private int lastComicNumber;
 
         private ObservableCollection<Comic> comics;
-        private Command loadDetailsCommand;
-        private Command goToFavoritesCommand;
         private Command getComicCommand;
         private bool isFetching;
 
-        public MainViewModel(NavigationService navService)
+        public MainViewModel()
         {
-            this.navigationService = navService;
-            apiService = new XkcdApiService();
-            GetNextComic();
-            isInitialized = true;
+        }
+
+        public async Task IntializeViewModel()
+        {
+            if (!isInitialized)
+            {
+                await GetNextComic();
+                isInitialized = true;
+            }
         }
         
         public ObservableCollection<Comic> Comics
@@ -44,30 +44,17 @@ namespace XkcdViewer.Forms.NetStandard.ViewModels
             get => isFetching;
             set => Set(ref isFetching, value);
         }
-
-        public Command LoadDetailsCommand => loadDetailsCommand ?? (loadDetailsCommand = new Command(args =>
-        {
-            if ((args as ItemTapEventArgs)?.Item is Comic comic)
-            {
-                navigationService.Navigate(typeof(DetailsPage), comic);
-            }
-        }));
-
-        public Command GoToFavoritesCommand => goToFavoritesCommand ?? (goToFavoritesCommand = new Command(() =>
-        {
-            navigationService.Navigate<FavoritesPage>();
-        }));
-
-        public Command GetComicCommand => getComicCommand ?? (getComicCommand = new Command((e) =>
+        
+        public Command GetComicCommand => getComicCommand ?? (getComicCommand = new Command(async (e) =>
         {
             if (e is PullToRefreshRequestedEventArgs args)
             {
-                GetNextComic();
+                await GetNextComic();
                 args.Cancel = true;
             }
         }));
         
-        public async void GetNextComic()
+        public async Task GetNextComic()
         {
             try
             {
@@ -80,11 +67,11 @@ namespace XkcdViewer.Forms.NetStandard.ViewModels
 
                 if (lastComicNumber == 0)
                 {
-                    comic = await apiService.GetNewestComicAsync();
+                    comic = await App.ApiService.GetNewestComicAsync();
                 }
                 else
                 {
-                    comic = await apiService.GetComicAsync(lastComicNumber - 1);
+                    comic = await App.ApiService.GetComicAsync(lastComicNumber - 1);
                 }
 
                 lastComicNumber = comic.Num;
@@ -98,23 +85,6 @@ namespace XkcdViewer.Forms.NetStandard.ViewModels
             {
                 IsFetching = IsBusy = false;
             }
-        }
-        
-        public override Task OnNavigatedToAsync(NavigationServiceNavigationEventArgs eventArgs)
-        {
-            if (!isInitialized)
-            {
-                apiService = new XkcdApiService();
-                GetNextComic();
-                isInitialized = true;
-            }
-
-            return base.OnNavigatedToAsync(eventArgs);
-        }
-
-        public override Task OnNavigatedFromAsync(NavigationServiceNavigationEventArgs eventArgs)
-        {
-            return base.OnNavigatedFromAsync(eventArgs);
         }
     }
 }

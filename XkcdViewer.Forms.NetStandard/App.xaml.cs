@@ -1,5 +1,4 @@
-﻿using MonkeyCache.FileStore;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XkcdViewer.Forms.NetStandard.Services;
 using XkcdViewer.Forms.NetStandard.Views;
@@ -18,19 +17,10 @@ namespace XkcdViewer.Forms.NetStandard
             MainPage = new NavigationPage(new MainPage { Icon = "ic_xkcd_light.png" });
         }
         
-        protected override void OnStart()
-        {
-            Barrel.ApplicationId = "xkcd_viewer";
-        }
+        protected override void OnStart() { }
 
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-        }
+        protected override void OnSleep() { }
 
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
-        }
+        protected override void OnResume() { }
     }
 }

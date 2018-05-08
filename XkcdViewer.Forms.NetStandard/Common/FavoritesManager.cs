@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using MonkeyCache.FileStore;
+using System.IO;
 using Newtonsoft.Json;
 using XkcdViewer.Forms.NetStandard.Models;
 
@@ -10,16 +10,15 @@ namespace XkcdViewer.Forms.NetStandard.Common
     public class FavoritesManager
     {
         private static FavoritesManager _current;
-        private readonly ObservableCollection<Comic> favorites;
 
         public static FavoritesManager Current => _current ?? (_current = new FavoritesManager());
 
         public FavoritesManager()
         {
-            favorites = LoadFavorites();
+            Favorites = LoadFavorites();
         }
 
-        public ObservableCollection<Comic> Favorites => favorites;
+        public ObservableCollection<Comic> Favorites { get; }
 
         public bool IsFavorite(Comic comic)
         {
@@ -62,7 +61,9 @@ namespace XkcdViewer.Forms.NetStandard.Common
             {
                 Debug.WriteLine($"---LoadFavoritesAsync called----");
 
-                var favsAsJson = Barrel.Current.Get<string>("serialized_favs");
+                var localFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+
+                var favsAsJson = File.ReadAllText(Path.Combine(localFolder, "favs.json"));
                 
                 var favsCollection = JsonConvert.DeserializeObject<ObservableCollection<Comic>>(favsAsJson);
                 
@@ -89,8 +90,15 @@ namespace XkcdViewer.Forms.NetStandard.Common
             {
                 var favsAsJson = JsonConvert.SerializeObject(Favorites);
 
-                Barrel.Current.Add("serialized_favs", favsAsJson, TimeSpan.FromDays(360));
+                var localFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
+                var filePath = Path.Combine(localFolder, "favs.json");
+
+                if (File.Exists(filePath))
+                    File.Delete(filePath);
+
+                File.WriteAllText(filePath, favsAsJson);
+                
                 Debug.WriteLine($"---SaveFavoritesAsync: {Favorites.Count}");
 
                 return true;

@@ -27,7 +27,6 @@
   </ItemGroup>-->
 
   <ItemGroup>
-    <PackageReference Include="MonkeyCache.FileStore" Version="0.1.0.7-beta" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Plugin.Share" Version="7.1.1" />
     <PackageReference Include="SkiaSharp" Version="1.59.3" />

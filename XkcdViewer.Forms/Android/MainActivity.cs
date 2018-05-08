@@ -17,6 +17,8 @@ namespace XkcdViewer.Forms.Android
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
+            //LiveReload.Init();
+
             LoadApplication(new XkcdViewer.Forms.NetStandard.App());
         }
     }

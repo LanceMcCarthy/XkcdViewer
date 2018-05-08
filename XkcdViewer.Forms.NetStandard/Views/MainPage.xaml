@@ -96,7 +96,7 @@
   </ContentPage.Resources>
 
   <ContentPage.ToolbarItems>
-    <ToolbarItem Text="favs"
+    <ToolbarItem Text="favs2"
                  Icon="ic_edit_favs.png"
                  Command="{Binding GoToFavoritesCommand}"/>
     <ToolbarItem Text="next"
@@ -115,7 +115,7 @@
       <Label Text="pull to load previous comic"
              HorizontalOptions="Center"
              VerticalOptions="Center"
-             TextColor="#33000000" />
+             TextColor="#BDBDBD" />
 
       <dataControls:RadListView x:Name="MyRadListView"
                                 ItemsSource="{Binding Comics}"

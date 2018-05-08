@@ -30,11 +30,11 @@
     <PackageReference Include="Cimbalino.Toolkit.Core" Version="2.5.2" />
     <PackageReference Include="MonkeyCache.FileStore" Version="0.0.1.55-beta" />
     <PackageReference Include="MvvmLight" Version="5.3.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Plugin.Share" Version="5.0.0" />
     <PackageReference Include="SkiaSharp" Version="1.59.3" />
     <PackageReference Include="SkiaSharp.Views.Forms" Version="1.59.3" />
-    <PackageReference Include="Telerik.UI.for.Xamarin" Version="2018.1.117.5" />
+    <PackageReference Include="Telerik.UI.for.Xamarin" Version="2018.1.405.2" />
     <PackageReference Include="Xamarin.Forms" Version="2.5.0.122203" />
   </ItemGroup>
 

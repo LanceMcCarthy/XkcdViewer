@@ -9,7 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XkcdViewer.Forms.iOS", "Xkc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XkcdViewer.Forms.UWP", "XkcdViewer.Forms\UWP\XkcdViewer.Forms.UWP.csproj", "{2A1AA2D9-9A1B-4026-86AB-8C8C3AC3BD34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XkcdViewer.Forms.NetStandard", "XkcdViewer.Forms.NetStandard\XkcdViewer.Forms.NetStandard.csproj", "{63F33D50-D0CB-4C6C-B174-2F6F92FDB75D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XkcdViewer.Forms.NetStandard", "XkcdViewer.Forms.NetStandard\XkcdViewer.Forms.NetStandard.csproj", "{63F33D50-D0CB-4C6C-B174-2F6F92FDB75D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{310E7FD3-55D2-4C21-A672-5195E3B08E81}"
+	ProjectSection(SolutionItems) = preProject
+		nuget.config = nuget.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

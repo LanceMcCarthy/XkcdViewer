@@ -133,47 +133,68 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
-    <Reference Include="Telerik.Xamarin.Android.Chart, Version=2018.1.117.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.117.5\lib\MonoAndroid10\Telerik.Xamarin.Android.Chart.dll</HintPath>
+    <Reference Include="Telerik.Documents.SpreadsheetStreaming, Version=2018.1.405.240, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.405.2\lib\MonoAndroid10\Telerik.Documents.SpreadsheetStreaming.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Xamarin.Android.Common, Version=2018.1.117.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.117.5\lib\MonoAndroid10\Telerik.Xamarin.Android.Common.dll</HintPath>
+    <Reference Include="Telerik.Xamarin.Android.Chart, Version=2018.1.405.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.405.2\lib\MonoAndroid10\Telerik.Xamarin.Android.Chart.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.Xamarin.Android.Data, Version=2018.1.117.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.117.5\lib\MonoAndroid10\Telerik.Xamarin.Android.Data.dll</HintPath>
+    <Reference Include="Telerik.Xamarin.Android.Common, Version=2018.1.405.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.405.2\lib\MonoAndroid10\Telerik.Xamarin.Android.Common.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.Xamarin.Android.Input, Version=2018.1.117.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.117.5\lib\MonoAndroid10\Telerik.Xamarin.Android.Input.dll</HintPath>
+    <Reference Include="Telerik.Xamarin.Android.Data, Version=2018.1.405.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.405.2\lib\MonoAndroid10\Telerik.Xamarin.Android.Data.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.Xamarin.Android.List, Version=2018.1.117.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.117.5\lib\MonoAndroid10\Telerik.Xamarin.Android.List.dll</HintPath>
+    <Reference Include="Telerik.Xamarin.Android.Input, Version=2018.1.405.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.405.2\lib\MonoAndroid10\Telerik.Xamarin.Android.Input.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.Xamarin.Android.Primitives, Version=2018.1.117.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.117.5\lib\MonoAndroid10\Telerik.Xamarin.Android.Primitives.dll</HintPath>
+    <Reference Include="Telerik.Xamarin.Android.List, Version=2018.1.405.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.405.2\lib\MonoAndroid10\Telerik.Xamarin.Android.List.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.XamarinForms.Chart, Version=2018.1.117.240, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.117.5\lib\MonoAndroid10\Telerik.XamarinForms.Chart.dll</HintPath>
+    <Reference Include="Telerik.Xamarin.Android.Primitives, Version=2018.1.405.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.405.2\lib\MonoAndroid10\Telerik.Xamarin.Android.Primitives.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.XamarinForms.Common, Version=2018.1.117.240, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.117.5\lib\MonoAndroid10\Telerik.XamarinForms.Common.dll</HintPath>
+    <Reference Include="Telerik.XamarinForms.Chart, Version=2018.1.405.240, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.405.2\lib\MonoAndroid10\Telerik.XamarinForms.Chart.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.XamarinForms.DataControls, Version=2018.1.117.240, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.117.5\lib\MonoAndroid10\Telerik.XamarinForms.DataControls.dll</HintPath>
+    <Reference Include="Telerik.XamarinForms.Common, Version=2018.1.405.240, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.405.2\lib\MonoAndroid10\Telerik.XamarinForms.Common.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.XamarinForms.DataGrid, Version=2018.1.117.240, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.117.5\lib\MonoAndroid10\Telerik.XamarinForms.DataGrid.dll</HintPath>
+    <Reference Include="Telerik.XamarinForms.DataControls, Version=2018.1.405.240, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.405.2\lib\MonoAndroid10\Telerik.XamarinForms.DataControls.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.XamarinForms.DataVisualization, Version=2018.1.117.240, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.117.5\lib\MonoAndroid10\Telerik.XamarinForms.DataVisualization.dll</HintPath>
+    <Reference Include="Telerik.XamarinForms.DataGrid, Version=2018.1.405.240, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.405.2\lib\MonoAndroid10\Telerik.XamarinForms.DataGrid.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.XamarinForms.Input, Version=2018.1.117.240, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.117.5\lib\MonoAndroid10\Telerik.XamarinForms.Input.dll</HintPath>
+    <Reference Include="Telerik.XamarinForms.DataVisualization, Version=2018.1.405.240, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.405.2\lib\MonoAndroid10\Telerik.XamarinForms.DataVisualization.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.XamarinForms.Primitives, Version=2018.1.117.240, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.117.5\lib\MonoAndroid10\Telerik.XamarinForms.Primitives.dll</HintPath>
+    <Reference Include="Telerik.XamarinForms.Input, Version=2018.1.405.240, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.405.2\lib\MonoAndroid10\Telerik.XamarinForms.Input.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.XamarinForms.SkiaSharp, Version=2018.1.117.240, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.117.5\lib\MonoAndroid10\Telerik.XamarinForms.SkiaSharp.dll</HintPath>
+    <Reference Include="Telerik.XamarinForms.Primitives, Version=2018.1.405.240, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.405.2\lib\MonoAndroid10\Telerik.XamarinForms.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.XamarinForms.SkiaSharp, Version=2018.1.405.240, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.405.2\lib\MonoAndroid10\Telerik.XamarinForms.SkiaSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Zip, Version=2018.1.405.240, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.UI.for.Xamarin.2018.1.405.2\lib\MonoAndroid10\Telerik.Zip.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Xamarin.Android.Support.Animated.Vector.Drawable, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Android.Support.Animated.Vector.Drawable.23.3.0\lib\MonoAndroid403\Xamarin.Android.Support.Animated.Vector.Drawable.dll</HintPath>

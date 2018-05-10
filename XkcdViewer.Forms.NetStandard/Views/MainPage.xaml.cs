@@ -15,12 +15,18 @@ namespace XkcdViewer.Forms.NetStandard.Views
             BindingContext = vm;
         }
 
-        private void FavsPageToolbarItem_Clicked(object sender, System.EventArgs e)
+        protected override async void OnAppearing()
         {
-            Navigation.PushAsync(new FavoritesPage());
+            base.OnAppearing();
+            await vm.GetNextComic();
         }
 
         private async void GetNextToolbarItem_Clicked(object sender, System.EventArgs e)
+        {
+            await vm.GetNextComic();
+        }
+
+        private async void Lv_RefreshRequested(object sender, Telerik.XamarinForms.DataControls.ListView.PullToRefreshRequestedEventArgs e)
         {
             await vm.GetNextComic();
         }
@@ -30,9 +36,9 @@ namespace XkcdViewer.Forms.NetStandard.Views
             Navigation.PushAsync(new DetailsPage(e.Item as Comic));
         }
 
-        private async void Lv_RefreshRequested(object sender, Telerik.XamarinForms.DataControls.ListView.PullToRefreshRequestedEventArgs e)
+        private void FavsPageToolbarItem_Clicked(object sender, System.EventArgs e)
         {
-            await vm.GetNextComic();
+            Navigation.PushAsync(new FavoritesPage());
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using XkcdViewer.Forms.NetStandard.Common;
+﻿using XkcdViewer.Forms.NetStandard.Common;
 
 namespace XkcdViewer.Forms.NetStandard.ViewModels
 {

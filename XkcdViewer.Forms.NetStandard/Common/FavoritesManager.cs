@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using Newtonsoft.Json;
 using XkcdViewer.Forms.NetStandard.Models;
 
 namespace XkcdViewer.Forms.NetStandard.Common
@@ -65,16 +64,12 @@ namespace XkcdViewer.Forms.NetStandard.Common
 
                 var favsAsJson = File.ReadAllText(Path.Combine(localFolder, "favs.json"));
                 
-                var favsCollection = JsonConvert.DeserializeObject<ObservableCollection<Comic>>(favsAsJson);
+                var favsCollection = JsonSerializer<ObservableCollection<Comic>>.DeSerialize(favsAsJson);
+                //var favsCollection = JsonConvert.DeserializeObject<ObservableCollection<Comic>>(favsAsJson);
                 
                 Debug.WriteLine($"---LoadFavoritesAsync: {favsCollection.Count} favorites loaded");
 
                 return favsCollection;
-            }
-            catch (JsonException ex)
-            {
-                Debug.WriteLine($"LoadFavoritesAsync JSONException: {ex}");
-                 
             }
             catch (Exception ex)
             {
@@ -88,7 +83,8 @@ namespace XkcdViewer.Forms.NetStandard.Common
         {
             try
             {
-                var favsAsJson = JsonConvert.SerializeObject(Favorites);
+                var favsAsJson = JsonSerializer<ObservableCollection<Comic>>.Serialize(Favorites);
+                //var favsAsJson = JsonConvert.SerializeObject(Favorites);
 
                 var localFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
@@ -102,11 +98,6 @@ namespace XkcdViewer.Forms.NetStandard.Common
                 Debug.WriteLine($"---SaveFavoritesAsync: {Favorites.Count}");
 
                 return true;
-            }
-            catch (JsonException ex)
-            {
-                Debug.WriteLine($"SaveCollectionAsync JSONException: {ex}");
-                return false;
             }
             catch (Exception ex)
             {

@@ -1,10 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
-using Telerik.XamarinForms.DataControls.ListView;
 using Xamarin.Forms;
 using XkcdViewer.Forms.NetStandard.Common;
 using XkcdViewer.Forms.NetStandard.Models;
-using XkcdViewer.Forms.NetStandard.Views;
 
 namespace XkcdViewer.Forms.NetStandard.ViewModels
 {
@@ -16,7 +14,7 @@ namespace XkcdViewer.Forms.NetStandard.ViewModels
 
         public FavoritesPageViewModel()
         {
-
+            Title = "Favorites";
         }
         
         public ObservableCollection<Comic> FavoriteComics => FavoritesManager.Current.Favorites;

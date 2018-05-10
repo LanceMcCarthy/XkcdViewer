@@ -26,7 +26,6 @@ namespace XkcdViewer.Forms.Android
 		
 		public static void UpdateIdValues()
 		{
-			global::ModernHttpClient.Resource.String.library_name = global::XkcdViewer.Forms.Android.Resource.String.library_name;
 			global::Telerik.XamarinForms.Common.Android.Resource.Animation.abc_fade_in = global::XkcdViewer.Forms.Android.Resource.Animation.abc_fade_in;
 			global::Telerik.XamarinForms.Common.Android.Resource.Animation.abc_fade_out = global::XkcdViewer.Forms.Android.Resource.Animation.abc_fade_out;
 			global::Telerik.XamarinForms.Common.Android.Resource.Animation.abc_grow_fade_in_from_bottom = global::XkcdViewer.Forms.Android.Resource.Animation.abc_grow_fade_in_from_bottom;
@@ -11613,9 +11612,6 @@ namespace XkcdViewer.Forms.Android
 			
 			// aapt resource value: 0x7f0a0038
 			public const int character_counter_pattern = 2131361848;
-			
-			// aapt resource value: 0x7f0a0045
-			public const int library_name = 2131361861;
 			
 			// aapt resource value: 0x7f0a0042
 			public const int list_view_default_empty_content = 2131361858;

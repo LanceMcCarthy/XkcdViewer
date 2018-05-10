@@ -3,16 +3,9 @@
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:dataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
-             xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
-             x:Class="XkcdViewer.Forms.NetStandard.Views.MainPage">
-
-    <ContentPage.Title>
-        <OnPlatform x:TypeArguments="x:String">
-            <On Platform="iOS">Xkcd Comic Viewer</On>
-            <On Platform="Android">Xkcd Viewer</On>
-            <On Platform="Windows">Xkcd Viewer</On>
-        </OnPlatform>
-    </ContentPage.Title>
+             xmlns:primitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+             x:Class="XkcdViewer.Forms.NetStandard.Views.MainPage"
+             Title="{Binding Title}">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="favs"
@@ -29,35 +22,31 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Label Text="pull to load previous comic"
+        <Label Text="pull to load comic"
                HorizontalOptions="Center"
                VerticalOptions="Center"
                TextColor="{StaticResource LightGrayTextColor}" />
 
         <dataControls:RadListView x:Name="MyRadListView"
                                   ItemsSource="{Binding Comics}"
-                                  IsPullToRefreshEnabled="{Binding IsFetching, Converter={StaticResource InvertBoolConverter}}"
+                                  IsPullToRefreshEnabled="{Binding IsBusy, Converter={StaticResource InvertBoolConverter}}"
                                   SelectionMode="Single" 
                                   RefreshRequested="Lv_RefreshRequested"
                                   ItemTapped="Lv_ItemTapped"
                                   ItemTemplate="{StaticResource PortaitTemplate}"
                                   LayoutDefinition="{StaticResource ComicLinearLayout}"/>
-
-        <Grid BackgroundColor="{StaticResource TransparentBackgroundColor}"
-              IsVisible="{Binding IsBusy}"
-              VerticalOptions="End"
-              HorizontalOptions="Fill"
-              Grid.Row="0">
-            <StackLayout HorizontalOptions="Fill"
-                         VerticalOptions="Center">
-                <ActivityIndicator IsRunning="{Binding IsBusy}" />
-                <Label Text="{Binding IsBusyMessage}"
-                       TextColor="Black"
-                       Margin="10,0,10,0"
-                       HorizontalOptions="Center"
-                       LineBreakMode="WordWrap" />
-            </StackLayout>
-        </Grid>
+        
+        <primitives:RadBusyIndicator x:Name="BusyIndicator"
+                                     IsVisible="{Binding IsBusy}"
+                                     IsBusy="{Binding IsBusy}"
+                                     Style="{StaticResource BusyIndicatorStyle}"
+                                     Grid.Row="0"
+                                     Grid.RowSpan="2">
+            <primitives:RadBusyIndicator.Content>
+                <Grid BindingContext="{x:Reference Page}"
+                      WidthRequest="{Binding Width}"
+                      HeightRequest="{Binding Height}" />
+            </primitives:RadBusyIndicator.Content>
+        </primitives:RadBusyIndicator>
     </Grid>
 </ContentPage>
-

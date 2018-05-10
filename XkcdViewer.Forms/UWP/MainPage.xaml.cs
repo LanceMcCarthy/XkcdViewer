@@ -4,7 +4,6 @@ namespace XkcdViewer.Forms.UWP
     {
         public MainPage()
         {
-            LiveReload.Init();
             this.InitializeComponent();
             LoadApplication(new XkcdViewer.Forms.NetStandard.App());
         }

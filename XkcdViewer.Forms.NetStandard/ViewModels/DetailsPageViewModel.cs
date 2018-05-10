@@ -17,6 +17,7 @@ namespace XkcdViewer.Forms.NetStandard.ViewModels
         public DetailsPageViewModel(Comic comic)
         {
             SelectedComic = comic;
+            Title = $"#{SelectedComic.Num}";
             IsFavorite = FavoritesManager.Current.IsFavorite(SelectedComic);
         }
 
@@ -53,17 +54,11 @@ namespace XkcdViewer.Forms.NetStandard.ViewModels
 
             Debug.WriteLine($"ShareCommand fired - SelectedComic: {comic.Title}");
 
-            await CrossShare.Current.Share(
-                new ShareMessage
-                {
-                    Title = comic.Title,
-                    Text = comic.Transcript,
-                    Url = comic.Img
-                },
-                new ShareOptions
-                {
-                    ExcludedUIActivityTypes = new[] { ShareUIActivityType.PostToFacebook }
-                });
+            var message = new ShareMessage { Title = comic.Title, Text = comic.Transcript, Url = comic.Img };
+
+            var options = new ShareOptions { ExcludedUIActivityTypes = new[] {ShareUIActivityType.PostToFacebook} };
+
+            await CrossShare.Current.Share(message, options);
         }));
         
     }

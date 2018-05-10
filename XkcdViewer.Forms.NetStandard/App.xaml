@@ -3,12 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:XkcdViewer.Forms.NetStandard.Converters"
              xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+             xmlns:primitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
              x:Class="XkcdViewer.Forms.NetStandard.App" >
     
     <Application.Resources>
         <ResourceDictionary>
             <Color x:Key="TransparentBackgroundColor">#F0FFFFFF</Color>
             <Color x:Key="LightGrayTextColor">#FFBDBDBD</Color>
+            <Color x:Key="DarkGrayTextColor">#FF383838</Color>
 
             <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter" />
             <converters:IsFavoriteToStringConverter x:Key="IsFavoriteToStringConverter" />
@@ -16,12 +18,24 @@
             <converters:UrlToImageSourceConverter x:Key="UrlToImageSourceConverter" />
             <converters:InvertBoolConverter x:Key="InvertBoolConverter" />
             
-            <listView:ListViewLinearLayout x:Key="ComicLinearLayout"  VerticalItemSpacing="6"
+            <Style x:Key="BusyIndicatorStyle"
+                   TargetType="primitives:RadBusyIndicator">
+                <Setter Property="AnimationType"
+                        Value="Animation6" />
+                <Setter Property="AnimationContentHeightRequest"
+                        Value="100" />
+                <Setter Property="AnimationContentWidthRequest"
+                        Value="100" />
+                <Setter Property="BackgroundColor"
+                        Value="{StaticResource TransparentBackgroundColor}" />
+            </Style>
+            
+            <listView:ListViewLinearLayout x:Key="ComicLinearLayout"
+                                           VerticalItemSpacing="6"
                                            HorizontalItemSpacing="6"
                                            ItemLength="300"/>
 
-            <DataTemplate x:Name="PortaitTemplate"
-                          x:Key="PortaitTemplate">
+            <DataTemplate x:Key="PortaitTemplate">
                 <listView:ListViewTemplateCell>
                     <Grid Padding="10"
                           BackgroundColor="Gray">
@@ -35,7 +49,7 @@
                                    TextColor="White"
                                    FontSize="Small" />
                             <Label Text=" - "
-                                   TextColor="#C8C8C8"
+                                   TextColor="{StaticResource DarkGrayTextColor}"
                                    FontSize="Small" />
                             <Label Text="{Binding Title}"
                                    TextColor="White"
@@ -48,8 +62,7 @@
                 </listView:ListViewTemplateCell>
             </DataTemplate>
 
-            <DataTemplate x:Name="LandscapeTemplate"
-                          x:Key="LandscapeTemplate">
+            <DataTemplate x:Key="LandscapeTemplate">
                 <listView:ListViewTemplateCell>
                     <Grid Padding="10"
                           BackgroundColor="Green">
@@ -63,7 +76,7 @@
                                    TextColor="White"
                                    FontSize="Small" />
                             <Label Text=" - "
-                                   TextColor="#C8C8C8"
+                                   TextColor="{StaticResource DarkGrayTextColor}"
                                    FontSize="Small" />
                             <Label Text="{Binding Title}"
                                    TextColor="White"

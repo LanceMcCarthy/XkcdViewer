@@ -10,7 +10,7 @@ namespace XkcdViewer.Forms.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             
-            Xamarin.Forms.Platform.iOS.CachedImageRenderer.Init();
+            FFImageLoading.Forms.Touch.CachedImageRenderer.Init();
 
             LoadApplication(new XkcdViewer.Forms.NetStandard.App());
 

@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 using XkcdViewer.Forms.NetStandard.Models;
 using XkcdViewer.Forms.NetStandard.ViewModels;
 

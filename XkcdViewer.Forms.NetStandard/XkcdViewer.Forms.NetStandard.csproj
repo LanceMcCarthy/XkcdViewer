@@ -31,6 +31,7 @@
     <PackageReference Include="SkiaSharp" Version="1.59.3" />
     <PackageReference Include="SkiaSharp.Views.Forms" Version="1.59.3" />
     <PackageReference Include="Telerik.UI.for.Xamarin" Version="2018.1.405.2" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.3.6" />
     <PackageReference Include="Xamarin.Forms" Version="2.5.1.527436" />
   </ItemGroup>
 

@@ -9,6 +9,8 @@ namespace XkcdViewer.Forms.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            
+            Xamarin.Forms.Platform.iOS.CachedImageRenderer.Init();
 
             LoadApplication(new XkcdViewer.Forms.NetStandard.App());
 

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:XkcdViewer.Forms.NetStandard.Converters"
              xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
-             xmlns:primitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="XkcdViewer.Forms.NetStandard.App" >
     
     <Application.Resources>
@@ -18,23 +18,6 @@
             <converters:UrlToImageSourceConverter x:Key="UrlToImageSourceConverter" />
             <converters:InvertBoolConverter x:Key="InvertBoolConverter" />
             
-            <Style x:Key="BusyIndicatorStyle"
-                   TargetType="primitives:RadBusyIndicator">
-                <Setter Property="AnimationType"
-                        Value="Animation6" />
-                <Setter Property="AnimationContentHeightRequest"
-                        Value="100" />
-                <Setter Property="AnimationContentWidthRequest"
-                        Value="100" />
-                <Setter Property="BackgroundColor"
-                        Value="{StaticResource TransparentBackgroundColor}" />
-            </Style>
-            
-            <listView:ListViewLinearLayout x:Key="ComicLinearLayout"
-                                           VerticalItemSpacing="6"
-                                           HorizontalItemSpacing="6"
-                                           ItemLength="300"/>
-
             <DataTemplate x:Key="PortaitTemplate">
                 <listView:ListViewTemplateCell>
                     <Grid Padding="10"
@@ -56,8 +39,8 @@
                                    FontSize="Small" />
                         </StackLayout>
 
-                        <Image Source="{Binding Img, Converter={StaticResource UrlToImageSourceConverter}}"
-                               Grid.Row="1" />
+                        <forms:CachedImage Source="{Binding Img, Converter={StaticResource UrlToImageSourceConverter}}"
+                                           Grid.Row="1"/>
                     </Grid>
                 </listView:ListViewTemplateCell>
             </DataTemplate>
@@ -82,9 +65,9 @@
                                    TextColor="White"
                                    FontSize="Small" />
                         </StackLayout>
-
-                        <Image Source="{Binding Img, Converter={StaticResource UrlToImageSourceConverter}}"
-                               Grid.Row="1" />
+                        
+                        <forms:CachedImage Source="{Binding Img, Converter={StaticResource UrlToImageSourceConverter}}"
+                                           Grid.Row="1"/>
                     </Grid>
                 </listView:ListViewTemplateCell>
             </DataTemplate>

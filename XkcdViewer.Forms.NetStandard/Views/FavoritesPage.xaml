@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:dataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
+             xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
              x:Class="XkcdViewer.Forms.NetStandard.Views.FavoritesPage"
              Title="{Binding Title}">
 
@@ -11,7 +12,12 @@
                               ReorderEnded="Rlv_ReorderEnded"
                               SelectedItems="{Binding SelectedFavorites, Mode=TwoWay}"
                               ItemTemplate="{StaticResource PortaitTemplate}"
-                              LayoutDefinition="{StaticResource ComicLinearLayout}"
                               ItemTapped="Lv_ItemTapped"
-                              SelectionMode="Single" />
+                              SelectionMode="Single" >
+        <dataControls:RadListView.LayoutDefinition>
+            <listView:ListViewLinearLayout VerticalItemSpacing="6"
+                                           HorizontalItemSpacing="6"
+                                           ItemLength="300" />
+        </dataControls:RadListView.LayoutDefinition>
+    </dataControls:RadListView>
 </ContentPage>

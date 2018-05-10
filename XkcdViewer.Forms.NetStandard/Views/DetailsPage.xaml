@@ -1,21 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="XkcdViewer.Forms.NetStandard.Views.DetailsPage"
              Title="{Binding Title}">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="ShareToolbarItem"
+                     Icon="ic_share.png"
                      Text="share"
                      Command="{Binding ShareCommand}"
                      CommandParameter="{Binding SelectedComic}">
-            <ToolbarItem.Icon>
+            <!--<ToolbarItem.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
                     <On Platform="iOS">ic_share.png</On>
                     <On Platform="Android">ic_share.png</On>
-                    <On Platform="Windows">ic_share.png</On>
+                    <On Platform="UWP">ic_share.png</On>
                 </OnPlatform>
-            </ToolbarItem.Icon>
+            </ToolbarItem.Icon>-->
         </ToolbarItem>
         <ToolbarItem x:Name="ToggleFavoriteToolbarItem"
                      Icon="{Binding IsFavorite, Converter={StaticResource IsFavoriteIconConverter}}"
@@ -27,10 +29,10 @@
 
     <Grid>
         <ScrollView>
-            <Image x:Name="ComicImage"
-                   Source="{Binding SelectedComic.Img, Converter={StaticResource UrlToImageSourceConverter}}"
-                   HorizontalOptions="FillAndExpand"
-                   VerticalOptions="FillAndExpand" />
+            <forms:CachedImage x:Name="ComicImage"
+                               Source="{Binding SelectedComic.Img, Converter={StaticResource UrlToImageSourceConverter}}"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="FillAndExpand" />
         </ScrollView>
     </Grid>
 </ContentPage>

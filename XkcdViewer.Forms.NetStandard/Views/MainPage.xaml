@@ -4,18 +4,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:dataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
              xmlns:primitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+             xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="XkcdViewer.Forms.NetStandard.Views.MainPage"
              Title="{Binding Title}">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="favs"
-                 Icon="ic_edit_favs.png"
+                     Icon="ic_edit_favs.png"
                      Clicked="FavsPageToolbarItem_Clicked" />
         <ToolbarItem Text="next"
-                     Icon="ic_next.png" 
-                     Clicked="GetNextToolbarItem_Clicked"/>
+                     Icon="ic_next.png"
+                     Clicked="GetNextToolbarItem_Clicked" />
     </ContentPage.ToolbarItems>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -30,18 +32,61 @@
         <dataControls:RadListView x:Name="MyRadListView"
                                   ItemsSource="{Binding Comics}"
                                   IsPullToRefreshEnabled="{Binding IsBusy, Converter={StaticResource InvertBoolConverter}}"
-                                  SelectionMode="Single" 
+                                  SelectionMode="Single"
                                   RefreshRequested="Lv_RefreshRequested"
-                                  ItemTapped="Lv_ItemTapped"
-                                  ItemTemplate="{StaticResource PortaitTemplate}"
-                                  LayoutDefinition="{StaticResource ComicLinearLayout}"/>
-        
+                                  ItemTapped="Lv_ItemTapped">
+            <dataControls:RadListView.ItemTemplate>
+                <DataTemplate>
+                    <listView:ListViewTemplateCell>
+                        <Grid Padding="10"
+                              BackgroundColor="Gray">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Num}"
+                                       TextColor="White"
+                                       FontSize="Small" />
+                                <Label Text=" - "
+                                       TextColor="{StaticResource DarkGrayTextColor}"
+                                       FontSize="Small" />
+                                <Label Text="{Binding Title}"
+                                       TextColor="White"
+                                       FontSize="Small" />
+                            </StackLayout>
+
+                            <forms:CachedImage Source="{Binding Img, Converter={StaticResource UrlToImageSourceConverter}}"
+                                               Grid.Row="1"/>
+                        </Grid>
+                    </listView:ListViewTemplateCell>
+                </DataTemplate>
+            </dataControls:RadListView.ItemTemplate>
+            <dataControls:RadListView.LayoutDefinition>
+                <listView:ListViewLinearLayout VerticalItemSpacing="6"
+                                               HorizontalItemSpacing="6"
+                                               ItemLength="300" />
+            </dataControls:RadListView.LayoutDefinition>
+        </dataControls:RadListView>
+
         <primitives:RadBusyIndicator x:Name="BusyIndicator"
                                      IsVisible="{Binding IsBusy}"
                                      IsBusy="{Binding IsBusy}"
-                                     Style="{StaticResource BusyIndicatorStyle}"
                                      Grid.Row="0"
                                      Grid.RowSpan="2">
+            <primitives:RadBusyIndicator.Style>
+                <Style TargetType="primitives:RadBusyIndicator">
+                    <Setter Property="AnimationType"
+                            Value="Animation5" />
+                    <Setter Property="AnimationContentHeightRequest"
+                            Value="100" />
+                    <Setter Property="AnimationContentWidthRequest"
+                            Value="100" />
+                    <Setter Property="BackgroundColor"
+                            Value="{StaticResource TransparentBackgroundColor}" />
+                </Style>
+            </primitives:RadBusyIndicator.Style>
             <primitives:RadBusyIndicator.Content>
                 <Grid BindingContext="{x:Reference Page}"
                       WidthRequest="{Binding Width}"

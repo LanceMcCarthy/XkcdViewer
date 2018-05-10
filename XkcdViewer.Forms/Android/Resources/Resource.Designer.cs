@@ -27,8 +27,6 @@ namespace XkcdViewer.Forms.Android
 		public static void UpdateIdValues()
 		{
 			global::ModernHttpClient.Resource.String.library_name = global::XkcdViewer.Forms.Android.Resource.String.library_name;
-			global::PCLStorage.Resource.String.ApplicationName = global::XkcdViewer.Forms.Android.Resource.String.ApplicationName;
-			global::PCLStorage.Resource.String.Hello = global::XkcdViewer.Forms.Android.Resource.String.Hello;
 			global::Telerik.XamarinForms.Common.Android.Resource.Animation.abc_fade_in = global::XkcdViewer.Forms.Android.Resource.Animation.abc_fade_in;
 			global::Telerik.XamarinForms.Common.Android.Resource.Animation.abc_fade_out = global::XkcdViewer.Forms.Android.Resource.Animation.abc_fade_out;
 			global::Telerik.XamarinForms.Common.Android.Resource.Animation.abc_grow_fade_in_from_bottom = global::XkcdViewer.Forms.Android.Resource.Animation.abc_grow_fade_in_from_bottom;

@@ -19,7 +19,9 @@ namespace XkcdViewer.Forms.NetStandard.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await vm.GetNextComic();
+
+            if(vm.Comics.Count == 0)
+                await vm.GetNextComic();
         }
 
         private async void GetNextToolbarItem_Clicked(object sender, System.EventArgs e)

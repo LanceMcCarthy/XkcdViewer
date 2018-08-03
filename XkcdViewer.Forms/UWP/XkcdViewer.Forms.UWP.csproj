@@ -179,7 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.1.4</Version>
+      <Version>6.1.7</Version>
     </PackageReference>
     <PackageReference Include="Plugin.Share">
       <Version>7.1.1</Version>

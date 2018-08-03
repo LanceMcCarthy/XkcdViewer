@@ -13,27 +13,16 @@
         <ToolbarItem Text="favs"
                      Icon="ic_edit_favs.png"
                      Clicked="FavsPageToolbarItem_Clicked" />
-        <ToolbarItem Text="next"
-                     Icon="ic_next.png"
-                     Clicked="GetNextToolbarItem_Clicked" />
     </ContentPage.ToolbarItems>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
-        <Label Text="pull to load comic"
-               HorizontalOptions="Center"
-               VerticalOptions="Center"
-               TextColor="{StaticResource LightGrayTextColor}" />
-
         <dataControls:RadListView x:Name="MyRadListView"
                                   ItemsSource="{Binding Comics}"
-                                  IsPullToRefreshEnabled="{Binding IsBusy, Converter={StaticResource InvertBoolConverter}}"
+                                  IsLoadOnDemandEnabled="True"
+                                  IsLoadOnDemandActive="{Binding IsBusy}"
+                                  LoadOnDemand="ListView_LoadOnDemand"
+                                  LoadOnDemandMode="Manual"
                                   SelectionMode="Single"
-                                  RefreshRequested="Lv_RefreshRequested"
                                   ItemTapped="Lv_ItemTapped">
             <dataControls:RadListView.ItemTemplate>
                 <DataTemplate>
@@ -58,7 +47,7 @@
                             </StackLayout>
 
                             <forms:CachedImage Source="{Binding Img, Converter={StaticResource UrlToImageSourceConverter}}"
-                                               Grid.Row="1"/>
+                                               Grid.Row="1" />
                         </Grid>
                     </listView:ListViewTemplateCell>
                 </DataTemplate>
@@ -69,29 +58,5 @@
                                                ItemLength="300" />
             </dataControls:RadListView.LayoutDefinition>
         </dataControls:RadListView>
-
-        <primitives:RadBusyIndicator x:Name="BusyIndicator"
-                                     IsVisible="{Binding IsBusy}"
-                                     IsBusy="{Binding IsBusy}"
-                                     Grid.Row="0"
-                                     Grid.RowSpan="2">
-            <primitives:RadBusyIndicator.Style>
-                <Style TargetType="primitives:RadBusyIndicator">
-                    <Setter Property="AnimationType"
-                            Value="Animation5" />
-                    <Setter Property="AnimationContentHeightRequest"
-                            Value="100" />
-                    <Setter Property="AnimationContentWidthRequest"
-                            Value="100" />
-                    <Setter Property="BackgroundColor"
-                            Value="{StaticResource TransparentBackgroundColor}" />
-                </Style>
-            </primitives:RadBusyIndicator.Style>
-            <primitives:RadBusyIndicator.Content>
-                <Grid BindingContext="{x:Reference Page}"
-                      WidthRequest="{Binding Width}"
-                      HeightRequest="{Binding Height}" />
-            </primitives:RadBusyIndicator.Content>
-        </primitives:RadBusyIndicator>
     </Grid>
 </ContentPage>

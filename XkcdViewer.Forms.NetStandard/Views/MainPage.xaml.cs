@@ -7,31 +7,28 @@ namespace XkcdViewer.Forms.NetStandard.Views
 {
     public partial class MainPage : ContentPage
     {
-        private readonly MainViewModel vm;
-
         public MainPage()
         {
             InitializeComponent();
-            vm = new MainViewModel();
-            BindingContext = vm;
+            BindingContext = new MainViewModel();
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
 
-            if(vm.Comics.Count == 0)
-                await vm.GetNextComic();
+            if (BindingContext is MainViewModel viewModel && viewModel.Comics.Count == 0)
+            {
+                await viewModel.GetNextComic();
+            }
         }
 
-        private async void GetNextToolbarItem_Clicked(object sender, System.EventArgs e)
+        private async void ListView_LoadOnDemand(object sender, EventArgs e)
         {
-            await vm.GetNextComic();
-        }
-
-        private async void Lv_RefreshRequested(object sender, Telerik.XamarinForms.DataControls.ListView.PullToRefreshRequestedEventArgs e)
-        {
-            await vm.GetNextComic();
+            if (BindingContext is MainViewModel viewModel)
+            {
+                await viewModel.GetNextComic();
+            }
         }
 
         private void Lv_ItemTapped(object sender, Telerik.XamarinForms.DataControls.ListView.ItemTapEventArgs e)

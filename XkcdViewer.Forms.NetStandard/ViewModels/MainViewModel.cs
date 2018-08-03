@@ -55,7 +55,7 @@ namespace XkcdViewer.Forms.NetStandard.ViewModels
 
                 lastComicNumber = comic.Num;
 
-                Comics.Insert(0, comic);
+                Comics.Add(comic);
             }
             catch (Exception ex)
             {

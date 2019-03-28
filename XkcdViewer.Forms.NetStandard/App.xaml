@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:XkcdViewer.Forms.NetStandard.Converters"
-             xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
-             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="XkcdViewer.Forms.NetStandard.App" >
     
     <Application.Resources>
@@ -11,66 +8,6 @@
             <Color x:Key="TransparentBackgroundColor">#F0FFFFFF</Color>
             <Color x:Key="LightGrayTextColor">#FFBDBDBD</Color>
             <Color x:Key="DarkGrayTextColor">#FF383838</Color>
-
-            <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter" />
-            <converters:IsFavoriteToStringConverter x:Key="IsFavoriteToStringConverter" />
-            <converters:IsFavoriteIconConverter x:Key="IsFavoriteIconConverter" />
-            <converters:UrlToImageSourceConverter x:Key="UrlToImageSourceConverter" />
-            <converters:InvertBoolConverter x:Key="InvertBoolConverter" />
-            
-            <DataTemplate x:Key="PortaitTemplate">
-                <listView:ListViewTemplateCell>
-                    <Grid Padding="10"
-                          BackgroundColor="Gray">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding Num}"
-                                   TextColor="White"
-                                   FontSize="Small" />
-                            <Label Text=" - "
-                                   TextColor="{StaticResource DarkGrayTextColor}"
-                                   FontSize="Small" />
-                            <Label Text="{Binding Title}"
-                                   TextColor="White"
-                                   FontSize="Small" />
-                        </StackLayout>
-
-                        <forms:CachedImage Source="{Binding Img, Converter={StaticResource UrlToImageSourceConverter}}"
-                                           Grid.Row="1"/>
-                    </Grid>
-                </listView:ListViewTemplateCell>
-            </DataTemplate>
-
-            <DataTemplate x:Key="LandscapeTemplate">
-                <listView:ListViewTemplateCell>
-                    <Grid Padding="10"
-                          BackgroundColor="Green">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding Num}"
-                                   TextColor="White"
-                                   FontSize="Small" />
-                            <Label Text=" - "
-                                   TextColor="{StaticResource DarkGrayTextColor}"
-                                   FontSize="Small" />
-                            <Label Text="{Binding Title}"
-                                   TextColor="White"
-                                   FontSize="Small" />
-                        </StackLayout>
-                        
-                        <forms:CachedImage Source="{Binding Img, Converter={StaticResource UrlToImageSourceConverter}}"
-                                           Grid.Row="1"/>
-                    </Grid>
-                </listView:ListViewTemplateCell>
-            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -3,9 +3,10 @@
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:dataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
-             xmlns:primitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
              xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+             xmlns:customViews="clr-namespace:XkcdViewer.Forms.NetStandard.CustomViews;assembly=XkcdViewer.Forms.NetStandard"
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:input="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
              x:Class="XkcdViewer.Forms.NetStandard.Views.MainPage"
              Title="{Binding Title}">
 
@@ -24,9 +25,21 @@
                                   LoadOnDemandMode="Manual"
                                   SelectionMode="Single"
                                   ItemTapped="Lv_ItemTapped">
+            <dataControls:RadListView.LoadOnDemandItemTemplate>
+                <DataTemplate>
+                    <Grid BackgroundColor="DarkCyan"
+                          Margin="10,0">
+                        <Label FontSize="24"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               Text="load next comic"
+                               TextColor="FloralWhite" />
+                    </Grid>
+                </DataTemplate>
+            </dataControls:RadListView.LoadOnDemandItemTemplate>
             <dataControls:RadListView.ItemTemplate>
                 <DataTemplate>
-                    <listView:ListViewTemplateCell>
+                    <customViews:FastTemplateCell>
                         <Grid Padding="10"
                               BackgroundColor="Gray">
                             <Grid.RowDefinitions>
@@ -44,18 +57,25 @@
                                 <Label Text="{Binding Title}"
                                        TextColor="White"
                                        FontSize="Small" />
+                                <input:RadButton BackgroundImage="ic_share.png"
+                                                 Command="{Binding ShareCommand}"
+                                                 HeightRequest="25"
+                                                 WidthRequest="25"
+                                                 VerticalOptions="Center" />
                             </StackLayout>
 
-                            <forms:CachedImage Source="{Binding Img, Converter={StaticResource UrlToImageSourceConverter}}"
+                            <forms:CachedImage x:Name="MyImage"
                                                Grid.Row="1" />
+
+
                         </Grid>
-                    </listView:ListViewTemplateCell>
+                    </customViews:FastTemplateCell>
                 </DataTemplate>
             </dataControls:RadListView.ItemTemplate>
             <dataControls:RadListView.LayoutDefinition>
                 <listView:ListViewLinearLayout VerticalItemSpacing="6"
                                                HorizontalItemSpacing="6"
-                                               ItemLength="300" />
+                                               ItemLength="500" />
             </dataControls:RadListView.LayoutDefinition>
         </dataControls:RadListView>
     </Grid>

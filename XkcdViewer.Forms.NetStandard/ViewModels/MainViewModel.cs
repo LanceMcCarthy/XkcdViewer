@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using CommonHelpers.Common;
 using Xamarin.Forms;
 using XkcdViewer.Forms.NetStandard.Models;
 
@@ -9,8 +10,6 @@ namespace XkcdViewer.Forms.NetStandard.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private ObservableCollection<Comic> comics;
-
         private int lastComicNumber;
 
         public MainViewModel()
@@ -27,11 +26,7 @@ namespace XkcdViewer.Forms.NetStandard.ViewModels
             }
         }
 
-        public ObservableCollection<Comic> Comics
-        {
-            get => comics ?? (comics = new ObservableCollection<Comic>());
-            set => Set(ref comics, value);
-        }
+        public ObservableCollection<Comic> Comics { get; } = new ObservableCollection<Comic>();
 
         public async Task GetNextComic()
         {

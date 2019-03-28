@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using XkcdViewer.Forms.NetStandard.Common;
+using Newtonsoft.Json;
 using XkcdViewer.Forms.NetStandard.Models;
 
 namespace XkcdViewer.Forms.NetStandard.Services
@@ -14,7 +15,13 @@ namespace XkcdViewer.Forms.NetStandard.Services
 
         public XkcdApiService()
         {
-            client = new HttpClient();
+            var handler = new HttpClientHandler();
+            if (handler.SupportsAutomaticDecompression)
+            {
+                handler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+            }
+
+            client = new HttpClient(handler);
         }
 
         /// <summary>
@@ -34,11 +41,9 @@ namespace XkcdViewer.Forms.NetStandard.Services
 
                     if (string.IsNullOrEmpty(jsonResult))
                         return new Comic { Title = "Whoops", Transcript = $"There was no comic to be found" };
-
-                    var result = JsonSerializer<Comic>.DeSerialize(jsonResult);
-
-                    //var result = JsonConvert.DeserializeObject<Comic>(jsonResult);
-
+                    
+                    var result = JsonConvert.DeserializeObject<Comic>(jsonResult);
+                    
                     return result ??
                            new Comic { Title = "Json Schmason", Transcript = $"Someone didnt like the way the comic's json tasted and spit it back out" };
                 }
@@ -67,10 +72,8 @@ namespace XkcdViewer.Forms.NetStandard.Services
                     if (string.IsNullOrEmpty(jsonResult))
                         return new Comic { Title = "Whoops", Transcript = $"There was no comic to be found" };
 
-                    var result = JsonSerializer<Comic>.DeSerialize(jsonResult);
-
-                    // var result = JsonConvert.DeserializeObject<Comic>(jsonResult);
-
+                    var result = JsonConvert.DeserializeObject<Comic>(jsonResult);
+                    
                     return result ?? new Comic { Title = "Json Schmason", Transcript = $"Someone didnt like the way the comic's json tasted and spit it back out" };
                 }
             }
@@ -96,5 +99,5 @@ namespace XkcdViewer.Forms.NetStandard.Services
         //    "title": "Research Areas by Size and Countedness",
         //    "day": "9"
         //}
-    }
+}
 }

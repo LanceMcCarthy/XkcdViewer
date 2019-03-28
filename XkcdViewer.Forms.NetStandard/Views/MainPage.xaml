@@ -27,7 +27,8 @@
             <dataControls:RadListView.LoadOnDemandItemTemplate>
                 <DataTemplate>
                     <Grid BackgroundColor="DarkCyan"
-                          Margin="10,0">
+                          Margin="10,0"
+                          Padding="5">
                         <Label FontSize="18"
                                HorizontalOptions="Center"
                                VerticalOptions="Center"

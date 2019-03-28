@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using Newtonsoft.Json;
 using XkcdViewer.Forms.NetStandard.Models;
 
 namespace XkcdViewer.Forms.NetStandard.Common
@@ -58,18 +59,14 @@ namespace XkcdViewer.Forms.NetStandard.Common
         {
             try
             {
-                Debug.WriteLine($"---LoadFavoritesAsync called----");
-
                 var localFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-
-                var favsAsJson = File.ReadAllText(Path.Combine(localFolder, "favs.json"));
+                var json = File.ReadAllText(Path.Combine(localFolder, "favs.json"));
                 
-                var favsCollection = JsonSerializer<ObservableCollection<Comic>>.DeSerialize(favsAsJson);
-                //var favsCollection = JsonConvert.DeserializeObject<ObservableCollection<Comic>>(favsAsJson);
+                var favorites = JsonConvert.DeserializeObject<ObservableCollection<Comic>>(json);
                 
-                Debug.WriteLine($"---LoadFavoritesAsync: {favsCollection.Count} favorites loaded");
+                Debug.WriteLine($"---LoadFavoritesAsync: {favorites.Count} favorites loaded");
 
-                return favsCollection;
+                return favorites;
             }
             catch (Exception ex)
             {
@@ -83,17 +80,15 @@ namespace XkcdViewer.Forms.NetStandard.Common
         {
             try
             {
-                var favsAsJson = JsonSerializer<ObservableCollection<Comic>>.Serialize(Favorites);
-                //var favsAsJson = JsonConvert.SerializeObject(Favorites);
+                var json = JsonConvert.SerializeObject(Favorites);
 
                 var localFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-
                 var filePath = Path.Combine(localFolder, "favs.json");
 
                 if (File.Exists(filePath))
                     File.Delete(filePath);
 
-                File.WriteAllText(filePath, favsAsJson);
+                File.WriteAllText(filePath, json);
                 
                 Debug.WriteLine($"---SaveFavoritesAsync: {Favorites.Count}");
 

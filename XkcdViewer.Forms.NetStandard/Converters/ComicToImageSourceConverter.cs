@@ -9,19 +9,19 @@ namespace XkcdViewer.Forms.NetStandard.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var comic = value as Comic;
-
-            if (comic == null)
-                return null;
-
-            if (comic.Title == "Garden" || string.IsNullOrEmpty(comic.Img))
+            if(value is Comic comic)
             {
-                return ImageSource.FromFile("garden_256.png");
+                if (comic.Title == "Garden" || string.IsNullOrEmpty(comic.Img))
+                {
+                    return ImageSource.FromFile("garden_256.png");
+                }
+                else
+                {
+                    return ImageSource.FromUri(new Uri(comic.Img));
+                }
             }
-            else
-            {
-                return ImageSource.FromUri(new Uri(comic.Img.Insert(4, "s")));
-            }
+
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

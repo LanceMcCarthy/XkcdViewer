@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using CommonHelpers.Common;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
 using Xamarin.Forms;
@@ -13,53 +14,49 @@ namespace XkcdViewer.Forms.NetStandard.ViewModels
         private bool isFavorite;
         private Command<Comic> toggleFavoriteCommand;
         private Command<Comic> shareCommand;
+        private string pageTitle;
 
-        public DetailsPageViewModel(Comic comic)
+        public DetailsPageViewModel()
         {
-            SelectedComic = comic;
-            Title = $"#{SelectedComic.Num}";
-            IsFavorite = FavoritesManager.Current.IsFavorite(SelectedComic);
         }
 
         public Comic SelectedComic
         {
             get => selectedComic;
-            set => Set(ref selectedComic, value);
+            set
+            {
+                if (SetProperty(ref selectedComic, value))
+                {
+                    PageTitle = $"#{SelectedComic.Num}";
+                    IsFavorite = FavoritesManager.Current.IsFavorite(SelectedComic);
+                }
+            }
+        }
+
+        public string PageTitle
+        {
+            get => pageTitle;
+            set => SetProperty(ref pageTitle, value);
         }
 
         public bool IsFavorite
         {
             get => isFavorite;
-            set => Set(ref isFavorite, value);
+            set => SetProperty(ref isFavorite, value);
         }
 
-        public Command<Comic> ToggleFavoriteCommand => toggleFavoriteCommand ?? (toggleFavoriteCommand = new Command<Comic>(async (comic) =>
+        public Command<Comic> ToggleFavoriteCommand => toggleFavoriteCommand ?? (toggleFavoriteCommand = new Command<Comic>((comic) =>
         {
             if (IsFavorite)
             {
-                FavoritesManager.Current.RemoveFavorite(comic);
+                comic.RemoveFavoriteCommand.Execute(null);
                 IsFavorite = false;
             }
             else
             {
-                FavoritesManager.Current.AddFavorite(comic);
+                comic.SaveFavoriteCommand.Execute(null);
                 IsFavorite = true;
             }
         }));
-
-        public Command<Comic> ShareCommand => shareCommand ?? (shareCommand = new Command<Comic>(async (comic) =>
-        {
-            if (comic == null)
-                return;
-
-            Debug.WriteLine($"ShareCommand fired - SelectedComic: {comic.Title}");
-
-            var message = new ShareMessage { Title = comic.Title, Text = comic.Transcript, Url = comic.Img };
-
-            var options = new ShareOptions { ExcludedUIActivityTypes = new[] {ShareUIActivityType.PostToFacebook} };
-
-            await CrossShare.Current.Share(message, options);
-        }));
-        
     }
 }

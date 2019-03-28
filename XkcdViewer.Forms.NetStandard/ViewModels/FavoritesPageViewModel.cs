@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
+using CommonHelpers.Common;
 using Xamarin.Forms;
 using XkcdViewer.Forms.NetStandard.Common;
 using XkcdViewer.Forms.NetStandard.Models;
@@ -22,7 +23,7 @@ namespace XkcdViewer.Forms.NetStandard.ViewModels
         public ObservableCollection<Comic> SelectedFavorites
         {
             get => selectedFavorites ?? ( selectedFavorites = new ObservableCollection<Comic>());
-            set => Set(ref selectedFavorites, value);
+            set => SetProperty(ref selectedFavorites, value);
         }
         
         public Command RemoveFavoritesCommand => removeFavoritesCommand ?? (removeFavoritesCommand = new Command((comic) =>

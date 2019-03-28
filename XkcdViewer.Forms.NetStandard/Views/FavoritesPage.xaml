@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:dataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
              xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
-             xmlns:customViews="clr-namespace:XkcdViewer.Forms.NetStandard.CustomViews;assembly=XkcdViewer.Forms.NetStandard"
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="XkcdViewer.Forms.NetStandard.Views.FavoritesPage"
              Title="{Binding Title}">
@@ -17,7 +16,7 @@
                               SelectionMode="Single" >
         <dataControls:RadListView.ItemTemplate>
             <DataTemplate>
-                <customViews:FastTemplateCell>
+                <listView:ListViewTemplateCell>
                     <Grid Padding="10"
                           BackgroundColor="Gray">
                         <Grid.RowDefinitions>
@@ -38,9 +37,10 @@
                         </StackLayout>
 
                         <forms:CachedImage x:Name="MyImage"
+                                           Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}"
                                            Grid.Row="1" />
                     </Grid>
-                </customViews:FastTemplateCell>
+                </listView:ListViewTemplateCell>
             </DataTemplate>
         </dataControls:RadListView.ItemTemplate>
         <dataControls:RadListView.LayoutDefinition>

@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.Reflection;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using FFImageLoading.Forms;
 
 namespace XkcdViewer.Forms.UWP
 {
@@ -40,7 +43,13 @@ namespace XkcdViewer.Forms.UWP
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                Xamarin.Forms.Forms.Init(e);
+                var assembliesToInclude = new List<Assembly>
+                {
+                    typeof(CachedImage).GetTypeInfo().Assembly,
+                    typeof(FFImageLoading.Forms.Platform.CachedImageRenderer).GetTypeInfo().Assembly
+                };
+
+                Xamarin.Forms.Forms.Init(e, assembliesToInclude);
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

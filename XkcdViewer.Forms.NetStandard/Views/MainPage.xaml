@@ -4,7 +4,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:dataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
              xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
-             xmlns:customViews="clr-namespace:XkcdViewer.Forms.NetStandard.CustomViews;assembly=XkcdViewer.Forms.NetStandard"
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:input="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
              x:Class="XkcdViewer.Forms.NetStandard.Views.MainPage"
@@ -29,7 +28,7 @@
                 <DataTemplate>
                     <Grid BackgroundColor="DarkCyan"
                           Margin="10,0">
-                        <Label FontSize="24"
+                        <Label FontSize="18"
                                HorizontalOptions="Center"
                                VerticalOptions="Center"
                                Text="load next comic"
@@ -39,7 +38,7 @@
             </dataControls:RadListView.LoadOnDemandItemTemplate>
             <dataControls:RadListView.ItemTemplate>
                 <DataTemplate>
-                    <customViews:FastTemplateCell>
+                    <listView:ListViewTemplateCell>
                         <Grid Padding="10"
                               BackgroundColor="Gray">
                             <Grid.RowDefinitions>
@@ -61,15 +60,16 @@
                                                  Command="{Binding ShareCommand}"
                                                  HeightRequest="25"
                                                  WidthRequest="25"
-                                                 VerticalOptions="Center" />
+                                                 VerticalOptions="Center"
+                                                 BorderThickness="1"/>
                             </StackLayout>
 
                             <forms:CachedImage x:Name="MyImage"
+                                               Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}"
                                                Grid.Row="1" />
 
-
                         </Grid>
-                    </customViews:FastTemplateCell>
+                    </listView:ListViewTemplateCell>
                 </DataTemplate>
             </dataControls:RadListView.ItemTemplate>
             <dataControls:RadListView.LayoutDefinition>

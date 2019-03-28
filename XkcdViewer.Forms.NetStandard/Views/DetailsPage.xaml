@@ -10,7 +10,7 @@
     <ContentPage.Resources>
         <converters:IsFavoriteToStringConverter x:Key="IsFavoriteToStringConverter" />
         <converters:IsFavoriteIconConverter x:Key="IsFavoriteIconConverter" />
-        <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter" />
+        
     </ContentPage.Resources>
 
     <ContentPage.BindingContext>

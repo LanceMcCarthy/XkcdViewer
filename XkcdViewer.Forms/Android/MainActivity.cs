@@ -15,7 +15,7 @@ namespace XkcdViewer.Forms.Android
 
             base.OnCreate(bundle);
 
-            FFImageLoading.Forms.Droid.CachedImageRenderer.Init(true);
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             

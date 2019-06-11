@@ -21,13 +21,13 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>10.3</string>
+	<string>12.2</string>
 	<key>CFBundleDisplayName</key>
 	<string>Xkcd Comic Viewer</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.lancelotSoftware.XkcdViewer</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1.0.1</string>
 	<key>CFBundleIconFiles</key>
 	<array>
 		<string>Icon-72@2x.png</string>
@@ -52,7 +52,7 @@
 		<string>Icon-Small@2x.png</string>
 	</array>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.0.1</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 </dict>

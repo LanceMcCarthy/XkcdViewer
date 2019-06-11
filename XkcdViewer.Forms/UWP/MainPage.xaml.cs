@@ -1,4 +1,4 @@
-using FFImageLoading.Forms.WinUWP;
+using FFImageLoading.Forms.Platform;
 
 namespace XkcdViewer.Forms.UWP
 {
@@ -7,7 +7,7 @@ namespace XkcdViewer.Forms.UWP
         public MainPage()
         {
             this.InitializeComponent();
-            CachedImageRenderer.Init();
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
             LoadApplication(new XkcdViewer.Forms.NetStandard.App());
         }
     }

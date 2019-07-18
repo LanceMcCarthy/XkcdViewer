@@ -12,7 +12,7 @@ namespace XkcdViewer.Forms.iOS
             
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
 
-            LoadApplication(new XkcdViewer.Forms.NetStandard.App());
+            LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
         }

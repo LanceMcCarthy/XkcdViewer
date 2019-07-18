@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:XkcdViewer.Forms.Converters;assembly=XkcdViewer.Forms"
+             x:Class="XkcdViewer.Forms.App" >
+    
+    <Application.Resources>
+        <Color x:Key="TransparentBackgroundColor">#F0FFFFFF</Color>
+        <Color x:Key="LightGrayTextColor">#FFBDBDBD</Color>
+        <Color x:Key="DarkGrayTextColor">#FF383838</Color>
+
+        <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter" />
+        <converters:IsFavoriteToStringConverter x:Key="IsFavoriteToStringConverter" />
+        <converters:IsFavoriteIconConverter x:Key="IsFavoriteIconConverter" />
+    </Application.Resources>
+</Application>

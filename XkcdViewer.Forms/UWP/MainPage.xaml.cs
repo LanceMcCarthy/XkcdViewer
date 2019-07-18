@@ -8,7 +8,7 @@ namespace XkcdViewer.Forms.UWP
         {
             this.InitializeComponent();
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
-            LoadApplication(new XkcdViewer.Forms.NetStandard.App());
+            LoadApplication(new Forms.App());
         }
     }
 }

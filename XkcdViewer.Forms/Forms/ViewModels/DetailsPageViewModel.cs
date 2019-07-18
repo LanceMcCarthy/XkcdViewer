@@ -7,9 +7,7 @@ namespace XkcdViewer.Forms.ViewModels
     {
         private Comic selectedComic;
 
-        public DetailsPageViewModel()
-        {
-        }
+        public DetailsPageViewModel() { }
 
         public Comic SelectedComic
         {

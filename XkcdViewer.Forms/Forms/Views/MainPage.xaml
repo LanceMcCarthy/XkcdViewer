@@ -4,8 +4,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:dataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
              xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
-             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-             xmlns:input="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
              x:Class="XkcdViewer.Forms.Views.MainPage"
              Title="{Binding Title}">
 
@@ -38,56 +36,6 @@
                     </Grid>
                 </DataTemplate>
             </dataControls:RadListView.LoadOnDemandItemTemplate>
-            <!--<dataControls:RadListView.ItemTemplate>
-                <DataTemplate>
-                    <listView:ListViewTemplateCell>
-                        <Grid Padding="10"
-                              BackgroundColor="Gray">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Num}"
-                                       TextColor="White"
-                                       FontSize="Small" />
-                                <Label Text=" - "
-                                       TextColor="{StaticResource DarkGrayTextColor}"
-                                       FontSize="Small" />
-                                <Label Text="{Binding Title}"
-                                       TextColor="White"
-                                       FontSize="Small" />
-                                <input:RadButton BackgroundImage="ic_share.png"
-                                                 Command="{Binding ShareCommand}"
-                                                 HeightRequest="25"
-                                                 WidthRequest="25"
-                                                 VerticalOptions="Center"
-                                                 BorderThickness="1"/>
-                                <input:RadButton BackgroundImage="{Binding IsFavorite, Converter={StaticResource IsFavoriteIconConverter}}"
-                                                 Command="{Binding SaveFavoriteCommand}"
-                                                 IsVisible="{Binding IsFavorite}"
-                                                 HeightRequest="25"
-                                                 WidthRequest="25"
-                                                 VerticalOptions="Center"
-                                                 BorderThickness="1" />
-                                <input:RadButton BackgroundImage="{Binding IsFavorite, Converter={StaticResource IsFavoriteIconConverter}}"
-                                                 Command="{Binding RemoveFavoriteCommand}"
-                                                 IsVisible="{Binding IsFavorite, Converter={StaticResource InvertBoolConverter}}"
-                                                 HeightRequest="25"
-                                                 WidthRequest="25"
-                                                 VerticalOptions="Center"
-                                                 BorderThickness="1" />
-                            </StackLayout>
-
-                            <forms:CachedImage x:Name="MyImage"
-                                               Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}"
-                                               Grid.Row="1" />
-
-                        </Grid>
-                    </listView:ListViewTemplateCell>
-                </DataTemplate>
-            </dataControls:RadListView.ItemTemplate>-->
             <dataControls:RadListView.LayoutDefinition>
                 <listView:ListViewLinearLayout VerticalItemSpacing="6"
                                                HorizontalItemSpacing="6"

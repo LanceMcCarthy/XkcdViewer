@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using CommonHelpers.Common;
 using Xamarin.Forms;
+using XkcdViewer.Forms.Common;
 using XkcdViewer.Forms.Models;
 
 namespace XkcdViewer.Forms.ViewModels
@@ -49,6 +50,8 @@ namespace XkcdViewer.Forms.ViewModels
                 }
 
                 lastComicNumber = comic.Num;
+
+                comic.IsFavorite = FavoritesManager.Current.IsFavorite(comic);
 
                 Comics.Add(comic);
             }

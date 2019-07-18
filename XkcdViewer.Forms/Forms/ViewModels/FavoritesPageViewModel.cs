@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
 using CommonHelpers.Common;
 using Xamarin.Forms;
 using XkcdViewer.Forms.Common;
@@ -10,7 +9,6 @@ namespace XkcdViewer.Forms.ViewModels
     public class FavoritesPageViewModel : ViewModelBase
     {
         private Command removeFavoritesCommand;
-        private Command<Comic> shareCommand;
         private ObservableCollection<Comic> selectedFavorites;
 
         public FavoritesPageViewModel()
@@ -25,14 +23,14 @@ namespace XkcdViewer.Forms.ViewModels
             get => selectedFavorites ?? ( selectedFavorites = new ObservableCollection<Comic>());
             set => SetProperty(ref selectedFavorites, value);
         }
-        
+
         public Command RemoveFavoritesCommand => removeFavoritesCommand ?? (removeFavoritesCommand = new Command((comic) =>
         {
-            for (int i = 0; i < SelectedFavorites.Count - 1; i++)
+            for (int i = 0; i <= SelectedFavorites.Count - 1; i++)
             {
                 FavoriteComics.Remove(SelectedFavorites[i]);
 
-                // Since we may be removing several items, we dont want to trigger a save until all of the items have been removed
+                // Since we may be removing several items, we don't want to trigger a save until the last item
                 if (i == SelectedFavorites.Count - 1)
                 {
                     // passing "False" prevents a save operation
@@ -40,15 +38,10 @@ namespace XkcdViewer.Forms.ViewModels
                 }
                 else
                 {
+                    // the last item in the list triggers a save to disk operation
                     FavoritesManager.Current.RemoveFavorite(SelectedFavorites[i]);
                 }
             }
-        }));
-
-        public Command<Comic> ShareCommand => shareCommand ?? (shareCommand = new Command<Comic>((comic) =>
-        {
-            if (comic == null) return;
-            Debug.WriteLine($"ShareCommand fired - SelectedComic: {comic.Title}");
         }));
     }
 }

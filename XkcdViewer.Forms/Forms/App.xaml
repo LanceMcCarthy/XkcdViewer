@@ -2,6 +2,10 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:XkcdViewer.Forms.Converters;assembly=XkcdViewer.Forms"
+             xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+             xmlns:input="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:models="clr-namespace:XkcdViewer.Forms.Models"
              x:Class="XkcdViewer.Forms.App" >
     
     <Application.Resources>
@@ -12,5 +16,47 @@
         <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter" />
         <converters:IsFavoriteToStringConverter x:Key="IsFavoriteToStringConverter" />
         <converters:IsFavoriteIconConverter x:Key="IsFavoriteIconConverter" />
+        <converters:InvertBoolConverter x:Key="InvertBoolConverter"/>
+
+        <DataTemplate x:Key="ComicTemplate">
+            <listView:ListViewTemplateCell>
+                <Grid Padding="10"
+                      BackgroundColor="Gray">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding Num}"
+                               TextColor="White"
+                               FontSize="Small" />
+                        <Label Text=" - "
+                               TextColor="{StaticResource DarkGrayTextColor}"
+                               FontSize="Small" />
+                        <Label Text="{Binding Title}"
+                               TextColor="White"
+                               FontSize="Small" />
+                        <input:RadButton BackgroundImage="ic_share.png"
+                                         Command="{Binding ShareCommand}"
+                                         HeightRequest="25"
+                                         WidthRequest="25"
+                                         VerticalOptions="Center"
+                                         BorderThickness="1" />
+                        <input:RadButton BackgroundImage="{Binding IsFavorite, Converter={StaticResource IsFavoriteIconConverter}}"
+                                         Command="{Binding ToggleFavoriteCommand}"
+                                         HeightRequest="25"
+                                         WidthRequest="25"
+                                         VerticalOptions="Center"
+                                         BorderThickness="1" />
+                    </StackLayout>
+
+                    <forms:CachedImage x:Name="MyImage"
+                                       Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}"
+                                       Grid.Row="1" />
+
+                </Grid>
+            </listView:ListViewTemplateCell>
+        </DataTemplate>
     </Application.Resources>
 </Application>

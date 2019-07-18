@@ -18,6 +18,7 @@
     <Grid>
         <dataControls:RadListView x:Name="MyRadListView"
                                   ItemsSource="{Binding Comics}"
+                                  ItemTemplate="{StaticResource ComicTemplate}"
                                   IsLoadOnDemandEnabled="True"
                                   IsLoadOnDemandActive="{Binding IsBusy}"
                                   LoadOnDemand="ListView_LoadOnDemand"
@@ -37,7 +38,7 @@
                     </Grid>
                 </DataTemplate>
             </dataControls:RadListView.LoadOnDemandItemTemplate>
-            <dataControls:RadListView.ItemTemplate>
+            <!--<dataControls:RadListView.ItemTemplate>
                 <DataTemplate>
                     <listView:ListViewTemplateCell>
                         <Grid Padding="10"
@@ -63,6 +64,20 @@
                                                  WidthRequest="25"
                                                  VerticalOptions="Center"
                                                  BorderThickness="1"/>
+                                <input:RadButton BackgroundImage="{Binding IsFavorite, Converter={StaticResource IsFavoriteIconConverter}}"
+                                                 Command="{Binding SaveFavoriteCommand}"
+                                                 IsVisible="{Binding IsFavorite}"
+                                                 HeightRequest="25"
+                                                 WidthRequest="25"
+                                                 VerticalOptions="Center"
+                                                 BorderThickness="1" />
+                                <input:RadButton BackgroundImage="{Binding IsFavorite, Converter={StaticResource IsFavoriteIconConverter}}"
+                                                 Command="{Binding RemoveFavoriteCommand}"
+                                                 IsVisible="{Binding IsFavorite, Converter={StaticResource InvertBoolConverter}}"
+                                                 HeightRequest="25"
+                                                 WidthRequest="25"
+                                                 VerticalOptions="Center"
+                                                 BorderThickness="1" />
                             </StackLayout>
 
                             <forms:CachedImage x:Name="MyImage"
@@ -72,7 +87,7 @@
                         </Grid>
                     </listView:ListViewTemplateCell>
                 </DataTemplate>
-            </dataControls:RadListView.ItemTemplate>
+            </dataControls:RadListView.ItemTemplate>-->
             <dataControls:RadListView.LayoutDefinition>
                 <listView:ListViewLinearLayout VerticalItemSpacing="6"
                                                HorizontalItemSpacing="6"

@@ -31,8 +31,12 @@ namespace XkcdViewer.Forms.Common
             {
                 Favorites.Add(comic);
 
-                if(save) 
+                comic.IsFavorite = true;
+
+                if(save)
+                {
                     SaveFavorites();
+                }
             }
             catch (Exception ex)
             {
@@ -46,8 +50,12 @@ namespace XkcdViewer.Forms.Common
             {
                 Favorites.Remove(comic);
 
-                if(save) 
+                comic.IsFavorite = false;
+
+                if(save)
+                {
                     SaveFavorites();
+                }
             }
             catch (Exception ex)
             {

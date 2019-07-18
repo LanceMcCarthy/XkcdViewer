@@ -4,7 +4,7 @@
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:viewModels="clr-namespace:XkcdViewer.Forms.ViewModels;assembly=XkcdViewer.Forms"
              x:Class="XkcdViewer.Forms.Views.DetailsPage"
-             Title="{Binding PageTitle}">
+             Title="{Binding Title}">
 
     <ContentPage.BindingContext>
         <viewModels:DetailsPageViewModel x:Name="ViewModel"/>
@@ -16,9 +16,9 @@
                      Text="share"
                      Command="{Binding SelectedComic.ShareCommand}"/>
         <ToolbarItem x:Name="ToggleFavoriteToolbarItem"
-                     Icon="{Binding IsFavorite, Converter={StaticResource IsFavoriteIconConverter}}"
-                     Text="{Binding IsFavorite, Converter={StaticResource IsFavoriteToStringConverter}}"
-                     Command="{Binding ToggleFavoriteCommand}"
+                     Icon="{Binding SelectedComic.IsFavorite, Converter={StaticResource IsFavoriteIconConverter}}"
+                     Text="{Binding SelectedComic.IsFavorite, Converter={StaticResource IsFavoriteToStringConverter}}"
+                     Command="{Binding SelectedComic.ToggleFavoriteCommand}"
                      CommandParameter="{Binding SelectedComic}">
         </ToolbarItem>
     </ContentPage.ToolbarItems>

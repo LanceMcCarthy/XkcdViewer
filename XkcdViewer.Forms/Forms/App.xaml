@@ -14,9 +14,26 @@
         <Color x:Key="DarkGrayTextColor">#FF383838</Color>
 
         <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter" />
-        <converters:IsFavoriteToStringConverter x:Key="IsFavoriteToStringConverter" />
-        <converters:IsFavoriteIconConverter x:Key="IsFavoriteIconConverter" />
-        <converters:InvertBoolConverter x:Key="InvertBoolConverter"/>
+
+        <converters:ConfigurableBoolConverter x:Key="IsFavoriteToStringConverter"
+                                              x:TypeArguments="x:String"
+                                              TrueResult="Unfavorite"
+                                              FalseResult="Favorite" />
+
+        <converters:ConfigurableBoolConverter x:Key="InvertBoolConverter"
+                                              x:TypeArguments="x:Boolean"
+                                              TrueResult="False"
+                                              FalseResult="True" />
+
+        <converters:ConfigurableBoolConverter x:Key="FavoriteToColorConverter"
+                                              x:TypeArguments="Color"
+                                              TrueResult="LightCoral"
+                                              FalseResult="LightGreen" />
+
+        <converters:ConfigurableBoolConverter x:Key="IsFavoriteIconConverter"
+                                              x:TypeArguments="ImageSource"
+                                              TrueResult="ic_favorite_remove.png"
+                                              FalseResult="ic_favorite_add.png"/>
 
         <DataTemplate x:Key="ComicTemplate">
             <listView:ListViewTemplateCell>

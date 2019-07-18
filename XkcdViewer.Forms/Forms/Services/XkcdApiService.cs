@@ -4,9 +4,9 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using XkcdViewer.Forms.NetStandard.Models;
+using XkcdViewer.Forms.Models;
 
-namespace XkcdViewer.Forms.NetStandard.Services
+namespace XkcdViewer.Forms.Services
 {
     public class XkcdApiService
     {

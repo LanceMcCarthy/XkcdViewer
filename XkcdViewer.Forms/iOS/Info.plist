@@ -27,7 +27,7 @@
 	<key>CFBundleIdentifier</key>
 	<string>com.lancelotSoftware.XkcdViewer</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.1</string>
+	<string>2019.718.1</string>
 	<key>CFBundleIconFiles</key>
 	<array>
 		<string>Icon-72@2x.png</string>
@@ -52,7 +52,7 @@
 		<string>Icon-Small@2x.png</string>
 	</array>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.1</string>
+	<string>2019.718.1</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 </dict>

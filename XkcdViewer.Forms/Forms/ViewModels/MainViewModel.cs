@@ -4,9 +4,10 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using CommonHelpers.Common;
 using Xamarin.Forms;
-using XkcdViewer.Forms.NetStandard.Models;
+using XkcdViewer.Forms.Common;
+using XkcdViewer.Forms.Models;
 
-namespace XkcdViewer.Forms.NetStandard.ViewModels
+namespace XkcdViewer.Forms.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
@@ -51,6 +52,8 @@ namespace XkcdViewer.Forms.NetStandard.ViewModels
                 lastComicNumber = comic.Num;
 
                 Comics.Add(comic);
+
+                comic.IsFavorite = FavoritesManager.Current.IsFavorite(comic);
             }
             catch (Exception ex)
             {

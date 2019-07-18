@@ -1,19 +1,14 @@
 ﻿using Xamarin.Forms;
-using XkcdViewer.Forms.NetStandard.Common;
-using XkcdViewer.Forms.NetStandard.Models;
-using XkcdViewer.Forms.NetStandard.ViewModels;
+using XkcdViewer.Forms.Common;
+using XkcdViewer.Forms.Models;
 
-namespace XkcdViewer.Forms.NetStandard.Views
+namespace XkcdViewer.Forms.Views
 {
     public partial class FavoritesPage : ContentPage
     {
-        private readonly FavoritesPageViewModel vm;
-
         public FavoritesPage()
         {
             InitializeComponent();
-            vm = new FavoritesPageViewModel();
-            BindingContext = vm;
         }
 
         private void Rlv_ReorderEnded(object sender, Telerik.XamarinForms.DataControls.ListView.ReorderEndedEventArgs e)

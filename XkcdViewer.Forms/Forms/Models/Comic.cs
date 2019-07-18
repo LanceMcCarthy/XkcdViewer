@@ -5,9 +5,9 @@ using Newtonsoft.Json;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
 using Xamarin.Forms;
-using XkcdViewer.Forms.NetStandard.Common;
+using XkcdViewer.Forms.Common;
 
-namespace XkcdViewer.Forms.NetStandard.Models
+namespace XkcdViewer.Forms.Models
 {
     public class Comic : BindableBase
     {
@@ -22,12 +22,12 @@ namespace XkcdViewer.Forms.NetStandard.Models
         private string img;
         private string title;
         private string day;
+        private bool isFavorite;
 
         public Comic()
         {
             ShareCommand = new Command(async () => { await Share(); });
-            SaveFavoriteCommand = new Command(() => { FavoritesManager.Current.AddFavorite(this); });
-            RemoveFavoriteCommand = new Command(() => { FavoritesManager.Current.RemoveFavorite(this); });
+            ToggleFavoriteCommand = new Command(ToggleIsFavorite);
         }
 
         [JsonProperty("month")]
@@ -107,11 +107,19 @@ namespace XkcdViewer.Forms.NetStandard.Models
             set => SetProperty(ref day, value);
         }
 
+        // Properties not in the json schema
+
+        public bool IsFavorite
+        {
+            get => isFavorite;
+            set => SetProperty(ref isFavorite, value);
+        }
+
+        [JsonIgnore]
         public Command ShareCommand { get; }
 
-        public Command SaveFavoriteCommand { get; }
-
-        public Command RemoveFavoriteCommand { get; }
+        [JsonIgnore]
+        public Command ToggleFavoriteCommand { get; }
 
         public async Task Share()
         {
@@ -131,6 +139,18 @@ namespace XkcdViewer.Forms.NetStandard.Models
                 {
                     ChooserTitle = "Share the funny!"
                 });
+        }
+
+        private void ToggleIsFavorite()
+        {
+            if (IsFavorite)
+            {
+                FavoritesManager.Current.RemoveFavorite(this);
+            }
+            else
+            {
+                FavoritesManager.Current.AddFavorite(this);
+            }
         }
     }
 }

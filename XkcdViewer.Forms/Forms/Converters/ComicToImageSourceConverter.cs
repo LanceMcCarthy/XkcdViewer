@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using Xamarin.Forms;
-using XkcdViewer.Forms.NetStandard.Models;
+using XkcdViewer.Forms.Models;
 
-namespace XkcdViewer.Forms.NetStandard.Converters
+namespace XkcdViewer.Forms.Converters
 {
     public class ComicToImageSourceConverter : IValueConverter
     {

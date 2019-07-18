@@ -1,10 +1,10 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using XkcdViewer.Forms.NetStandard.Services;
-using XkcdViewer.Forms.NetStandard.Views;
+using XkcdViewer.Forms.Services;
+using XkcdViewer.Forms.Views;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-namespace XkcdViewer.Forms.NetStandard
+namespace XkcdViewer.Forms
 {
     public partial class App : Application
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using Xamarin.Forms;
-using XkcdViewer.Forms.NetStandard.Models;
-using XkcdViewer.Forms.NetStandard.ViewModels;
+using XkcdViewer.Forms.Models;
+using XkcdViewer.Forms.ViewModels;
 
-namespace XkcdViewer.Forms.NetStandard.Views
+namespace XkcdViewer.Forms.Views
 {
     public partial class MainPage : ContentPage
     {

@@ -1,7 +1,7 @@
 ﻿using Xamarin.Forms;
-using XkcdViewer.Forms.NetStandard.Models;
+using XkcdViewer.Forms.Models;
 
-namespace XkcdViewer.Forms.NetStandard.Views
+namespace XkcdViewer.Forms.Views
 {
     public partial class DetailsPage : ContentPage
     {

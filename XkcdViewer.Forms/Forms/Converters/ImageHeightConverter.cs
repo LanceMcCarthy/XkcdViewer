@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Globalization;
 using Xamarin.Forms;
+using XkcdViewer.Forms.Models;
 
-namespace XkcdViewer.Forms.NetStandard.Converters
+namespace XkcdViewer.Forms.Converters
 {
-    class IsFavoriteToStringConverter : IValueConverter
+    public class ImageHeightConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool) value ? "Unfavorite" : "Favorite";
+            if (value == null)
+                return 0;
+
+            return ((Comic) value).Title == "Garden" ? 0 : 300;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value.ToString() == "Unfavorite";
+            throw new NotImplementedException();
         }
     }
 }

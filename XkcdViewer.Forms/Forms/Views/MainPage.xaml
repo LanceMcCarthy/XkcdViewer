@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage x:Name="Page"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
+             xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+             x:Class="XkcdViewer.Forms.Views.MainPage"
+             Title="{Binding Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="favs"
+                     Icon="ic_edit_favs.png"
+                     Clicked="FavsPageToolbarItem_Clicked" />
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+        <dataControls:RadListView x:Name="MyRadListView"
+                                  ItemsSource="{Binding Comics}"
+                                  ItemTemplate="{StaticResource ComicTemplate}"
+                                  IsLoadOnDemandEnabled="True"
+                                  IsLoadOnDemandActive="{Binding IsBusy}"
+                                  LoadOnDemand="ListView_LoadOnDemand"
+                                  LoadOnDemandMode="Manual"
+                                  SelectionMode="Single"
+                                  ItemTapped="Lv_ItemTapped">
+            <dataControls:RadListView.LoadOnDemandItemTemplate>
+                <DataTemplate>
+                    <Grid BackgroundColor="DarkCyan"
+                          Margin="10,0"
+                          Padding="5">
+                        <Label FontSize="18"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               Text="load next comic"
+                               TextColor="FloralWhite" />
+                    </Grid>
+                </DataTemplate>
+            </dataControls:RadListView.LoadOnDemandItemTemplate>
+            <dataControls:RadListView.LayoutDefinition>
+                <listView:ListViewLinearLayout VerticalItemSpacing="6"
+                                               HorizontalItemSpacing="6"
+                                               ItemLength="500" />
+            </dataControls:RadListView.LayoutDefinition>
+        </dataControls:RadListView>
+    </Grid>
+</ContentPage>

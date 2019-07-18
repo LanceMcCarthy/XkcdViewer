@@ -2,10 +2,11 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
-using XkcdViewer.Forms.NetStandard.Models;
+using XkcdViewer.Forms.Models;
 
-namespace XkcdViewer.Forms.NetStandard.Common
+namespace XkcdViewer.Forms.Common
 {
     public class FavoritesManager
     {
@@ -22,7 +23,7 @@ namespace XkcdViewer.Forms.NetStandard.Common
 
         public bool IsFavorite(Comic comic)
         {
-            return Favorites.Contains(comic);
+            return Favorites.Any(c => c.Num == comic.Num);
         }
         
         public void AddFavorite(Comic comic, bool save = true)
@@ -31,8 +32,12 @@ namespace XkcdViewer.Forms.NetStandard.Common
             {
                 Favorites.Add(comic);
 
-                if(save) 
+                comic.IsFavorite = true;
+
+                if(save)
+                {
                     SaveFavorites();
+                }
             }
             catch (Exception ex)
             {
@@ -46,8 +51,12 @@ namespace XkcdViewer.Forms.NetStandard.Common
             {
                 Favorites.Remove(comic);
 
-                if(save) 
+                comic.IsFavorite = false;
+
+                if(save)
+                {
                     SaveFavorites();
+                }
             }
             catch (Exception ex)
             {
@@ -63,6 +72,12 @@ namespace XkcdViewer.Forms.NetStandard.Common
                 var json = File.ReadAllText(Path.Combine(localFolder, "favs.json"));
                 
                 var favorites = JsonConvert.DeserializeObject<ObservableCollection<Comic>>(json);
+
+                // Provides backwards support for comics that were saved before the IsFavorite property was available.
+                foreach (var comic in favorites)
+                {
+                    if (!comic.IsFavorite) comic.IsFavorite = true;
+                }
                 
                 Debug.WriteLine($"---LoadFavoritesAsync: {favorites.Count} favorites loaded");
 

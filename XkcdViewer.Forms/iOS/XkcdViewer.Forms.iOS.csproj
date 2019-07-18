@@ -26,7 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>i386, x86_64</MtouchArch>
+    <MtouchArch>x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>
@@ -57,7 +57,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <MtouchArch>ARM64</MtouchArch>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>True</MtouchDebug>
     <CodesignEntitlements>
@@ -71,7 +71,7 @@
     <OutputPath>bin\iPhone\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <MtouchArch>ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Distribution</CodesignKey>
     <CodesignProvision>
@@ -89,7 +89,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
-    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <MtouchArch>ARM64</MtouchArch>
     <BuildIpa>True</BuildIpa>
     <CodesignProvision>Xkcd Distribution Profile</CodesignProvision>
     <CodesignKey>iPhone Distribution: Lancelot Software, LLC (L65255N3F7)</CodesignKey>
@@ -103,7 +103,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
-    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <MtouchArch>ARM64</MtouchArch>
     <CodesignProvision>
     </CodesignProvision>
     <CodesignKey>iPhone Distribution</CodesignKey>
@@ -191,12 +191,6 @@
     <EmbeddedResource Include="Resources\ic_next.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\XkcdViewer.Forms.NetStandard\XkcdViewer.Forms.NetStandard.csproj">
-      <Project>{63f33d50-d0cb-4c6c-b174-2f6f92fdb75d}</Project>
-      <Name>XkcdViewer.Forms.NetStandard</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Plugin.Share">
       <Version>7.1.1</Version>
     </PackageReference>
@@ -210,7 +204,7 @@
       <Version>1.68.0</Version>
     </PackageReference>
     <PackageReference Include="Telerik.UI.for.Xamarin">
-      <Version>2019.2.603.1</Version>
+      <Version>2019.2.708.1</Version>
     </PackageReference>
     <PackageReference Include="WebP.Touch">
       <Version>1.0.8</Version>
@@ -228,8 +222,14 @@
       <Version>2.4.11.982</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>3.6.0.344457</Version>
+      <Version>3.6.0.539721</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Forms\XkcdViewer.Forms.csproj">
+      <Project>{d7a744a2-3c24-42db-9360-b813bdc5f4a8}</Project>
+      <Name>XkcdViewer.Forms</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

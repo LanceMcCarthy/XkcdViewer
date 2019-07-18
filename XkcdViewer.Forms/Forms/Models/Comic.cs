@@ -109,7 +109,6 @@ namespace XkcdViewer.Forms.Models
 
         // Properties not in the json schema
 
-        [JsonIgnore]
         public bool IsFavorite
         {
             get => isFavorite;

@@ -23,12 +23,10 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
 
-    <Grid>
-        <ScrollView>
-            <forms:CachedImage x:Name="ComicImage"
-                               Source="{Binding SelectedComic, Converter={StaticResource ComicToImageSourceConverter}}"
-                               HorizontalOptions="FillAndExpand"
-                               VerticalOptions="FillAndExpand" />
-        </ScrollView>
-    </Grid>
+    <ScrollView Padding="5">
+        <forms:CachedImage x:Name="ComicImage"
+                           Source="{Binding SelectedComic, Converter={StaticResource ComicToImageSourceConverter}}"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="FillAndExpand" />
+    </ScrollView>
 </ContentPage>

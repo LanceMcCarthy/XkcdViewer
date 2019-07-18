@@ -51,9 +51,9 @@ namespace XkcdViewer.Forms.ViewModels
 
                 lastComicNumber = comic.Num;
 
-                comic.IsFavorite = FavoritesManager.Current.IsFavorite(comic);
-
                 Comics.Add(comic);
+
+                comic.IsFavorite = FavoritesManager.Current.IsFavorite(comic);
             }
             catch (Exception ex)
             {

@@ -6,6 +6,7 @@
              xmlns:input="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:models="clr-namespace:XkcdViewer.Forms.Models"
+             xmlns:primitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
              x:Class="XkcdViewer.Forms.App" >
     
     <Application.Resources>
@@ -27,8 +28,8 @@
 
         <converters:ConfigurableBoolConverter x:Key="FavoriteToColorConverter"
                                               x:TypeArguments="Color"
-                                              TrueResult="LightCoral"
-                                              FalseResult="LightGreen" />
+                                              TrueResult="DarkRed"
+                                              FalseResult="MediumSeaGreen" />
 
         <converters:ConfigurableBoolConverter x:Key="IsFavoriteIconConverter"
                                               x:TypeArguments="ImageSource"
@@ -44,7 +45,8 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <StackLayout Orientation="Horizontal">
+                    <StackLayout Orientation="Horizontal"
+                                 HorizontalOptions="Start">
                         <Label Text="{Binding Num}"
                                TextColor="White"
                                FontSize="Small" />
@@ -54,17 +56,23 @@
                         <Label Text="{Binding Title}"
                                TextColor="White"
                                FontSize="Small" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal"
+                                 HorizontalOptions="End"
+                                 VerticalOptions="Center">
                         <input:RadButton BackgroundImage="ic_share.png"
                                          Command="{Binding ShareCommand}"
                                          HeightRequest="25"
                                          WidthRequest="25"
-                                         VerticalOptions="Center"
-                                         BorderThickness="1" />
+                                         BorderColor="White"
+                                         BorderThickness="1" 
+                                         Margin="0,0,5,0"/>
                         <input:RadButton BackgroundImage="{Binding IsFavorite, Converter={StaticResource IsFavoriteIconConverter}}"
+                                         BorderColor="{Binding IsFavorite, Converter={StaticResource FavoriteToColorConverter}}"
                                          Command="{Binding ToggleFavoriteCommand}"
                                          HeightRequest="25"
                                          WidthRequest="25"
-                                         VerticalOptions="Center"
                                          BorderThickness="1" />
                     </StackLayout>
 

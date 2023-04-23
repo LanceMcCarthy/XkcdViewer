@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage x:Name="Page"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+             xmlns:models="using:XkcdViewer.Maui.Models"
+             x:Class="XkcdViewer.Maui.Views.MainPage"
+             Title="{Binding Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="favs"
+                     IconImageSource="ic_edit_favs.png"
+                     Clicked="FavsPageToolbarItem_Clicked" />
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+        <telerik:RadListView x:Name="MyRadListView"
+                             ItemsSource="{Binding Comics}"
+                             IsLoadOnDemandEnabled="True"
+                             IsLoadOnDemandActive="{Binding IsBusy}"
+                             LoadOnDemand="ListView_LoadOnDemand"
+                             LoadOnDemandMode="Manual"
+                             SelectionMode="Single"
+                             ItemTapped="Lv_ItemTapped">
+            <telerik:RadListView.ItemTemplate>
+                <DataTemplate x:DataType="models:Comic">
+                    <telerik:ListViewTemplateCell>
+                        <Grid Padding="10"
+                              BackgroundColor="Gray">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <StackLayout Orientation="Horizontal"
+                                         HorizontalOptions="Start">
+                                <Label Text="{Binding Num}"
+                                       TextColor="White"
+                                       FontSize="Small" />
+                                <Label Text=" - "
+                                       TextColor="{StaticResource DarkGrayTextColor}"
+                                       FontSize="Small" />
+                                <Label Text="{Binding Title}"
+                                       TextColor="White"
+                                       FontSize="Small" />
+                            </StackLayout>
+
+                            <HorizontalStackLayout Grid.Row="0"
+                                                   HorizontalOptions="End"
+                                                   VerticalOptions="Center">
+                                <Button ImageSource="ic_share.png"
+                                        Command="{Binding ShareCommand}"
+                                        HeightRequest="25"
+                                        WidthRequest="25"
+                                        BorderColor="White"
+                                        BorderWidth="1"
+                                        Margin="0,0,5,0" />
+                                <Button ImageSource="{Binding IsFavorite, Converter={StaticResource IsFavoriteIconConverter}}"
+                                        BorderColor="{Binding IsFavorite, Converter={StaticResource FavoriteToColorConverter}}"
+                                        Command="{Binding ToggleFavoriteCommand}"
+                                        HeightRequest="25"
+                                        WidthRequest="25"
+                                        BorderWidth="1" />
+                            </HorizontalStackLayout>
+
+                            <Image x:Name="MyImage"
+                                   Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}"
+                                   Grid.Row="1" />
+
+                        </Grid>
+                    </telerik:ListViewTemplateCell>
+                </DataTemplate>
+            </telerik:RadListView.ItemTemplate>
+            <telerik:RadListView.LoadOnDemandItemTemplate>
+                <DataTemplate>
+                    <Grid BackgroundColor="DarkCyan"
+                          Margin="10,0"
+                          Padding="5">
+                        <Label FontSize="18"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               Text="load next comic"
+                               TextColor="FloralWhite" />
+                    </Grid>
+                </DataTemplate>
+            </telerik:RadListView.LoadOnDemandItemTemplate>
+            <telerik:RadListView.LayoutDefinition>
+                <telerik:ListViewLinearLayout VerticalItemSpacing="6"
+                                              HorizontalItemSpacing="6"
+                                              ItemLength="500" />
+            </telerik:RadListView.LayoutDefinition>
+        </telerik:RadListView>
+    </Grid>
+</ContentPage>

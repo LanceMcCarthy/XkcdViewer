@@ -1,0 +1,42 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+             xmlns:converters="clr-namespace:XkcdViewer.Maui.Converters"
+             xmlns:local="clr-namespace:XkcdViewer.Maui"
+             x:Class="XkcdViewer.Maui.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Color x:Key="TransparentBackgroundColor">#F0FFFFFF</Color>
+            <Color x:Key="LightGrayTextColor">#FFBDBDBD</Color>
+            <Color x:Key="DarkGrayTextColor">#FF383838</Color>
+
+            <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter" />
+
+            <converters:ConfigurableBoolConverter x:Key="IsFavoriteToStringConverter"
+                                                  x:TypeArguments="x:String"
+                                                  TrueResult="Unfavorite"
+                                                  FalseResult="Favorite" />
+
+            <converters:ConfigurableBoolConverter x:Key="InvertBoolConverter"
+                                                  x:TypeArguments="x:Boolean"
+                                                  TrueResult="False"
+                                                  FalseResult="True" />
+
+            <converters:ConfigurableBoolConverter x:Key="FavoriteToColorConverter"
+                                                  x:TypeArguments="Color"
+                                                  TrueResult="DarkRed"
+                                                  FalseResult="MediumSeaGreen" />
+
+            <converters:ConfigurableBoolConverter x:Key="IsFavoriteIconConverter"
+                                                  x:TypeArguments="ImageSource"
+                                                  TrueResult="ic_favorite_remove.png"
+                                                  FalseResult="ic_favorite_add.png" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

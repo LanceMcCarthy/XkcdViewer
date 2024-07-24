@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell x:Class="XkcdViewer.Maui.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:XkcdViewer.Maui"
+       xmlns:views="using:XkcdViewer.Maui.Views"
+       xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+       xmlns:viewModels="using:XkcdViewer.Maui.ViewModels"
+       xmlns:resources="using:XkcdViewer.Maui.Resources"
+       ios:Page.UseSafeArea="True"
+       FlyoutBehavior="Flyout"
+       Title="XkcdViewer.Maui">
+
+    <!--
+    <ShellContent Title="Home"
+                  ContentTemplate="{DataTemplate views:MainPage}"
+                  Route="Main" />
+
+    <ShellContent Title="Favorites"
+                  ContentTemplate="{DataTemplate views:FavoritesPage}"
+                  Route="Favorites" />
+    -->
+
+    <FlyoutItem x:Name="HomeFlyoutItem"
+                Title="Home">
+        <FlyoutItem.Icon>
+            <FontImageSource FontAutoScalingEnabled="True"
+                             FontFamily="Font Awesome 6 Free Regular"
+                             Glyph="{x:Static resources:IconFont.Home}"
+                             Color="{StaticResource Primary}" />
+        </FlyoutItem.Icon>
+        <ShellContent Title="Home"
+                      ContentTemplate="{DataTemplate views:MainPage}"
+                      x:DataType="viewModels:MainViewModel"
+                      Route="MonitoredAccounts" />
+    </FlyoutItem>
+
+    <FlyoutItem x:Name="FavoritesFlyoutItem"
+                Route="Favorites"
+                Title="Favorites">
+        <FlyoutItem.Icon>
+            <FontImageSource FontAutoScalingEnabled="True"
+                             FontFamily="Font Awesome 6 Free Regular"
+                             Glyph="{x:Static resources:IconFont.GrinStars}"
+                             Color="{StaticResource Primary}" />
+        </FlyoutItem.Icon>
+        <ShellContent Title="Settings"
+                      ContentTemplate="{DataTemplate views:FavoritesPage}"
+                      x:DataType="viewModels:FavoritesPageViewModel"
+                      Route="Settings" />
+    </FlyoutItem>
+
+</Shell>

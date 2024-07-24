@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XkcdViewer.Maui.Views.DetailsPage"
+             Title="{Binding Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="ShareToolbarItem"
+                     IconImageSource="ic_share.png"
+                     Text="share"
+                     Command="{Binding SelectedComic.ShareCommand}" />
+        <ToolbarItem x:Name="ToggleFavoriteToolbarItem"
+                     IconImageSource="{Binding SelectedComic.IsFavorite, Converter={StaticResource IsFavoriteIconConverter}}"
+                     Text="{Binding SelectedComic.IsFavorite, Converter={StaticResource IsFavoriteToStringConverter}}"
+                     Command="{Binding ToggleFavoriteCommand}"
+                     CommandParameter="{Binding SelectedComic}">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <ScrollView Padding="5">
+        <Image x:Name="ComicImage"
+               Source="{Binding SelectedComic, Converter={StaticResource ComicToImageSourceConverter}}"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="FillAndExpand" />
+    </ScrollView>
+</ContentPage>

@@ -188,16 +188,16 @@
       <Version>7.1.1</Version>
     </PackageReference>
     <PackageReference Include="SkiaSharp">
-      <Version>1.68.0</Version>
+      <Version>2.88.8</Version>
     </PackageReference>
     <PackageReference Include="SkiaSharp.Views">
-      <Version>1.68.0</Version>
+      <Version>2.88.8</Version>
     </PackageReference>
     <PackageReference Include="SkiaSharp.Views.Forms">
-      <Version>1.68.0</Version>
+      <Version>2.88.8</Version>
     </PackageReference>
     <PackageReference Include="Telerik.UI.for.Xamarin">
-      <Version>2019.2.708.1</Version>
+      <Version>2024.2.513</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.FFImageLoading">
       <Version>2.4.11.982</Version>
@@ -212,7 +212,7 @@
       <Version>2.4.11.982</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>3.6.0.539721</Version>
+      <Version>5.0.0.2662</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

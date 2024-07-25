@@ -27,9 +27,12 @@ public class MainViewModel : ViewModelBase
         this.ItemTapCommand = new Command<ItemTapCommandContext>(async (c) => await ItemTapped(c));
         GoToDetailsCommand = new Command<Comic>(async (c) => await GoToDetailsAsync(c));
         ShareCommand = new Command<Comic>(async (c) => { await ShareItem(c); });
+        LoadLastComicCommand = new Command(async (c) => await GetNextComic());
     }
 
     public ObservableCollection<Comic> Comics { get; } = new();
+
+    public Command LoadLastComicCommand { get; }
 
     public ICommand ItemTapCommand { get; set; }
 

@@ -34,10 +34,14 @@ public static class MauiProgram
         builder
             .UseMauiApp<App>()
             .UseTelerik()
+            .RegisterLifecycleEvents()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                fonts.AddFont("Raleway-Regular.ttf", "Raleway");
+                fonts.AddFont("telerikfontexamples.ttf", "telerikfontexamples");
+                fonts.AddFont("fa-solid-900.ttf", "Font Awesome 6 Free Regular");
             });
 
 #if DEBUG

@@ -2,6 +2,8 @@
 using CommonHelpers.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Windows.Input;
+using Telerik.Maui.Controls.Compatibility.DataControls.ListView.Commands;
 using XkcdViewer.Maui.Models;
 using XkcdViewer.Maui.Services;
 
@@ -22,11 +24,14 @@ public class MainViewModel : ViewModelBase
         favoritesService = favoritesSrv;
         apiService = apiServ;
 
+        this.ItemTapCommand = new Command<ItemTapCommandContext>(async (c) => await ItemTapped(c));
         GoToDetailsCommand = new Command<Comic>(async (c) => await GoToDetailsAsync(c));
         ShareCommand = new Command<Comic>(async (c) => { await ShareItem(c); });
     }
 
     public ObservableCollection<Comic> Comics { get; } = new();
+
+    public ICommand ItemTapCommand { get; set; }
 
     public Command<Comic> GoToDetailsCommand { get; set; }
 
@@ -75,9 +80,17 @@ public class MainViewModel : ViewModelBase
         }
     }
 
+    private async Task ItemTapped(ItemTapCommandContext e)
+    {
+        await Shell.Current.GoToAsync("/Favorites", new Dictionary<string, object>
+        {
+            { "SelectedComic", e.Item }
+        });
+    }
+
     private static async Task GoToDetailsAsync(Comic comic)
     {
-        await Shell.Current.GoToAsync("/AccountDetails", new Dictionary<string, object>
+        await Shell.Current.GoToAsync("/Details", new Dictionary<string, object>
         {
             { "SelectedComic", comic }
         });

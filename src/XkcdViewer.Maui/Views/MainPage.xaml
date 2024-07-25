@@ -13,8 +13,11 @@
                              IsLoadOnDemandActive="{Binding IsBusy}"
                              LoadOnDemand="ListView_LoadOnDemand"
                              LoadOnDemandMode="Manual"
-                             SelectionMode="None"
-                             ItemTapped="Lv_ItemTapped">
+                             SelectionMode="None">
+            <telerik:RadListView.Commands>
+                <telerik:ListViewUserCommand Id="ItemTap"
+                                             Command="{Binding ItemTapCommand}" />
+            </telerik:RadListView.Commands>
             <telerik:RadListView.ItemTemplate>
                 <DataTemplate x:DataType="models:Comic">
                     <telerik:ListViewTemplateCell>

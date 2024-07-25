@@ -14,6 +14,7 @@ public class DetailsPageViewModel : ViewModelBase
         favoritesService = favoritesSrv;
         
         ToggleFavoriteCommand = new Command(ToggleIsFavorite);
+        ShareCommand = new Command(async (c) => { await ShareItem(); });
     }
 
     public Comic SelectedComic
@@ -30,6 +31,8 @@ public class DetailsPageViewModel : ViewModelBase
 
     public Command ToggleFavoriteCommand { get; }
 
+    public Command ShareCommand { get; }
+
     private void ToggleIsFavorite()
     {
         if (SelectedComic.IsFavorite)
@@ -40,5 +43,18 @@ public class DetailsPageViewModel : ViewModelBase
         {
             favoritesService.AddFavorite(SelectedComic);
         }
+    }
+
+    public async Task ShareItem()
+    {
+        if (string.IsNullOrEmpty(SelectedComic.Img))
+            return;
+            
+        await Share.Default.RequestAsync(new ShareTextRequest
+        {
+            Title = Title ?? "xkcd",
+            Text = SelectedComic.Transcript ?? "",
+            Uri = SelectedComic.Img
+        });
     }
 }

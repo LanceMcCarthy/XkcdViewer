@@ -56,7 +56,6 @@
                         <Image x:Name="MyImage"
                                Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}"
                                Grid.Row="1" />
-
                     </Grid>
                 </telerik:ListViewTemplateCell>
             </DataTemplate>

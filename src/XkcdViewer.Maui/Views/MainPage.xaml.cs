@@ -27,12 +27,4 @@ public partial class MainPage : ContentPage
     {
         await viewModel.GetNextComic();
     }
-
-    private async void Lv_ItemTapped(object sender, ItemTapEventArgs e)
-    {
-        await Shell.Current.GoToAsync("/Favorites", new Dictionary<string, object>
-        {
-            {"SelectedComic", e.Item}
-        });
-    }
 }

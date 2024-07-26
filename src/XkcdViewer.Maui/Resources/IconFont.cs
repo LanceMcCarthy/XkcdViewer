@@ -424,6 +424,8 @@ static class IconFont
     public const string Headset = "\uf590";
     public const string HeartBroken = "\uf7a9";
     public const string Heart = "\uf004";
+    public const string HeartAdd = "\ue500";
+    public const string HeartMinus = "\ue501";
     public const string Heartbeat = "\uf21e";
     public const string Helicopter = "\uf533";
     public const string Highlighter = "\uf591";

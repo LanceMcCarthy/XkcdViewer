@@ -1,9 +1,9 @@
-﻿using Telerik.Maui.Controls.Compatibility.DataControls.ListView;
+﻿using XkcdViewer.Maui.Models;
 using XkcdViewer.Maui.ViewModels;
 
 namespace XkcdViewer.Maui.Views;
 
-public partial class MainPage : ContentPage
+public partial class MainPage : ContentPage, ICollectionViewPage
 {
     private readonly MainViewModel viewModel;
 
@@ -11,6 +11,7 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         BindingContext = viewModel = vm;
+        viewModel.CollectionViewPage = this;
     }
 
     protected override async void OnAppearing()
@@ -23,8 +24,5 @@ public partial class MainPage : ContentPage
         }
     }
 
-    private async void ListView_LoadOnDemand(object sender, EventArgs e)
-    {
-        await viewModel.GetNextComic();
-    }
+    public void ScrollIntoView(object item, bool isAnimated) => CollectionView1.ScrollItemIntoView(item, isAnimated);
 }

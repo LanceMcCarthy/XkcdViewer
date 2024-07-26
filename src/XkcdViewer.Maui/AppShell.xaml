@@ -8,20 +8,39 @@
        xmlns:viewModels="using:XkcdViewer.Maui.ViewModels"
        xmlns:resources="using:XkcdViewer.Maui.Resources"
        ios:Page.UseSafeArea="True"
-       FlyoutBehavior="Flyout"
+       FlyoutBehavior="Disabled"
        Title="XkcdViewer.Maui">
 
-    <!--
-    <ShellContent Title="Home"
+    <TabBar>
+        <Tab Title="Home">
+            <Tab.Icon>
+                <FontImageSource FontFamily="Font Awesome 6 Free Regular" 
+                                 Glyph="{x:Static resources:IconFont.Home}"/>
+            </Tab.Icon>
+            <ShellContent Title="Home"
+                          ContentTemplate="{DataTemplate views:MainPage}"
+                          Route="Main" />
+        </Tab>
+        <Tab Title="Favorites">
+            <Tab.Icon>
+                <FontImageSource FontFamily="Font Awesome 6 Free Regular" 
+                                 Glyph="{x:Static resources:IconFont.Heart}"/>
+            </Tab.Icon>
+            <ShellContent Title="Favorites"
+                          ContentTemplate="{DataTemplate views:FavoritesPage}"
+                          Route="Favorites" />
+        </Tab>
+    </TabBar>
+
+    <!--<ShellContent Title="Home"
                   ContentTemplate="{DataTemplate views:MainPage}"
                   Route="Main" />
 
     <ShellContent Title="Favorites"
                   ContentTemplate="{DataTemplate views:FavoritesPage}"
-                  Route="Favorites" />
-    -->
+                  Route="Favorites" />-->
 
-    <FlyoutItem x:Name="HomeFlyoutItem"
+    <!--<FlyoutItem x:Name="HomeFlyoutItem"
                 Title="Home">
         <FlyoutItem.Icon>
             <FontImageSource FontAutoScalingEnabled="True"
@@ -48,6 +67,6 @@
                       ContentTemplate="{DataTemplate views:FavoritesPage}"
                       x:DataType="viewModels:FavoritesPageViewModel"
                       Route="Settings" />
-    </FlyoutItem>
+    </FlyoutItem>-->
 
 </Shell>

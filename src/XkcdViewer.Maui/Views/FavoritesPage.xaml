@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
              xmlns:models="using:XkcdViewer.Maui.Models"
+             xmlns:resources="clr-namespace:XkcdViewer.Maui.Resources"
              x:Class="XkcdViewer.Maui.Views.FavoritesPage"
              Title="{Binding Title}"
              x:Name="ThisPage">
@@ -30,25 +31,21 @@
                                    TextColor="White"
                                    FontSize="Small" />
                         </StackLayout>
+
                         <HorizontalStackLayout Grid.Row="0"
                                                HorizontalOptions="End"
                                                VerticalOptions="Center">
-                            <Button ImageSource="ic_share.png"
+                            <Button Text="{x:Static resources:IconFont.Share}"
                                     Command="{Binding BindingContext.ShareCommand, Source={x:Reference ThisPage}}"
                                     CommandParameter="{Binding .}"
-                                    HeightRequest="25"
-                                    WidthRequest="25"
-                                    BorderColor="White"
-                                    BorderWidth="1"
-                                    Margin="0,0,5,0" />
-                            <Button ImageSource="{Binding IsFavorite, Converter={StaticResource IsFavoriteIconConverter}}"
-                                    BorderColor="{Binding IsFavorite, Converter={StaticResource FavoriteToColorConverter}}"
+                                    Style="{StaticResource OverlayButtonStyle}"/>
+                            <Button BackgroundColor="{Binding IsFavorite, Converter={StaticResource FavoriteToColorConverter}}"
+                                    Text="{Binding IsFavorite, Converter={StaticResource IsFavoriteIconCharacterConverter}}"
                                     Command="{Binding BindingContext.ToggleFavoriteCommand, Source={x:Reference ThisPage}}"
                                     CommandParameter="{Binding .}"
-                                    HeightRequest="25"
-                                    WidthRequest="25"
-                                    BorderWidth="1" />
+                                    Style="{StaticResource OverlayButtonStyle}"/>
                         </HorizontalStackLayout>
+
                         <Image x:Name="MyImage"
                                Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}"
                                Grid.Row="1" />

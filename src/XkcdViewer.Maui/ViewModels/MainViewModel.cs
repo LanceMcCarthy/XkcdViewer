@@ -17,28 +17,44 @@ public class MainViewModel : ViewModelBase
 
     public MainViewModel(XkcdApiService apiServ, FavoritesService favoritesSrv)
     {
+        favoritesService = favoritesSrv;
+        apiService = apiServ;
+
         Title = DeviceInfo.Platform == DevicePlatform.iOS || DeviceInfo.Platform == DevicePlatform.MacCatalyst
             ? "XKCD Comic Viewer"
             : "XKCD Viewer";
 
-        favoritesService = favoritesSrv;
-        apiService = apiServ;
+        ShowFavoritesCommand = new Command<ItemTapCommandContext>(e => Shell.Current.GoToAsync("/Favorites", new Dictionary<string, object>
+        {
+            { "SelectedComic", e.Item }
+        }));
 
-        this.ItemTapCommand = new Command<ItemTapCommandContext>(async (c) => await ItemTapped(c));
-        GoToDetailsCommand = new Command<Comic>(async (c) => await GoToDetailsAsync(c));
-        ShareCommand = new Command<Comic>(async (c) => { await ShareItem(c); });
-        LoadLastComicCommand = new Command(async (c) => await GetNextComic());
+        ShowComicDetailsCommand = new Command<Comic>(e => Shell.Current.GoToAsync("/Details", new Dictionary<string, object>
+        {
+            { "SelectedComic", e }
+        }));
+        
+        ShareCommand = new Command<Comic>(c => Share.Default.RequestAsync(new ShareTextRequest
+        {
+            Title = Title ?? "xkcd",
+            Text = c.Transcript ?? "",
+            Uri = c.Img
+        }));
+
+        GetLastComicCommand = new Command(async (c) => await GetNextComic());
     }
 
     public ObservableCollection<Comic> Comics { get; } = new();
 
-    public Command LoadLastComicCommand { get; }
+    public Command GetLastComicCommand { get; }
 
-    public ICommand ItemTapCommand { get; set; }
+    public ICommand ShowFavoritesCommand { get; set; }
 
-    public Command<Comic> GoToDetailsCommand { get; set; }
+    public Command<Comic> ShowComicDetailsCommand { get; set; }
 
     public Command<Comic> ShareCommand { get; }
+
+    public ICollectionViewPage? CollectionViewPage { get; set; } = null;
 
     public async Task GetNextComic()
     {
@@ -72,6 +88,8 @@ public class MainViewModel : ViewModelBase
             Comics.Add(comic);
 
             comic.IsFavorite = favoritesService.IsFavorite(comic);
+
+            ScrollToLast();
         }
         catch (Exception ex)
         {
@@ -83,32 +101,9 @@ public class MainViewModel : ViewModelBase
         }
     }
 
-    private async Task ItemTapped(ItemTapCommandContext e)
+    private void ScrollToLast()
     {
-        await Shell.Current.GoToAsync("/Favorites", new Dictionary<string, object>
-        {
-            { "SelectedComic", e.Item }
-        });
-    }
-
-    private static async Task GoToDetailsAsync(Comic comic)
-    {
-        await Shell.Current.GoToAsync("/Details", new Dictionary<string, object>
-        {
-            { "SelectedComic", comic }
-        });
-    }
-
-    public async Task ShareItem(Comic? comic)
-    {
-        if (string.IsNullOrEmpty(comic.Img))
-            return;
-            
-        await Share.Default.RequestAsync(new ShareTextRequest
-        {
-            Title = Title ?? "xkcd",
-            Text = comic.Transcript ?? "",
-            Uri = comic.Img
-        });
+        var item = Comics.LastOrDefault();
+        CollectionViewPage?.ScrollIntoView(item, true);
     }
 }

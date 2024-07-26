@@ -4,6 +4,7 @@
              xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
              xmlns:converters="clr-namespace:XkcdViewer.Maui.Converters"
              xmlns:local="clr-namespace:XkcdViewer.Maui"
+             xmlns:resources="clr-namespace:XkcdViewer.Maui.Resources"
              x:Class="XkcdViewer.Maui.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -15,6 +16,18 @@
             <Color x:Key="TransparentBackgroundColor">#F0FFFFFF</Color>
             <Color x:Key="LightGrayTextColor">#FFBDBDBD</Color>
             <Color x:Key="DarkGrayTextColor">#FF383838</Color>
+
+            <Style x:Key="OverlayButtonStyle"
+                   TargetType="Button">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="BorderWidth" Value="2"/>
+                <Setter Property="WidthRequest" Value="50"/>
+                <Setter Property="HeightRequest" Value="50"/>
+                <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource DarkGrayTextColor}, Dark={StaticResource LightGrayTextColor}}"/>
+                <Setter Property="FontFamily" Value="Font Awesome 6 Free Regular"/>
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
 
             <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter" />
 
@@ -37,6 +50,11 @@
                                                   x:TypeArguments="ImageSource"
                                                   TrueResult="ic_favorite_remove.png"
                                                   FalseResult="ic_favorite_add.png" />
+
+            <converters:ConfigurableBoolConverter x:Key="IsFavoriteIconCharacterConverter"
+                                                  x:TypeArguments="x:String"
+                                                  TrueResult="{x:Static resources:IconFont.Heart}"
+                                                  FalseResult="{x:Static resources:IconFont.HeartBroken}" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

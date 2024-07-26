@@ -1,0 +1,267 @@
+name: MAUI Release
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - release
+    paths:
+      - 'src/XkcdViewer.Maui/**/*'
+      - '.github/workflows/release.yml' 
+
+env:
+  PROJECT_PATH: "src/XkcdViewer.Maui/XkcdViewer.Maui.csproj"
+  NUGETCONFIG_PATH: "src/nuget.config"
+  BUILD_CONFIG: Release
+  TFM: net8.0
+  TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+  TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+
+jobs:
+
+# ***************************** #
+# >>>>>>> Android build <<<<<<< #
+# ***************************** #
+  maui-android:
+    runs-on: windows-2022
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - uses: actions/setup-java@v4
+      with:
+        distribution: 'microsoft'
+        java-version: '11'
+
+    - name: Generate version number using date and run number
+      shell: pwsh
+      id: version-creator
+      run: |
+        $buildDay = Get-Date -Format "yyyy.Mdd"
+        $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
+        echo "APP_VERSION=$ver" >> $GITHUB_OUTPUT
+
+    - name: Install MAUI workloads (required for GitHub-hosted runners)
+      shell: pwsh
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+
+    - name: Restore NuGet packages
+      shell: pwsh
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+
+    - name: Base64 To PFX file
+      id: write_file
+      uses: timheuer/base64-to-file@v1.2
+      with:
+        fileName: "${{secrets.ANDROID_SIGNING_KEYSTORE_FILENAME}}"
+        fileDir: "${{github.workspace}}"
+        encodedString: ${{secrets.ANDROID_SIGNING_KEYSTORE_BASE64}}
+
+    - name: Build Maui Android project
+      shell: pwsh
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-android" --no-restore -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="${{steps.write_file.outputs.filePath}}" -p:AndroidSigningStorePass="${{secrets.ANDROID_SIGNING_STORE_PASS}}" -p:AndroidSigningKeyAlias="${{secrets.ANDROID_SIGNING_KEY_ALIAS}}" -p:AndroidSigningKeyPass="${{secrets.ANDROID_SIGNING_KEY_PASS}}"
+
+
+# ***************************** #
+# >>>>>>> Windows Build <<<<<<< #
+# ***************************** #
+  maui-windows:
+    runs-on: windows-2022
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    # For WinUI builds
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.3.2
+
+    - name: Generate version number using date and run number
+      shell: pwsh
+      id: version-creator
+      run: |
+        $buildDay = Get-Date -Format "yyyy.Mdd"
+        $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
+        echo "APP_VERSION=$ver" >> $GITHUB_OUTPUT
+
+    - name: Install MAUI workloads (required for GitHub-hosted runners)
+      shell: pwsh
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+
+    - name: Restore NuGet packages
+      shell: pwsh
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+
+    - name: Base64 To PFX file
+      id: write_file
+      uses: timheuer/base64-to-file@v1.2
+      with:
+        fileName: "${{secrets.CODESIGN_CERTIFICATE_FILENAME}}"
+        fileDir: "${{github.workspace}}"
+        encodedString: ${{secrets.CODESIGN_CERTIFICATE_BASE64}}
+
+    - name: Build Maui WinUI project
+      shell: pwsh
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" --no-restore -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=true -p:PackageCertificateThumbprint=${{secrets.CODESIGN_CERTIFICATE_THUMBPRINT}} -p:PackageCertificateKeyFile="${{steps.write_file.outputs.filePath}}" -p:PackageCertificatePassword="${{secrets.CODESIGN_CERTIFICATE_PASSWORD}}"
+
+
+# ************************* #
+# >>>>>>> iOS Build <<<<<<< #
+# ************************* #
+  maui-ios:
+    runs-on: macos-12
+    env:
+      CODESIGN_KEY: "Apple Distribution: Lancelot Software (L25222N3C7)"
+      CODESIGN_PROV_PROFILE: "mauidemo_ios_appstore"
+      CODESIGN_PROFILE_TYPE: "IOS_APP_STORE"
+      APP_ID: "com.mycompany.mauidemo"
+      RID: ios-arm64
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest
+
+    - name: Generate version number using date and run number
+      id: version-creator
+      shell: bash
+      run: |
+        buildDay=`date +%Y.%m%d`
+        echo $buildDay
+        ver="${buildDay}.${GITHUB_RUN_NUMBER}.0"
+        echo $ver
+        echo "APP_VERSION=$ver" >> $GITHUB_ENV
+
+    - name: Install MAUI workloads (required for GitHub-hosted runners)
+      shell: pwsh
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+
+    - name: Restore NuGet packages
+      shell: bash
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+
+    # Docs https://github.com/Apple-Actions/import-codesign-certs
+    - name: Import Code-Signing Certificates
+      uses: Apple-Actions/import-codesign-certs@v2
+      with:
+        p12-file-base64: "${{secrets.APPLE_DISTRIBUTION_CERTIFICATE_BASE64}}"
+        p12-password: "${{secrets.APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD}}"
+
+    # Docs https://github.com/Apple-Actions/download-provisioning-profiles
+    - uses: Apple-Actions/download-provisioning-profiles@v2
+      with:
+        profile-type: ${{env.APP_ID}}
+        bundle-id: "${{env.CODESIGN_PROV_PROFILE}}"
+        issuer-id: "${{secrets.APPSTORE_API_ISSUER_ID}}"
+        api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
+        api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
+
+    - name: Build iOS project
+      shell: bash
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-ios" --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly -p:RuntimeIdentifier=${{env.RID}} -p:ApplicationId=${{env.APP_ID}} -p:CodesignProvision=${{env.CODESIGN_PROV_PROFILE}} -p:CodesignKey=${{env.CODESIGN_KEY}}
+
+    # Docs https://github.com/Apple-Actions/upload-testflight-build
+    - name: 'Upload app to TestFlight'
+      uses: apple-actions/upload-testflight-build@v1
+      with: 
+        app-path: "${{github.workspace}}/**/*.ipa" 
+        issuer-id: ${{secrets.APPSTORE_API_ISSUER_ID}}
+        api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
+        api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
+
+
+# ********************************* #
+# >>>>>>> MacCatalyst Build <<<<<<< #
+# ********************************* #
+  maui-maccatalyst:
+    runs-on: macos-12
+    env:
+      CODESIGN_KEY: "Apple Distribution: MyCompany (L25222N3C7)"
+      CODESIGN_PROV_PROFILE: "mauidemo_maccatalyst_appstore"
+      CODESIGN_PROFILE_TYPE: "MAC_APP_STORE"
+      CODESIGN_ENTITLEMENTS: "Platforms/MacCatalyst/Entitlements.plist"
+      APP_ID: "com.mycompany.mauidemo"
+      RID: maccatalyst-x64
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest
+
+    - name: Generate version number using date and run number
+      id: version-creator
+      shell: bash
+      run: |
+        buildDay=`date +%Y.%m%d`
+        echo $buildDay
+        ver="${buildDay}.${GITHUB_RUN_NUMBER}.0"
+        echo $ver
+        echo "APP_VERSION=$ver" >> $GITHUB_ENV
+
+    - name: Install MAUI workloads (required for GitHub-hosted runners)
+      shell: pwsh
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+
+    - name: Restore NuGet packages
+      shell: bash
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+    
+    # Docs https://github.com/Apple-Actions/import-codesign-certs
+    - name: Import Code-Signing Certificates
+      uses: Apple-Actions/import-codesign-certs@v2
+      with:
+        p12-file-base64: "${{secrets.APPLE_DISTRIBUTION_CERTIFICATE_BASE64}}"
+        p12-password: "${{secrets.APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD}}"
+
+    # Docs https://github.com/Apple-Actions/download-provisioning-profiles
+    - uses: Apple-Actions/download-provisioning-profiles@v2
+      with:
+        profile-type: ${{env.APP_ID}}
+        bundle-id: "${{env.CODESIGN_PROV_PROFILE}}"
+        issuer-id: "${{secrets.APPSTORE_API_ISSUER_ID}}"
+        api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
+        api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
+      
+    - name: Build MacCatalyst project
+      shell: bash
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-maccatalyst" --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly -p:RuntimeIdentifier=${{env.RID}} -p:EnableCodeSigning=true -p:EnablePackageSigning=true -p:ApplicationId=${{env.APP_ID}} -p:CodesignProvision=${{env.CODESIGN_PROV_PROFILE}} -p:CodesignKey=${{env.CODESIGN_KEY}} -p:CodesignEntitlements=${{env.CODESIGN_ENTITLEMENTS}}
+
+    # Docs https://github.com/Apple-Actions/upload-testflight-build
+    - name: 'Upload app to TestFlight'
+      uses: apple-actions/upload-testflight-build@v1
+      with: 
+        app-path: "${{github.workspace}}/**/*.pkg" 
+        issuer-id: ${{secrets.APPSTORE_API_ISSUER_ID}}
+        api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
+        api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"

@@ -102,7 +102,7 @@ jobs:
 
 
 # ************************* #
-# >>>>>>> iOS and MacCatalyst Build <<<<<<< #
+# >>>>>>> iOS Build <<<<<<< #
 # ************************* #
   maui-ios:
     runs-on: macos-12
@@ -141,8 +141,46 @@ jobs:
 
     - name: Build iOS project
       shell: bash
-      run: dotnet build ${{ env.PROJECT_PATH }} -f net8.0-ios -c Debug --no-restore
+      run: dotnet build ${{ env.PROJECT_PATH }} -f net8.0-ios -c Debug --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
 
+# ********************************* #
+# >>>>>>> MacCatalyst Build <<<<<<< #
+# ********************************* #
+  maui-maccatalyst:
+    runs-on: macos-12
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest
+
+    - name: Generate version number using date and run number
+      id: version-creator
+      shell: bash
+      run: |
+        buildDay=`date +%Y.%m%d`
+        echo $buildDay
+        ver="${buildDay}.${GITHUB_RUN_NUMBER}.0"
+        echo $ver
+        echo "APP_VERSION=$ver" >> $GITHUB_ENV
+
+    - name: Install MAUI workloads (required for GitHub-hosted runners)
+      shell: pwsh
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+
+    - name: Restore NuGet packages
+      shell: bash
+      run: dotnet restore ${{ env.PROJECT_PATH }} --configfile ${{ env.NUGETCONFIG_PATH }}
+      
     - name: Build MacCatalyst project
       shell: bash
-      run: dotnet build ${{ env.PROJECT_PATH }} -f net6.0-maccatalyst -c Debug --no-restore
+      run: dotnet build ${{ env.PROJECT_PATH }} -f net6.0-maccatalyst -c Debug --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly

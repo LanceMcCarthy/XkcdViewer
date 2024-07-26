@@ -1,10 +1,10 @@
-name: Build MAUI Project
+name: MAUI Main
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - master
+      - main
     paths:
       - 'src/XkcdViewer.Maui/**/*'
       - '.github/workflows/main.yml' 
@@ -12,6 +12,8 @@ on:
 env:
   PROJECT_PATH: "src/XkcdViewer.Maui/XkcdViewer.Maui.csproj"
   NUGETCONFIG_PATH: "src/nuget.config"
+  BUILD_CONFIG: Debug
+  TFM: net8.0
   TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
   TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
 
@@ -52,11 +54,11 @@ jobs:
 
     - name: Restore NuGet packages
       shell: pwsh
-      run: dotnet restore ${{ env.PROJECT_PATH }} --configfile ${{ env.NUGETCONFIG_PATH }}
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build Maui Android project
       shell: pwsh
-      run: dotnet build ${{ env.PROJECT_PATH }} -c Debug -f net8.0-android --no-restore
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-android" --no-restore
 
 
 # ***************************** #
@@ -93,12 +95,11 @@ jobs:
 
     - name: Restore NuGet packages
       shell: pwsh
-      run: dotnet restore ${{ env.PROJECT_PATH }} --configfile ${{ env.NUGETCONFIG_PATH }}
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build Maui WinUI project
       shell: pwsh
-      run: |
-        dotnet build ${{ env.PROJECT_PATH }} -c Debug -f net8.0-windows10.0.19041.0
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" --no-restore
 
 
 # ************************* #
@@ -137,11 +138,11 @@ jobs:
 
     - name: Restore NuGet packages
       shell: bash
-      run: dotnet restore ${{ env.PROJECT_PATH }} --configfile ${{ env.NUGETCONFIG_PATH }}
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build iOS project
       shell: bash
-      run: dotnet build ${{ env.PROJECT_PATH }} -f net8.0-ios -c Debug --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-ios" --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
 
 # ********************************* #
 # >>>>>>> MacCatalyst Build <<<<<<< #
@@ -179,8 +180,8 @@ jobs:
 
     - name: Restore NuGet packages
       shell: bash
-      run: dotnet restore ${{ env.PROJECT_PATH }} --configfile ${{ env.NUGETCONFIG_PATH }}
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
       
     - name: Build MacCatalyst project
       shell: bash
-      run: dotnet build ${{ env.PROJECT_PATH }} -f net6.0-maccatalyst -c Debug --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-maccatalyst" --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly

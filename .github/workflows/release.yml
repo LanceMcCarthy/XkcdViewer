@@ -1,14 +1,9 @@
 name: MAUI Release
 
 on:
+  # manually executed using main
   workflow_dispatch:
-  push:
-    branches:
-      - 'releases/*'
-    paths:
-      - 'src/XkcdViewer.Maui/**/*'
-      - '.github/workflows/release.yml' 
-
+  
 env:
   PROJECT_PATH: "src/XkcdViewer.Maui/XkcdViewer.Maui.csproj"
   NUGETCONFIG_PATH: "src/nuget.config"

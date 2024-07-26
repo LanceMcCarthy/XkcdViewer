@@ -14,8 +14,8 @@ env:
   NUGETCONFIG_PATH: "src/nuget.config"
   BUILD_CONFIG: Debug
   TFM: net8.0
-  TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
-  TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+  TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
+  TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
 
 jobs:
 

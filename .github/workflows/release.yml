@@ -14,8 +14,12 @@ env:
   NUGETCONFIG_PATH: "src/nuget.config"
   BUILD_CONFIG: Release
   TFM: net8.0
-  TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
-  TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+  TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
+  TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
+  MACOS_ARTIFACTS_PATH: "artifacts_macos"
+  IOS_ARTIFACTS_PATH: "artifacts_ios"
+  ANDROID_ARTIFACTS_PATH: "artifacts_android"
+  WINDOWS_ARTIFACTS_PATH: "artifacts_windows"
 
 jobs:
 
@@ -68,6 +72,26 @@ jobs:
       shell: pwsh
       run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-android" --no-restore -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="${{steps.write_file.outputs.filePath}}" -p:AndroidSigningStorePass="${{secrets.ANDROID_SIGNING_STORE_PASS}}" -p:AndroidSigningKeyAlias="${{secrets.ANDROID_SIGNING_KEY_ALIAS}}" -p:AndroidSigningKeyPass="${{secrets.ANDROID_SIGNING_KEY_PASS}}"
 
+    - name: Create artifacts folder
+      shell: pwsh
+      run: |
+          cd ${{github.workspace}}
+          mkdir -p ${{env.ANDROID_ARTIFACTS_PATH}}
+
+    - name: Copy signed APKs & AABs
+      shell: pwsh 
+      run: |
+          Get-Childitem -Path ${{github.workspace}} -Include *Signed.apk -File -Recurse | Copy-Item -Destination ${{env.ANDROID_ARTIFACTS_PATH}}
+          Get-Childitem -Path ${{github.workspace}} -Include *Signed.aab -File -Recurse | Copy-Item -Destination ${{env.ANDROID_ARTIFACTS_PATH}}
+
+    - name: Publish Android build artifacts
+      uses: actions/upload-artifact@v3
+      with:     
+        name: "Android artifacts" 
+        path: "${{env.ANDROID_ARTIFACTS_PATH}}/*"
+        if-no-files-found: warn
+        retention-days: 60
+
 
 # ***************************** #
 # >>>>>>> Windows Build <<<<<<< #
@@ -116,6 +140,21 @@ jobs:
     - name: Build Maui WinUI project
       shell: pwsh
       run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" --no-restore -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=true -p:PackageCertificateThumbprint=${{secrets.CODESIGN_CERTIFICATE_THUMBPRINT}} -p:PackageCertificateKeyFile="${{steps.write_file.outputs.filePath}}" -p:PackageCertificatePassword="${{secrets.CODESIGN_CERTIFICATE_PASSWORD}}"
+
+    - name: Create artifacts folder and copy packages
+      shell: pwsh
+      run: |
+          cd ${{github.workspace}}
+          mkdir -p ${{env.WINDOWS_ARTIFACTS_PATH}}
+          Get-Childitem -Path ${{github.workspace}} -Include *.msix -File -Recurse | Copy-Item -Destination ${{env.WINDOWS_ARTIFACTS_PATH}}
+
+    - name: Publish build artifacts
+      uses: actions/upload-artifact@v3
+      with:     
+        name: "WinUI .NET MAUI artifacts" 
+        path: "${{env.WINDOWS_ARTIFACTS_PATH}}/*"
+        if-no-files-found: warn
+        retention-days: 60
 
 
 # ************************* #
@@ -191,6 +230,21 @@ jobs:
         api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
         api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
 
+    - name: Create artifacts folder and copy packages
+      shell: pwsh
+      run: |
+          cd ${{github.workspace}}
+          mkdir -p ${{env.IOS_ARTIFACTS_PATH}}
+          Get-Childitem -Path ${{github.workspace}} -Include *.app -File -Recurse | Copy-Item -Destination ${{env.IOS_ARTIFACTS_PATH}}
+  
+    - name: Publish iOS build artifacts
+      uses: actions/upload-artifact@v3
+      with:     
+        name: "iOS artifacts" 
+        path: "${{env.IOS_ARTIFACTS_PATH}}/*"
+        if-no-files-found: warn
+        retention-days: 60
+
 
 # ********************************* #
 # >>>>>>> MacCatalyst Build <<<<<<< #
@@ -264,4 +318,19 @@ jobs:
         app-path: "${{github.workspace}}/**/*.pkg" 
         issuer-id: ${{secrets.APPSTORE_API_ISSUER_ID}}
         api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
-        api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
+        api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}" 
+
+    - name: Create artifacts folder and copy packages
+      shell: pwsh
+      run: |
+          cd ${{github.workspace}}
+          mkdir -p ${{env.MACOS_ARTIFACTS_PATH}}
+          Get-Childitem -Path ${{github.workspace}} -Include *.pkg -File -Recurse | Copy-Item -Destination ${{env.MACOS_ARTIFACTS_PATH}}
+
+    - name: Publish macOS build artifacts
+      uses: actions/upload-artifact@v3
+      with:     
+        name: "macOS artifacts" 
+        path: "${{env.MACOS_ARTIFACTS_PATH}}/*"
+        if-no-files-found: warn
+        retention-days: 60

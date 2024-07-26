@@ -61,7 +61,8 @@
                 </DataTemplate>
             </telerik:RadCollectionView.ItemTemplate>
             <telerik:RadCollectionView.ItemsLayout>
-                <telerik:CollectionViewLinearLayout ItemSpacing="6"
+                <telerik:CollectionViewLinearLayout x:Name="LinearLayout"
+                                                    ItemSpacing="6"
                                                     Orientation="Horizontal"/>
             </telerik:RadCollectionView.ItemsLayout>
         </telerik:RadCollectionView>

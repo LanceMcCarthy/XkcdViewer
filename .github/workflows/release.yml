@@ -149,7 +149,6 @@ jobs:
     - name: Create artifacts folder and copy packages
       shell: pwsh
       run: |
-          cd ${{github.workspace}}
           mkdir -p ${{env.WINDOWS_ARTIFACTS_PATH}}
           Get-Childitem -Path ${{github.workspace}} -Include *.msix -File -Recurse | Copy-Item -Destination ${{env.WINDOWS_ARTIFACTS_PATH}}
 
@@ -172,7 +171,7 @@ jobs:
         endpoint: https://eus.codesigning.azure.net/
         trusted-signing-account-name: PrimaryCodeSign
         certificate-profile-name: Codesign-Primary
-        files-folder: ${{github.workspace}}}/${{env.WINDOWS_ARTIFACTS_PATH}}
+        files-folder: ${{github.workspace}}}
         files-folder-filter: msixbundle, appinstaller
         file-digest: SHA256
         timestamp-rfc3161: http://timestamp.acs.microsoft.com
@@ -192,7 +191,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:     
         name: "WinUI .NET MAUI artifacts" 
-        path: "${{env.WINDOWS_ARTIFACTS_PATH}}/*"
+        path: "${{github.workspace}}/${{env.WINDOWS_ARTIFACTS_PATH}}/*"
         if-no-files-found: warn
         retention-days: 60
 

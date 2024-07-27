@@ -149,6 +149,7 @@ jobs:
     - name: Create artifacts folder and copy packages
       shell: pwsh
       run: |
+          cd ${{github.workspace}}
           mkdir -p ${{env.WINDOWS_ARTIFACTS_PATH}}
           Get-Childitem -Path ${{github.workspace}} -Include *.msix -File -Recurse | Copy-Item -Destination ${{env.WINDOWS_ARTIFACTS_PATH}}
 
@@ -161,7 +162,7 @@ jobs:
         akeyless-access-id: 'p-m9vvgiii6rip'
         akeyless-access-key: '${{ secrets.AKEYLESS_ACCESS_KEY }}'
 
-    # Step 3. Use the temporary credential to access Trusted Signing Accountin Azure
+    # Step 3. Use the temporary credential to access Trusted Signing Account in Azure
     - name: Sign files with Trusted Signing
       uses: azure/trusted-signing-action@v0.4.0
       with:
@@ -171,7 +172,7 @@ jobs:
         endpoint: https://eus.codesigning.azure.net/
         trusted-signing-account-name: PrimaryCodeSign
         certificate-profile-name: Codesign-Primary
-        files-folder: ${{github.workspace}}}
+        files-folder: "${{github.workspace}}}/${{env.WINDOWS_ARTIFACTS_PATH}}"
         files-folder-filter: msixbundle, appinstaller
         file-digest: SHA256
         timestamp-rfc3161: http://timestamp.acs.microsoft.com

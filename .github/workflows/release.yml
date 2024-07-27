@@ -79,7 +79,7 @@ jobs:
           Get-Childitem -Path ${{github.workspace}} -Include *Signed.aab -File -Recurse | Copy-Item -Destination ${{env.ANDROID_ARTIFACTS_PATH}}
 
     - name: Publish Android build artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:     
         name: "Android artifacts" 
         path: "${{env.ANDROID_ARTIFACTS_PATH}}/*"
@@ -189,7 +189,7 @@ jobs:
     #       Get-Childitem -Path ${{github.workspace}} -Include *.msix -File -Recurse | Copy-Item -Destination ${{env.WINDOWS_ARTIFACTS_PATH}}
 
     - name: Publish build artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:     
         name: "WinUI .NET MAUI artifacts" 
         path: "${{env.WINDOWS_ARTIFACTS_PATH}}/*"
@@ -278,7 +278,7 @@ jobs:
 #           Get-Childitem -Path ${{github.workspace}} -Include *.app -File -Recurse | Copy-Item -Destination ${{env.IOS_ARTIFACTS_PATH}}
   
 #     - name: Publish iOS build artifacts
-#       uses: actions/upload-artifact@v3
+#       uses: actions/upload-artifact@v4
 #       with:     
 #         name: "iOS artifacts" 
 #         path: "${{env.IOS_ARTIFACTS_PATH}}/*"
@@ -368,7 +368,7 @@ jobs:
 #           Get-Childitem -Path ${{github.workspace}} -Include *.pkg -File -Recurse | Copy-Item -Destination ${{env.MACOS_ARTIFACTS_PATH}}
 
 #     - name: Publish macOS build artifacts
-#       uses: actions/upload-artifact@v3
+#       uses: actions/upload-artifact@v4
 #       with:     
 #         name: "macOS artifacts" 
 #         path: "${{env.MACOS_ARTIFACTS_PATH}}/*"

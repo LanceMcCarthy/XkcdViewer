@@ -1,7 +1,7 @@
 name: MAUI Release
 
 on:
-  # manually executed using main
+  # manually executed, using main branch for the code
   workflow_dispatch:
   
 env:
@@ -17,7 +17,6 @@ env:
   WINDOWS_ARTIFACTS_PATH: "artifacts_windows"
 
 jobs:
-
 # ***************************** #
 # >>>>>>> Android build <<<<<<< #
 # ***************************** #
@@ -104,7 +103,7 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    # For WinUI builds
+    # Needed for WinUI builds
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.3.2
 
@@ -124,18 +123,56 @@ jobs:
       shell: pwsh
       run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
-    - name: Base64 To PFX file
-      id: write_file
-      uses: timheuer/base64-to-file@v1.2
-      with:
-        fileName: "${{secrets.CODESIGN_CERTIFICATE_FILENAME}}"
-        fileDir: "${{github.workspace}}"
-        encodedString: ${{secrets.CODESIGN_CERTIFICATE_BASE64}}
+    # *********** Original build & sign approach - Using PFX file *********** #
 
+    # - name: Base64 To PFX file
+    #   id: write_file
+    #   uses: timheuer/base64-to-file@v1.2
+    #   with:
+    #     fileName: "${{secrets.CODESIGN_CERTIFICATE_FILENAME}}"
+    #     fileDir: "${{github.workspace}}"
+    #     encodedString: ${{secrets.CODESIGN_CERTIFICATE_BASE64}}
+
+    # - name: Build Maui WinUI project
+    #   shell: pwsh
+    #   run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=true -p:PackageCertificateThumbprint=${{secrets.CODESIGN_CERTIFICATE_THUMBPRINT}} -p:PackageCertificateKeyFile="${{steps.write_file.outputs.filePath}}" -p:PackageCertificatePassword="${{secrets.CODESIGN_CERTIFICATE_PASSWORD}}"
+
+
+   # *********** New approach! Using Microsoft Trusted Signing *********** #
+
+   # Step 1. Make sure the build goes well
     - name: Build Maui WinUI project
       shell: pwsh
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=true -p:PackageCertificateThumbprint=${{secrets.CODESIGN_CERTIFICATE_THUMBPRINT}} -p:PackageCertificateKeyFile="${{steps.write_file.outputs.filePath}}" -p:PackageCertificatePassword="${{secrets.CODESIGN_CERTIFICATE_PASSWORD}}"
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false
 
+    # Step 2. dynamic secrets from Akeyless This dynamically generates a temporary AAD credential
+    - name: Get AAD Secret
+      id: aad-secret
+      uses: LanceMcCarthy/akeyless-aad-secret@v1
+      with:
+        akeyless-secret-path: '/DevTools/live-azure-ad'
+        akeyless-access-id: 'p-m9vvgiii6rip'
+        akeyless-access-key: '${{ secrets.AKEYLESS_ACCESS_KEY }}'
+    
+    # Step 3. Use the temporary credential to access Trusted Signing Accountin Azure
+    - name: Sign files with Trusted Signing
+      uses: azure/trusted-signing-action@v0.4.0
+      with:
+        azure-tenant-id: "${{steps.aad-secret.outputs.tenant-id}}"
+        azure-client-id: "${{steps.aad-secret.outputs.app-id }}"
+        azure-client-secret: "${{steps.aad-secret.outputs.secret-text}}"
+        endpoint: https://eus.codesigning.azure.net/
+        trusted-signing-account-name: PrimaryCodeSign
+        certificate-profile-name: Codesign-Primary
+        files-folder: ${{github.workspace}}/${{env.WINDOWS_ARTIFACTS_PATH}}
+        files-folder-filter: msix,exe,dll
+        file-digest: SHA256
+        timestamp-rfc3161: http://timestamp.acs.microsoft.com
+        timestamp-digest: SHA256
+
+        # end - new approach
+
+    
     - name: Create artifacts folder and copy packages
       shell: pwsh
       run: |

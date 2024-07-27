@@ -27,7 +27,7 @@ public class FavoritesPageViewModel : ViewModelBase
 
     private void ToggleIsFavorite(Comic? comic)
     {
-        if (comic.IsFavorite)
+        if (comic is { IsFavorite: true })
         {
             favoritesService.RemoveFavorite(comic);
         }

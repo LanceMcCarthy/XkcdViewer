@@ -12,20 +12,21 @@ public class FavoritesService
         Favorites = LoadFavorites();
     }
 
-    public ObservableCollection<Comic> Favorites { get; }
+    public ObservableCollection<Comic?> Favorites { get; }
 
     public bool IsFavorite(Comic comic)
     {
-        return Favorites.Any(c => c.Num == comic.Num);
+        return Favorites.Any(c => c?.Num == comic.Num);
     }
         
-    public void AddFavorite(Comic comic, bool save = true)
+    public void AddFavorite(Comic? comic, bool save = true)
     {
         try
         {
             Favorites.Add(comic);
 
-            comic.IsFavorite = true;
+            if (comic != null) 
+                comic.IsFavorite = true;
 
             if(save)
             {
@@ -38,13 +39,14 @@ public class FavoritesService
         }
     }
 
-    public void RemoveFavorite(Comic comic, bool save = true)
+    public void RemoveFavorite(Comic? comic, bool save = true)
     {
         try
         {
             Favorites.Remove(comic);
 
-            comic.IsFavorite = false;
+            if (comic != null) 
+                comic.IsFavorite = false;
 
             if(save)
             {
@@ -57,7 +59,7 @@ public class FavoritesService
         }
     }
 
-    private ObservableCollection<Comic> LoadFavorites()
+    private ObservableCollection<Comic?> LoadFavorites()
     {
         try
         {
@@ -66,21 +68,24 @@ public class FavoritesService
             var favorites = JsonConvert.DeserializeObject<ObservableCollection<Comic>>(json);
 
             // Provides backwards support for comics that were saved before the IsFavorite property was available.
-            foreach (var comic in favorites)
+            if (favorites != null)
             {
-                if (!comic.IsFavorite) comic.IsFavorite = true;
-            }
-                
-            Debug.WriteLine($"---LoadFavoritesAsync: {favorites.Count} favorites loaded");
+                foreach (var comic in favorites)
+                {
+                    if (!comic.IsFavorite) comic.IsFavorite = true;
+                }
 
-            return favorites;
+                Debug.WriteLine($"---LoadFavoritesAsync: {favorites.Count} favorites loaded");
+
+                return favorites!;
+            }
         }
         catch (Exception ex)
         {
             Debug.WriteLine($"LoadFavoritesAsync Exception: {ex}");
         }
 
-        return new ObservableCollection<Comic>();
+        return new ObservableCollection<Comic?>();
     }
 
     public bool SaveFavorites()

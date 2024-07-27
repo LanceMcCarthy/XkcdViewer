@@ -2,5 +2,5 @@
 
 public interface ICollectionViewPage
 {
-    public void ScrollIntoView(object item, bool isAnimated);
+    public void ScrollIntoView(object? item, bool isAnimated);
 }

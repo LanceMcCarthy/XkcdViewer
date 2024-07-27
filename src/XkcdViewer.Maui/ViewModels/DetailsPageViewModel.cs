@@ -6,7 +6,7 @@ namespace XkcdViewer.Maui.ViewModels;
 
 public class DetailsPageViewModel : ViewModelBase
 {
-    private Comic selectedComic;
+    private Comic? selectedComic;
     private readonly FavoritesService favoritesService;
 
     public DetailsPageViewModel(FavoritesService favoritesSrv)
@@ -17,14 +17,14 @@ public class DetailsPageViewModel : ViewModelBase
         ShareCommand = new Command(async (c) => { await ShareItem(); });
     }
 
-    public Comic SelectedComic
+    public Comic? SelectedComic
     {
         get => selectedComic;
         set
         {
             if (SetProperty(ref selectedComic, value))
             {
-                this.Title = $"#{SelectedComic.Num}";
+                this.Title = $"#{SelectedComic?.Num}";
             }
         }
     }
@@ -35,7 +35,7 @@ public class DetailsPageViewModel : ViewModelBase
 
     private void ToggleIsFavorite()
     {
-        if (SelectedComic.IsFavorite)
+        if (SelectedComic is { IsFavorite: true })
         {
             favoritesService.RemoveFavorite(SelectedComic);
         }
@@ -47,7 +47,7 @@ public class DetailsPageViewModel : ViewModelBase
 
     public async Task ShareItem()
     {
-        if (string.IsNullOrEmpty(SelectedComic.Img))
+        if (string.IsNullOrEmpty(SelectedComic?.Img))
             return;
             
         await Share.Default.RequestAsync(new ShareTextRequest

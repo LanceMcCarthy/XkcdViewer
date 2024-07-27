@@ -19,13 +19,13 @@ public class FavoritesPageViewModel : ViewModelBase
         ShareCommand = new Command<Comic>(async (c) => { await ShareItem(c); });
     }
         
-    public ObservableCollection<Comic> FavoriteComics { get; }
+    public ObservableCollection<Comic?> FavoriteComics { get; }
 
     public Command<Comic> ToggleFavoriteCommand { get; }
 
     public Command<Comic> ShareCommand { get; }
 
-    private void ToggleIsFavorite(Comic comic)
+    private void ToggleIsFavorite(Comic? comic)
     {
         if (comic.IsFavorite)
         {

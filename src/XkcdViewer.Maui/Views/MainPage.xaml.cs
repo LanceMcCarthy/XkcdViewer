@@ -24,5 +24,5 @@ public partial class MainPage : ContentPage, ICollectionViewPage
         }
     }
 
-    public void ScrollIntoView(object item, bool isAnimated) => CollectionView1.ScrollItemIntoView(item, isAnimated);
+    public void ScrollIntoView(object? item, bool isAnimated) => CollectionView1.ScrollItemIntoView(item, isAnimated);
 }

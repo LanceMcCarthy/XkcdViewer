@@ -12,27 +12,23 @@ public sealed class ConfigurableBoolConverter<T> : IValueConverter
         FalseResult = falseResult;
     }
 
-    public T TrueResult { get; set; }
+    public T? TrueResult { get; set; }
 
-    public T FalseResult { get; set; }
+    public T? FalseResult { get; set; }
 
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (TrueResult == null || FalseResult == null)
-        {
-            return !(bool)value;
-        }
-
-        return value is true ? TrueResult : FalseResult;
+        return TrueResult == null || FalseResult == null 
+            ? !(bool)value! 
+            : value is true 
+                ? TrueResult 
+                : FalseResult;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (TrueResult == null || FalseResult == null)
-        {
-            return !(bool)value;
-        }
-
-        return value is T variable && EqualityComparer<T>.Default.Equals(variable, TrueResult);
+        return TrueResult == null || FalseResult == null
+            ? !(bool)value!
+            : value is T variable && EqualityComparer<T>.Default.Equals(variable, TrueResult);
     }
 }

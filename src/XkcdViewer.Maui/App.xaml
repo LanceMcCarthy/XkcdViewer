@@ -22,8 +22,8 @@
                 <Setter Property="Margin" Value="5"/>
                 <Setter Property="Padding" Value="0"/>
                 <Setter Property="BorderWidth" Value="2"/>
-                <Setter Property="WidthRequest" Value="50"/>
-                <Setter Property="HeightRequest" Value="50"/>
+                <Setter Property="WidthRequest" Value="40"/>
+                <Setter Property="HeightRequest" Value="40"/>
                 <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource DarkGrayTextColor}, Dark={StaticResource LightGrayTextColor}}"/>
                 <Setter Property="FontFamily" Value="Font Awesome 6 Free Regular"/>
                 <Setter Property="FontSize" Value="20"/>

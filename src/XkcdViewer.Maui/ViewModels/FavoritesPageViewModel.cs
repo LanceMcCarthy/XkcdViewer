@@ -13,13 +13,12 @@ public class FavoritesPageViewModel : ViewModelBase
     {
         Title = "Favorites";
         favoritesService = favoritesSrv;
-        FavoriteComics = favoritesSrv.Favorites;
 
         ToggleFavoriteCommand = new Command<Comic>(ToggleIsFavorite);
         ShareCommand = new Command<Comic>(async (c) => { await ShareItem(c); });
     }
-        
-    public ObservableCollection<Comic?> FavoriteComics { get; }
+
+    public ObservableCollection<Comic?> FavoriteComics => favoritesService.Favorites;
 
     public Command<Comic> ToggleFavoriteCommand { get; }
 

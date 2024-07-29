@@ -1,4 +1,5 @@
-﻿using XkcdViewer.Maui.Models;
+﻿using Microsoft.Maui.Controls;
+using XkcdViewer.Maui.Models;
 using XkcdViewer.Maui.ViewModels;
 
 namespace XkcdViewer.Maui.Views;
@@ -20,9 +21,12 @@ public partial class MainPage : ContentPage, ICollectionViewPage
 
         if (viewModel.Comics.Count == 0)
         {
-            await viewModel.GetNextComic();
+            await viewModel.FetchComic();
         }
     }
 
-    public void ScrollIntoView(object? item, bool isAnimated) => CollectionView1.ScrollItemIntoView(item, isAnimated);
+    public void ScrollIntoView(object? item, bool isAnimated)
+    {
+        //CollectionView1.ScrollItemIntoView(item, isAnimated);
+    }
 }

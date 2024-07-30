@@ -18,26 +18,6 @@
             <Color x:Key="LightGrayTextColor">#FFBDBDBD</Color>
             <Color x:Key="DarkGrayTextColor">#FF383838</Color>
 
-            <Style x:Key="OverlayButtonStyle"
-                   TargetType="Button">
-                <Setter Property="Margin" Value="5"/>
-                <Setter Property="Padding" Value="0"/>
-                <Setter Property="BorderWidth" Value="2"/>
-                <Setter Property="WidthRequest" Value="40"/>
-                <Setter Property="HeightRequest" Value="40"/>
-                <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource DarkGrayTextColor}, Dark={StaticResource LightGrayTextColor}}"/>
-                <Setter Property="FontFamily" Value="Font Awesome 6 Free Regular"/>
-                <Setter Property="FontSize" Value="20"/>
-            </Style>
-
-            <Style x:Key="RalewayLabelStyle"
-                   TargetType="Label">
-                <Setter Property="Margin" Value="5"/>
-                <Setter Property="Padding" Value="0"/>
-                <Setter Property="FontFamily" Value="Raleway"/>
-                <Setter Property="FontSize" Value="Large"/>
-            </Style>
-
             <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter" />
 
             <converters:ConfigurableBoolConverter x:Key="IsFavoriteToStringConverter"
@@ -73,6 +53,45 @@
                            Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}"/>
                 </Grid>
             </DataTemplate>
+
+            <Style x:Key="OverlayButtonStyle"
+                   TargetType="Button">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="BorderWidth" Value="2"/>
+                <Setter Property="WidthRequest" Value="40"/>
+                <Setter Property="HeightRequest" Value="40"/>
+                <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource DarkGrayTextColor}, Dark={StaticResource LightGrayTextColor}}"/>
+                <Setter Property="FontFamily" Value="Font Awesome 6 Free Regular"/>
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+
+            <Style x:Key="RalewayLabelStyle"
+                   TargetType="Label">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="FontFamily" Value="Raleway"/>
+                <Setter Property="FontSize" Value="Medium"/>
+            </Style>
+
+            <Style x:Key="NavigateButtonBaseStyle" TargetType="telerik:RadButton">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="TextColor" Value="#3341A1" />
+                <Setter Property="BackgroundColor" Value="#1A3341A1" />
+                <Setter Property="BorderColor" Value="#B33341A1" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="WidthRequest" Value="{OnPlatform Default=44, MacCatalyst=32}" />
+                <Setter Property="HeightRequest" Value="{OnPlatform Default=44, MacCatalyst=32}" />
+                <Setter Property="CornerRadius" Value="{OnPlatform Default=22, MacCatalyst=16}" />
+            </Style>
+            <Style x:Key="NavigateToNextButtonStyle" TargetType="telerik:RadButton" BasedOn="{StaticResource NavigateButtonBaseStyle}">
+                <Setter Property="Text" Value="&#xe805;" />
+                <Setter Property="VerticalOptions" Value="End" />
+            </Style>
+            <Style x:Key="NavigateToPreviousButtonStyle" TargetType="telerik:RadButton" BasedOn="{StaticResource NavigateButtonBaseStyle}">
+                <Setter Property="Text" Value="&#xe80e;" />
+                <Setter Property="VerticalOptions" Value="End" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

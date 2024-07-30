@@ -14,12 +14,10 @@
                      HorizontalOptions="Center"
                      Grid.Row="0"
                      Margin="5">
-            <Label Text="{Binding CurrentComic.Num}"
-                   Style="{StaticResource RalewayLabelStyle}"/>
-            <Label Text=" - "
-                   TextColor="{StaticResource DarkGrayTextColor}"
-                   Style="{StaticResource RalewayLabelStyle}"/>
-            <Label Text="{Binding CurrentComic.Title}"
+            <Label Text="{Binding CurrentComic.Num, StringFormat='[{0}]', FallbackValue='~'}"
+                   Style="{StaticResource RalewayLabelStyle}"
+                   Margin="0,5,0,5"/>
+            <Label Text="{Binding CurrentComic.Title, FallbackValue='~'}"
                    Style="{StaticResource RalewayLabelStyle}"/>
         </StackLayout>
 
@@ -29,6 +27,8 @@
                               ItemTemplate="{StaticResource SlideViewItemTemplate}"
                               Orientation="Horizontal"
                               NavigationButtonsVisibility="HiddenWhenDisabled"
+                              NavigateToNextItemButtonStyle="{StaticResource NavigateToNextButtonStyle}"
+                              NavigateToPreviousItemButtonStyle="{StaticResource NavigateToPreviousButtonStyle}"
                               Grid.Row="1"/>
 
         <VerticalStackLayout Padding="10,5,10,0" Spacing="5" Grid.Row="2">
@@ -37,8 +37,8 @@
                         Command="{Binding ShareCommand}"
                         CommandParameter="{Binding .}"
                         Style="{StaticResource OverlayButtonStyle}"/>
-                <Button BackgroundColor="{Binding CurrentComic.IsFavorite, Converter={StaticResource FavoriteToColorConverter}}"
-                        Text="{Binding CurrentComic.IsFavorite, Converter={StaticResource IsFavoriteIconCharacterConverter}}"
+                <Button BackgroundColor="{Binding CurrentComic.IsFavorite, Converter={StaticResource FavoriteToColorConverter}, FallbackValue=Gray}"
+                        Text="{Binding CurrentComic.IsFavorite, Converter={StaticResource IsFavoriteIconCharacterConverter}, FallbackValue='~'}"
                         Command="{Binding ToggleFavoriteCommand}"
                         CommandParameter="{Binding .}"
                         Style="{StaticResource OverlayButtonStyle}"/>
@@ -47,7 +47,8 @@
                         Command="{Binding FetchComicCommand}"
                         Style="{StaticResource OverlayButtonStyle}"
                         FontFamily="Raleway"
-                        WidthRequest="200"/>
+                        WidthRequest="200"
+                        IsVisible="{Binding GetNewComicButtonIsVisible}"/>
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

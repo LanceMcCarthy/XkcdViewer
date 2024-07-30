@@ -2,70 +2,54 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
-             xmlns:models="using:XkcdViewer.Maui.Models"
              xmlns:resources="clr-namespace:XkcdViewer.Maui.Resources"
              x:Class="XkcdViewer.Maui.Views.FavoritesPage"
              Title="{Binding Title}"
              x:Name="ThisPage">
 
     <Grid>
-        <telerik:RadCollectionView ItemsSource="{Binding FavoriteComics}"
-                                   SelectionMode="None">
-            <telerik:RadCollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Comic">
-                    <Grid Padding="10"
-                          BackgroundColor="Gray">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <StackLayout Orientation="Horizontal"
-                                     HorizontalOptions="Start">
-                            <Label Text="{Binding Num}"
-                                   TextColor="White"
-                                   FontSize="Small" />
-                            <Label Text=" - "
-                                   TextColor="{StaticResource DarkGrayTextColor}"
-                                   FontSize="Small" />
-                            <Label Text="{Binding Title}"
-                                   TextColor="White"
-                                   FontSize="Small" />
-                        </StackLayout>
+        <Grid RowDefinitions="auto,*,*">
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="Center"
+                         Grid.Row="0"
+                         Margin="5">
+                <Label Text="{Binding CurrentFavorite.Num}"
+                       Style="{StaticResource RalewayLabelStyle}" />
+                <Label Text=" - "
+                       TextColor="{StaticResource DarkGrayTextColor}"
+                       Style="{StaticResource RalewayLabelStyle}" />
+                <Label Text="{Binding CurrentFavorite.Title}"
+                       Style="{StaticResource RalewayLabelStyle}" />
+            </StackLayout>
 
-                        <HorizontalStackLayout Grid.Row="0"
-                                               HorizontalOptions="End"
-                                               VerticalOptions="Center">
-                            <Button Text="{x:Static resources:IconFont.Share}"
-                                    Command="{Binding BindingContext.ShareCommand, Source={x:Reference ThisPage}}"
-                                    CommandParameter="{Binding .}"
-                                    Style="{StaticResource OverlayButtonStyle}"/>
-                            <Button BackgroundColor="{Binding IsFavorite, Converter={StaticResource FavoriteToColorConverter}}"
-                                    Text="{Binding IsFavorite, Converter={StaticResource IsFavoriteIconCharacterConverter}}"
-                                    Command="{Binding BindingContext.ToggleFavoriteCommand, Source={x:Reference ThisPage}}"
-                                    CommandParameter="{Binding .}"
-                                    Style="{StaticResource OverlayButtonStyle}"/>
-                        </HorizontalStackLayout>
+            <telerik:RadSlideView x:Name="slideView"
+                                  ItemsSource="{Binding FavoriteComics}"
+                                  CurrentItem="{Binding CurrentFavorite, Mode=TwoWay}"
+                                  ItemTemplate="{StaticResource SlideViewItemTemplate}"
+                                  Orientation="Horizontal"
+                                  NavigationButtonsVisibility="HiddenWhenDisabled"
+                                  Grid.Row="1" />
 
-                        <Image x:Name="MyImage"
-                               Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}"
-                               Grid.Row="1" />
-                    </Grid>
-                </DataTemplate>
-            </telerik:RadCollectionView.ItemTemplate>
-            <telerik:RadCollectionView.EmptyContentTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Label Text="No Favorites"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"/>
-                    </Grid>
-                </DataTemplate>
-            </telerik:RadCollectionView.EmptyContentTemplate>
-            <telerik:RadCollectionView.ItemsLayout>
-                <telerik:CollectionViewLinearLayout x:Name="LinearLayout"
-                                                    ItemSpacing="6"
-                                                    Orientation="Horizontal" />
-            </telerik:RadCollectionView.ItemsLayout>
-        </telerik:RadCollectionView>
+            <VerticalStackLayout Padding="10,5,10,0"
+                                 Spacing="5"
+                                 Grid.Row="2">
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Button Text="{x:Static resources:IconFont.Share}"
+                            Command="{Binding ShareCommand}"
+                            CommandParameter="{Binding .}"
+                            Style="{StaticResource OverlayButtonStyle}" />
+                    <Button BackgroundColor="{Binding CurrentFavorite.IsFavorite, Converter={StaticResource FavoriteToColorConverter}}"
+                            Text="{Binding CurrentFavorite.IsFavorite, Converter={StaticResource IsFavoriteIconCharacterConverter}}"
+                            Command="{Binding ToggleFavoriteCommand}"
+                            CommandParameter="{Binding .}"
+                            Style="{StaticResource OverlayButtonStyle}" />
+                </HorizontalStackLayout>
+                <Button Text="Get next comic"
+                        Command="{Binding FetchComicCommand}"
+                        Style="{StaticResource OverlayButtonStyle}"
+                        FontFamily="Raleway"
+                        WidthRequest="200" />
+            </VerticalStackLayout>
+        </Grid>
     </Grid>
 </ContentPage>

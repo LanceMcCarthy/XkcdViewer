@@ -2,21 +2,20 @@
 using CommonHelpers.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Windows.Input;
 using Telerik.Maui.Controls.Compatibility.DataControls.ListView.Commands;
 using XkcdViewer.Maui.Models;
 using XkcdViewer.Maui.Services;
 
 namespace XkcdViewer.Maui.ViewModels;
 
-public class MainViewModel : ViewModelBase
+public class MainPageViewModel : ViewModelBase
 {
     private readonly XkcdApiService apiService;
     private readonly FavoritesService favoritesService;
     private int lastComicNumber;
-    private Comic currentComic;
+    private Comic? currentComic;
 
-    public MainViewModel(XkcdApiService apiServ, FavoritesService favoritesSrv)
+    public MainPageViewModel(XkcdApiService apiServ, FavoritesService favoritesSrv)
     {
         favoritesService = favoritesSrv;
         apiService = apiServ;
@@ -28,7 +27,6 @@ public class MainViewModel : ViewModelBase
         ShowFavoritesCommand = new Command<ItemTapCommandContext>(e => Shell.Current.GoToAsync("/Favorites", new Dictionary<string, object>{{ "SelectedComic", e.Item }}));
 
         ShareCommand = new Command(async c => await ShareItem());
-        ShowComicDetailsCommand = new Command(async e => await ShowFavorites());
         FetchComicCommand = new Command(async (c) => await FetchComic());
 
         ToggleFavoriteCommand = new Command(ToggleFavorite);
@@ -36,7 +34,7 @@ public class MainViewModel : ViewModelBase
 
     public ObservableCollection<Comic> Comics { get; } = new();
 
-    public Comic CurrentComic
+    public Comic? CurrentComic
     {
         get => currentComic;
         set => SetProperty(ref currentComic, value);
@@ -44,15 +42,11 @@ public class MainViewModel : ViewModelBase
 
     public Command FetchComicCommand { get; set; }
 
-    public ICommand ShowFavoritesCommand { get; set; }
-
-    public Command ShowComicDetailsCommand { get; set; }
+    public Command ShowFavoritesCommand { get; set; }
 
     public Command ShareCommand { get; set; }
 
     public Command ToggleFavoriteCommand { get; set; }
-
-    public ICollectionViewPage? CollectionViewPage { get; set; } = null;
 
     public async Task FetchComic()
     {
@@ -113,14 +107,14 @@ public class MainViewModel : ViewModelBase
 
     public async Task ShareItem()
     {
-        if (string.IsNullOrEmpty(CurrentComic.Img))
+        if (string.IsNullOrEmpty(currentComic.Img))
             return;
             
         await Share.Default.RequestAsync(new ShareTextRequest
         {
             Title = Title ?? "xkcd",
-            Text = CurrentComic.Transcript ?? "",
-            Uri = CurrentComic.Img
+            Text = currentComic.Transcript ?? "",
+            Uri = currentComic.Img
         });
     }
 
@@ -128,13 +122,7 @@ public class MainViewModel : ViewModelBase
     {
         await Shell.Current.GoToAsync("/Details", new Dictionary<string, object>
         {
-            { "SelectedComic", this.CurrentComic }
+            { "SelectedComic", currentComic }
         });
-    }
-
-    private void ScrollToLast()
-    {
-        var item = Comics.LastOrDefault();
-        CollectionViewPage?.ScrollIntoView(item, true);
     }
 }

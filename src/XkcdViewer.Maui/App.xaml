@@ -5,6 +5,7 @@
              xmlns:converters="clr-namespace:XkcdViewer.Maui.Converters"
              xmlns:local="clr-namespace:XkcdViewer.Maui"
              xmlns:resources="clr-namespace:XkcdViewer.Maui.Resources"
+             xmlns:models="clr-namespace:XkcdViewer.Maui.Models"
              x:Class="XkcdViewer.Maui.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -27,6 +28,14 @@
                 <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource DarkGrayTextColor}, Dark={StaticResource LightGrayTextColor}}"/>
                 <Setter Property="FontFamily" Value="Font Awesome 6 Free Regular"/>
                 <Setter Property="FontSize" Value="20"/>
+            </Style>
+
+            <Style x:Key="RalewayLabelStyle"
+                   TargetType="Label">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="FontFamily" Value="Raleway"/>
+                <Setter Property="FontSize" Value="Large"/>
             </Style>
 
             <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter" />
@@ -55,6 +64,15 @@
                                                   x:TypeArguments="x:String"
                                                   TrueResult="{x:Static resources:IconFont.Heart}"
                                                   FalseResult="{x:Static resources:IconFont.HeartBroken}" />
+
+            <DataTemplate x:Key="SlideViewItemTemplate"
+                          x:DataType="models:Comic">
+                <Grid Padding="10"
+                      BackgroundColor="Gray">
+                    <Image x:Name="MyImage"
+                           Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}"/>
+                </Grid>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

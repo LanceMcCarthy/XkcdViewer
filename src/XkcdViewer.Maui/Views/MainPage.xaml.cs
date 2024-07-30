@@ -4,29 +4,23 @@ using XkcdViewer.Maui.ViewModels;
 
 namespace XkcdViewer.Maui.Views;
 
-public partial class MainPage : ContentPage, ICollectionViewPage
+public partial class MainPage : ContentPage
 {
-    private readonly MainViewModel viewModel;
+    private readonly MainPageViewModel pageViewModel;
 
-    public MainPage(MainViewModel vm)
+    public MainPage(MainPageViewModel vm)
     {
         InitializeComponent();
-        BindingContext = viewModel = vm;
-        viewModel.CollectionViewPage = this;
+        BindingContext = pageViewModel = vm;
     }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
 
-        if (viewModel.Comics.Count == 0)
+        if (pageViewModel.Comics.Count == 0)
         {
-            await viewModel.FetchComic();
+            await pageViewModel.FetchComic();
         }
-    }
-
-    public void ScrollIntoView(object? item, bool isAnimated)
-    {
-        //CollectionView1.ScrollItemIntoView(item, isAnimated);
     }
 }

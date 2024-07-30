@@ -2,11 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
-             xmlns:models="using:XkcdViewer.Maui.Models"
              xmlns:viewModels="using:XkcdViewer.Maui.ViewModels"
              xmlns:resources="clr-namespace:XkcdViewer.Maui.Resources"
              x:Class="XkcdViewer.Maui.Views.MainPage"
-             x:DataType="viewModels:MainViewModel"
+             x:DataType="viewModels:MainPageViewModel"
              x:Name="ThisPage"
              Title="{Binding Title}">
 
@@ -16,33 +15,21 @@
                      Grid.Row="0"
                      Margin="5">
             <Label Text="{Binding CurrentComic.Num}"
-                   FontFamily="Raleway"
-                   FontSize="Large"/>
+                   Style="{StaticResource RalewayLabelStyle}"/>
             <Label Text=" - "
                    TextColor="{StaticResource DarkGrayTextColor}"
-                   FontFamily="Raleway"
-                   FontSize="Large"/>
+                   Style="{StaticResource RalewayLabelStyle}"/>
             <Label Text="{Binding CurrentComic.Title}"
-                   FontFamily="Raleway"
-                   FontSize="Large"/>
+                   Style="{StaticResource RalewayLabelStyle}"/>
         </StackLayout>
 
         <telerik:RadSlideView x:Name="slideView"
                               ItemsSource="{Binding Comics}"
                               CurrentItem="{Binding CurrentComic, Mode=TwoWay}"
+                              ItemTemplate="{StaticResource SlideViewItemTemplate}"
                               Orientation="Horizontal"
                               NavigationButtonsVisibility="HiddenWhenDisabled"
-                              Grid.Row="1">
-            <telerik:RadSlideView.ItemTemplate>
-                <DataTemplate x:DataType="models:Comic">
-                    <Grid Padding="10"
-                          BackgroundColor="Gray">
-                        <Image x:Name="MyImage"
-                               Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}"/>
-                    </Grid>
-                </DataTemplate>
-            </telerik:RadSlideView.ItemTemplate>
-        </telerik:RadSlideView>
+                              Grid.Row="1"/>
 
         <VerticalStackLayout Padding="10,5,10,0" Spacing="5" Grid.Row="2">
             <HorizontalStackLayout HorizontalOptions="Center">
@@ -62,63 +49,5 @@
                         FontFamily="Raleway"
                         WidthRequest="200"/>
         </VerticalStackLayout>
-
-        <!--<telerik:RadCollectionView x:Name="CollectionView1"
-                                   ItemsSource="{Binding Comics}"
-                                   SelectionMode="None">
-            <telerik:RadCollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Comic">
-                    <Grid Padding="10"
-                          BackgroundColor="Gray">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <StackLayout Orientation="Horizontal"
-                                     HorizontalOptions="Start">
-                            <Label Text="{Binding Num}"
-                                   TextColor="White"
-                                   FontSize="Small" />
-                            <Label Text=" - "
-                                   TextColor="{StaticResource DarkGrayTextColor}"
-                                   FontSize="Small" />
-                            <Label Text="{Binding Title}"
-                                   TextColor="White"
-                                   FontSize="Small" />
-                        </StackLayout>
-
-                        <HorizontalStackLayout Grid.Row="0"
-                                               HorizontalOptions="End"
-                                               VerticalOptions="Center">
-                            <Button Text="{x:Static resources:IconFont.Share}"
-                                    Command="{Binding BindingContext.ShareCommand, Source={x:Reference ThisPage}}"
-                                    CommandParameter="{Binding .}"
-                                    Style="{StaticResource OverlayButtonStyle}"/>
-                            <Button BackgroundColor="{Binding IsFavorite, Converter={StaticResource FavoriteToColorConverter}}"
-                                    Text="{Binding IsFavorite, Converter={StaticResource IsFavoriteIconCharacterConverter}}"
-                                    Command="{Binding BindingContext.ToggleFavoriteCommand, Source={x:Reference ThisPage}}"
-                                    CommandParameter="{Binding .}"
-                                    Style="{StaticResource OverlayButtonStyle}"/>
-                        </HorizontalStackLayout>
-
-                        <Image x:Name="MyImage"
-                               Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}"
-                               Grid.Row="1" />
-                    </Grid>
-                </DataTemplate>
-            </telerik:RadCollectionView.ItemTemplate>
-            <telerik:RadCollectionView.ItemsLayout>
-                <telerik:CollectionViewLinearLayout x:Name="LinearLayout"
-                                                    ItemSpacing="10"
-                                                    Orientation="{OnIdiom Phone=Vertical, Desktop=Horizontal}"/>
-            </telerik:RadCollectionView.ItemsLayout>
-        </telerik:RadCollectionView>
-
-        <Button Text="{OnIdiom Desktop={x:Static resources:IconFont.ArrowCircleRight}, Phone={x:Static resources:IconFont.ArrowCircleDown}}"
-                Command="{Binding FetchComicCommand}"
-                HorizontalOptions="{OnIdiom Phone=Center, Desktop=End}"
-                VerticalOptions="{OnIdiom Phone=End, Desktop=Center}"
-                Style="{StaticResource OverlayButtonStyle}"/>-->
     </Grid>
 </ContentPage>

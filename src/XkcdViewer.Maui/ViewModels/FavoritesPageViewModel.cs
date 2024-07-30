@@ -8,44 +8,51 @@ namespace XkcdViewer.Maui.ViewModels;
 public class FavoritesPageViewModel : ViewModelBase
 {
     private readonly FavoritesService favoritesService;
+    private Comic currentFavorite;
 
     public FavoritesPageViewModel(FavoritesService favoritesSrv)
     {
         Title = "Favorites";
         favoritesService = favoritesSrv;
 
-        ToggleFavoriteCommand = new Command<Comic>(ToggleIsFavorite);
-        ShareCommand = new Command<Comic>(async (c) => { await ShareItem(c); });
+        ToggleFavoriteCommand = new Command(ToggleFavorite);
+        ShareCommand = new Command(async c => await ShareItem());
     }
 
     public ObservableCollection<Comic?> FavoriteComics => favoritesService.Favorites;
 
-    public Command<Comic> ToggleFavoriteCommand { get; }
-
-    public Command<Comic> ShareCommand { get; }
-
-    private void ToggleIsFavorite(Comic? comic)
+    public Comic CurrentFavorite
     {
-        if (comic is { IsFavorite: true })
+        get => currentFavorite;
+        set => SetProperty(ref currentFavorite, value);
+    }
+
+    public Command ShareCommand { get; set; }
+
+    public Command ToggleFavoriteCommand { get; set; }
+
+    private void ToggleFavorite()
+    {
+        if (CurrentFavorite is { IsFavorite: true })
         {
-            favoritesService.RemoveFavorite(comic);
+            favoritesService.RemoveFavorite(CurrentFavorite);
         }
         else
         {
-            favoritesService.AddFavorite(comic);
+            favoritesService.AddFavorite(CurrentFavorite);
         }
     }
 
-    public async Task ShareItem(Comic comic)
+    public async Task ShareItem()
     {
-        if (string.IsNullOrEmpty(comic.Img))
+        if (string.IsNullOrEmpty(CurrentFavorite.Img))
             return;
             
         await Share.Default.RequestAsync(new ShareTextRequest
         {
             Title = Title ?? "xkcd",
-            Text = comic.Transcript ?? "",
-            Uri = comic.Img
+            Text = CurrentFavorite.Transcript ?? "",
+            Uri = CurrentFavorite.Img
         });
     }
 }

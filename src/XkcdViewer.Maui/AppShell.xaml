@@ -5,11 +5,30 @@
        xmlns:local="clr-namespace:XkcdViewer.Maui"
        xmlns:views="using:XkcdViewer.Maui.Views"
        xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
-       xmlns:viewModels="using:XkcdViewer.Maui.ViewModels"
        xmlns:resources="using:XkcdViewer.Maui.Resources"
+       xmlns:services="clr-namespace:XkcdViewer.Maui.Services"
+       xmlns:models="clr-namespace:XkcdViewer.Maui.Models"
        ios:Page.UseSafeArea="True"
        FlyoutBehavior="Disabled"
-       Title="XkcdViewer.Maui">
+       Title="xkcd">
+    <Shell.SearchHandler>
+        <services:ComicSearchHandler ShowsResults="true">
+            <services:ComicSearchHandler.ItemTemplate>
+                <DataTemplate x:DataType="models:Comic">
+                    <Grid Padding="10"
+                          ColumnDefinitions="0.15*,0.85*">
+                        <Image Source="{Binding Img}"
+                               HeightRequest="40"
+                               WidthRequest="40" />
+                        <Label Grid.Column="1"
+                               Text="{Binding Title}"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center" />
+                    </Grid>
+                </DataTemplate>
+            </services:ComicSearchHandler.ItemTemplate>
+        </services:ComicSearchHandler>
+    </Shell.SearchHandler>
 
     <TabBar>
         <Tab Title="Home">

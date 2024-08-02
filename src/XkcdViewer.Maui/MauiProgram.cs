@@ -49,8 +49,8 @@ public static class MauiProgram
 #endif
 
         builder.Services.AddSingleton<XkcdApiService>();
-        builder.Services.AddSingleton<FavoritesService>();
-        builder.Services.AddSingleton<DataService>();
+        //builder.Services.AddSingleton<FavoritesService>();
+        builder.Services.AddSingleton<ComicDataService>();
 
         builder.Services.AddTransient<MainPageViewModel>();
         builder.Services.AddTransient<FavoritesPageViewModel>();

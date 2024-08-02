@@ -1,39 +1,34 @@
-﻿using CommonHelpers.Common;
-using CommonHelpers.Services;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using XkcdViewer.Maui.Models;
 using XkcdViewer.Maui.Services;
 
 namespace XkcdViewer.Maui.ViewModels;
 
-public class MainPageViewModel : ViewModelBase
+public class MainPageViewModel : PageViewModelBase
 {
     //private readonly XkcdApiService apiService;
     //private readonly FavoritesService favoritesService;
-    private readonly DataService dataService;
+    private readonly ComicDataService comicDataService;
     //private int lastComicNumber;
     private Comic? currentComic;
     private bool getNewComicButtonIsVisible;
 
-    public MainPageViewModel(DataService dataServ, XkcdApiService apiServ, FavoritesService favoritesSrv)
+    public MainPageViewModel(ComicDataService comicDataServ)
     {
         //favoritesService = favoritesSrv;
         //apiService = apiServ;
-        dataService = dataServ;
+        comicDataService = comicDataServ;
 
-        Title = DeviceInfo.Platform == DevicePlatform.iOS || DeviceInfo.Platform == DevicePlatform.MacCatalyst
-            ? "XKCD Comic Viewer"
-            : "XKCD Viewer";
+        Title = DeviceInfo.Platform == DevicePlatform.iOS || DeviceInfo.Platform == DevicePlatform.MacCatalyst ? "XKCD Comic Viewer" : "XKCD Viewer";
 
-        ShowFavoritesCommand = new Command(async e => await ShowFavorites());
-        ShareCommand = new Command(async c => await ShareItem());
         FetchComicCommand = new Command(async (c) => await FetchComic());
-
-        ToggleFavoriteCommand = new Command(ToggleFavorite);
+        ShareCommand = new Command(async c => await ShareItem());
+        ShowFavoritesCommand = new Command(async e => await ShowFavorites());
+        ToggleFavoriteCommand = new Command(async (c) => await ToggleFavorite(CurrentComic));
     }
 
-    public ObservableCollection<Comic>? Comics => dataService.Comics;
+    public ObservableCollection<Comic>? Comics { get; } = new();
 
     public Comic? CurrentComic
     {
@@ -61,21 +56,16 @@ public class MainPageViewModel : ViewModelBase
 
     public Command ToggleFavoriteCommand { get; set; }
 
-    public async Task OnAppearing()
-    {
-        await dataService.LoadComicsAsync();
-    }
-
     public async Task FetchComic()
     {
         try
         {
-            if (IsBusy)
+            if (IsBusy || Comics == null)
                 return;
 
             IsBusy = true;
 
-            await dataService.LoadNewComic();
+            await comicDataService.GetComic(Comics, Comics.LastOrDefault()?.Num - 1);
 
             //Comic comic;
 
@@ -113,21 +103,14 @@ public class MainPageViewModel : ViewModelBase
         }
     }
 
-    private void ToggleFavorite()
+    private async Task ToggleFavorite(Comic comic)
     {
-        if (CurrentComic != null)
-        {
-            Comics.FirstOrDefault(c => c.Num == CurrentComic.Num).IsFavorite = Comics.FirstOrDefault(c => c.Num == CurrentComic.Num).IsFavorite!;
-        }
-        
-        //if (CurrentComic is { IsFavorite: true })
-        //{
-        //    favoritesService.RemoveFavorite(CurrentComic);
-        //}
-        //else
-        //{
-        //    favoritesService.AddFavorite(CurrentComic);
-        //}
+        if (Comics == null)
+            return;
+
+        comic.IsFavorite = !comic.IsFavorite;
+
+        await comicDataService.SaveComicsAsync(this.Comics);
     }
 
     public async Task ShareItem()
@@ -145,11 +128,21 @@ public class MainPageViewModel : ViewModelBase
 
     public async Task ShowFavorites()
     {
+        if (Comics == null)
+            return;
+
         var favorites = Comics.Where(c => c.IsFavorite);
 
         await Shell.Current.GoToAsync("/Favorites", new Dictionary<string, object>
         {
             { "SelectedComic", favorites }
         });
+    }
+
+    public override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        await comicDataService.LoadComicsAsync(Comics);
     }
 }

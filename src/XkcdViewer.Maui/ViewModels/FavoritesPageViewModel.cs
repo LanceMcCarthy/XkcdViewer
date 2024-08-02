@@ -5,23 +5,34 @@ using XkcdViewer.Maui.Services;
 
 namespace XkcdViewer.Maui.ViewModels;
 
-public class FavoritesPageViewModel : ViewModelBase
+public class FavoritesPageViewModel : PageViewModelBase
 {
-    private readonly FavoritesService favoritesService;
-    private Comic currentFavorite;
+    private readonly ComicDataService comicDataService;
+    private readonly MainPageViewModel mainViewModel;
+    private Comic? currentFavorite;
+    private ObservableCollection<Comic> favoriteComics;
 
-    public FavoritesPageViewModel(FavoritesService favoritesSrv)
+    public FavoritesPageViewModel(ComicDataService comicDataServ, MainPageViewModel mainVm)
     {
+        comicDataService = comicDataServ;
+        mainViewModel = mainVm;
         Title = "Favorites";
-        favoritesService = favoritesSrv;
 
-        ToggleFavoriteCommand = new Command(ToggleFavorite);
         ShareCommand = new Command(async c => await ShareItem());
+
+        ToggleFavoriteCommand = new Command<Comic>(async c =>
+        {
+            await ToggleFavorite(c);
+        });
     }
 
-    public ObservableCollection<Comic?> FavoriteComics => favoritesService.Favorites;
+    public ObservableCollection<Comic> FavoriteComics
+    {
+        get => favoriteComics;
+        set => SetProperty(ref favoriteComics, value);
+    }
 
-    public Comic CurrentFavorite
+    public Comic? CurrentFavorite
     {
         get => currentFavorite;
         set => SetProperty(ref currentFavorite, value);
@@ -29,18 +40,13 @@ public class FavoritesPageViewModel : ViewModelBase
 
     public Command ShareCommand { get; set; }
 
-    public Command ToggleFavoriteCommand { get; set; }
+    public Command<Comic> ToggleFavoriteCommand { get; set; }
 
-    private void ToggleFavorite()
+    private async Task ToggleFavorite(Comic comic)
     {
-        if (CurrentFavorite is { IsFavorite: true })
-        {
-            favoritesService.RemoveFavorite(CurrentFavorite);
-        }
-        else
-        {
-            favoritesService.AddFavorite(CurrentFavorite);
-        }
+        comic.IsFavorite = !comic.IsFavorite;
+
+        await comicDataService.SaveComicsAsync(mainViewModel.Comics);
     }
 
     public async Task ShareItem()
@@ -55,4 +61,13 @@ public class FavoritesPageViewModel : ViewModelBase
             Uri = CurrentFavorite.Img
         });
     }
+
+    public override void OnNavigatedTo(NavigatedToEventArgs args, ObservableCollection<Comic>? favorites)
+    {
+        base.OnNavigatedTo(args, favorites);
+
+        this.FavoriteComics = favorites;
+    }
+
+
 }

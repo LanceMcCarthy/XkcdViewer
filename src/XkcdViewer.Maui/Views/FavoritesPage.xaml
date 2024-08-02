@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
-             xmlns:resources="clr-namespace:XkcdViewer.Maui.Resources"
-             x:Class="XkcdViewer.Maui.Views.FavoritesPage"
-             Title="{Binding Title}"
-             x:Name="ThisPage">
+<views:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+                xmlns:resources="clr-namespace:XkcdViewer.Maui.Resources"
+                xmlns:views="clr-namespace:XkcdViewer.Maui.Views"
+                x:Class="XkcdViewer.Maui.Views.FavoritesPage"
+                Title="{Binding Title}"
+                x:Name="ThisPage">
 
     <Grid>
         <Grid RowDefinitions="auto,*,*">
@@ -52,4 +53,4 @@
             </VerticalStackLayout>
         </Grid>
     </Grid>
-</ContentPage>
+</views:BasePage>

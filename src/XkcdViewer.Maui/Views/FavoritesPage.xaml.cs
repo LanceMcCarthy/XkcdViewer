@@ -1,30 +1,29 @@
-﻿using Telerik.Maui.Controls.Compatibility.DataControls.ListView;
+﻿using CommonHelpers.Common;
+using CommonHelpers.Models;
+using System.Collections.ObjectModel;
+using Telerik.Maui.Controls.Compatibility.DataControls.ListView;
+using XkcdViewer.Maui.Models;
 using XkcdViewer.Maui.Services;
 using XkcdViewer.Maui.ViewModels;
+using IViewModel = XkcdViewer.Maui.Interfaces.IViewModel;
 
 namespace XkcdViewer.Maui.Views;
 
-public partial class FavoritesPage : ContentPage
+public partial class FavoritesPage : BasePage
 {
-    private readonly FavoritesService favoritesService;
+    private readonly FavoritesPageViewModel viewModel;
 
-    public FavoritesPage(FavoritesPageViewModel vm, FavoritesService favoritesSrv)
+    public FavoritesPage(FavoritesPageViewModel vm)
     {
         InitializeComponent();
-        favoritesService = favoritesSrv;
-        BindingContext = vm;
+        BindingContext = viewModel = vm;
     }
 
-    private void Rlv_ReorderEnded(object sender, ReorderEndedEventArgs e)
-    {
-        favoritesService.SaveFavorites();
-    }
-
-    private async void Lv_ItemTapped(object sender, ItemTapEventArgs e)
-    {
-        await Shell.Current.GoToAsync("/Details", new Dictionary<string, object>
-        {
-            { "SelectedComic", e.Item }
-        });
-    }
+    //private async void Lv_ItemTapped(object sender, ItemTapEventArgs e)
+    //{
+    //    await Shell.Current.GoToAsync("/Details", new Dictionary<string, object>
+    //    {
+    //        { "SelectedComic", e.Item }
+    //    });
+    //}
 }

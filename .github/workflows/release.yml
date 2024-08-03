@@ -152,6 +152,7 @@ jobs:
           cd ${{github.workspace}}
           mkdir -p ${{env.WINDOWS_ARTIFACTS_PATH}}
           Get-Childitem -Path ${{github.workspace}} -Include *.msix -File -Recurse | Copy-Item -Destination ${{env.WINDOWS_ARTIFACTS_PATH}}
+          Get-Childitem -Path ${{github.workspace}} -Include *.msixbundle -File -Recurse | Copy-Item -Destination ${{env.WINDOWS_ARTIFACTS_PATH}}
 
     # Step 2. dynamic secrets from Akeyless This dynamically generates a temporary AAD credential
     - name: Get AAD Secret
@@ -173,7 +174,7 @@ jobs:
         trusted-signing-account-name: PrimaryCodeSign
         certificate-profile-name: Codesign-Primary
         files-folder: "${{github.workspace}}}/${{env.WINDOWS_ARTIFACTS_PATH}}"
-        files-folder-filter: msixbundle, appinstaller
+        files-folder-filter: msix, msixbundle, appinstaller
         file-digest: SHA256
         timestamp-rfc3161: http://timestamp.acs.microsoft.com
         timestamp-digest: SHA256

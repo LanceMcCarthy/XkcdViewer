@@ -20,71 +20,71 @@ jobs:
   # ***************************** #
   # >>>>>>> Android build <<<<<<< #
   # ***************************** #
-  # maui-android:
-  #   runs-on: windows-2022
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v4
-  #     with:
-  #       fetch-depth: 0
+  maui-android:
+    runs-on: windows-2022
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
-  #   - name: Setup .NET Core SDK
-  #     uses: actions/setup-dotnet@v4
-  #     with:
-  #       dotnet-version: '8.0.x'
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
 
-  #   - uses: actions/setup-java@v4
-  #     with:
-  #       distribution: 'microsoft'
-  #       java-version: '11'
+    - uses: actions/setup-java@v4
+      with:
+        distribution: 'microsoft'
+        java-version: '11'
 
-  #   - name: Generate version number using date and run number
-  #     shell: pwsh
-  #     id: version-creator
-  #     run: |
-  #       $buildDay = Get-Date -Format "yyyy.Mdd"
-  #       $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
-  #       echo "APP_VERSION=$ver" >> $GITHUB_OUTPUT
+    - name: Generate version number using date and run number
+      shell: pwsh
+      id: version-creator
+      run: |
+        $buildDay = Get-Date -Format "yyyy.Mdd"
+        $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
+        echo "APP_VERSION=$ver" >> $GITHUB_OUTPUT
 
-  #   - name: Install MAUI workloads (required for GitHub-hosted runners)
-  #     shell: pwsh
-  #     run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+    - name: Install MAUI workloads (required for GitHub-hosted runners)
+      shell: pwsh
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
-  #   - name: Restore NuGet packages
-  #     shell: pwsh
-  #     run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+    - name: Restore NuGet packages
+      shell: pwsh
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
-  #   - name: Base64 To PFX file
-  #     id: write_file
-  #     uses: timheuer/base64-to-file@v1.2
-  #     with:
-  #       fileName: "${{secrets.ANDROID_SIGNING_KEYSTORE_FILENAME}}"
-  #       fileDir: "${{github.workspace}}"
-  #       encodedString: ${{secrets.ANDROID_SIGNING_KEYSTORE_BASE64}}
+    - name: Base64 To PFX file
+      id: write_file
+      uses: timheuer/base64-to-file@v1.2
+      with:
+        fileName: "${{secrets.ANDROID_SIGNING_KEYSTORE_FILENAME}}"
+        fileDir: "${{github.workspace}}"
+        encodedString: ${{secrets.ANDROID_SIGNING_KEYSTORE_BASE64}}
 
-  #   - name: Build Maui Android project
-  #     shell: pwsh
-  #     run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-android" --no-restore -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="${{steps.write_file.outputs.filePath}}" -p:AndroidSigningStorePass="${{secrets.ANDROID_SIGNING_STORE_PASS}}" -p:AndroidSigningKeyAlias="${{secrets.ANDROID_SIGNING_KEY_ALIAS}}" -p:AndroidSigningKeyPass="${{secrets.ANDROID_SIGNING_KEY_PASS}}"
+    - name: Build Maui Android project
+      shell: pwsh
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-android" --no-restore -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="${{steps.write_file.outputs.filePath}}" -p:AndroidSigningStorePass="${{secrets.ANDROID_SIGNING_STORE_PASS}}" -p:AndroidSigningKeyAlias="${{secrets.ANDROID_SIGNING_KEY_ALIAS}}" -p:AndroidSigningKeyPass="${{secrets.ANDROID_SIGNING_KEY_PASS}}"
 
-  #   - name: Create artifacts folder
-  #     shell: pwsh
-  #     run: |
-  #         cd ${{github.workspace}}
-  #         mkdir -p ${{env.ANDROID_ARTIFACTS_PATH}}
+    - name: Create artifacts folder
+      shell: pwsh
+      run: |
+          cd ${{github.workspace}}
+          mkdir -p ${{env.ANDROID_ARTIFACTS_PATH}}
 
-  #   - name: Copy signed APKs & AABs
-  #     shell: pwsh 
-  #     run: |
-  #         Get-Childitem -Path ${{github.workspace}} -Include *Signed.apk -File -Recurse | Copy-Item -Destination ${{env.ANDROID_ARTIFACTS_PATH}}
-  #         Get-Childitem -Path ${{github.workspace}} -Include *Signed.aab -File -Recurse | Copy-Item -Destination ${{env.ANDROID_ARTIFACTS_PATH}}
+    - name: Copy signed APKs & AABs
+      shell: pwsh 
+      run: |
+          Get-Childitem -Path ${{github.workspace}} -Include *Signed.apk -File -Recurse | Copy-Item -Destination ${{env.ANDROID_ARTIFACTS_PATH}}
+          Get-Childitem -Path ${{github.workspace}} -Include *Signed.aab -File -Recurse | Copy-Item -Destination ${{env.ANDROID_ARTIFACTS_PATH}}
 
-  #   - name: Publish Android build artifacts
-  #     uses: actions/upload-artifact@v4
-  #     with:     
-  #       name: "Android artifacts" 
-  #       path: "${{env.ANDROID_ARTIFACTS_PATH}}/*"
-  #       if-no-files-found: warn
-  #       retention-days: 60
+    - name: Publish Android build artifacts
+      uses: actions/upload-artifact@v4
+      with:     
+        name: "Android artifacts" 
+        path: "${{env.ANDROID_ARTIFACTS_PATH}}/*"
+        if-no-files-found: warn
+        retention-days: 30
 
 
   # ***************************** #
@@ -150,14 +150,11 @@ jobs:
     # Step 1. Make sure the build goes well
     - name: Build Maui WinUI project
       shell: pwsh
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -o ${{env.WINDOWS_ARTIFACTS_PATH}}
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -o ${{env.WINDOWS_ARTIFACTS_PATH}} -p:EnableMsixTooling=true
     
-    - name: Confirm contents of output folder
-      shell: pwsh
-      run: |
-          # Get-ChildItem -Path ${{github.workspace}} -Include *.msix -File -Recurse | Copy-Item -Destination ${{env.WINDOWS_ARTIFACTS_PATH}}
-          # Get-ChildItem -Path ${{github.workspace}} -Include *.msixbundle -File -Recurse | Copy-Item -Destination ${{env.WINDOWS_ARTIFACTS_PATH}}
-          Get-ChildItem -Path ${{env.WINDOWS_ARTIFACTS_PATH}} -Recurse
+    # - name: Confirm contents of output folder
+    #   shell: pwsh
+    #   run: Get-ChildItem -Path ${{env.WINDOWS_ARTIFACTS_PATH}} -Recurse -File
 
     # Step 2. dynamic secrets from Akeyless This dynamically generates a temporary AAD credential
     - name: Get AAD Secret
@@ -178,11 +175,14 @@ jobs:
         endpoint: https://eus.codesigning.azure.net/
         trusted-signing-account-name: PrimaryCodeSign
         certificate-profile-name: Codesign-Primary
-        files-folder: '${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}'
-        files-folder-filter: msix, msixbundle, appinstaller, dll
         file-digest: SHA256
         timestamp-rfc3161: http://timestamp.acs.microsoft.com
         timestamp-digest: SHA256
+        files: |
+          ${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer.Maui.exe
+          ${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer.Maui.dll
+        # files-folder: ${{env.WINDOWS_ARTIFACTS_PATH}}
+        # files-folder-filter: exe, msix, msixbundle, dll
 
     # *********** End - new approach *********** #
 
@@ -281,7 +281,7 @@ jobs:
 #         name: "iOS artifacts" 
 #         path: "${{env.IOS_ARTIFACTS_PATH}}/*"
 #         if-no-files-found: warn
-#         retention-days: 60
+#         retention-days: 30
 
 
 # # ********************************* #
@@ -371,4 +371,4 @@ jobs:
 #         name: "macOS artifacts" 
 #         path: "${{env.MACOS_ARTIFACTS_PATH}}/*"
 #         if-no-files-found: warn
-#         retention-days: 60
+#         retention-days: 30

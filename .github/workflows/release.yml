@@ -173,7 +173,7 @@ jobs:
         endpoint: https://eus.codesigning.azure.net/
         trusted-signing-account-name: PrimaryCodeSign
         certificate-profile-name: Codesign-Primary
-        files-folder: "${{github.workspace}}}/${{env.WINDOWS_ARTIFACTS_PATH}}"
+        files-folder: "${{github.workspace}}/${{env.WINDOWS_ARTIFACTS_PATH}}"
         files-folder-filter: msix, msixbundle, appinstaller
         file-digest: SHA256
         timestamp-rfc3161: http://timestamp.acs.microsoft.com

@@ -18,76 +18,6 @@ env:
 
 jobs:
   # ***************************** #
-  # >>>>>>> Android build <<<<<<< #
-  # ***************************** #
-  maui-android:
-    runs-on: windows-2022
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.0.x'
-
-    - uses: actions/setup-java@v4
-      with:
-        distribution: 'microsoft'
-        java-version: '11'
-
-    - name: Generate version number using date and run number
-      shell: pwsh
-      id: version-creator
-      run: |
-        $buildDay = Get-Date -Format "yyyy.Mdd"
-        $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
-        echo "APP_VERSION=$ver" >> $GITHUB_OUTPUT
-
-    - name: Install MAUI workloads (required for GitHub-hosted runners)
-      shell: pwsh
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-
-    - name: Restore NuGet packages
-      shell: pwsh
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
-
-    - name: Base64 To PFX file
-      id: write_file
-      uses: timheuer/base64-to-file@v1.2
-      with:
-        fileName: "${{secrets.ANDROID_SIGNING_KEYSTORE_FILENAME}}"
-        fileDir: "${{github.workspace}}"
-        encodedString: ${{secrets.ANDROID_SIGNING_KEYSTORE_BASE64}}
-
-    - name: Build Maui Android project
-      shell: pwsh
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-android" --no-restore -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="${{steps.write_file.outputs.filePath}}" -p:AndroidSigningStorePass="${{secrets.ANDROID_SIGNING_STORE_PASS}}" -p:AndroidSigningKeyAlias="${{secrets.ANDROID_SIGNING_KEY_ALIAS}}" -p:AndroidSigningKeyPass="${{secrets.ANDROID_SIGNING_KEY_PASS}}"
-
-    - name: Create artifacts folder
-      shell: pwsh
-      run: |
-          cd ${{github.workspace}}
-          mkdir -p ${{env.ANDROID_ARTIFACTS_PATH}}
-
-    - name: Copy signed APKs & AABs
-      shell: pwsh 
-      run: |
-          Get-Childitem -Path ${{github.workspace}} -Include *Signed.apk -File -Recurse | Copy-Item -Destination ${{env.ANDROID_ARTIFACTS_PATH}}
-          Get-Childitem -Path ${{github.workspace}} -Include *Signed.aab -File -Recurse | Copy-Item -Destination ${{env.ANDROID_ARTIFACTS_PATH}}
-
-    - name: Publish Android build artifacts
-      uses: actions/upload-artifact@v4
-      with:     
-        name: "Android artifacts" 
-        path: "${{env.ANDROID_ARTIFACTS_PATH}}/*"
-        if-no-files-found: warn
-        retention-days: 30
-
-
-  # ***************************** #
   # >>>>>>> Windows Build <<<<<<< #
   # ***************************** #
   maui-windows:
@@ -157,21 +87,21 @@ jobs:
     #   run: Get-ChildItem -Path ${{env.WINDOWS_ARTIFACTS_PATH}} -Recurse -File
 
     # Step 2. dynamic secrets from Akeyless This dynamically generates a temporary AAD credential
-    - name: Get AAD Secret
-      id: aad-secret
-      uses: LanceMcCarthy/akeyless-aad-secret@v1
-      with:
-        akeyless-secret-path: '/DevTools/live-azure-ad'
-        akeyless-access-id: 'p-m9vvgiii6rip'
-        akeyless-access-key: '${{ secrets.AKEYLESS_ACCESS_KEY }}'
+    # - name: Get AAD Secret
+    #   id: aad-secret
+    #   uses: LanceMcCarthy/akeyless-aad-secret@v1
+    #   with:
+    #     akeyless-secret-path: '/DevTools/live-azure-ad'
+    #     akeyless-access-id: 'p-m9vvgiii6rip'
+    #     akeyless-access-key: '${{ secrets.AKEYLESS_ACCESS_KEY }}'
 
     # Step 3. Use the temporary credential to access Trusted Signing Account in Azure
     - name: Sign files with Trusted Signing
       uses: azure/trusted-signing-action@v0.4.0
       with:
-        azure-tenant-id: "${{steps.aad-secret.outputs.tenant-id}}"
-        azure-client-id: "${{steps.aad-secret.outputs.app-id }}"
-        azure-client-secret: "${{steps.aad-secret.outputs.secret-text}}"
+        azure-tenant-id: "${{secrets.AZ_TENANT_ID}}"
+        azure-client-id: "${{secrets.AZ_CLIENT_ID}}"
+        azure-client-secret: "${{secrets.AZ_CLIENT_SECRET}}"
         endpoint: https://eus.codesigning.azure.net/
         trusted-signing-account-name: PrimaryCodeSign
         certificate-profile-name: Codesign-Primary
@@ -194,6 +124,74 @@ jobs:
         if-no-files-found: warn
         retention-days: 30
 
+  # ***************************** #
+  # >>>>>>> Android build <<<<<<< #
+  # ***************************** #
+  # maui-android:
+  #   runs-on: windows-2022
+  #   steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v4
+  #     with:
+  #       fetch-depth: 0
+
+  #   - name: Setup .NET Core SDK
+  #     uses: actions/setup-dotnet@v4
+  #     with:
+  #       dotnet-version: '8.0.x'
+
+  #   - uses: actions/setup-java@v4
+  #     with:
+  #       distribution: 'microsoft'
+  #       java-version: '11'
+
+  #   - name: Generate version number using date and run number
+  #     shell: pwsh
+  #     id: version-creator
+  #     run: |
+  #       $buildDay = Get-Date -Format "yyyy.Mdd"
+  #       $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
+  #       echo "APP_VERSION=$ver" >> $GITHUB_OUTPUT
+
+  #   - name: Install MAUI workloads (required for GitHub-hosted runners)
+  #     shell: pwsh
+  #     run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+
+  #   - name: Restore NuGet packages
+  #     shell: pwsh
+  #     run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+
+  #   - name: Base64 To PFX file
+  #     id: write_file
+  #     uses: timheuer/base64-to-file@v1.2
+  #     with:
+  #       fileName: "${{secrets.ANDROID_SIGNING_KEYSTORE_FILENAME}}"
+  #       fileDir: "${{github.workspace}}"
+  #       encodedString: ${{secrets.ANDROID_SIGNING_KEYSTORE_BASE64}}
+
+  #   - name: Build Maui Android project
+  #     shell: pwsh
+  #     run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-android" --no-restore -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="${{steps.write_file.outputs.filePath}}" -p:AndroidSigningStorePass="${{secrets.ANDROID_SIGNING_STORE_PASS}}" -p:AndroidSigningKeyAlias="${{secrets.ANDROID_SIGNING_KEY_ALIAS}}" -p:AndroidSigningKeyPass="${{secrets.ANDROID_SIGNING_KEY_PASS}}"
+
+  #   - name: Create artifacts folder
+  #     shell: pwsh
+  #     run: |
+  #         cd ${{github.workspace}}
+  #         mkdir -p ${{env.ANDROID_ARTIFACTS_PATH}}
+
+  #   - name: Copy signed APKs & AABs
+  #     shell: pwsh 
+  #     run: |
+  #         Get-Childitem -Path ${{github.workspace}} -Include *Signed.apk -File -Recurse | Copy-Item -Destination ${{env.ANDROID_ARTIFACTS_PATH}}
+  #         Get-Childitem -Path ${{github.workspace}} -Include *Signed.aab -File -Recurse | Copy-Item -Destination ${{env.ANDROID_ARTIFACTS_PATH}}
+
+  #   - name: Publish Android build artifacts
+  #     uses: actions/upload-artifact@v4
+  #     with:     
+  #       name: "Android artifacts" 
+  #       path: "${{env.ANDROID_ARTIFACTS_PATH}}/*"
+  #       if-no-files-found: warn
+  #       retention-days: 30
 
   # ************************* #
   # >>>>>>> iOS Build <<<<<<< #

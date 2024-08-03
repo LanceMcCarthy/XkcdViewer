@@ -1,26 +1,25 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
-             xmlns:viewModels="using:XkcdViewer.Maui.ViewModels"
-             xmlns:resources="clr-namespace:XkcdViewer.Maui.Resources"
-             x:Class="XkcdViewer.Maui.Views.MainPage"
-             x:DataType="viewModels:MainPageViewModel"
-             x:Name="ThisPage"
-             Title="{Binding Title}">
+<views:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+                xmlns:viewModels="using:XkcdViewer.Maui.ViewModels"
+                xmlns:resources="clr-namespace:XkcdViewer.Maui.Resources"
+                xmlns:views="clr-namespace:XkcdViewer.Maui.Views"
+                x:Class="XkcdViewer.Maui.Views.MainPage"
+                x:DataType="viewModels:MainPageViewModel"
+                x:Name="ThisPage"
+                Title="{Binding Title}">
 
     <Grid RowDefinitions="auto,*,*">
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="Center"
                      Grid.Row="0"
                      Margin="5">
-            <Label Text="{Binding CurrentComic.Num}"
-                   Style="{StaticResource RalewayLabelStyle}"/>
-            <Label Text=" - "
-                   TextColor="{StaticResource DarkGrayTextColor}"
-                   Style="{StaticResource RalewayLabelStyle}"/>
-            <Label Text="{Binding CurrentComic.Title}"
-                   Style="{StaticResource RalewayLabelStyle}"/>
+            <Label Text="{Binding CurrentComic.Num, StringFormat='[{0}]', FallbackValue='~'}"
+                   Style="{StaticResource RalewayLabelStyle}"
+                   Margin="0,5,0,5" />
+            <Label Text="{Binding CurrentComic.Title, FallbackValue='~'}"
+                   Style="{StaticResource RalewayLabelStyle}" />
         </StackLayout>
 
         <telerik:RadSlideView x:Name="slideView"
@@ -29,25 +28,30 @@
                               ItemTemplate="{StaticResource SlideViewItemTemplate}"
                               Orientation="Horizontal"
                               NavigationButtonsVisibility="HiddenWhenDisabled"
-                              Grid.Row="1"/>
+                              NavigateToNextItemButtonStyle="{StaticResource NavigateToNextButtonStyle}"
+                              NavigateToPreviousItemButtonStyle="{StaticResource NavigateToPreviousButtonStyle}"
+                              Grid.Row="1" />
 
-        <VerticalStackLayout Padding="10,5,10,0" Spacing="5" Grid.Row="2">
+        <VerticalStackLayout Padding="10,5,10,0"
+                             Spacing="5"
+                             Grid.Row="2">
             <HorizontalStackLayout HorizontalOptions="Center">
                 <Button Text="{x:Static resources:IconFont.Share}"
                         Command="{Binding ShareCommand}"
                         CommandParameter="{Binding .}"
-                        Style="{StaticResource OverlayButtonStyle}"/>
-                <Button BackgroundColor="{Binding CurrentComic.IsFavorite, Converter={StaticResource FavoriteToColorConverter}}"
-                        Text="{Binding CurrentComic.IsFavorite, Converter={StaticResource IsFavoriteIconCharacterConverter}}"
+                        Style="{StaticResource OverlayButtonStyle}" />
+                <Button BackgroundColor="{Binding CurrentComic.IsFavorite, Converter={StaticResource FavoriteToColorConverter}, FallbackValue=Gray}"
+                        Text="{Binding CurrentComic.IsFavorite, Converter={StaticResource IsFavoriteIconCharacterConverter}, FallbackValue='~'}"
                         Command="{Binding ToggleFavoriteCommand}"
                         CommandParameter="{Binding .}"
-                        Style="{StaticResource OverlayButtonStyle}"/>
+                        Style="{StaticResource OverlayButtonStyle}" />
             </HorizontalStackLayout>
-                <Button Text="Get next comic"
-                        Command="{Binding FetchComicCommand}"
-                        Style="{StaticResource OverlayButtonStyle}"
-                        FontFamily="Raleway"
-                        WidthRequest="200"/>
+            <Button Text="Get next comic"
+                    Command="{Binding FetchComicCommand}"
+                    Style="{StaticResource OverlayButtonStyle}"
+                    FontFamily="Raleway"
+                    WidthRequest="200"
+                    IsVisible="{Binding GetNewComicButtonIsVisible}" />
         </VerticalStackLayout>
     </Grid>
-</ContentPage>
+</views:BasePage>

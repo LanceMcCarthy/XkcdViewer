@@ -11,8 +11,10 @@
        ios:Page.UseSafeArea="True"
        FlyoutBehavior="Disabled"
        Title="xkcd">
-    <Shell.SearchHandler>
-        <services:ComicSearchHandler ShowsResults="true">
+    <!--<Shell.SearchHandler>
+        <services:ComicSearchHandler ShowsResults="true"
+                                     SearchBoxVisibility="Collapsible"
+                                     Keyboard="Plain">
             <services:ComicSearchHandler.ItemTemplate>
                 <DataTemplate x:DataType="models:Comic">
                     <Grid Padding="10"
@@ -28,7 +30,7 @@
                 </DataTemplate>
             </services:ComicSearchHandler.ItemTemplate>
         </services:ComicSearchHandler>
-    </Shell.SearchHandler>
+    </Shell.SearchHandler>-->
 
     <TabBar>
         <Tab Title="Home">

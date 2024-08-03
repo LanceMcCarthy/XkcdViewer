@@ -150,7 +150,7 @@ jobs:
     # Step 1. Make sure the build goes well
     - name: Build Maui WinUI project
       shell: pwsh
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -o ${{env.WINDOWS_ARTIFACTS_PATH}} -p:EnableMsixTooling=true
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -o '${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}' -p:EnableMsixTooling=true
     
     # - name: Confirm contents of output folder
     #   shell: pwsh
@@ -179,8 +179,8 @@ jobs:
         timestamp-rfc3161: http://timestamp.acs.microsoft.com
         timestamp-digest: SHA256
         files: |
-          ${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer.Maui.exe
-          ${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer.Maui.dll
+          ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer.Maui.exe
+          ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer.Maui.dll
         # files-folder: ${{env.WINDOWS_ARTIFACTS_PATH}}
         # files-folder-filter: exe, msix, msixbundle, dll
 

@@ -28,6 +28,11 @@
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('windows')) and '$(Configuration)' == 'Release'">
+		<AppxPackage>absent</AppxPackage>
+		<EnableMsixTooling>true</EnableMsixTooling>
+	</PropertyGroup>
+
 	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('maccatalyst')) and '$(Configuration)' == 'Debug'">
 		<RuntimeIdentifiers>net8.0-maccatalyst</RuntimeIdentifiers>
 	</PropertyGroup>

@@ -56,8 +56,11 @@ jobs:
       run: |
         [xml]$manifest = get-content "src\XkcdViewer.Maui\Platforms\Windows\Package.appxmanifest"
         $manifest.Package.Identity.Version = "${{steps.version-creator.outputs.APP_VERSION}}"
-        $manifest.Package.Identity.Publisher = 'CN="lancemccarthylive.onmicrosoft.com", O="lancemccarthylive.onmicrosoft.com", OU="Global"'
+        $manifest.Package.Identity.Name = "61469LanceLotSoftware.XKCDComicViewer"
+        $manifest.Package.Identity.Publisher = 'CN=lancemccarthylive.onmicrosoft.com, O=lancemccarthylive.onmicrosoft.com, OU=Global'
+        $manifest.Package.Properties.DisplayName = "xkcd Comic Viewer"
         $manifest.Package.Properties.PublisherDisplayName = "Lance McCarthy"
+        $manifest.Package.Applications.Application.VisualElements.DisplayName = "xkcd Viewer"
         $manifest.save("src\XkcdViewer.Maui\Platforms\Windows\Package.appxmanifest")
 
     - name: Install MAUI workloads (required for GitHub-hosted runners)

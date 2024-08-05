@@ -14,8 +14,11 @@ env:
   MACOS_ARTIFACTS_PATH: "artifacts_macos"
   IOS_ARTIFACTS_PATH: "artifacts_ios"
   ANDROID_ARTIFACTS_PATH: "artifacts_android"
-  WINDOWS_ARTIFACTS_PATH: "artifacts_windows"
+  AZ_SUBSCRIPTION_ID: "48ab4839-62af-4ab3-afe6-043ea4d7c137" # Azure subscription ID
+  AZ_TENANT_ID: "bd47e796-3473-4b8a-9101-1f4c0c7af31a" # Entra ID tenant
+  AZ_CLIENT_ID: "32daa13b-f4bb-4809-8ef6-58cb39051acd" # "Akeyless OIDC Provider" app in Entra ID
 
+# Required for OIDC login (used by the Azure CLI login)
 permissions:
   id-token: write
   contents: read
@@ -31,12 +34,6 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
-
-    # - name: Create artifacts folder
-    #   shell: pwsh
-    #   run: |
-    #       cd ${{github.workspace}}
-    #       mkdir -p ${{env.WINDOWS_ARTIFACTS_PATH}}
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
@@ -55,73 +52,47 @@ jobs:
         $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
         echo "APP_VERSION=$ver" >> $GITHUB_OUTPUT
 
+    - name: Update manifest
+      run: |
+        [xml]$manifest = get-content "src\XkcdViewer.Maui\Platforms\Windows\Package.appxmanifest"
+        $manifest.Package.Identity.Version = "${{steps.version-creator.outputs.APP_VERSION}}"
+        $manifest.Package.Identity.Name = "xkcd Viewer"
+        $manifest.Package.Identity.Publisher = 'CN=lancemccarthylive.onmicrosoft.com, O=lancemccarthylive.onmicrosoft.com, OU=Global'
+        $manifest.Package.Properties.DisplayName = "xkcd Viewer"
+        $manifest.Package.Properties.PublisherDisplayName = "Lance McCarthy"
+        $manifest.Package.Applications.Application.VisualElements.DisplayName = "xkcd Viewer"
+        $manifest.save("src\XkcdViewer.Maui\Platforms\Windows\Package.appxmanifest")
+
     - name: Install MAUI workloads (required for GitHub-hosted runners)
       shell: pwsh
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
-          
-    # *********** Original build & sign approach - Using PFX file *********** #
 
-    # - name: Base64 To PFX file
-    #   id: write_file
-    #   uses: timheuer/base64-to-file@v1.2
-    #   with:
-    #     fileName: "${{secrets.CODESIGN_CERTIFICATE_FILENAME}}"
-    #     fileDir: "${{github.workspace}}"
-    #     encodedString: ${{secrets.CODESIGN_CERTIFICATE_BASE64}}
-
-    # - name: Build Maui WinUI project
-    #   shell: pwsh
-    #   run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=true -p:PackageCertificateThumbprint=${{secrets.CODESIGN_CERTIFICATE_THUMBPRINT}} -p:PackageCertificateKeyFile="${{steps.write_file.outputs.filePath}}" -p:PackageCertificatePassword="${{secrets.CODESIGN_CERTIFICATE_PASSWORD}}"
-    
-    # *********** End - original approach *********** #
-
-    # *********** New approach! Using Microsoft Trusted Signing *********** #
+    # *********** New code signing approach! Using Microsoft Trusted Signing instead of PFX file *********** #
 
     - name: Restore NuGet packages
       shell: pwsh
       run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
-    # Step 1. Make sure the build goes well
+    # Compile and publish the WinUI project
     - name: Build Maui WinUI project
       shell: pwsh
       run: dotnet publish ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true
     
-    # - name: Confirm contents of output folder
-    #   shell: pwsh
-    #   run: Get-ChildItem -Path ${{env.WINDOWS_ARTIFACTS_PATH}} -Recurse -File
-
-    # Step 2. dynamic secrets from Akeyless This dynamically generates a temporary AAD credential
-    # - name: Get AAD Secret
-    #   id: aad-secret
-    #   uses: LanceMcCarthy/akeyless-aad-secret@v1
-    #   with:
-    #     akeyless-secret-path: '/DevTools/live-azure-ad'
-    #     akeyless-access-id: 'p-m9vvgiii6rip'
-    #     akeyless-access-key: '${{ secrets.AKEYLESS_ACCESS_KEY }}'
-
-    - name: Azure login
+    # IMPORTANT: This step requires that the Azure App Registration has a Federated Credential.
+    # No secrets needed! Since I am using Federated Credentials
+    - name: Azure login using OIDC via GitHub
       uses: azure/login@v2
       id: azlogin
       with:
-        client-id: ${{ secrets.AZ_OIDC_CLIENT_ID }}
-        tenant-id: ${{ secrets.AZ_OIDC_TENANT_ID }}
-        subscription-id: ${{ secrets.AZ_OIDC_SUBSCRIPTION_ID }}
+        client-id: ${{env.AZ_CLIENT_ID}}
+        tenant-id: ${{env.AZ_TENANT_ID}}
+        subscription-id: ${{env.AZ_SUBSCRIPTION_ID}}
 
-    # Step 3. Use Azure Trusted Signing account
+    # Use an Azure 'Trusted Signing Account' to sign the output.
     - name: Sign files with Trusted Signing
       uses: azure/trusted-signing-action@v0.4.0
       with:
-        exclude-environment-credential: true
-        exclude-workload-identity-credential: true
-        exclude-managed-identity-credential: true
-        exclude-shared-token-cache-credential: true
-        exclude-visual-studio-credential: true
-        exclude-visual-studio-code-credential: true
-        exclude-azure-cli-credential: false
-        exclude-azure-powershell-credential: true
-        exclude-azure-developer-cli-credential: true
-        exclude-interactive-browser-credential: true
         endpoint: https://eus.codesigning.azure.net/
         trusted-signing-account-name: PrimaryCodeSign
         certificate-profile-name: Codesign-Primary
@@ -132,13 +103,16 @@ jobs:
         files-folder-recurse: true
         files-folder-depth: 4
         files-folder-filter: msix, msixbundle
-        # files: |
-        #   ${{github.workspace}}\src\XkcdViewer.Maui\bin\Release\net8.0-windows10.0.19041.0\win10-x64\AppPackages\XkcdViewer.Maui_2024.724.2.0_Test\XkcdViewer.Maui_2024.724.2.0_x64.msix
-        #   ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer.Maui.exe
-        #   ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer.Maui.dll
-        # azure-tenant-id: "${{secrets.AZ_OIDC_TENANT_ID}}"
-        # azure-client-id: "${{secrets.AZ_OIDC_CLIENT_ID}}"
-        # azure-client-secret: "${{secrets.AZ_OIDC_CLIENT_SECRET}}"
+        exclude-azure-cli-credential: false
+        exclude-environment-credential: true
+        exclude-workload-identity-credential: true
+        exclude-managed-identity-credential: true
+        exclude-shared-token-cache-credential: true
+        exclude-visual-studio-credential: true
+        exclude-visual-studio-code-credential: true
+        exclude-azure-powershell-credential: true
+        exclude-azure-developer-cli-credential: true
+        exclude-interactive-browser-credential: true
 
     # *********** End - new approach *********** #
 

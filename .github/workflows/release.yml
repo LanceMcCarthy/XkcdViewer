@@ -22,11 +22,20 @@ jobs:
   # ***************************** #
   maui-windows:
     runs-on: windows-2022
+    permissions:
+      id-token: write
+      contents: read
     steps:
     - name: Checkout
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
+
+    - name: Create artifacts folder
+      shell: pwsh
+      run: |
+          cd ${{github.workspace}}
+          mkdir -p ${{env.WINDOWS_ARTIFACTS_PATH}}
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
@@ -49,15 +58,6 @@ jobs:
       shell: pwsh
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
-    - name: Restore NuGet packages
-      shell: pwsh
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
-
-    - name: Create artifacts folder
-      shell: pwsh
-      run: |
-          cd ${{github.workspace}}
-          mkdir -p ${{env.WINDOWS_ARTIFACTS_PATH}}
           
     # *********** Original build & sign approach - Using PFX file *********** #
 
@@ -77,10 +77,14 @@ jobs:
 
     # *********** New approach! Using Microsoft Trusted Signing *********** #
 
+    - name: Restore NuGet packages
+      shell: pwsh
+      run: dotnet restore ${{env.PROJECT_PATH}} -r win10-x64 --configfile ${{env.NUGETCONFIG_PATH}}
+
     # Step 1. Make sure the build goes well
     - name: Build Maui WinUI project
       shell: pwsh
-      run: dotnet publish ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -o '${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}' -p:EnableMsixTooling=true
+      run: dotnet publish ${{env.PROJECT_PATH}} --no-restore -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -o '${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}' -p:EnableMsixTooling=true
     
     # - name: Confirm contents of output folder
     #   shell: pwsh
@@ -94,6 +98,12 @@ jobs:
     #     akeyless-secret-path: '/DevTools/live-azure-ad'
     #     akeyless-access-id: 'p-m9vvgiii6rip'
     #     akeyless-access-key: '${{ secrets.AKEYLESS_ACCESS_KEY }}'
+
+    - name: Azure login
+      uses: azure/login@v2
+      id: azlogin
+      with:
+        creds: ${{secrets.AZURE_JSON_CREDENTIALS}}
 
     # Step 3. Use the temporary credential to access Trusted Signing Account in Azure
     - name: Sign files with Trusted Signing
@@ -109,20 +119,10 @@ jobs:
         timestamp-rfc3161: http://timestamp.acs.microsoft.com
         timestamp-digest: SHA256
         files-folder: ${{env.WINDOWS_ARTIFACTS_PATH}}
-        files-folder-filter: exe, msix, msixbundle, dll
+        files-folder-filter: msix, msixbundle
         # files: |
         #   ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer.Maui.exe
         #   ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer.Maui.dll
-        exclude-environment-credential: true
-        exclude-workload-identity-credential: true
-        exclude-managed-identity-credential: true
-        exclude-shared-token-cache-credential: true
-        exclude-visual-studio-credential: true
-        exclude-visual-studio-code-credential: true
-        exclude-azure-cli-credential: false
-        exclude-azure-powershell-credential: true
-        exclude-azure-developer-cli-credential: true
-        exclude-interactive-browser-credential: true
 
     # *********** End - new approach *********** #
 

@@ -80,7 +80,7 @@ jobs:
     # Step 1. Make sure the build goes well
     - name: Build Maui WinUI project
       shell: pwsh
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -o '${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}' -p:EnableMsixTooling=true
+      run: dotnet publish ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -o '${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}' -p:EnableMsixTooling=true
     
     # - name: Confirm contents of output folder
     #   shell: pwsh
@@ -108,6 +108,11 @@ jobs:
         file-digest: SHA256
         timestamp-rfc3161: http://timestamp.acs.microsoft.com
         timestamp-digest: SHA256
+        files-folder: ${{env.WINDOWS_ARTIFACTS_PATH}}
+        files-folder-filter: exe, msix, msixbundle, dll
+        # files: |
+        #   ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer.Maui.exe
+        #   ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer.Maui.dll
         exclude-environment-credential: true
         exclude-workload-identity-credential: true
         exclude-managed-identity-credential: true
@@ -118,11 +123,6 @@ jobs:
         exclude-azure-powershell-credential: true
         exclude-azure-developer-cli-credential: true
         exclude-interactive-browser-credential: true
-        files: |
-          ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer.Maui.exe
-          ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer.Maui.dll
-        # files-folder: ${{env.WINDOWS_ARTIFACTS_PATH}}
-        # files-folder-filter: exe, msix, msixbundle, dll
 
     # *********** End - new approach *********** #
 

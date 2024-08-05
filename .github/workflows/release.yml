@@ -79,7 +79,7 @@ jobs:
 
     - name: Restore NuGet packages
       shell: pwsh
-      run: dotnet restore ${{env.PROJECT_PATH}} -r win10-x64 --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet restore ${{env.PROJECT_PATH}} -r win-x64 --configfile ${{env.NUGETCONFIG_PATH}}
 
     # Step 1. Make sure the build goes well
     - name: Build Maui WinUI project

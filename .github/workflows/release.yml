@@ -99,11 +99,11 @@ jobs:
     #     akeyless-access-id: 'p-m9vvgiii6rip'
     #     akeyless-access-key: '${{ secrets.AKEYLESS_ACCESS_KEY }}'
 
-    - name: Azure login
-      uses: azure/login@v2
-      id: azlogin
-      with:
-        creds: ${{secrets.AZURE_JSON_CREDENTIALS}}
+    # - name: Azure login
+    #   uses: azure/login@v2
+    #   id: azlogin
+    #   with:
+    #     creds: ${{secrets.AZURE_JSON_CREDENTIALS}}
 
     # Step 3. Use the temporary credential to access Trusted Signing Account in Azure
     - name: Sign files with Trusted Signing

@@ -16,15 +16,16 @@ env:
   ANDROID_ARTIFACTS_PATH: "artifacts_android"
   WINDOWS_ARTIFACTS_PATH: "artifacts_windows"
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   # ***************************** #
   # >>>>>>> Windows Build <<<<<<< #
   # ***************************** #
   maui-windows:
     runs-on: windows-2022
-    permissions:
-      id-token: write
-      contents: read
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -109,9 +110,9 @@ jobs:
     - name: Sign files with Trusted Signing
       uses: azure/trusted-signing-action@v0.4.0
       with:
-        azure-tenant-id: "${{secrets.AZ_TENANT_ID}}"
-        azure-client-id: "${{secrets.AZ_CLIENT_ID}}"
-        azure-client-secret: "${{secrets.AZ_CLIENT_SECRET}}"
+        azure-tenant-id: "${{secrets.AZ_OIDC_TENANT_ID}}"
+        azure-client-id: "${{secrets.AZ_OIDC_CLIENT_ID}}"
+        azure-client-secret: "${{secrets.AZ_OIDC_CLIENT_SECRET}}"
         endpoint: https://eus.codesigning.azure.net/
         trusted-signing-account-name: PrimaryCodeSign
         certificate-profile-name: Codesign-Primary

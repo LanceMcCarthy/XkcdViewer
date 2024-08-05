@@ -31,11 +31,11 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Create artifacts folder
-      shell: pwsh
-      run: |
-          cd ${{github.workspace}}
-          mkdir -p ${{env.WINDOWS_ARTIFACTS_PATH}}
+    # - name: Create artifacts folder
+    #   shell: pwsh
+    #   run: |
+    #       cd ${{github.workspace}}
+    #       mkdir -p ${{env.WINDOWS_ARTIFACTS_PATH}}
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
@@ -84,11 +84,11 @@ jobs:
     # Step 1. Make sure the build goes well
     - name: Build Maui WinUI project
       shell: pwsh
-      run: dotnet publish ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -o '${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}' -p:EnableMsixTooling=true
+      run: dotnet publish ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true
     
-    - name: Confirm contents of output folder
-      shell: pwsh
-      run: Get-ChildItem -Path ${{env.WINDOWS_ARTIFACTS_PATH}} -Recurse -File
+    # - name: Confirm contents of output folder
+    #   shell: pwsh
+    #   run: Get-ChildItem -Path ${{env.WINDOWS_ARTIFACTS_PATH}} -Recurse -File
 
     # Step 2. dynamic secrets from Akeyless This dynamically generates a temporary AAD credential
     # - name: Get AAD Secret
@@ -115,10 +115,12 @@ jobs:
         endpoint: https://eus.codesigning.azure.net/
         trusted-signing-account-name: PrimaryCodeSign
         certificate-profile-name: Codesign-Primary
-        file-digest: SHA256
         timestamp-rfc3161: http://timestamp.acs.microsoft.com
         timestamp-digest: SHA256
-        files-folder: ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}
+        file-digest: SHA256
+        files-folder: ${{github.workspace}}\src\XkcdViewer.Maui\bin\Release\net8.0-windows10.0.19041.0\
+        files-folder-recurse: true
+        files-folder-depth: 4
         files-folder-filter: msix, msixbundle
         # files: |
         #   ${{github.workspace}}\src\XkcdViewer.Maui\bin\Release\net8.0-windows10.0.19041.0\win10-x64\AppPackages\XkcdViewer.Maui_2024.724.2.0_Test\XkcdViewer.Maui_2024.724.2.0_x64.msix
@@ -131,7 +133,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:     
         name: "WinUI .NET MAUI artifacts" 
-        path: ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\*
+        path: ${{github.workspace}}\src\XkcdViewer.Maui\bin\Release\net8.0-windows10.0.19041.0\*
         if-no-files-found: warn
         retention-days: 30
 

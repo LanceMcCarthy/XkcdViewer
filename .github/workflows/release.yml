@@ -79,12 +79,12 @@ jobs:
 
     - name: Restore NuGet packages
       shell: pwsh
-      run: dotnet restore ${{env.PROJECT_PATH}} -r win-x64 --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     # Step 1. Make sure the build goes well
     - name: Build Maui WinUI project
       shell: pwsh
-      run: dotnet publish ${{env.PROJECT_PATH}} --no-restore -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -o '${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}' -p:EnableMsixTooling=true
+      run: dotnet publish ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -o '${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}' -p:EnableMsixTooling=true
     
     # - name: Confirm contents of output folder
     #   shell: pwsh

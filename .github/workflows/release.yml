@@ -100,19 +100,28 @@ jobs:
     #     akeyless-access-id: 'p-m9vvgiii6rip'
     #     akeyless-access-key: '${{ secrets.AKEYLESS_ACCESS_KEY }}'
 
-    # - name: Azure login
-    #   uses: azure/login@v2
-    #   id: azlogin
-    #   with:
-    #     creds: ${{secrets.AZURE_JSON_CREDENTIALS}}
+    - name: Azure login
+      uses: azure/login@v2
+      id: azlogin
+      with:
+        client-id: ${{ secrets.AZ_OIDC_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZ_OIDC_TENANT_ID }}
+        subscription-id: ${{ secrets.AZ_OIDC_SUBSCRIPTION_ID }}
 
-    # Step 3. Use the temporary credential to access Trusted Signing Account in Azure
+    # Step 3. Use Azure Trusted Signing account
     - name: Sign files with Trusted Signing
       uses: azure/trusted-signing-action@v0.4.0
       with:
-        azure-tenant-id: "${{secrets.AZ_OIDC_TENANT_ID}}"
-        azure-client-id: "${{secrets.AZ_OIDC_CLIENT_ID}}"
-        azure-client-secret: "${{secrets.AZ_OIDC_CLIENT_SECRET}}"
+        exclude-environment-credential: true
+        exclude-workload-identity-credential: true
+        exclude-managed-identity-credential: true
+        exclude-shared-token-cache-credential: true
+        exclude-visual-studio-credential: true
+        exclude-visual-studio-code-credential: true
+        exclude-azure-cli-credential: false
+        exclude-azure-powershell-credential: true
+        exclude-azure-developer-cli-credential: true
+        exclude-interactive-browser-credential: true
         endpoint: https://eus.codesigning.azure.net/
         trusted-signing-account-name: PrimaryCodeSign
         certificate-profile-name: Codesign-Primary
@@ -127,6 +136,9 @@ jobs:
         #   ${{github.workspace}}\src\XkcdViewer.Maui\bin\Release\net8.0-windows10.0.19041.0\win10-x64\AppPackages\XkcdViewer.Maui_2024.724.2.0_Test\XkcdViewer.Maui_2024.724.2.0_x64.msix
         #   ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer.Maui.exe
         #   ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer.Maui.dll
+        # azure-tenant-id: "${{secrets.AZ_OIDC_TENANT_ID}}"
+        # azure-client-id: "${{secrets.AZ_OIDC_CLIENT_ID}}"
+        # azure-client-secret: "${{secrets.AZ_OIDC_CLIENT_SECRET}}"
 
     # *********** End - new approach *********** #
 

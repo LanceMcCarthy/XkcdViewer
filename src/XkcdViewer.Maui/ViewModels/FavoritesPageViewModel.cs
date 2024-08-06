@@ -47,6 +47,8 @@ public class FavoritesPageViewModel : PageViewModelBase
         comic.IsFavorite = !comic.IsFavorite;
 
         await comicDataService.SaveComicsAsync(mainViewModel.Comics);
+
+        FavoriteComics.Remove(comic);
     }
 
     public async Task ShareItem()

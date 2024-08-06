@@ -9,26 +9,19 @@ env:
   NUGETCONFIG_PATH: "src/nuget.config"
   BUILD_CONFIG: Release
   TFM: net8.0
-  TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
-  TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
   MACOS_ARTIFACTS_PATH: "artifacts_macos"
   IOS_ARTIFACTS_PATH: "artifacts_ios"
   ANDROID_ARTIFACTS_PATH: "artifacts_android"
-  AZ_SUBSCRIPTION_ID: "48ab4839-62af-4ab3-afe6-043ea4d7c137" # Azure subscription ID
-  AZ_TENANT_ID: "bd47e796-3473-4b8a-9101-1f4c0c7af31a" # Entra ID tenant
-  AZ_CLIENT_ID: "32daa13b-f4bb-4809-8ef6-58cb39051acd" # "Akeyless OIDC Provider" app in Entra ID
-
-# Required for OIDC login (used by the Azure CLI login)
-permissions:
-  id-token: write
-  contents: read
 
 jobs:
-  # ***************************** #
-  # >>>>>>> Windows Build <<<<<<< #
-  # ***************************** #
+  # ****************************************************************** #
+  #                          Windows Build                             #
+  # ****************************************************************** #
   maui-windows:
     runs-on: windows-2022
+    permissions:  # Permissions used by the Azure CLI login using OIDC (allows authentication without any secrets in the workflow)
+      id-token: write
+      contents: read
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -40,10 +33,11 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    # Needed for WinUI builds
+    # Adding msuild.exe for WinUI support
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.3.2
 
+    # This generates a unique version number using the date and the workflow run number (e.g. 2022.0314.1.0)
     - name: Generate version number using date and run number
       shell: pwsh
       id: version-creator
@@ -52,6 +46,7 @@ jobs:
         $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
         echo "APP_VERSION=$ver" >> $GITHUB_OUTPUT
 
+    # We need to make sure the appxmanifest uses the same Identity that Azure Trusted Signing is expecting.
     - name: Update manifest
       run: |
         [xml]$manifest = get-content "src\XkcdViewer.Maui\Platforms\Windows\Package.appxmanifest"
@@ -63,13 +58,15 @@ jobs:
         $manifest.Package.Applications.Application.VisualElements.DisplayName = "xkcd Viewer"
         $manifest.save("src\XkcdViewer.Maui\Platforms\Windows\Package.appxmanifest")
 
+    # The hosted runners do not have the maui workload installed by default, so we need to install it
     - name: Install MAUI workloads (required for GitHub-hosted runners)
       shell: pwsh
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+      env:
+        TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
+        TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
 
-
-    # *********** New code signing approach! Using Microsoft Trusted Signing instead of PFX file *********** #
-
+    # Restore NuGet packages ahead of time because we want to use the dedicated nuget.config file
     - name: Restore NuGet packages
       shell: pwsh
       run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
@@ -79,17 +76,18 @@ jobs:
       shell: pwsh
       run: dotnet publish ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true
     
-    # IMPORTANT: This step requires that the Azure App Registration has a Federated Credential.
-    # No secrets needed! Since I am using Federated Credentials
+    # Login to Azure CLI
+    # No secrets needed! This will use the GitHub OIDC token to authenticate.
     - name: Azure login using OIDC via GitHub
       uses: azure/login@v2
       id: azlogin
       with:
-        client-id: ${{env.AZ_CLIENT_ID}}
-        tenant-id: ${{env.AZ_TENANT_ID}}
-        subscription-id: ${{env.AZ_SUBSCRIPTION_ID}}
+        client-id: "32daa13b-f4bb-4809-8ef6-58cb39051acd"
+        tenant-id: "bd47e796-3473-4b8a-9101-1f4c0c7af31a"
+        subscription-id: "48ab4839-62af-4ab3-afe6-043ea4d7c137"
 
-    # Use an Azure 'Trusted Signing Account' to sign the output.
+    # New code signing approach
+    # Use an Azure 'Trusted Signing Account' to sign the output (instead of a PFX file within the dotnet publish command)
     - name: Sign files with Trusted Signing
       uses: azure/trusted-signing-action@v0.4.0
       with:
@@ -114,88 +112,87 @@ jobs:
         exclude-azure-developer-cli-credential: true
         exclude-interactive-browser-credential: true
 
-    # *********** End - new approach *********** #
-
+    # Attaching the msix files to the GitHub artifacts for each build (this is not a GitHub release)
     - name: Publish build artifacts
       uses: actions/upload-artifact@v4
       with:     
         name: "WinUI .NET MAUI artifacts" 
-        path: ${{github.workspace}}\src\XkcdViewer.Maui\bin\Release\net8.0-windows10.0.19041.0\*
+        path: ${{github.workspace}}/**/*.msix
         if-no-files-found: warn
         retention-days: 30
 
-  # ***************************** #
-  # >>>>>>> Android build <<<<<<< #
-  # ***************************** #
-  # maui-android:
-  #   runs-on: windows-2022
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v4
-  #     with:
-  #       fetch-depth: 0
+  # ****************************************************************** #
+  #                          Android build                             #
+  # ****************************************************************** #
+  maui-android:
+    runs-on: windows-2022
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
-  #   - name: Setup .NET Core SDK
-  #     uses: actions/setup-dotnet@v4
-  #     with:
-  #       dotnet-version: '8.0.x'
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
 
-  #   - uses: actions/setup-java@v4
-  #     with:
-  #       distribution: 'microsoft'
-  #       java-version: '11'
+    - uses: actions/setup-java@v4
+      with:
+        distribution: 'microsoft'
+        java-version: '11'
 
-  #   - name: Generate version number using date and run number
-  #     shell: pwsh
-  #     id: version-creator
-  #     run: |
-  #       $buildDay = Get-Date -Format "yyyy.Mdd"
-  #       $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
-  #       echo "APP_VERSION=$ver" >> $GITHUB_OUTPUT
+    - name: Generate version number using date and run number
+      shell: pwsh
+      id: version-creator
+      run: |
+        $buildDay = Get-Date -Format "yyyy.Mdd"
+        $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
+        echo "APP_VERSION=$ver" >> $GITHUB_OUTPUT
 
-  #   - name: Install MAUI workloads (required for GitHub-hosted runners)
-  #     shell: pwsh
-  #     run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+    - name: Install MAUI workloads (required for GitHub-hosted runners)
+      shell: pwsh
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
-  #   - name: Restore NuGet packages
-  #     shell: pwsh
-  #     run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+    - name: Restore NuGet packages
+      shell: pwsh
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
-  #   - name: Base64 To PFX file
-  #     id: write_file
-  #     uses: timheuer/base64-to-file@v1.2
-  #     with:
-  #       fileName: "${{secrets.ANDROID_SIGNING_KEYSTORE_FILENAME}}"
-  #       fileDir: "${{github.workspace}}"
-  #       encodedString: ${{secrets.ANDROID_SIGNING_KEYSTORE_BASE64}}
+    - name: Base64 To PFX file
+      id: write_file
+      uses: timheuer/base64-to-file@v1.2
+      with:
+        fileName: "${{secrets.ANDROID_SIGNING_KEYSTORE_FILENAME}}"
+        fileDir: "${{github.workspace}}"
+        encodedString: ${{secrets.ANDROID_SIGNING_KEYSTORE_BASE64}}
 
-  #   - name: Build Maui Android project
-  #     shell: pwsh
-  #     run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-android" --no-restore -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="${{steps.write_file.outputs.filePath}}" -p:AndroidSigningStorePass="${{secrets.ANDROID_SIGNING_STORE_PASS}}" -p:AndroidSigningKeyAlias="${{secrets.ANDROID_SIGNING_KEY_ALIAS}}" -p:AndroidSigningKeyPass="${{secrets.ANDROID_SIGNING_KEY_PASS}}"
+    - name: Build Maui Android project
+      shell: pwsh
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-android" --no-restore -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="${{steps.write_file.outputs.filePath}}" -p:AndroidSigningStorePass="${{secrets.ANDROID_SIGNING_STORE_PASS}}" -p:AndroidSigningKeyAlias="${{secrets.ANDROID_SIGNING_KEY_ALIAS}}" -p:AndroidSigningKeyPass="${{secrets.ANDROID_SIGNING_KEY_PASS}}"
 
-  #   - name: Create artifacts folder
-  #     shell: pwsh
-  #     run: |
-  #         cd ${{github.workspace}}
-  #         mkdir -p ${{env.ANDROID_ARTIFACTS_PATH}}
+    - name: Create artifacts folder
+      shell: pwsh
+      run: |
+          cd ${{github.workspace}}
+          mkdir -p ${{env.ANDROID_ARTIFACTS_PATH}}
 
-  #   - name: Copy signed APKs & AABs
-  #     shell: pwsh 
-  #     run: |
-  #         Get-Childitem -Path ${{github.workspace}} -Include *Signed.apk -File -Recurse | Copy-Item -Destination ${{env.ANDROID_ARTIFACTS_PATH}}
-  #         Get-Childitem -Path ${{github.workspace}} -Include *Signed.aab -File -Recurse | Copy-Item -Destination ${{env.ANDROID_ARTIFACTS_PATH}}
+    - name: Copy signed APKs & AABs
+      shell: pwsh 
+      run: |
+          Get-Childitem -Path ${{github.workspace}} -Include *Signed.apk -File -Recurse | Copy-Item -Destination ${{env.ANDROID_ARTIFACTS_PATH}}
+          Get-Childitem -Path ${{github.workspace}} -Include *Signed.aab -File -Recurse | Copy-Item -Destination ${{env.ANDROID_ARTIFACTS_PATH}}
 
-  #   - name: Publish Android build artifacts
-  #     uses: actions/upload-artifact@v4
-  #     with:     
-  #       name: "Android artifacts" 
-  #       path: "${{env.ANDROID_ARTIFACTS_PATH}}/*"
-  #       if-no-files-found: warn
-  #       retention-days: 30
+    - name: Publish Android build artifacts
+      uses: actions/upload-artifact@v4
+      with:     
+        name: "Android artifacts" 
+        path: "${{env.ANDROID_ARTIFACTS_PATH}}/*"
+        if-no-files-found: warn
+        retention-days: 30
 
-  # ************************* #
-  # >>>>>>> iOS Build <<<<<<< #
-  # ************************* #
+  # ****************************************************************** #
+  #                            iOS Build                               #
+  # ****************************************************************** #
 #   maui-ios:
 #     runs-on: macos-12
 #     env:
@@ -282,9 +279,9 @@ jobs:
 #         retention-days: 30
 
 
-# # ********************************* #
-# # >>>>>>> MacCatalyst Build <<<<<<< #
-# # ********************************* #
+# # ****************************************************************** #
+# #                      MacCatalyst Build                             #
+# # ****************************************************************** #
 #   maui-maccatalyst:
 #     runs-on: macos-12
 #     env:

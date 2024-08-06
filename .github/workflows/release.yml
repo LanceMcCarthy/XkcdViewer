@@ -186,7 +186,9 @@ jobs:
       uses: actions/upload-artifact@v4
       with:     
         name: "Android artifacts" 
-        path: "${{env.ANDROID_ARTIFACTS_PATH}}/*"
+        path: |
+          "${{env.ANDROID_ARTIFACTS_PATH}}/**/*Signed.apk"
+          "${{env.ANDROID_ARTIFACTS_PATH}}/**/*Signed.aab"
         if-no-files-found: warn
         retention-days: 30
 

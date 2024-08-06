@@ -12,6 +12,8 @@ env:
   MACOS_ARTIFACTS_PATH: "artifacts_macos"
   IOS_ARTIFACTS_PATH: "artifacts_ios"
   ANDROID_ARTIFACTS_PATH: "artifacts_android"
+  TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
+  TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
 
 jobs:
   # ****************************************************************** #
@@ -62,9 +64,6 @@ jobs:
     - name: Install MAUI workloads (required for GitHub-hosted runners)
       shell: pwsh
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-      env:
-        TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
-        TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
 
     # Restore NuGet packages ahead of time because we want to use the dedicated nuget.config file
     - name: Restore NuGet packages

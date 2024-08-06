@@ -22,20 +22,21 @@
                    Style="{StaticResource RalewayLabelStyle}" />
         </StackLayout>
 
-        <telerik:RadSlideView x:Name="slideView"
+        <telerik:RadSlideView x:Name="ComicsSlideView"
                               ItemsSource="{Binding Comics}"
                               CurrentItem="{Binding CurrentComic, Mode=TwoWay}"
                               ItemTemplate="{StaticResource SlideViewItemTemplate}"
                               Orientation="Horizontal"
-                              NavigationButtonsVisibility="HiddenWhenDisabled"
-                              NavigateToNextItemButtonStyle="{StaticResource NavigateToNextButtonStyle}"
-                              NavigateToPreviousItemButtonStyle="{StaticResource NavigateToPreviousButtonStyle}"
+                              NavigationButtonsVisibility="Collapsed"
                               Grid.Row="1" />
 
         <VerticalStackLayout Padding="10,5,10,0"
                              Spacing="5"
                              Grid.Row="2">
             <HorizontalStackLayout HorizontalOptions="Center">
+                <Button Text="{x:Static resources:IconFont.ArrowLeft}"
+                        Command="{Binding NavigateToPreviousItemCommand, Source={x:Reference ComicsSlideView}}"
+                        Style="{StaticResource OverlayButtonStyle}" />
                 <Button Text="{x:Static resources:IconFont.Share}"
                         Command="{Binding ShareCommand}"
                         CommandParameter="{Binding .}"
@@ -44,6 +45,9 @@
                         Text="{Binding CurrentComic.IsFavorite, Converter={StaticResource IsFavoriteIconCharacterConverter}, FallbackValue='~'}"
                         Command="{Binding ToggleFavoriteCommand}"
                         CommandParameter="{Binding .}"
+                        Style="{StaticResource OverlayButtonStyle}" />
+                <Button Text="{x:Static resources:IconFont.ArrowRight}"
+                        Command="{Binding NavigateToNextItemCommand, Source={x:Reference ComicsSlideView}}"
                         Style="{StaticResource OverlayButtonStyle}" />
             </HorizontalStackLayout>
             <Button Text="Get next comic"

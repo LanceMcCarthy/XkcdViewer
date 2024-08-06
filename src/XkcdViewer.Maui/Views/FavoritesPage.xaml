@@ -23,7 +23,7 @@
                        Style="{StaticResource RalewayLabelStyle}" />
             </StackLayout>
 
-            <telerik:RadSlideView x:Name="slideView"
+            <telerik:RadSlideView x:Name="ComicsSlideView"
                                   ItemsSource="{Binding FavoriteComics}"
                                   CurrentItem="{Binding CurrentFavorite, Mode=TwoWay}"
                                   ItemTemplate="{StaticResource SlideViewItemTemplate}"
@@ -35,6 +35,9 @@
                                  Spacing="5"
                                  Grid.Row="2">
                 <HorizontalStackLayout HorizontalOptions="Center">
+                    <Button Text="{x:Static resources:IconFont.ArrowLeft}"
+                            Command="{Binding NavigateToPreviousItemCommand, Source={x:Reference ComicsSlideView}}"
+                            Style="{StaticResource OverlayButtonStyle}" />
                     <Button Text="{x:Static resources:IconFont.Share}"
                             Command="{Binding ShareCommand}"
                             CommandParameter="{Binding .}"
@@ -43,6 +46,9 @@
                             Text="{Binding CurrentFavorite.IsFavorite, Converter={StaticResource IsFavoriteIconCharacterConverter}}"
                             Command="{Binding ToggleFavoriteCommand}"
                             CommandParameter="{Binding .}"
+                            Style="{StaticResource OverlayButtonStyle}" />
+                    <Button Text="{x:Static resources:IconFont.ArrowRight}"
+                            Command="{Binding NavigateToNextItemCommand, Source={x:Reference ComicsSlideView}}"
                             Style="{StaticResource OverlayButtonStyle}" />
                 </HorizontalStackLayout>
                 <Button Text="Get next comic"

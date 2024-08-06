@@ -48,7 +48,28 @@ public class FavoritesPageViewModel : PageViewModelBase
 
         await comicDataService.SaveComicsAsync(mainViewModel.Comics);
 
-        FavoriteComics.Remove(comic);
+        if(CurrentFavorite != null)
+        {
+            var currentIndex = FavoriteComics.IndexOf(CurrentFavorite);
+
+            Comic? nextSelection = null;
+
+            if (FavoriteComics.Count > 1)
+            {
+                if (currentIndex > 0 && FavoriteComics.Count > 1)
+                {
+                    nextSelection = FavoriteComics[currentIndex - 1];
+                }
+                else
+                {
+                    nextSelection = FavoriteComics[0];
+                }
+            }
+
+            FavoriteComics.Remove(CurrentFavorite);
+
+            CurrentFavorite = nextSelection;
+        }
     }
 
     public async Task ShareItem()

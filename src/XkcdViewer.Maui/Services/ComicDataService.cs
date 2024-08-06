@@ -10,8 +10,11 @@ public class ComicDataService(XkcdApiService apiServ)
 {
     private readonly string dataFilePath = Path.Combine(FileSystem.AppDataDirectory, "appdata.json");
 
-    public async Task GetComic(ObservableCollection<Comic> comics, int? comicNumber)
+    public async Task GetComic(ObservableCollection<Comic>? comics, int? comicNumber)
     {
+        if (comics == null)
+            throw new NullReferenceException("You must pass a valid reference to the source comics collection.");
+
         Comic comic;
 
         if (comicNumber == null)
@@ -30,14 +33,16 @@ public class ComicDataService(XkcdApiService apiServ)
         await SaveComicsAsync(comics);
     }
 
-    public async Task LoadComicsAsync(ObservableCollection<Comic> comics)
+    public async Task LoadComicsAsync(ObservableCollection<Comic>? comics)
     {
-        string jsonString = string.Empty;
+        if (comics == null)
+            throw new NullReferenceException("You must pass a valid reference to the source comics collection.");
+
         ObservableCollection<Comic>? deserializedComics = null;
 
         try
         {
-            jsonString = await File.ReadAllTextAsync(dataFilePath);
+            var jsonString = await File.ReadAllTextAsync(dataFilePath);
             deserializedComics = JsonConvert.DeserializeObject<ObservableCollection<Comic>>(jsonString);
         }
         catch (Exception ex)
@@ -61,8 +66,11 @@ public class ComicDataService(XkcdApiService apiServ)
         }
     }
 
-    public async Task<bool> SaveComicsAsync(ObservableCollection<Comic> comics)
+    public async Task<bool> SaveComicsAsync(ObservableCollection<Comic>? comics)
     {
+        if (comics == null)
+            throw new NullReferenceException("You must pass a valid reference to the source comics collection.");
+
         try
         {
             var json = JsonConvert.SerializeObject(comics);

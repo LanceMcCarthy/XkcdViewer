@@ -20,11 +20,6 @@
 
             <converters:ComicToImageSourceConverter x:Key="ComicToImageSourceConverter" />
 
-            <converters:ConfigurableBoolConverter x:Key="IsFavoriteToStringConverter"
-                                                  x:TypeArguments="x:String"
-                                                  TrueResult="Unfavorite"
-                                                  FalseResult="Favorite" />
-
             <converters:ConfigurableBoolConverter x:Key="InvertBoolConverter"
                                                   x:TypeArguments="x:Boolean"
                                                   TrueResult="False"
@@ -35,15 +30,10 @@
                                                   TrueResult="DarkRed"
                                                   FalseResult="MediumSeaGreen" />
 
-            <converters:ConfigurableBoolConverter x:Key="IsFavoriteIconConverter"
-                                                  x:TypeArguments="ImageSource"
-                                                  TrueResult="ic_favorite_remove.png"
-                                                  FalseResult="ic_favorite_add.png" />
-
             <converters:ConfigurableBoolConverter x:Key="IsFavoriteIconCharacterConverter"
                                                   x:TypeArguments="x:String"
-                                                  TrueResult="{x:Static resources:IconFont.Heart}"
-                                                  FalseResult="{x:Static resources:IconFont.HeartBroken}" />
+                                                  TrueResult="{x:Static resources:IconFont.HeartBroken}"
+                                                  FalseResult="{x:Static resources:IconFont.Heart}" />
 
             <DataTemplate x:Key="SlideViewItemTemplate"
                           x:DataType="models:Comic">
@@ -72,25 +62,6 @@
                 <Setter Property="Padding" Value="0"/>
                 <Setter Property="FontFamily" Value="Raleway"/>
                 <Setter Property="FontSize" Value="Medium"/>
-            </Style>
-
-            <Style x:Key="NavigateButtonBaseStyle" TargetType="telerik:RadButton">
-                <Setter Property="FontSize" Value="16" />
-                <Setter Property="TextColor" Value="#3341A1" />
-                <Setter Property="BackgroundColor" Value="#1A3341A1" />
-                <Setter Property="BorderColor" Value="#B33341A1" />
-                <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="WidthRequest" Value="{OnPlatform Default=44, MacCatalyst=32}" />
-                <Setter Property="HeightRequest" Value="{OnPlatform Default=44, MacCatalyst=32}" />
-                <Setter Property="CornerRadius" Value="{OnPlatform Default=22, MacCatalyst=16}" />
-            </Style>
-            <Style x:Key="NavigateToNextButtonStyle" TargetType="telerik:RadButton" BasedOn="{StaticResource NavigateButtonBaseStyle}">
-                <Setter Property="Text" Value="&#xe805;" />
-                <Setter Property="VerticalOptions" Value="End" />
-            </Style>
-            <Style x:Key="NavigateToPreviousButtonStyle" TargetType="telerik:RadButton" BasedOn="{StaticResource NavigateButtonBaseStyle}">
-                <Setter Property="Text" Value="&#xe80e;" />
-                <Setter Property="VerticalOptions" Value="End" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

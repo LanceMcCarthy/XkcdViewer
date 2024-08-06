@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿// ReSharper disable AsyncVoidLambda
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using XkcdViewer.Maui.Models;
 using XkcdViewer.Maui.Services;
@@ -7,28 +8,23 @@ namespace XkcdViewer.Maui.ViewModels;
 
 public class MainPageViewModel : PageViewModelBase
 {
-    //private readonly XkcdApiService apiService;
-    //private readonly FavoritesService favoritesService;
     private readonly ComicDataService comicDataService;
-    //private int lastComicNumber;
     private Comic? currentComic;
     private bool getNewComicButtonIsVisible;
 
     public MainPageViewModel(ComicDataService comicDataServ)
     {
-        //favoritesService = favoritesSrv;
-        //apiService = apiServ;
         comicDataService = comicDataServ;
 
         Title = DeviceInfo.Platform == DevicePlatform.iOS || DeviceInfo.Platform == DevicePlatform.MacCatalyst ? "XKCD Comic Viewer" : "XKCD Viewer";
 
-        FetchComicCommand = new Command(async (c) => await FetchComic());
-        ShareCommand = new Command(async c => await ShareItem());
-        ShowFavoritesCommand = new Command(async e => await ShowFavorites());
+        FetchComicCommand = new Command(async (c) => await FetchComicAsync());
+        ShareCommand = new Command(async c => await ShareItemAsync());
+        ShowFavoritesCommand = new Command(async e => await ShowFavoritesAsync());
         ToggleFavoriteCommand = new Command(async (c) => await ToggleFavorite(CurrentComic));
     }
 
-    public ObservableCollection<Comic>? Comics { get; } = new();
+    public ObservableCollection<Comic> Comics { get; } = new();
 
     public Comic? CurrentComic
     {
@@ -56,46 +52,22 @@ public class MainPageViewModel : PageViewModelBase
 
     public Command ToggleFavoriteCommand { get; set; }
 
-    public async Task FetchComic()
+    public async Task FetchComicAsync()
     {
         try
         {
-            if (IsBusy || Comics == null)
+            if (IsBusy)
                 return;
 
             IsBusy = true;
 
             await comicDataService.GetComic(Comics, Comics.LastOrDefault()?.Num - 1);
 
-            //Comic comic;
-
-            //if (lastComicNumber == 0)
-            //{
-            //    var result = await apiService.GetNewestComicAsync();
-            //    comic = result.ToComic();
-            //}
-            //else
-            //{
-            //    var result = await apiService.GetComicAsync(lastComicNumber - 1);
-            //    comic = result.ToComic();
-            //}
-
-            //if (comic == null)
-            //{
-            //    throw new NullReferenceException($"Attempt to fetch comic #{lastComicNumber} failed.");
-            //}
-
-            //lastComicNumber = comic.Num;
-
-            //Comics.Add(comic);
-
-            //comic.IsFavorite = favoritesService.IsFavorite(comic);
-
             CurrentComic = Comics.Last();
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"LoadComicsAsync Exception\r\n{ex}");
+            Debug.WriteLine($"FetchComicAsync Exception\r\n{ex}");
         }
         finally
         {
@@ -103,17 +75,17 @@ public class MainPageViewModel : PageViewModelBase
         }
     }
 
-    private async Task ToggleFavorite(Comic comic)
+    private async Task ToggleFavorite(Comic? comic)
     {
-        if (Comics == null)
-            return;
+        if (comic != null)
+        {
+            comic.IsFavorite = !comic.IsFavorite;
 
-        comic.IsFavorite = !comic.IsFavorite;
-
-        await comicDataService.SaveComicsAsync(this.Comics);
+            await comicDataService.SaveComicsAsync(this.Comics);
+        }
     }
 
-    public async Task ShareItem()
+    public async Task ShareItemAsync()
     {
         if (string.IsNullOrEmpty(currentComic?.Img))
             return;
@@ -126,11 +98,8 @@ public class MainPageViewModel : PageViewModelBase
         });
     }
 
-    public async Task ShowFavorites()
+    public async Task ShowFavoritesAsync()
     {
-        if (Comics == null)
-            return;
-
         var favorites = Comics.Where(c => c.IsFavorite);
 
         await Shell.Current.GoToAsync("/Favorites", new Dictionary<string, object>

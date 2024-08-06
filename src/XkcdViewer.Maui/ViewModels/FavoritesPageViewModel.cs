@@ -1,4 +1,4 @@
-﻿using CommonHelpers.Common;
+﻿// ReSharper disable AsyncVoidLambda
 using System.Collections.ObjectModel;
 using XkcdViewer.Maui.Models;
 using XkcdViewer.Maui.Services;
@@ -10,7 +10,7 @@ public class FavoritesPageViewModel : PageViewModelBase
     private readonly ComicDataService comicDataService;
     private readonly MainPageViewModel mainViewModel;
     private Comic? currentFavorite;
-    private ObservableCollection<Comic> favoriteComics;
+    private ObservableCollection<Comic> favoriteComics = null!;
 
     public FavoritesPageViewModel(ComicDataService comicDataServ, MainPageViewModel mainVm)
     {
@@ -51,7 +51,7 @@ public class FavoritesPageViewModel : PageViewModelBase
 
     public async Task ShareItem()
     {
-        if (string.IsNullOrEmpty(CurrentFavorite.Img))
+        if (string.IsNullOrEmpty(CurrentFavorite?.Img))
             return;
             
         await Share.Default.RequestAsync(new ShareTextRequest
@@ -66,8 +66,7 @@ public class FavoritesPageViewModel : PageViewModelBase
     {
         base.OnNavigatedTo(args, favorites);
 
-        this.FavoriteComics = favorites;
+        if(favorites != null)
+            this.FavoriteComics = favorites;
     }
-
-
 }

@@ -6,7 +6,6 @@ using XkcdViewer.Maui.Services;
 using XkcdViewer.Maui.ViewModels;
 using XkcdViewer.Maui.Views;
 
-
 #if WINDOWS10_0_17763_0_OR_GREATER
 using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Xaml.Media;

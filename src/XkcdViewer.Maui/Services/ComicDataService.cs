@@ -59,7 +59,41 @@ public class ComicDataService(XkcdApiService apiServ)
         }
         else
         {
+            if(comics.Count > 0)
+                comics.Clear();
+
             foreach (var comic in deserializedComics)
+            {
+                comics.Add(comic);
+            }
+        }
+    }
+
+    public async Task LoadFavoriteComicsAsync(ObservableCollection<Comic>? comics)
+    {
+        if (comics == null)
+            throw new NullReferenceException("You must pass a valid reference to the source comics collection.");
+
+        ObservableCollection<Comic>? deserializedComics = null;
+
+        try
+        {
+            var jsonString = await File.ReadAllTextAsync(dataFilePath);
+            deserializedComics = JsonConvert.DeserializeObject<ObservableCollection<Comic>>(jsonString);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"LoadComics Exception: {ex}");
+        }
+
+        if (deserializedComics != null)
+        {
+            if(comics.Count > 0)
+                comics.Clear();
+
+            var favoriteComics = deserializedComics.Where(c => c.IsFavorite);
+
+            foreach (var comic in favoriteComics)
             {
                 comics.Add(comic);
             }

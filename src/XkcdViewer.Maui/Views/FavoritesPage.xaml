@@ -4,7 +4,9 @@
                 xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
                 xmlns:resources="clr-namespace:XkcdViewer.Maui.Resources"
                 xmlns:views="clr-namespace:XkcdViewer.Maui.Views"
+                xmlns:viewModels="clr-namespace:XkcdViewer.Maui.ViewModels"
                 x:Class="XkcdViewer.Maui.Views.FavoritesPage"
+                x:DataType="viewModels:FavoritesPageViewModel"
                 Title="{Binding Title}"
                 x:Name="ThisPage">
 
@@ -14,12 +16,12 @@
                          HorizontalOptions="Center"
                          Grid.Row="0"
                          Margin="5">
-                <Label Text="{Binding CurrentFavorite.Num}"
+                <Label Text="{Binding CurrentFavorite.Num, FallbackValue='No'}"
                        Style="{StaticResource RalewayLabelStyle}" />
                 <Label Text=" - "
                        TextColor="{StaticResource DarkGrayTextColor}"
                        Style="{StaticResource RalewayLabelStyle}" />
-                <Label Text="{Binding CurrentFavorite.Title}"
+                <Label Text="{Binding CurrentFavorite.Title, FallbackValue='Favorites!'}"
                        Style="{StaticResource RalewayLabelStyle}" />
             </StackLayout>
 
@@ -28,35 +30,29 @@
                                   CurrentItem="{Binding CurrentFavorite, Mode=TwoWay}"
                                   ItemTemplate="{StaticResource SlideViewItemTemplate}"
                                   Orientation="Horizontal"
-                                  NavigationButtonsVisibility="HiddenWhenDisabled"
+                                  NavigationButtonsVisibility="Collapsed"
                                   Grid.Row="1" />
 
-            <VerticalStackLayout Padding="10,5,10,0"
-                                 Spacing="5"
-                                 Grid.Row="2">
-                <HorizontalStackLayout HorizontalOptions="Center">
-                    <Button Text="{x:Static resources:IconFont.ArrowLeft}"
-                            Command="{Binding NavigateToPreviousItemCommand, Source={x:Reference ComicsSlideView}}"
-                            Style="{StaticResource OverlayButtonStyle}" />
-                    <Button Text="{x:Static resources:IconFont.Share}"
-                            Command="{Binding ShareCommand}"
-                            CommandParameter="{Binding .}"
-                            Style="{StaticResource OverlayButtonStyle}" />
-                    <Button BackgroundColor="{Binding CurrentFavorite.IsFavorite, Converter={StaticResource FavoriteToColorConverter}}"
-                            Text="{Binding CurrentFavorite.IsFavorite, Converter={StaticResource IsFavoriteIconCharacterConverter}}"
-                            Command="{Binding ToggleFavoriteCommand}"
-                            CommandParameter="{Binding .}"
-                            Style="{StaticResource OverlayButtonStyle}" />
-                    <Button Text="{x:Static resources:IconFont.ArrowRight}"
-                            Command="{Binding NavigateToNextItemCommand, Source={x:Reference ComicsSlideView}}"
-                            Style="{StaticResource OverlayButtonStyle}" />
-                </HorizontalStackLayout>
-                <Button Text="Get next comic"
-                        Command="{Binding FetchComicCommand}"
-                        Style="{StaticResource OverlayButtonStyle}"
-                        FontFamily="Raleway"
-                        WidthRequest="200" />
-            </VerticalStackLayout>
+            <HorizontalStackLayout HorizontalOptions="Center"
+                                   VerticalOptions="Start"
+                                   Padding="10"
+                                   Spacing="5"
+                                   Grid.Row="2">
+                <Button Text="{x:Static resources:IconFont.ArrowLeft}"
+                        Command="{Binding NavigateToPreviousItemCommand, Source={x:Reference ComicsSlideView}}"
+                        Style="{StaticResource OverlayButtonStyle}" />
+                <Button Text="{x:Static resources:IconFont.Share}"
+                        Command="{Binding ShareCommand}"
+                        CommandParameter="{Binding .}"
+                        Style="{StaticResource OverlayButtonStyle}" />
+                <Button BackgroundColor="{Binding CurrentFavorite.IsFavorite, Converter={StaticResource FavoriteToColorConverter}, FallbackValue=Gray}"
+                        Text="{Binding CurrentFavorite.IsFavorite, Converter={StaticResource IsFavoriteIconCharacterConverter}, FallbackValue='x'}"
+                        Command="{Binding ToggleFavoriteCommand}"
+                        Style="{StaticResource OverlayButtonStyle}" />
+                <Button Text="{x:Static resources:IconFont.ArrowRight}"
+                        Command="{Binding NavigateToNextItemCommand, Source={x:Reference ComicsSlideView}}"
+                        Style="{StaticResource OverlayButtonStyle}" />
+            </HorizontalStackLayout>
         </Grid>
     </Grid>
 </views:BasePage>

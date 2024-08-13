@@ -15,7 +15,9 @@ public class PageViewModelBase : ViewModelBase, IViewModel
 
     public virtual void OnNavigatedFrom(NavigatedFromEventArgs args){}
 
-    public virtual void OnNavigatedTo(
-        NavigatedToEventArgs args, 
-        ObservableCollection<Comic>? favorites){}
+    //public virtual void OnNavigatedTo(
+    //    NavigatedToEventArgs args, 
+    //    ObservableCollection<Comic>? favorites){}
+
+    public virtual void OnNavigatedTo(NavigatedToEventArgs args){}
 }

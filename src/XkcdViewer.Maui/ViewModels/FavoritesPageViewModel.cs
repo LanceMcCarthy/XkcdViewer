@@ -10,7 +10,6 @@ public class FavoritesPageViewModel : PageViewModelBase
     private readonly ComicDataService comicDataService;
     private readonly MainPageViewModel mainViewModel;
     private Comic? currentFavorite;
-    private ObservableCollection<Comic> favoriteComics = null!;
 
     public FavoritesPageViewModel(ComicDataService comicDataServ, MainPageViewModel mainVm)
     {
@@ -20,17 +19,10 @@ public class FavoritesPageViewModel : PageViewModelBase
 
         ShareCommand = new Command(async c => await ShareItem());
 
-        ToggleFavoriteCommand = new Command<Comic>(async c =>
-        {
-            await ToggleFavorite(c);
-        });
+        ToggleFavoriteCommand = new Command(async c =>{await ToggleFavorite();});
     }
 
-    public ObservableCollection<Comic> FavoriteComics
-    {
-        get => favoriteComics;
-        set => SetProperty(ref favoriteComics, value);
-    }
+    public ObservableCollection<Comic> FavoriteComics { get; } = [];
 
     public Comic? CurrentFavorite
     {
@@ -40,36 +32,22 @@ public class FavoritesPageViewModel : PageViewModelBase
 
     public Command ShareCommand { get; set; }
 
-    public Command<Comic> ToggleFavoriteCommand { get; set; }
+    public Command ToggleFavoriteCommand { get; set; }
 
-    private async Task ToggleFavorite(Comic comic)
+    private async Task ToggleFavorite()
     {
-        comic.IsFavorite = !comic.IsFavorite;
+        if (CurrentFavorite == null)
+            return;
 
-        await comicDataService.SaveComicsAsync(mainViewModel.Comics);
+        var originalFavRef = mainViewModel.Comics.FirstOrDefault(c => c.Num == CurrentFavorite?.Num);
 
-        if(CurrentFavorite != null)
+        if (originalFavRef != null)
         {
-            var currentIndex = FavoriteComics.IndexOf(CurrentFavorite);
-
-            Comic? nextSelection = null;
-
-            if (FavoriteComics.Count > 1)
-            {
-                if (currentIndex > 0 && FavoriteComics.Count > 1)
-                {
-                    nextSelection = FavoriteComics[currentIndex - 1];
-                }
-                else
-                {
-                    nextSelection = FavoriteComics[0];
-                }
-            }
-
-            FavoriteComics.Remove(CurrentFavorite);
-
-            CurrentFavorite = nextSelection;
+            originalFavRef.IsFavorite = false;
+            await comicDataService.SaveComicsAsync(mainViewModel.Comics);
         }
+
+        FavoriteComics.Remove(CurrentFavorite);
     }
 
     public async Task ShareItem()
@@ -85,11 +63,11 @@ public class FavoritesPageViewModel : PageViewModelBase
         });
     }
 
-    public override void OnNavigatedTo(NavigatedToEventArgs args, ObservableCollection<Comic>? favorites)
+    public override async void OnAppearing()
     {
-        base.OnNavigatedTo(args, favorites);
+        base.OnAppearing();
 
-        if(favorites != null)
-            this.FavoriteComics = favorites;
+        // service handles empty or full list situations
+        await comicDataService.LoadFavoriteComicsAsync(FavoriteComics);
     }
 }

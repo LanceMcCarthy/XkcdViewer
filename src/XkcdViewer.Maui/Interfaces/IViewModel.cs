@@ -14,7 +14,10 @@ public interface IViewModel
 
     void OnNavigatedFrom(NavigatedFromEventArgs args);
 
+    //void OnNavigatedTo(
+    //    NavigatedToEventArgs args, 
+    //    ObservableCollection<Comic>? favoriteComics);
+
     void OnNavigatedTo(
-        NavigatedToEventArgs args, 
-        ObservableCollection<Comic>? favoriteComics);
+        NavigatedToEventArgs args);
 }

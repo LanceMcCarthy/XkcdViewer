@@ -52,42 +52,4 @@
                           Route="Favorites" />
         </Tab>
     </TabBar>
-
-    <!--<ShellContent Title="Home"
-                  ContentTemplate="{DataTemplate views:MainPage}"
-                  Route="Main" />
-
-    <ShellContent Title="Favorites"
-                  ContentTemplate="{DataTemplate views:FavoritesPage}"
-                  Route="Favorites" />-->
-
-    <!--<FlyoutItem x:Name="HomeFlyoutItem"
-                Title="Home">
-        <FlyoutItem.Icon>
-            <FontImageSource FontAutoScalingEnabled="True"
-                             FontFamily="Font Awesome 6 Free Regular"
-                             Glyph="{x:Static resources:IconFont.Home}"
-                             Color="{StaticResource Primary}" />
-        </FlyoutItem.Icon>
-        <ShellContent Title="Home"
-                      ContentTemplate="{DataTemplate views:MainPage}"
-                      x:DataType="viewModels:MainViewModel"
-                      Route="MonitoredAccounts" />
-    </FlyoutItem>
-
-    <FlyoutItem x:Name="FavoritesFlyoutItem"
-                Route="Favorites"
-                Title="Favorites">
-        <FlyoutItem.Icon>
-            <FontImageSource FontAutoScalingEnabled="True"
-                             FontFamily="Font Awesome 6 Free Regular"
-                             Glyph="{x:Static resources:IconFont.GrinStars}"
-                             Color="{StaticResource Primary}" />
-        </FlyoutItem.Icon>
-        <ShellContent Title="Settings"
-                      ContentTemplate="{DataTemplate views:FavoritesPage}"
-                      x:DataType="viewModels:FavoritesPageViewModel"
-                      Route="Settings" />
-    </FlyoutItem>-->
-
 </Shell>

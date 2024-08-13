@@ -6,16 +6,16 @@ namespace XkcdViewer.Maui.Views;
 
 public class BasePage : ContentPage, IQueryAttributable
 {
-    public ObservableCollection<Comic>? Favorites { get; private set; }
+    //public ObservableCollection<Comic>? Favorites { get; private set; }
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        if (query.TryGetValue("FavoriteComics", out var favoriteComics))
-        {
-            Favorites = favoriteComics as ObservableCollection<Comic>;
+        //if (query.TryGetValue(CommonStrings.FavoriteComicsParameter, out var favoriteComics))
+        //{
+        //    Favorites = favoriteComics as ObservableCollection<Comic>;
 
-            OnPropertyChanged(nameof(Favorites));
-        }
+        //    OnPropertyChanged(nameof(Favorites));
+        //}
     }
 
     #region Navigation and Lifecycle Methods that view models can hook into safely
@@ -46,8 +46,12 @@ public class BasePage : ContentPage, IQueryAttributable
 
         if(BindingContext is PageViewModelBase viewModel)
         {
-            viewModel.OnNavigatedTo(args, Favorites);
+            //viewModel.OnNavigatedTo(args, Favorites);
+
+            viewModel.OnNavigatedTo(args);
         }
+
+
     }
 
     protected override void OnAppearing()

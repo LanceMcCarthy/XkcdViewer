@@ -20,11 +20,10 @@ public class MainPageViewModel : PageViewModelBase
 
         FetchComicCommand = new Command(async (c) => await FetchComicAsync());
         ShareCommand = new Command(async c => await ShareItemAsync());
-        ShowFavoritesCommand = new Command(async e => await ShowFavoritesAsync());
         ToggleFavoriteCommand = new Command(async (c) => await ToggleFavorite(CurrentComic));
     }
 
-    public ObservableCollection<Comic> Comics { get; } = new();
+    public ObservableCollection<Comic> Comics { get; } = [];
 
     public Comic? CurrentComic
     {
@@ -45,8 +44,6 @@ public class MainPageViewModel : PageViewModelBase
     }
 
     public Command FetchComicCommand { get; set; }
-
-    public Command ShowFavoritesCommand { get; set; }
 
     public Command ShareCommand { get; set; }
 
@@ -98,20 +95,11 @@ public class MainPageViewModel : PageViewModelBase
         });
     }
 
-    public async Task ShowFavoritesAsync()
-    {
-        var favorites = Comics.Where(c => c.IsFavorite);
-
-        await Shell.Current.GoToAsync("/Favorites", new Dictionary<string, object>
-        {
-            { "SelectedComic", favorites }
-        });
-    }
-
     public override async void OnAppearing()
     {
         base.OnAppearing();
 
+        // service handles empty or full list situations
         await comicDataService.LoadComicsAsync(Comics);
     }
 }

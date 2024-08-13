@@ -1,12 +1,15 @@
 ﻿using CommonHelpers.Services.DataModels;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 
 namespace XkcdViewer.Maui.Models;
 
 public class Comic : XkcdComic, INotifyPropertyChanged
 {
-    private bool isFavorite; 
+    private bool isFavorite;
+
+    [DataMember(Name = "fav")]
     public bool IsFavorite
     {
         get => isFavorite;

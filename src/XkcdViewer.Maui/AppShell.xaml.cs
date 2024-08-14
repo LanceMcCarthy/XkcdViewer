@@ -1,6 +1,4 @@
-﻿using XkcdViewer.Maui.Views;
-
-namespace XkcdViewer.Maui;
+﻿namespace XkcdViewer.Maui;
 
 public partial class AppShell : Shell
 {

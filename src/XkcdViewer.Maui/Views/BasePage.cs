@@ -1,20 +1,15 @@
-﻿using System.Collections.ObjectModel;
-using XkcdViewer.Maui.Models;
-using XkcdViewer.Maui.ViewModels;
+﻿using XkcdViewer.Maui.ViewModels;
 
 namespace XkcdViewer.Maui.Views;
 
 public class BasePage : ContentPage, IQueryAttributable
 {
-    //public ObservableCollection<Comic>? Favorites { get; private set; }
-
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        //if (query.TryGetValue(CommonStrings.FavoriteComicsParameter, out var favoriteComics))
+        //if (query.TryGetValue("NameOfParam", out var paramValue))
         //{
-        //    Favorites = favoriteComics as ObservableCollection<Comic>;
-
-        //    OnPropertyChanged(nameof(Favorites));
+        //    this.PublicBasePageProperty = paramValue;
+        //    OnPropertyChanged(nameof(PublicBasePageProperty));
         //}
     }
 

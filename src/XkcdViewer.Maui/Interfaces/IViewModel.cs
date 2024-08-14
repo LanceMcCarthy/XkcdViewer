@@ -1,8 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using CommonHelpers.Models;
-using XkcdViewer.Maui.Models;
-
-namespace XkcdViewer.Maui.Interfaces;
+﻿namespace XkcdViewer.Maui.Interfaces;
 
 public interface IViewModel
 {
@@ -13,10 +9,6 @@ public interface IViewModel
     void OnNavigatingFrom(NavigatingFromEventArgs args);
 
     void OnNavigatedFrom(NavigatedFromEventArgs args);
-
-    //void OnNavigatedTo(
-    //    NavigatedToEventArgs args, 
-    //    ObservableCollection<Comic>? favoriteComics);
 
     void OnNavigatedTo(
         NavigatedToEventArgs args);

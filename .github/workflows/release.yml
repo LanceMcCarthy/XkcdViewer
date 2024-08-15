@@ -75,7 +75,7 @@ jobs:
     # Compile and publish the WinUI project
     - name: Build Maui WinUI project
       shell: pwsh
-      run: dotnet publish ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true
+      run: dotnet publish ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true -p:AppxBundleDir=${{env.WINDOWS_ARTIFACTS_PATH}}
 
     # Login to Azure CLI
     # No secrets needed! This will use the GitHub OIDC token to authenticate.
@@ -114,16 +114,16 @@ jobs:
         exclude-interactive-browser-credential: true
 
     # Find the signed msix files and copy them to the artifacts folder
-    - name: Copy msix into artifacts folder
-      shell: pwsh 
-      run: Get-Childitem -Path ${{github.workspace}} -Include *.msix -File -Recurse | Copy-Item -Destination ${{env.WINDOWS_ARTIFACTS_PATH}}
+    # - name: Copy msix into artifacts folder
+    #   shell: pwsh 
+    #   run: Get-Childitem -Path ${{github.workspace}} -Include *.msix -File -Recurse | Copy-Item -Destination "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}"
 
     # Attaching the msix files to the GitHub artifacts for each build (this is not a GitHub release)
     - name: Publish build artifacts
       uses: actions/upload-artifact@v4
       with:     
         name: "XkcdViewer_v${{steps.version-creator.outputs.APP_VERSION}}.msix" 
-        path: ${{env.WINDOWS_ARTIFACTS_PATH}}/*.msix
+        path: ${{github.workspace}}/${{env.WINDOWS_ARTIFACTS_PATH}}/**/*.msix
         if-no-files-found: error
         retention-days: 30
 
@@ -135,7 +135,7 @@ jobs:
         name: "XkcdViewer v.${{steps.version-creator.outputs.APP_VERSION}}"
         tag_name: "v${{steps.version-creator.outputs.APP_VERSION}}"
         body: "This is v.${{steps.version-creator.outputs.APP_VERSION}} of the xkcd viewer app. To install, download and run the .msix installer file."
-        files: ${{env.WINDOWS_ARTIFACTS_PATH}}/*.msix
+        files: ${{github.workspace}}/${{env.WINDOWS_ARTIFACTS_PATH}}/**/*.msix
 
 
   # ****************************************************************** #

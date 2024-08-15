@@ -11,4 +11,5 @@ A .NET MAUI application that loads xkcd comics in a fluid manner, with option to
 
 ## App
 
-![image](https://github.com/user-attachments/assets/228b04db-099b-4b57-bee9-873885fb2ec3)
+![image](https://github.com/user-attachments/assets/35b2838f-5da4-43f8-8f36-0ee6d9e99b0c)
+

@@ -124,7 +124,7 @@ jobs:
       with:     
         name: "XkcdViewer_v${{steps.version-creator.outputs.APP_VERSION}}.msix" 
         path: ${{env.WINDOWS_ARTIFACTS_PATH}}/*.msix
-        if-no-files-found: fail
+        if-no-files-found: error
         retention-days: 30
 
     # Create a GitHub Release with the msix file(s) attached
@@ -196,16 +196,16 @@ jobs:
     - name: Copy signed APKs & AABs
       shell: pwsh 
       run: |
-          Get-Childitem -Path ${{github.workspace}} -Include *Signed.apk -File -Recurse | Copy-Item -Destination ${{env.ANDROID_ARTIFACTS_PATH}}
-          Get-Childitem -Path ${{github.workspace}} -Include *Signed.aab -File -Recurse | Copy-Item -Destination ${{env.ANDROID_ARTIFACTS_PATH}}
+          Get-Childitem -Path ${{github.workspace}} -Include *.apk -File -Recurse | Copy-Item -Destination ${{env.ANDROID_ARTIFACTS_PATH}}
+          Get-Childitem -Path ${{github.workspace}} -Include *.aab -File -Recurse | Copy-Item -Destination ${{env.ANDROID_ARTIFACTS_PATH}}
 
     - name: Publish Android build artifacts
       uses: actions/upload-artifact@v4
       with:     
         name: "Android artifacts" 
         path: |
-          "${{env.ANDROID_ARTIFACTS_PATH}}/**/*Signed.apk"
-          "${{env.ANDROID_ARTIFACTS_PATH}}/**/*Signed.aab"
+          "${{env.ANDROID_ARTIFACTS_PATH}}/**/*.apk"
+          "${{env.ANDROID_ARTIFACTS_PATH}}/**/*.aab"
         if-no-files-found: warn
         retention-days: 30
 

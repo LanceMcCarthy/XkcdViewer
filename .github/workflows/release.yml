@@ -12,6 +12,7 @@ env:
   MACOS_ARTIFACTS_PATH: "artifacts_macos"
   IOS_ARTIFACTS_PATH: "artifacts_ios"
   ANDROID_ARTIFACTS_PATH: "artifacts_android"
+  WINDOWS_ARTIFACTS_PATH: "artifacts_windows"
   TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
   TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
 
@@ -21,9 +22,10 @@ jobs:
   # ****************************************************************** #
   maui-windows:
     runs-on: windows-2022
-    permissions:  # Permissions used by the Azure CLI login using OIDC (allows authentication without any secrets in the workflow)
+    permissions:  # Permissions for Azure CLI login using OIDC and publishing a GitHub Release
       id-token: write
-      contents: read
+      contents: write
+      discussions: write
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -74,7 +76,7 @@ jobs:
     - name: Build Maui WinUI project
       shell: pwsh
       run: dotnet publish ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true
-    
+
     # Login to Azure CLI
     # No secrets needed! This will use the GitHub OIDC token to authenticate.
     - name: Azure login using OIDC via GitHub
@@ -111,14 +113,30 @@ jobs:
         exclude-azure-developer-cli-credential: true
         exclude-interactive-browser-credential: true
 
+    # Find the signed msix files and copy them to the artifacts folder
+    - name: Copy msix into artifacts folder
+      shell: pwsh 
+      run: Get-Childitem -Path ${{github.workspace}} -Include *.msix -File -Recurse | Copy-Item -Destination ${{env.WINDOWS_ARTIFACTS_PATH}}
+
     # Attaching the msix files to the GitHub artifacts for each build (this is not a GitHub release)
     - name: Publish build artifacts
       uses: actions/upload-artifact@v4
       with:     
-        name: "WinUI .NET MAUI artifacts" 
-        path: ${{github.workspace}}/**/*.msix
-        if-no-files-found: warn
+        name: "XkcdViewer_v${{steps.version-creator.outputs.APP_VERSION}}.msix" 
+        path: ${{env.WINDOWS_ARTIFACTS_PATH}}/*.msix
+        if-no-files-found: fail
         retention-days: 30
+
+    # Create a GitHub Release with the msix file(s) attached
+    - name: Create GitHub Release
+      id: create_release
+      uses: softprops/action-gh-release@v2
+      with:
+        name: "XkcdViewer v.${{steps.version-creator.outputs.APP_VERSION}}"
+        tag_name: "v${{steps.version-creator.outputs.APP_VERSION}}"
+        body: "This is v.${{steps.version-creator.outputs.APP_VERSION}} of the xkcd viewer app. To install, download and run the .msix installer file."
+        files: ${{env.WINDOWS_ARTIFACTS_PATH}}/*.msix
+
 
   # ****************************************************************** #
   #                          Android build                             #

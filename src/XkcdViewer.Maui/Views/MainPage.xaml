@@ -10,7 +10,7 @@
                 x:Name="ThisPage"
                 Title="{Binding Title}">
 
-    <Grid RowDefinitions="auto,*,*">
+    <Grid RowDefinitions="auto,2*,*">
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="Center"
                      Grid.Row="0"

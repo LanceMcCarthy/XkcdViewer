@@ -74,4 +74,6 @@
   <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
 		<PackageReference Include="WinUIEx" Version="2.3.4" />
 	</ItemGroup>
+
+	<!--<Import Project="Microsoft.Build.Msix.Packaging.MsixBundle.targets" />-->
 </Project>

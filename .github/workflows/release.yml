@@ -77,6 +77,14 @@ jobs:
       shell: pwsh
       run: dotnet publish ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true
 
+    # find the msix path ahead of time, to make it easier for the next set of steps and publishing the GitHub release
+    - name: Locate msix
+      id: find-msix
+      shell: pwsh
+      run: |
+        $msixPath = Get-ChildItem -Filter XkcdViewer*.msix -Recurse | %{$_.FullName}
+        echo "PACKAGE_PATH=$msixPath" >> $env:GITHUB_OUTPUT
+
     # Login to Azure CLI
     # No secrets needed! This will use the GitHub OIDC token to authenticate.
     - name: Azure login using OIDC via GitHub
@@ -118,7 +126,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:     
         name: "XkcdViewer_v${{steps.version-creator.outputs.APP_VERSION}}.msix" 
-        path: ${{github.workspace}}/**/*.msix
+        path: ${{steps.find-msix.outputs.PACKAGE_PATH}}
         if-no-files-found: error
         retention-days: 30
 
@@ -131,7 +139,7 @@ jobs:
         name: "XkcdViewer v.${{steps.version-creator.outputs.APP_VERSION}}"
         tag_name: "v${{steps.version-creator.outputs.APP_VERSION}}"
         body: "This is v.${{steps.version-creator.outputs.APP_VERSION}} of the xkcd viewer app. To install, download and run the .msix installer file."
-        files: ${{github.workspace}}/**/*.msix
+        files: ${{steps.find-msix.outputs.PACKAGE_PATH}}
 
 
   # ****************************************************************** #

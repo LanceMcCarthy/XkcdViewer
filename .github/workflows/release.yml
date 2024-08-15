@@ -118,7 +118,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:     
         name: "XkcdViewer_v${{steps.version-creator.outputs.APP_VERSION}}.msix" 
-        path: '*.msix'
+        path: ${{github.workspace}}/**/*.msix
         if-no-files-found: error
         retention-days: 30
 
@@ -131,7 +131,7 @@ jobs:
         name: "XkcdViewer v.${{steps.version-creator.outputs.APP_VERSION}}"
         tag_name: "v${{steps.version-creator.outputs.APP_VERSION}}"
         body: "This is v.${{steps.version-creator.outputs.APP_VERSION}} of the xkcd viewer app. To install, download and run the .msix installer file."
-        files: '*.msix'
+        files: ${{github.workspace}}/**/*.msix
 
 
   # ****************************************************************** #

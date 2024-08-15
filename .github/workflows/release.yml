@@ -43,12 +43,12 @@ jobs:
 
     # This generates a unique version number using the date and the workflow run number (e.g. 2022.0314.1.0)
     - name: Generate version number using date and run number
-      shell: pwsh
       id: version-creator
       run: |
         $buildDay = Get-Date -Format "yyyy.Mdd"
-        $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
-        echo "APP_VERSION=$ver" >> $GITHUB_OUTPUT
+        $runNumber = "$env:GITHUB_RUN_NUMBER"
+        $ver = $buildDay + "." + $runNumber + ".0"
+        echo "APP_VERSION=$ver" >> $env:GITHUB_OUTPUT
 
     # We need to make sure the appxmanifest uses the same Identity that Azure Trusted Signing is expecting.
     - name: Update manifest

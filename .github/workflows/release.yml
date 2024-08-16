@@ -75,7 +75,7 @@ jobs:
     # Compile and publish the WinUI project
     - name: Build Maui WinUI project
       shell: pwsh
-      run: dotnet publish ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true
+      run: dotnet publish ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" -p:RuntimeIdentifierOverride=win10-x64 -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
 
     # find the msix path ahead of time, to make it easier for the next set of steps and publishing the GitHub release
     - name: Locate msix

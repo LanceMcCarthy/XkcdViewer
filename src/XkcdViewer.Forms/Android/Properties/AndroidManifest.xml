@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="com.lancelotSoftware.xkcdViewer" android:versionName="2019.718.1" android:versionCode="5">
-	<uses-sdk android:targetSdkVersion="28" android:minSdkVersion="19" />
-	<uses-permission android:name="android.permission.INTERNET" />
-	<application android:name="XkcdViewer" android:label="XkcdViewer" android:icon="@drawable/icon" android:theme="@style/MyTheme" />
-</manifest>

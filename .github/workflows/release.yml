@@ -102,10 +102,12 @@ jobs:
     - name: Generate msixbundle
       id: find-msix-file
       run: |
+        $sdkToolsPath = Join-Path -Path 'C:\Program Files (x86)\Windows Kits\10\bin' -ChildPath $SdkVersion -AdditionalChildPath $Architecture
+        $env:Path += ";$sdkToolsPath"
         $msixDestinationFolder = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}"
         Get-ChildItem -Filter XkcdViewer.Maui*.msix -Recurse | %{ Copy-Item $_.FullName -Destination $msixDestinationFolder }
         $msixBundlePath = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
-        makeappx bundle /bv "${{needs.shared-resources.outputs.app_version}}" /d $msixDestinationFolder /p $msixBundlePath
+        MakeAppx.exe bundle /bv "${{needs.shared-resources.outputs.app_version}}" /d $msixDestinationFolder /p $msixBundlePath
         echo "msixbundle_path=$msixBundlePath" >> $env:GITHUB_OUTPUT
 
     # Attaching the asset to workflow run

@@ -9,8 +9,8 @@ permissions:
   discussions: write
 
 defaults:
-      run:
-        shell: pwsh
+  run:
+    shell: pwsh
 
 env:
   CSPROJ_PATH: "src/XkcdViewer.Maui/XkcdViewer.Maui.csproj"
@@ -31,12 +31,8 @@ jobs:
   shared-resources:
     name: Create Shared Resources
     runs-on: windows-2022
-    defaults:
-      run:
-        shell: pwsh
     outputs:
       app_version: ${{steps.version-creator.outputs.app_version}}
-      upload_url: ${{steps.create_release.outputs.upload_url}}
     steps:
     # Generates a version number using year.monthday.run_number.0 (e.g., 2024.824.1.0)
     - name: Generate version number using date and run number
@@ -47,18 +43,6 @@ jobs:
         $ver = $buildDay + "." + $runNumber + ".0"
         echo "app_version=$ver" >> $env:GITHUB_OUTPUT
 
-    # Create a new GitHub Release tagged with the build version number (via https://github.com/actions/create-release)
-    - name: Create GitHub Release
-      if: ${{ steps.version-creator.outputs.app_version != '' }}
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      with:
-        tag_name: "v${{steps.version-creator.outputs.app_version}}"
-        release_name: "XkcdViewer v${{steps.version-creator.outputs.app_version}}"
-        body: This is v${{steps.version-creator.outputs.app_version}} of the xkcd viewer app. To install, use the appropriate installer file for your device.
-
 
 # ******************************************************************************************************** #
 #                            >>>>>>> Windows Microsoft Store build <<<<<<<                                 #
@@ -67,7 +51,7 @@ jobs:
     name: Build Windows MS Store
     needs: shared-resources
     runs-on: windows-2022
-    if: ${{ needs.shared-resources.outputs.app_version != '' && needs.shared-resources.outputs.upload_url != '' }}
+    if: ${{ needs.shared-resources.outputs.app_version != ''}}
     env:
       RID: win10-x64
       TFM: net8.0-windows10.0.19041.0
@@ -108,15 +92,15 @@ jobs:
 
     # Compile and publish the WinUI project for the Microsoft Store (no code signing)
     - name: Build Maui WinUI project
-      run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.TFM}}" -p:RuntimeIdentifierOverride=${{env.RID}} -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
+      run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.TFM}}" -p:RuntimeIdentifierOverride=${{env.RID}} -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true -p:AppxPackageDir="${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\"
 
     # Find the msix file
-    - name: Locate msix
-      id: find-msix-file
-      run: |
-        $msixPath = Get-ChildItem -Filter XkcdViewer.Maui*.msix -Recurse | %{$_.FullName}
-        Copy-Item $msixPath -Destination "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}"
-        echo "PACKAGE_PATH=$msixPath" >> $env:GITHUB_OUTPUT
+    # - name: Locate msix
+    #   id: find-msix-file
+    #   run: |
+    #     $msixPath = Get-ChildItem -Filter XkcdViewer.Maui*.msix -Recurse | %{$_.FullName}
+    #     Copy-Item $msixPath -Destination "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}"
+    #     echo "PACKAGE_PATH=$msixPath" >> $env:GITHUB_OUTPUT
 
     - name: Make msixbundle
       id: bundler
@@ -135,17 +119,6 @@ jobs:
         if-no-files-found: error
         retention-days: 30
 
-    # https://github.com/actions/upload-release-asset
-    - name: Attach asset to GitHub Release
-      id: upload-release-asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{needs.shared-resources.outputs.upload_url}}
-        asset_path: ${{steps.bundler.outputs.msixbundle_path}}
-        asset_name: "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_MsftStoreOnly.msix"
-        asset_content_type: application/zip
 
   # ******************************************************************************************************** #
   #                                >>>>>>> Windows Sideload build <<<<<<<                                    #
@@ -154,7 +127,7 @@ jobs:
     name: Build Windows Sideload
     needs: shared-resources
     runs-on: windows-2022
-    if: ${{ needs.shared-resources.outputs.app_version != '' && needs.shared-resources.outputs.upload_url != '' }}
+    if: ${{ needs.shared-resources.outputs.app_version != ''}}
     strategy:
       matrix:
         RID: [win10-arm64, win10-x64]
@@ -242,18 +215,6 @@ jobs:
         if-no-files-found: error
         retention-days: 30
 
-    # https://github.com/actions/upload-release-asset
-    - name: Attach asset to GitHub Release
-      id: upload-release-asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{needs.shared-resources.outputs.upload_url}}
-        asset_path: ${{steps.find-msix-file.outputs.PACKAGE_PATH}}
-        asset_name: "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_${{matrix.RID}}.msix"
-        asset_content_type: application/zip
-
 
   # ******************************************************************************************************** #
   #                                     >>>>>>> Android build <<<<<<<                                        #
@@ -262,7 +223,7 @@ jobs:
     name: Build Android
     needs: shared-resources
     runs-on: windows-2022
-    if: ${{ needs.shared-resources.outputs.app_version != '' && needs.shared-resources.outputs.upload_url != '' }}
+    if: ${{ needs.shared-resources.outputs.app_version != ''}}
     env:
       RID: android-arm64
       TFM: net8.0-android
@@ -312,17 +273,6 @@ jobs:
     #     if-no-files-found: warn
     #     retention-days: 10
 
-    # # https://github.com/actions/upload-release-asset
-    # - name: Attach asset to GitHub Release
-    #   id: upload-release-asset
-    #   uses: actions/upload-release-asset@v1
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #   with:
-    #     upload_url: ${{needs.shared-resources.outputs.upload_url}}
-    #     asset_path: "${{github.workspace}}/**/*Signed.a*"
-    #     asset_name: "NoteTakingApp_v${{needs.shared-resources.outputs.app_version}}_Android.aab"
-    #     asset_content_type: application/zip
 
   # ******************************************************************************************************** #
   #                                       >>>>>>> iOS Build <<<<<<<                                          #
@@ -331,7 +281,7 @@ jobs:
     name: Build iOS
     needs: shared-resources
     runs-on: macos-12
-    if: ${{ needs.shared-resources.outputs.app_version != '' && needs.shared-resources.outputs.upload_url != '' }}
+    if: ${{ needs.shared-resources.outputs.app_version != ''}}
     # Consider matrix for text flight and sideload
     env:
       RID: ios-arm64
@@ -403,17 +353,6 @@ jobs:
     #     if-no-files-found: warn
     #     retention-days: 30
 
-    # # https://github.com/actions/upload-release-asset
-    # - name: Attach asset to GitHub Release
-    #   id: upload-release-asset
-    #   uses: actions/upload-release-asset@v1
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #   with:
-    #     upload_url: ${{needs.shared-resources.outputs.upload_url}}
-    #     asset_path: "*.app"
-    #     asset_name: "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_iOS.app"
-    #     asset_content_type: application/zip
 
   # ******************************************************************************************************** #
   #                                  >>>>>>> MacCatalyst Build <<<<<<<                                       #
@@ -422,7 +361,7 @@ jobs:
     name: Build MacCatalyst
     needs: shared-resources
     runs-on: macos-12
-    if: ${{ needs.shared-resources.outputs.app_version != '' && needs.shared-resources.outputs.upload_url != '' }}
+    if: ${{ needs.shared-resources.outputs.app_version != ''}}
     strategy:
       matrix:
         RID: [maccatalyst-arm64, maccatalyst-x64]
@@ -492,14 +431,30 @@ jobs:
     #     api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
     #     api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
 
-    # https://github.com/actions/upload-release-asset
-    # - name: Attach asset to GitHub Release
-    #   id: upload-release-asset
-    #   uses: actions/upload-release-asset@v1
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #   with:
-    #     upload_url: ${{needs.shared-resources.outputs.upload_url}}
-    #     asset_path: "${{github.workspace}}/**/*.pkg"
-    #     asset_name: "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_${{matrix.RID}}.pkg"
-    #     asset_content_type: application/zip
+    # - name: Publish MacCatalyst build artifacts
+    #   uses: actions/upload-artifact@v4
+    #   with:     
+    #     name: "MacCatalyst artifacts" 
+    #     path: "*.pkg"
+    #     if-no-files-found: warn
+    #     retention-days: 30
+
+  # ******************************************************************************************************** #
+  #                                >>>>>>> Create GitHub Release <<<<<<<                                 #
+  # ******************************************************************************************************** #
+  create-gh-release:
+    name: Create Shared Resources
+    if: ${{ needs.shared-resources.outputs.app_version != ''}}
+    runs-on: windows-2022
+    needs: [shared-resources, maui-macos, maui-ios, maui-android, maui-windows-sideload, maui-windows-msstore]
+    steps:
+    - uses: actions/download-artifact@v4
+      with:
+        path: ${{github.workspace}}/artifacts
+
+    - name: Release
+      uses: softprops/action-gh-release@v2
+      with:
+        name: "XkcdViewer v${{needs.shared-resources.outputs.app_version}}"
+        body: This is v${{needs.shared-resources.outputs.app_version}} of the xkcd viewer app. To install, use the appropriate installer file for your device.
+        files: ${{github.workspace}}/artifacts/*

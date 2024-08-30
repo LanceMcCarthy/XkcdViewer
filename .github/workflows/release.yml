@@ -109,7 +109,7 @@ jobs:
     # Compile and publish the WinUI project for the Microsoft Store (no code signing)
     - name: Build Maui WinUI project
       run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.TFM}}" -p:RuntimeIdentifierOverride=${{env.RID}} -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
-    
+
     # Find the msix file
     - name: Locate msix
       id: find-msix-file
@@ -122,7 +122,7 @@ jobs:
       id: bundler
       uses: LanceMcCarthy/Action-MsixBundler@v2.0.0
       with:
-        msix-folder: ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}
+        msix-folder: ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\
         msixbundle-filepath: ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_MsftStoreOnly.msixbundle
         msixbundle-version: ${{needs.shared-resources.outputs.app_version}}
 

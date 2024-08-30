@@ -115,14 +115,16 @@ jobs:
       id: find-msix-file
       run: |
         $msixPath = Get-ChildItem -Filter XkcdViewer.Maui*.msix -Recurse | %{$_.FullName}
+        $parentFolder = Split-Path -Path $msixPath -Parent
         echo "PACKAGE_PATH=$msixPath" >> $env:GITHUB_OUTPUT
+        echo "PACKAGE_FOLDER=$parentFolder" >> $env:GITHUB_OUTPUT
 
     - name: Make msixbundle
       id: bundler
       uses: LanceMcCarthy/Action-MsixBundler@v2.0.0
       with:
-        msix-folder: ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}
-        msixbundle-filepath: ${{steps.find-msix-file.outputs.PACKAGE_PATH}}
+        msix-folder: ${{steps.find-msix-file.outputs.PACKAGE_FOLDER}}
+        msixbundle-filepath: ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_MsftStoreOnly.msixbundle
         msixbundle-version: ${{needs.shared-resources.outputs.app_version}}
 
     # Attaching the asset to workflow run

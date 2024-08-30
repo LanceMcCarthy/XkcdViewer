@@ -33,3 +33,4 @@ A .NET MAUI application, built with Telerik UI for Maui, to explore and favorite
 
 ### Mac
 
+![mac](.images/maccatalyst/SS1.png)

@@ -9,8 +9,7 @@
        xmlns:services="clr-namespace:XkcdViewer.Maui.Services"
        xmlns:models="clr-namespace:XkcdViewer.Maui.Models"
        ios:Page.UseSafeArea="True"
-       FlyoutBehavior="Disabled"
-       Title="xkcd">
+       FlyoutBehavior="Disabled">
     <Shell.SearchHandler>
         <services:ComicSearchHandler ShowsResults="true"
                                      SearchBoxVisibility="Collapsible "
@@ -33,7 +32,7 @@
     </Shell.SearchHandler>
 
     <TabBar>
-        <Tab Title="Home">
+        <Tab Title="">
             <Tab.Icon>
                 <FontImageSource FontFamily="Font Awesome 6 Free Regular" 
                                  Glyph="{x:Static resources:IconFont.Home}"/>
@@ -42,7 +41,7 @@
                           ContentTemplate="{DataTemplate views:MainPage}"
                           Route="Main" />
         </Tab>
-        <Tab Title="Favorites">
+        <Tab Title="">
             <Tab.Icon>
                 <FontImageSource FontFamily="Font Awesome 6 Free Regular" 
                                  Glyph="{x:Static resources:IconFont.Heart}"/>

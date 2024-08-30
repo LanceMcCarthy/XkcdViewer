@@ -15,7 +15,6 @@ public class FavoritesPageViewModel : PageViewModelBase
     {
         comicDataService = comicDataServ;
         mainViewModel = mainVm;
-        Title = "Favorites";
 
         ShareCommand = new Command(async c => await ShareItem());
 

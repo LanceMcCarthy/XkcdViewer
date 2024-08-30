@@ -16,8 +16,6 @@ public class MainPageViewModel : PageViewModelBase
     {
         comicDataService = comicDataServ;
 
-        Title = DeviceInfo.Platform == DevicePlatform.iOS || DeviceInfo.Platform == DevicePlatform.MacCatalyst ? "XKCD Comic Viewer" : "XKCD Viewer";
-
         FetchComicCommand = new Command(async (c) => await FetchComicAsync());
         ShareCommand = new Command(async c => await ShareItemAsync());
         ToggleFavoriteCommand = new Command(async (c) => await ToggleFavorite(CurrentComic));

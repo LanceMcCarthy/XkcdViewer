@@ -7,8 +7,8 @@
                 xmlns:views="clr-namespace:XkcdViewer.Maui.Views"
                 x:Class="XkcdViewer.Maui.Views.MainPage"
                 x:DataType="viewModels:MainPageViewModel"
-                x:Name="ThisPage"
-                Title="{Binding Title}">
+                Title=""
+                x:Name="ThisPage">
 
     <Grid RowDefinitions="auto,2*,*">
         <StackLayout Orientation="Horizontal"

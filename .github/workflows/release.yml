@@ -90,25 +90,23 @@ jobs:
         $manifest.Package.Applications.Application.VisualElements.DisplayName = "xkcd Viewer"
         $manifest.save("src\XkcdViewer.Maui\Platforms\Windows\Package.appxmanifest")
 
-    # Compile and publish the WinUI project for the Microsoft Store (no code signing)
+    # Compile and publish the WinUI x64 project for the Microsoft Store (no code signing)
     - name: Build Maui WinUI project
-      run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.TFM}}" -p:RuntimeIdentifierOverride=${{env.RID}} -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true -p:AppxPackageDir="${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\"
+      run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.TFM}}" -p:RuntimeIdentifierOverride="win10-x64" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
+
+      # Compile and publish the WinUI ARM64 project for the Microsoft Store (no code signing)
+    - name: Build Maui WinUI project
+      run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.TFM}}" -p:RuntimeIdentifierOverride="win10-arm64" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
 
     # Find the msix file
-    # - name: Locate msix
-    #   id: find-msix-file
-    #   run: |
-    #     $msixPath = Get-ChildItem -Filter XkcdViewer.Maui*.msix -Recurse | %{$_.FullName}
-    #     Copy-Item $msixPath -Destination "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}"
-    #     echo "PACKAGE_PATH=$msixPath" >> $env:GITHUB_OUTPUT
-
-    - name: Make msixbundle
-      id: bundler
-      uses: LanceMcCarthy/Action-MsixBundler@v2.0.0
-      with:
-        msix-folder: ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\
-        msixbundle-filepath: ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_MsftStoreOnly.msixbundle
-        msixbundle-version: ${{needs.shared-resources.outputs.app_version}}
+    - name: Generate msixbundle
+      id: find-msix-file
+      run: |
+        $msixDestinationFolder = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}"
+        Get-ChildItem -Filter XkcdViewer.Maui*.msix -Recurse | %{ Copy-Item $_.FullName -Destination $msixDestinationFolder }
+        $msixBundlePath = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
+        makeappx bundle /bv "${{needs.shared-resources.outputs.app_version}}" /d $msixDestinationFolder /p $msixBundlePath
+        echo "msixbundle_path=$msixBundlePath" >> $env:GITHUB_OUTPUT
 
     # Attaching the asset to workflow run
     - name: Attach artifacts
@@ -444,7 +442,7 @@ jobs:
   # ******************************************************************************************************** #
   create-gh-release:
     name: Create Shared Resources
-    if: ${{ needs.shared-resources.outputs.app_version != ''}}
+    if: ${{ success() }}
     runs-on: windows-2022
     needs: [shared-resources, maui-macos, maui-ios, maui-android, maui-windows-sideload, maui-windows-msstore]
     steps:

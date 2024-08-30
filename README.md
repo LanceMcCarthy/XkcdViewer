@@ -21,13 +21,15 @@ A .NET MAUI application, built with Telerik UI for Maui, to explore and favorite
 
 ### Windows
 
-![winui](https://github.com/user-attachments/assets/35b2838f-5da4-43f8-8f36-0ee6d9e99b0c)
+![winui](.images/winui/xkcd_screenshot1.png)
 
 ### Android
 
 ![android](https://github.com/user-attachments/assets/8524015d-15e1-4d47-b998-199c7ebbe29b)
 
+### iOS
+
+![all ios](.images/ios/all.png)
 
 ### Mac
 
-### iOS

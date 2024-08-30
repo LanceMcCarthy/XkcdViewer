@@ -117,12 +117,20 @@ jobs:
         $msixPath = Get-ChildItem -Filter XkcdViewer.Maui*.msix -Recurse | %{$_.FullName}
         echo "PACKAGE_PATH=$msixPath" >> $env:GITHUB_OUTPUT
 
+    - name: Make msixbundle
+      id: bundler
+      uses: LanceMcCarthy/Action-MsixBundler@v2.0.0
+      with:
+        msix-folder: ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}
+        msixbundle-filepath: ${{steps.find-msix-file.outputs.PACKAGE_PATH}}
+        msixbundle-version: ${{needs.shared-resources.outputs.app_version}}
+
     # Attaching the asset to workflow run
     - name: Attach artifacts
       uses: actions/upload-artifact@v4
       with:     
         name: "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_MsftStoreOnly.msix" 
-        path: ${{steps.find-msix-file.outputs.PACKAGE_PATH}}
+        path: ${{steps.bundler.outputs.msixbundle_path}}
         if-no-files-found: error
         retention-days: 30
 
@@ -134,7 +142,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{needs.shared-resources.outputs.upload_url}}
-        asset_path: ${{steps.find-msix-file.outputs.PACKAGE_PATH}}
+        asset_path: ${{steps.bundler.outputs.msixbundle_path}}
         asset_name: "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_MsftStoreOnly.msix"
         asset_content_type: application/zip
 

@@ -29,7 +29,7 @@ A .NET MAUI application, built with Telerik UI for Maui, to explore and favorite
 
 ### iOS
 
-![all ios](.images/ios/all.png)
+![all ios](.images/ios/All.png)
 
 ### Mac
 

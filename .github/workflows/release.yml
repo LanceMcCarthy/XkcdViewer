@@ -467,12 +467,5 @@ jobs:
           - win10-x64.msix
           - win10-arm64.msix
           - MsftStoreOnly.msixbundle (only for Microsoft Store)
-        files: |
-          *.msixbundle
-          *.msix
-          *.apk
-          *.apk
-          *.app
-          *.ipa
-          *.pkg
+        files: ${{github.workspace}}/**/*
         tag_name: "v${{needs.shared-resources.outputs.app_version}}"

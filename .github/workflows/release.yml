@@ -107,7 +107,7 @@ jobs:
         $msixDestinationFolder = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}"
         Get-ChildItem -Filter XkcdViewer.Maui*.msix -Recurse | %{ Copy-Item $_.FullName -Destination $msixDestinationFolder }
         $msixBundlePath = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
-        MakeAppx.exe bundle /bv "${{needs.shared-resources.outputs.app_version}}" /d $msixDestinationFolder /p $msixBundlePath
+        MakeAppx.exe bundle /bv "${{needs.shared-resources.outputs.app_version}}" /d "./windows_artifacts/" /p $msixBundlePath
         echo "msixbundle_path=$msixBundlePath" >> $env:GITHUB_OUTPUT
 
     # Attaching the asset to workflow run

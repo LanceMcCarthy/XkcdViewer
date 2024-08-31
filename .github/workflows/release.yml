@@ -91,25 +91,29 @@ jobs:
         $manifest.save("src\XkcdViewer.Maui\Platforms\Windows\Package.appxmanifest")
 
     # Compile and publish the WinUI x64 project for the Microsoft Store (no code signing)
-    - name: Build Maui WinUI project
+    - name: Build WinUI win10-x64
       run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.TFM}}" -p:RuntimeIdentifierOverride="win10-x64" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
 
       # Compile and publish the WinUI ARM64 project for the Microsoft Store (no code signing)
-    - name: Build Maui WinUI project
+    - name: Build WinUI win10-arm64
       run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.TFM}}" -p:RuntimeIdentifierOverride="win10-arm64" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
 
     # Find the msix file
     - name: Generate msixbundle
-      id: find-msix-file
+      id: generate-msixbundle
       run: |
         $sdkToolsPath = Join-Path -Path 'C:\Program Files (x86)\Windows Kits\10\bin' -ChildPath 10.0.19041.0 -AdditionalChildPath x86
         $env:Path += ";$sdkToolsPath"
-        $msixDestinationFolder = ".\artifacts_windows\"
-        Get-ChildItem -Filter XkcdViewer.Maui*.msix -Recurse | %{ Copy-Item $_.FullName -Destination $msixDestinationFolder }
+        
+        New-Item -Path . -Name ${{env.WINDOWS_ARTIFACTS_PATH}} -ItemType Directory
 
-        $msixBundlePath = "$.\artifacts_windows\XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
+        Get-ChildItem -Filter XkcdViewer.Maui*.msix -Recurse | %{ Copy-Item $_.FullName -Destination ${{env.WINDOWS_ARTIFACTS_PATH}} }
 
-        MakeAppx.exe bundle /bv "${{needs.shared-resources.outputs.app_version}}" /d ".\artifacts_windows\" /p $msixBundlePath
+        Set-Location ${{env.WINDOWS_ARTIFACTS_PATH}}
+
+        MakeAppx.exe bundle /bv "${{needs.shared-resources.outputs.app_version}}" /d . /p "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
+
+        $msixBundlePath = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
 
         echo "msixbundle_path=$msixBundlePath" >> $env:GITHUB_OUTPUT
 

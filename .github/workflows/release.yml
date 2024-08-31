@@ -122,7 +122,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:     
         name: "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_MsftStoreOnly.msix" 
-        path: ${{steps.bundler.outputs.msixbundle_path}}
+        path: ${{steps.generate-msixbundle.outputs.msixbundle_path}}
         if-no-files-found: error
         retention-days: 30
 

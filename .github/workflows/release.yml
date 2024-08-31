@@ -25,9 +25,9 @@ env:
   TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
 
 jobs:
-  # ******************************************************************************************************** #
-  #                                >>>>>>> Generate Common Resources <<<<<<<                                 #
-  # ******************************************************************************************************** #
+  # ***************************************** #
+  # >>>>>>> Generate Common Resources <<<<<<< #
+  # ***************************************** #
   shared-resources:
     name: Create Shared Resources
     runs-on: windows-2022
@@ -44,9 +44,9 @@ jobs:
         echo "app_version=$ver" >> $env:GITHUB_OUTPUT
 
 
-# ******************************************************************************************************** #
-#                            >>>>>>> Windows Microsoft Store build <<<<<<<                                 #
-# ******************************************************************************************************** #
+# ********************************************* #
+# >>>>>>> Windows Microsoft Store build <<<<<<< #
+# ********************************************* #
   maui-windows-msstore:
     name: Build Windows MS Store
     needs: shared-resources
@@ -104,10 +104,13 @@ jobs:
       run: |
         $sdkToolsPath = Join-Path -Path 'C:\Program Files (x86)\Windows Kits\10\bin' -ChildPath 10.0.19041.0 -AdditionalChildPath x86
         $env:Path += ";$sdkToolsPath"
-        $msixDestinationFolder = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}"
+        $msixDestinationFolder = ".\artifacts_windows\"
         Get-ChildItem -Filter XkcdViewer.Maui*.msix -Recurse | %{ Copy-Item $_.FullName -Destination $msixDestinationFolder }
-        $msixBundlePath = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
-        MakeAppx.exe bundle /bv "${{needs.shared-resources.outputs.app_version}}" /d "./windows_artifacts/" /p $msixBundlePath
+
+        $msixBundlePath = "$.\artifacts_windows\XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
+
+        MakeAppx.exe bundle /bv "${{needs.shared-resources.outputs.app_version}}" /d ".\artifacts_windows\" /p $msixBundlePath
+
         echo "msixbundle_path=$msixBundlePath" >> $env:GITHUB_OUTPUT
 
     # Attaching the asset to workflow run
@@ -120,9 +123,9 @@ jobs:
         retention-days: 30
 
 
-  # ******************************************************************************************************** #
-  #                                >>>>>>> Windows Sideload build <<<<<<<                                    #
-  # ******************************************************************************************************** #
+  # ************************************** #
+  # >>>>>>> Windows Sideload build <<<<<<< #
+  # ************************************** #
   maui-windows-sideload:
     name: Build Windows Sideload
     needs: shared-resources
@@ -216,9 +219,9 @@ jobs:
         retention-days: 30
 
 
-  # ******************************************************************************************************** #
-  #                                     >>>>>>> Android build <<<<<<<                                        #
-  # ******************************************************************************************************** #
+  # ***************************** #
+  # >>>>>>> Android build <<<<<<< #
+  # ***************************** #
   maui-android:
     name: Build Android
     needs: shared-resources
@@ -274,9 +277,9 @@ jobs:
     #     retention-days: 10
 
 
-  # ******************************************************************************************************** #
-  #                                       >>>>>>> iOS Build <<<<<<<                                          #
-  # ******************************************************************************************************** #
+  # ************************* #
+  # >>>>>>> iOS Build <<<<<<< #
+  # ************************* #
   maui-ios:
     name: Build iOS
     needs: shared-resources
@@ -354,9 +357,9 @@ jobs:
     #     retention-days: 30
 
 
-  # ******************************************************************************************************** #
-  #                                  >>>>>>> MacCatalyst Build <<<<<<<                                       #
-  # ******************************************************************************************************** #
+  # ********************************* #
+  # >>>>>>> MacCatalyst Build <<<<<<< #
+  # ********************************* #
   maui-macos:
     name: Build MacCatalyst
     needs: shared-resources
@@ -439,11 +442,12 @@ jobs:
     #     if-no-files-found: warn
     #     retention-days: 30
 
-  # ******************************************************************************************************** #
-  #                                >>>>>>> Create GitHub Release <<<<<<<                                 #
-  # ******************************************************************************************************** #
+
+  # ************************************* #
+  # >>>>>>> Create GitHub Release <<<<<<< #
+  # ************************************* #
   create-gh-release:
-    name: Create Shared Resources
+    name: Publish to GitHub Release
     if: ${{ success() }}
     runs-on: windows-2022
     needs: [shared-resources, maui-macos, maui-ios, maui-android, maui-windows-sideload, maui-windows-msstore]

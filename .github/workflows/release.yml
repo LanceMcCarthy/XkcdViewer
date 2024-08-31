@@ -121,7 +121,7 @@ jobs:
     - name: Attach artifacts
       uses: actions/upload-artifact@v4
       with:     
-        name: "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_MsftStoreOnly.msix" 
+        name: "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_MsftStoreOnly.msixbundle" 
         path: ${{steps.generate-msixbundle.outputs.msixbundle_path}}
         if-no-files-found: error
         retention-days: 30
@@ -466,3 +466,4 @@ jobs:
         name: "XkcdViewer v${{needs.shared-resources.outputs.app_version}}"
         body: This is v${{needs.shared-resources.outputs.app_version}} of the xkcd viewer app. To install, use the appropriate installer file for your device.
         files: ${{github.workspace}}/artifacts/*
+        tag_name: "v${{needs.shared-resources.outputs.app_version}}"

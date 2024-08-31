@@ -457,13 +457,22 @@ jobs:
     needs: [shared-resources, maui-macos, maui-ios, maui-android, maui-windows-sideload, maui-windows-msstore]
     steps:
     - uses: actions/download-artifact@v4
-      with:
-        path: ${{github.workspace}}/artifacts
 
     - name: Release
       uses: softprops/action-gh-release@v2
       with:
         name: "XkcdViewer v${{needs.shared-resources.outputs.app_version}}"
-        body: This is v${{needs.shared-resources.outputs.app_version}} of the xkcd viewer app. To install, use the appropriate installer file for your device.
-        files: ${{github.workspace}}/artifacts/*
+        body: |
+          This is v${{needs.shared-resources.outputs.app_version}} of the xkcd viewer app built with .NET MAUI and Telerik UI for Maui. To install, use the appropriate installer file for your device.
+          - win10-x64.msix
+          - win10-arm64.msix
+          - MsftStoreOnly.msixbundle (only for Microsoft Store)
+        files: |
+          *.msixbundle
+          *.msix
+          *.apk
+          *.apk
+          *.app
+          *.ipa
+          *.pkg
         tag_name: "v${{needs.shared-resources.outputs.app_version}}"

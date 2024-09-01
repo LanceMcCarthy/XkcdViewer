@@ -455,7 +455,7 @@ jobs:
         timestamp-digest: SHA256
         file-digest: SHA256
         files-folder: ${{github.workspace}}
-        files-folder-filter: msixbundle,msix
+        files-folder-filter: msix
         files-folder-depth: 3
         exclude-azure-cli-credential: false
         exclude-environment-credential: true

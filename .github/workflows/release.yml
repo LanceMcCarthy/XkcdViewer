@@ -104,9 +104,7 @@ jobs:
       run: |
         $sdkToolsPath = Join-Path -Path 'C:\Program Files (x86)\Windows Kits\10\bin' -ChildPath 10.0.19041.0 -AdditionalChildPath x86
         $env:Path += ";$sdkToolsPath"
-        
         New-Item -Path . -Name ${{env.WINDOWS_ARTIFACTS_PATH}} -ItemType Directory
-
         Get-ChildItem -Filter XkcdViewer.Maui*.msix -Recurse | %{ Copy-Item $_.FullName -Destination ${{env.WINDOWS_ARTIFACTS_PATH}} }
 
         Set-Location ${{env.WINDOWS_ARTIFACTS_PATH}}
@@ -187,11 +185,19 @@ jobs:
     - name: Build Maui WinUI project
       run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.TFM}}" -p:RuntimeIdentifierOverride=${{matrix.RID}} -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
 
-    - name: Locate msix
-      id: find-msix-file
+    - name: Process MSIX
+      id: process-msix-file
       run: |
+        # 1. finds the correct msix file
         $msixPath = Get-ChildItem -Filter XkcdViewer.Maui*.msix -Recurse | %{$_.FullName}
-        echo "PACKAGE_PATH=$msixPath" >> $env:GITHUB_OUTPUT
+        # 2. create the artifacts folder
+        New-Item -Path . -Name ${{env.WINDOWS_ARTIFACTS_PATH}} -ItemType Directory
+        # 3. Create the final msix path
+        $finalMsixPath = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_${{matrix.RID}}.msix"
+        # 4. move the msix file to the artifacts folder and rename the file
+        Move-Item -Path $msixPath -Destination $finalMsixPath -Force
+        # 5. export the full path as an easy var
+        echo "PACKAGE_PATH=$finalMsixPath" >> $env:GITHUB_OUTPUT
 
     - name: Sign files with Trusted Signing
       uses: azure/trusted-signing-action@v0.4.0
@@ -202,7 +208,7 @@ jobs:
         timestamp-rfc3161: http://timestamp.acs.microsoft.com
         timestamp-digest: SHA256
         file-digest: SHA256
-        files: ${{steps.find-msix-file.outputs.PACKAGE_PATH}}
+        files: ${{steps.process-msix-file.outputs.PACKAGE_PATH}}
         exclude-azure-cli-credential: false
         exclude-environment-credential: true
         exclude-workload-identity-credential: true
@@ -218,7 +224,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:     
         name: "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_${{matrix.RID}}.msix" 
-        path: ${{steps.find-msix-file.outputs.PACKAGE_PATH}}
+        path: ${{steps.process-msix-file.outputs.PACKAGE_PATH}}
         if-no-files-found: error
         retention-days: 30
 
@@ -464,8 +470,5 @@ jobs:
         name: "XkcdViewer v${{needs.shared-resources.outputs.app_version}}"
         body: |
           This is v${{needs.shared-resources.outputs.app_version}} of the xkcd viewer app built with .NET MAUI and Telerik UI for Maui. To install, use the appropriate installer file for your device.
-          - win10-x64.msix
-          - win10-arm64.msix
-          - MsftStoreOnly.msixbundle (only for Microsoft Store)
         files: ${{github.workspace}}/**/*
         tag_name: "v${{needs.shared-resources.outputs.app_version}}"

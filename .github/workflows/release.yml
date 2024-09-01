@@ -44,9 +44,9 @@ jobs:
         echo "app_version=$ver" >> $env:GITHUB_OUTPUT
 
 
-# ********************************************* #
-# >>>>>>> Windows Microsoft Store build <<<<<<< #
-# ********************************************* #
+  # ********************************************* #
+  # >>>>>>> Windows Microsoft Store build <<<<<<< #
+  # ********************************************* #
   maui-windows-msstore:
     name: Build Windows MS Store
     needs: shared-resources
@@ -102,17 +102,19 @@ jobs:
     - name: Generate msixbundle
       id: generate-msixbundle
       run: |
+        # 1. Add MakeAppx to the PATH
         $sdkToolsPath = Join-Path -Path 'C:\Program Files (x86)\Windows Kits\10\bin' -ChildPath 10.0.19041.0 -AdditionalChildPath x86
         $env:Path += ";$sdkToolsPath"
+        # 2. Create the artifacts folder
         New-Item -Path . -Name ${{env.WINDOWS_ARTIFACTS_PATH}} -ItemType Directory
+        # 3. Find all msix files and copy them into the artifacts folder
         Get-ChildItem -Filter XkcdViewer.Maui*.msix -Recurse | %{ Copy-Item $_.FullName -Destination ${{env.WINDOWS_ARTIFACTS_PATH}} }
-
+        # 4. Change directory to the artifacts folder
         Set-Location ${{env.WINDOWS_ARTIFACTS_PATH}}
-
+        # 5. Create the msixbundle using all the msix files inside the artifacts folder
         MakeAppx.exe bundle /bv "${{needs.shared-resources.outputs.app_version}}" /d . /p "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
-
+        # 6. Export the full path as an easy var
         $msixBundlePath = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
-
         echo "msixbundle_path=$msixBundlePath" >> $env:GITHUB_OUTPUT
 
     # Attaching the asset to workflow run
@@ -144,15 +146,6 @@ jobs:
       with:
         fetch-depth: 0
     
-    # Login to Azure CLI. No secrets needed, uses the GitHub OIDC token to authenticate.
-    - name: Azure login using OIDC via GitHub
-      uses: azure/login@v2
-      id: azlogin
-      with:
-        client-id: "32daa13b-f4bb-4809-8ef6-58cb39051acd"
-        tenant-id: "bd47e796-3473-4b8a-9101-1f4c0c7af31a"
-        subscription-id: "48ab4839-62af-4ab3-afe6-043ea4d7c137"
-
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
       with:
@@ -198,27 +191,6 @@ jobs:
         Move-Item -Path $msixPath -Destination $finalMsixPath -Force
         # 5. export the full path as an easy var
         echo "PACKAGE_PATH=$finalMsixPath" >> $env:GITHUB_OUTPUT
-
-    - name: Sign files with Trusted Signing
-      uses: azure/trusted-signing-action@v0.4.0
-      with:
-        endpoint: https://eus.codesigning.azure.net/
-        trusted-signing-account-name: PrimaryCodeSign
-        certificate-profile-name: lancemccarthylivepublic
-        timestamp-rfc3161: http://timestamp.acs.microsoft.com
-        timestamp-digest: SHA256
-        file-digest: SHA256
-        files: ${{steps.process-msix-file.outputs.PACKAGE_PATH}}
-        exclude-azure-cli-credential: false
-        exclude-environment-credential: true
-        exclude-workload-identity-credential: true
-        exclude-managed-identity-credential: true
-        exclude-shared-token-cache-credential: true
-        exclude-visual-studio-credential: true
-        exclude-visual-studio-code-credential: true
-        exclude-azure-powershell-credential: true
-        exclude-azure-developer-cli-credential: true
-        exclude-interactive-browser-credential: true
 
     - name: Attach artifacts to workflow run
       uses: actions/upload-artifact@v4
@@ -457,12 +429,43 @@ jobs:
   # >>>>>>> Create GitHub Release <<<<<<< #
   # ************************************* #
   create-gh-release:
-    name: Publish to GitHub Release
+    name: Codesign and Publish Release
     if: ${{ success() }}
     runs-on: windows-2022
     needs: [shared-resources, maui-macos, maui-ios, maui-android, maui-windows-sideload, maui-windows-msstore]
     steps:
     - uses: actions/download-artifact@v4
+
+    # Login to Azure CLI. No secrets needed, uses the GitHub OIDC token to authenticate.
+    - name: Azure login using OIDC via GitHub
+      uses: azure/login@v2
+      id: azlogin
+      with:
+        client-id: "32daa13b-f4bb-4809-8ef6-58cb39051acd"
+        tenant-id: "bd47e796-3473-4b8a-9101-1f4c0c7af31a"
+        subscription-id: "48ab4839-62af-4ab3-afe6-043ea4d7c137"
+
+    - name: Sign files with Trusted Signing
+      uses: azure/trusted-signing-action@v0.4.0
+      with:
+        endpoint: https://eus.codesigning.azure.net/
+        trusted-signing-account-name: PrimaryCodeSign
+        certificate-profile-name: lancemccarthylivepublic
+        timestamp-rfc3161: http://timestamp.acs.microsoft.com
+        timestamp-digest: SHA256
+        file-digest: SHA256
+        files-folder: ${{github.workspace}}
+        files-folder-filter: msixbundle,msix
+        exclude-azure-cli-credential: false
+        exclude-environment-credential: true
+        exclude-workload-identity-credential: true
+        exclude-managed-identity-credential: true
+        exclude-shared-token-cache-credential: true
+        exclude-visual-studio-credential: true
+        exclude-visual-studio-code-credential: true
+        exclude-azure-powershell-credential: true
+        exclude-azure-developer-cli-credential: true
+        exclude-interactive-browser-credential: true
 
     - name: Release
       uses: softprops/action-gh-release@v2

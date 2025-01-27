@@ -34,7 +34,7 @@ jobs:
   # ***************************************** #
   shared-resources:
     name: Create Shared Resources
-    runs-on: windows-2022
+    runs-on: windows-latest
     outputs:
       app_version: ${{steps.version-creator.outputs.app_version}}
     steps:
@@ -54,8 +54,8 @@ jobs:
   maui-windows-msstore:
     name: Build Windows MS Store
     needs: shared-resources
-    runs-on: windows-2022
-    if: ${{ needs.shared-resources.outputs.app_version != ''}}
+    runs-on: windows-latest
+    if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
     env:
       RID: win10-x64
       MSFT_STORE_SELLER_ID: 10113620
@@ -157,8 +157,8 @@ jobs:
   maui-windows-sideload:
     name: Build Windows Sideload
     needs: shared-resources
-    runs-on: windows-2022
-    if: ${{ success() && needs.shared-resources.outputs.app_version != ''}}
+    runs-on: windows-latest
+    if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
     strategy:
       matrix:
         RID: [win10-arm64, win10-x64]
@@ -222,8 +222,8 @@ jobs:
   maui-android:
     name: Build Android
     needs: shared-resources
-    runs-on: windows-2022
-    if: ${{ success() && needs.shared-resources.outputs.app_version != ''}}
+    runs-on: windows-latest
+    if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
     env:
       RID: android-arm64
     steps:
@@ -279,8 +279,8 @@ jobs:
   maui-ios:
     name: Build iOS
     needs: shared-resources
-    runs-on: macos-12
-    if: ${{ success() && needs.shared-resources.outputs.app_version != ''}}
+    runs-on: macos-15
+    if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
     # TODO Consider matrix for text flight and sideload
     env:
       RID: ios-arm64
@@ -359,8 +359,8 @@ jobs:
   maui-macos:
     name: Build MacCatalyst
     needs: shared-resources
-    runs-on: macos-12
-    if: ${{ success() && needs.shared-resources.outputs.app_version != ''}}
+    runs-on: macos-15
+    if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
     strategy:
       matrix:
         RID: [maccatalyst-arm64, maccatalyst-x64]

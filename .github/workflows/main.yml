@@ -27,7 +27,7 @@ jobs:
 # >>>>>>> Android build <<<<<<< #
 # ***************************** #
   maui-android:
-    runs-on: windows-2022
+    runs-on: windows-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -61,7 +61,7 @@ jobs:
 # >>>>>>> Windows Build <<<<<<< #
 # ***************************** #
   maui-windows:
-    runs-on: windows-2022
+    runs-on: windows-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -94,7 +94,7 @@ jobs:
 # >>>>>>> iOS Build <<<<<<< #
 # ************************* #
   maui-ios:
-    runs-on: macos-12
+    runs-on: macos-15
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -127,7 +127,7 @@ jobs:
 # >>>>>>> MacCatalyst Build <<<<<<< #
 # ********************************* #
   maui-maccatalyst:
-    runs-on: macos-12
+    runs-on: macos-15
     steps:
     - name: Checkout
       uses: actions/checkout@v4

@@ -55,6 +55,10 @@ jobs:
     env:
       RID: win10-x64
       TFM: net8.0-windows10.0.19041.0
+      MSFT_STORE_SELLER_ID: 10113620
+      MSFT_STORE_PRODUCT_ID: 9PMCKHT7M93P
+      ENTRA_TENANT_ID: 237e90e1-29b9-4350-913d-f3837799f3c0
+      ENTRA_CLIENT_ID: 99d69d81-6234-46be-acf5-e7b59e7887af
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -102,23 +106,18 @@ jobs:
     - name: Generate msixbundle
       id: generate-msixbundle
       run: |
-        # 1. Add MakeAppx to the PATH
         $sdkToolsPath = Join-Path -Path 'C:\Program Files (x86)\Windows Kits\10\bin' -ChildPath 10.0.19041.0 -AdditionalChildPath x86
         $env:Path += ";$sdkToolsPath"
-        # 2. Create the artifacts folder
         New-Item -Path . -Name ${{env.WINDOWS_ARTIFACTS_PATH}} -ItemType Directory
-        # 3. Find all msix files and copy them into the artifacts folder
         Get-ChildItem -Filter XkcdViewer.Maui*.msix -Recurse | %{ Copy-Item $_.FullName -Destination ${{env.WINDOWS_ARTIFACTS_PATH}} }
-        # 4. Change directory to the artifacts folder
         Set-Location ${{env.WINDOWS_ARTIFACTS_PATH}}
-        # 5. Create the msixbundle using all the msix files inside the artifacts folder
         MakeAppx.exe bundle /bv "${{needs.shared-resources.outputs.app_version}}" /d . /p "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
-        # 6. Export the full path as an easy var
         $msixBundlePath = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
         echo "msixbundle_path=$msixBundlePath" >> $env:GITHUB_OUTPUT
 
     # Attaching the asset to workflow run
     - name: Attach artifacts
+      id: upload-artifact
       uses: actions/upload-artifact@v4
       with:     
         name: "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_MsftStoreOnly.msixbundle" 
@@ -126,6 +125,28 @@ jobs:
         if-no-files-found: error
         retention-days: 30
 
+    # Publishing to store    
+    - name: Configure Store Credentials
+      uses: microsoft/store-submission@v1
+      with:
+        command: configure
+        type: win32
+        seller-id: ${{env.MSFT_STORE_SELLER_ID}}
+        product-id: ${{env.MSFT_STORE_PRODUCT_ID}}
+        tenant-id: ${{env.ENTRA_TENANT_ID}}
+        client-id: ${{env.ENTRA_CLIENT_ID}}
+        client-secret: ${{secrets.ENTRA_CLIENT_SECRET}}
+
+    - name: Update Draft Submission
+      uses: microsoft/store-submission@v1
+      with:
+        command: update
+        product-update: '{"packages":[{"packageUrl":"${{ steps.upload-artifact.outputs.artifact-url }}","languages":["en"],"architectures":["X64","ARM64"],"isSilentInstall":true}]}'
+
+    - name: Publish Submission
+      uses: microsoft/store-submission@v1
+      with:
+        command: publish
 
   # ************************************** #
   # >>>>>>> Windows Sideload build <<<<<<< #
@@ -134,7 +155,7 @@ jobs:
     name: Build Windows Sideload
     needs: shared-resources
     runs-on: windows-2022
-    if: ${{ needs.shared-resources.outputs.app_version != ''}}
+    if: ${{ success() && needs.shared-resources.outputs.app_version != ''}}
     strategy:
       matrix:
         RID: [win10-arm64, win10-x64]
@@ -181,15 +202,10 @@ jobs:
     - name: Process MSIX
       id: process-msix-file
       run: |
-        # 1. finds the correct msix file
         $msixPath = Get-ChildItem -Filter XkcdViewer.Maui*.msix -Recurse | %{$_.FullName}
-        # 2. create the artifacts folder
         New-Item -Path . -Name ${{env.WINDOWS_ARTIFACTS_PATH}} -ItemType Directory
-        # 3. Create the final msix path
         $finalMsixPath = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_${{matrix.RID}}.msix"
-        # 4. move the msix file to the artifacts folder and rename the file
         Move-Item -Path $msixPath -Destination $finalMsixPath -Force
-        # 5. export the full path as an easy var
         echo "PACKAGE_PATH=$finalMsixPath" >> $env:GITHUB_OUTPUT
 
     - name: Attach artifacts to workflow run
@@ -208,7 +224,7 @@ jobs:
     name: Build Android
     needs: shared-resources
     runs-on: windows-2022
-    if: ${{ needs.shared-resources.outputs.app_version != ''}}
+    if: ${{ success() && needs.shared-resources.outputs.app_version != ''}}
     env:
       RID: android-arm64
       TFM: net8.0-android
@@ -266,7 +282,7 @@ jobs:
     name: Build iOS
     needs: shared-resources
     runs-on: macos-12
-    if: ${{ needs.shared-resources.outputs.app_version != ''}}
+    if: ${{ success() && needs.shared-resources.outputs.app_version != ''}}
     # Consider matrix for text flight and sideload
     env:
       RID: ios-arm64
@@ -346,7 +362,7 @@ jobs:
     name: Build MacCatalyst
     needs: shared-resources
     runs-on: macos-12
-    if: ${{ needs.shared-resources.outputs.app_version != ''}}
+    if: ${{ success() && needs.shared-resources.outputs.app_version != ''}}
     strategy:
       matrix:
         RID: [maccatalyst-arm64, maccatalyst-x64]
@@ -476,3 +492,46 @@ jobs:
           This is v${{needs.shared-resources.outputs.app_version}} of the xkcd viewer app built with .NET MAUI and Telerik UI for Maui. To install, use the appropriate installer file for your device.
         files: ${{github.workspace}}/**/*
         tag_name: "v${{needs.shared-resources.outputs.app_version}}"
+
+  # ************************************* #
+  # >>>>>>> Create GitHub Release <<<<<<< #
+  # ************************************* #
+  publish-microsoft-store:
+    name: Codesign and Publish Release
+    if: ${{ success() }}
+    runs-on: ubuntu-latest
+    needs: [maui-windows-msstore]
+    env:
+      MSFT_STORE_SELLER_ID: 10113620
+      MSFT_STORE_PRODUCT_ID: 9PMCKHT7M93P
+      ENTRA_TENANT_ID: 237e90e1-29b9-4350-913d-f3837799f3c0
+      ENTRA_CLIENT_ID: 99d69d81-6234-46be-acf5-e7b59e7887af
+    steps:
+    - name: Configure Store Credentials
+      uses: actions/download-artifact@v4
+      with:
+        name: my-artifact
+        path: /**/*MsftStoreOnly.*
+
+    - name: Configure Store Credentials
+      uses: microsoft/store-submission@v1
+      with:
+        command: configure
+        type: win32
+        seller-id: ${{env.MSFT_STORE_SELLER_ID}}
+        product-id: ${{env.MSFT_STORE_PRODUCT_ID}}
+        tenant-id: ${{env.ENTRA_TENANT_ID}}
+        client-id: ${{env.ENTRA_CLIENT_ID}}
+        client-secret: ${{secrets.ENTRA_CLIENT_SECRET}}
+
+    - name: Update Draft Submission
+      uses: microsoft/store-submission@v1
+      with:
+        command: update
+        product-update: '{"packages":[{"packageUrl":"https://cdn.contoso.us/prod/5.10.1.4420/ContosoIgniteInstallerFull.msi","languages":["en"],"architectures":["X64"],"isSilentInstall":true}]}'
+
+    - name: Publish Submission
+      uses: microsoft/store-submission@v1
+      with:
+        command: publish
+

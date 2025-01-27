@@ -10,10 +10,14 @@ on:
       - '.github/workflows/main.yml' 
 
 env:
+  DOTNET_VERSION: "9.0.x"
+  WINDOWS_TFM: "net9.0-windows10.0.19041.0"
+  ANDROID_TFM: "net9.0-android"
+  IOS_TFM: "net9.0-ios"
+  MACOS_TFM: "net9.0-maccatalyst"
   PROJECT_PATH: "src/XkcdViewer.Maui/XkcdViewer.Maui.csproj"
   NUGETCONFIG_PATH: "src/nuget.config"
   BUILD_CONFIG: Debug
-  TFM: net8.0
   TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
   TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
 
@@ -33,22 +37,14 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.x'
+        dotnet-version: ${{env.DOTNET_VERSION}}
 
     - uses: actions/setup-java@v4
       with:
         distribution: 'microsoft'
         java-version: '11'
 
-    - name: Generate version number using date and run number
-      shell: pwsh
-      id: version-creator
-      run: |
-        $buildDay = Get-Date -Format "yyyy.Mdd"
-        $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
-        echo "APP_VERSION=$ver" >> $GITHUB_OUTPUT
-
-    - name: Install MAUI workloads (required for GitHub-hosted runners)
+    - name: Install MAUI workload
       shell: pwsh
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
@@ -58,7 +54,7 @@ jobs:
 
     - name: Build Maui Android project
       shell: pwsh
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-android" --no-restore
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.ANDROID_TFM}}" --no-restore
 
 
 # ***************************** #
@@ -75,21 +71,13 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.x'
+        dotnet-version: ${{env.DOTNET_VERSION}}
 
     # For WinUI builds
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.3.2
 
-    - name: Generate version number using date and run number
-      shell: pwsh
-      id: version-creator
-      run: |
-        $buildDay = Get-Date -Format "yyyy.Mdd"
-        $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
-        echo "APP_VERSION=$ver" >> $GITHUB_OUTPUT
-
-    - name: Install MAUI workloads (required for GitHub-hosted runners)
+    - name: Install MAUI workload
       shell: pwsh
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
@@ -99,7 +87,7 @@ jobs:
 
     - name: Build Maui WinUI project
       shell: pwsh
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-windows10.0.19041.0" --no-restore
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.WINDOWS_TFM}}" --no-restore
 
 
 # ************************* #
@@ -116,23 +104,14 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.x'
+        dotnet-version: ${{env.DOTNET_VERSION}}
 
+    # If the GitHub runner doesn't have latest Xcode needed by the project.
     - uses: maxim-lobanov/setup-xcode@v1
       with:
         xcode-version: latest
 
-    - name: Generate version number using date and run number
-      id: version-creator
-      shell: bash
-      run: |
-        buildDay=`date +%Y.%m%d`
-        echo $buildDay
-        ver="${buildDay}.${GITHUB_RUN_NUMBER}.0"
-        echo $ver
-        echo "APP_VERSION=$ver" >> $GITHUB_ENV
-
-    - name: Install MAUI workloads (required for GitHub-hosted runners)
+    - name: Install MAUI workload
       shell: pwsh
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
@@ -142,7 +121,7 @@ jobs:
 
     - name: Build iOS project
       shell: bash
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-ios" --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.IOS_TFM}}" --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
 
 # ********************************* #
 # >>>>>>> MacCatalyst Build <<<<<<< #
@@ -158,23 +137,14 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.x'
+        dotnet-version: ${{env.DOTNET_VERSION}}
 
+    # If the GitHub runner doesn't have latest Xcode needed by the project.
     - uses: maxim-lobanov/setup-xcode@v1
       with:
         xcode-version: latest
 
-    - name: Generate version number using date and run number
-      id: version-creator
-      shell: bash
-      run: |
-        buildDay=`date +%Y.%m%d`
-        echo $buildDay
-        ver="${buildDay}.${GITHUB_RUN_NUMBER}.0"
-        echo $ver
-        echo "APP_VERSION=$ver" >> $GITHUB_ENV
-
-    - name: Install MAUI workloads (required for GitHub-hosted runners)
+    - name: Install MAUI workload
       shell: pwsh
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
@@ -184,4 +154,4 @@ jobs:
       
     - name: Build MacCatalyst project
       shell: bash
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM}}-maccatalyst" --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.MACOS_TFM}}" --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly

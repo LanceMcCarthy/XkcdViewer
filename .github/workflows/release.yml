@@ -13,14 +13,18 @@ defaults:
     shell: pwsh
 
 env:
+  DOTNET_VERSION: "9.0.x"
+  WINDOWS_TFM: "net9.0-windows10.0.19041.0"
+  ANDROID_TFM: "net9.0-android"
+  IOS_TFM: "net9.0-ios"
+  MACOS_TFM: "net9.0-maccatalyst"
   CSPROJ_PATH: "src/XkcdViewer.Maui/XkcdViewer.Maui.csproj"
   NUGETCONFIG_PATH: "src/nuget.config"
   BUILD_CONFIG: Release
-  DOTNET_VERSION: "8.0.x"
+  WINDOWS_ARTIFACTS_PATH: "artifacts_windows"
+  ANDROID_ARTIFACTS_PATH: "artifacts_android"
   MACOS_ARTIFACTS_PATH: "artifacts_macos"
   IOS_ARTIFACTS_PATH: "artifacts_ios"
-  ANDROID_ARTIFACTS_PATH: "artifacts_android"
-  WINDOWS_ARTIFACTS_PATH: "artifacts_windows"
   TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
   TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
 
@@ -54,7 +58,6 @@ jobs:
     if: ${{ needs.shared-resources.outputs.app_version != ''}}
     env:
       RID: win10-x64
-      TFM: net8.0-windows10.0.19041.0
       MSFT_STORE_SELLER_ID: 10113620
       MSFT_STORE_PRODUCT_ID: 9PMCKHT7M93P
       ENTRA_TENANT_ID: 237e90e1-29b9-4350-913d-f3837799f3c0
@@ -73,9 +76,8 @@ jobs:
     # Needed only for WinUI builds
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.3.2    
-      
-    # The hosted runners do not have the maui workload installed by default, so we need to install it
-    - name: Install MAUI workloads (required for GitHub-hosted runners)
+
+    - name: Install MAUI workload
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     # Restore NuGet packages ahead of time because we want to use the dedicated nuget.config file
@@ -96,11 +98,11 @@ jobs:
 
     # Compile and publish the WinUI x64 project for the Microsoft Store (no code signing)
     - name: Build WinUI win10-x64
-      run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.TFM}}" -p:RuntimeIdentifierOverride="win10-x64" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
+      run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.WINDOWS_TFM}}" -p:RuntimeIdentifierOverride="win10-x64" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
 
       # Compile and publish the WinUI ARM64 project for the Microsoft Store (no code signing)
     - name: Build WinUI win10-arm64
-      run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.TFM}}" -p:RuntimeIdentifierOverride="win10-arm64" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
+      run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.WINDOWS_TFM}}" -p:RuntimeIdentifierOverride="win10-arm64" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
 
     # Find the msix file
     - name: Generate msixbundle
@@ -141,12 +143,13 @@ jobs:
       uses: microsoft/store-submission@v1
       with:
         command: update
-        product-update: '{"packages":[{"packageUrl":"${{ steps.upload-artifact.outputs.artifact-url }}","languages":["en"],"architectures":["X64","ARM64"],"isSilentInstall":true}]}'
+        product-update: '{"packages":[{"packageUrl":"${{steps.upload-artifact.outputs.artifact-url}}","languages":["en"],"architectures":["X64","ARM64"],"isSilentInstall":true}]}'
 
     - name: Publish Submission
       uses: microsoft/store-submission@v1
       with:
         command: publish
+
 
   # ************************************** #
   # >>>>>>> Windows Sideload build <<<<<<< #
@@ -159,8 +162,6 @@ jobs:
     strategy:
       matrix:
         RID: [win10-arm64, win10-x64]
-    env:
-      TFM: net8.0-windows10.0.19041.0
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -176,11 +177,9 @@ jobs:
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.3.2
 
-    # The hosted runners do not have the maui workload installed by default, so we need to install it
-    - name: Install MAUI workloads (required for GitHub-hosted runners)
+    - name: Install MAUI workloads
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
-    # Restore NuGet packages ahead of time because we want to use the dedicated nuget.config file
     - name: Restore NuGet packages
       run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
@@ -197,7 +196,7 @@ jobs:
         $manifest.save("src\XkcdViewer.Maui\Platforms\Windows\Package.appxmanifest")
     
     - name: Build Maui WinUI project
-      run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.TFM}}" -p:RuntimeIdentifierOverride=${{matrix.RID}} -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
+      run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.WINDOWS_TFM}}" -p:RuntimeIdentifierOverride=${{matrix.RID}} -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
 
     - name: Process MSIX
       id: process-msix-file
@@ -227,7 +226,6 @@ jobs:
     if: ${{ success() && needs.shared-resources.outputs.app_version != ''}}
     env:
       RID: android-arm64
-      TFM: net8.0-android
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -244,14 +242,14 @@ jobs:
         distribution: 'microsoft'
         java-version: '11'
 
-    - name: Install MAUI workloads (required for GitHub-hosted runners)
+    - name: Install MAUI workload
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
       run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build Maui Android project
-      run: dotnet build ${{env.CSPROJ_PATH}} -c Debug -f "${{env.TFM}}" -p:PublishTrimmed=False
+      run: dotnet build ${{env.CSPROJ_PATH}} -c Debug -f "${{env.ANDROID_TFM}}" -p:PublishTrimmed=False
 
     # ! When you have a Google Play account and certificates, we can switch to this release setup
     # # Decode keystore base64 secret into a local file
@@ -260,9 +258,9 @@ jobs:
     #     $file_bytes = [System.Convert]::FromBase64String("${{secrets.ANDROID_SIGNING_KEYSTORE_BASE64}}")
     #     [IO.File]::WriteAllBytes("${{github.workspace}}/${{secrets.ANDROID_SIGNING_KEYSTORE_FILENAME}}", $file_bytes)
 
-    # # Docs https://learn.microsoft.com/en-us/dotnet/maui/android/deployment/publish-cli?view=net-maui-8.0
+    # # Docs https://learn.microsoft.com/en-us/dotnet/maui/android/deployment/publish-cli?view=net-maui-9.0
     # - name: Build MAUI Android project
-    #   run: dotnet publish ${{env.CSPROJ_PATH}} -c ${{env.BUILD_CONFIGURATION}} -f "${{env.TFM}}" -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="${{github.workspace}}/${{secrets.ANDROID_SIGNING_KEYSTORE_FILENAME}}" -p:AndroidSigningStorePass="${{secrets.ANDROID_SIGNING_STORE_PASS}}" -p:AndroidSigningKeyAlias="${{secrets.ANDROID_SIGNING_KEY_ALIAS}}" -p:AndroidSigningKeyPass="${{secrets.ANDROID_SIGNING_KEY_PASS}}"
+    #   run: dotnet publish ${{env.CSPROJ_PATH}} -c ${{env.BUILD_CONFIGURATION}} -f "${{env.ANDROID_TFM}}" -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="${{github.workspace}}/${{secrets.ANDROID_SIGNING_KEYSTORE_FILENAME}}" -p:AndroidSigningStorePass="${{secrets.ANDROID_SIGNING_STORE_PASS}}" -p:AndroidSigningKeyAlias="${{secrets.ANDROID_SIGNING_KEY_ALIAS}}" -p:AndroidSigningKeyPass="${{secrets.ANDROID_SIGNING_KEY_PASS}}"
 
     # # Upload the artifact the Action's result
     # # To publish to the store, see https://github.com/marketplace/actions/upload-android-release-to-play-store
@@ -283,10 +281,9 @@ jobs:
     needs: shared-resources
     runs-on: macos-12
     if: ${{ success() && needs.shared-resources.outputs.app_version != ''}}
-    # Consider matrix for text flight and sideload
+    # TODO Consider matrix for text flight and sideload
     env:
       RID: ios-arm64
-      TFM: net8.0-ios
       CODESIGN_KEY: "Apple Distribution: Lancelot Software (L25222N3C7)"
       CODESIGN_PROV_PROFILE: "xkcdviewer_ios_appstore"
       CODESIGN_PROFILE_TYPE: "IOS_APP_STORE"
@@ -297,23 +294,24 @@ jobs:
       with:
         fetch-depth: 0
 
-    #- uses: maxim-lobanov/setup-xcode@v1
-    #  with:
-    #    xcode-version: latest
+    # If the GitHub runner doesn't have latest Xcode needed by the project.
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
-    - name: Install MAUI workloads (required for GitHub-hosted runners)
+    - name: Install MAUI workloads
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
       run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build MAUI iOS project
-      run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f "${{env.TFM}}" -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
+      run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f "${{env.IOS_TFM}}" -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
 
     # ! When you have an apple account and certificates, we can switch to this release setup
     # # Docs https://github.com/Apple-Actions/import-codesign-certs
@@ -332,10 +330,10 @@ jobs:
     #     api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
     #     api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
 
-    # # Docs https://learn.microsoft.com/en-us/dotnet/maui/ios/deployment/publish-cli?view=net-maui-8.0
+    # # Docs https://learn.microsoft.com/en-us/dotnet/maui/ios/deployment/publish-cli?view=net-maui-9.0
     # - name: Build MAUI iOS project
     #   run: |
-    #     dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.TFM}}" -p:RuntimeIdentifier=${{env.RID}} -p:PublishTrimmed=true -p:MtouchLink=SdkOnly -p:ApplicationId=${{env.APP_ID}} -p:CodesignProvision=${{env.CODESIGN_PROV_PROFILE}} -p:CodesignKey=${{env.CODESIGN_KEY}}
+    #     dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.IOS_TFM}}" -p:RuntimeIdentifier=${{env.RID}} -p:PublishTrimmed=true -p:MtouchLink=SdkOnly -p:ApplicationId=${{env.APP_ID}} -p:CodesignProvision=${{env.CODESIGN_PROV_PROFILE}} -p:CodesignKey=${{env.CODESIGN_KEY}}
 
     # # Docs https://github.com/Apple-Actions/upload-testflight-build
     # - name: 'Upload app to TestFlight'
@@ -368,7 +366,6 @@ jobs:
         RID: [maccatalyst-arm64, maccatalyst-x64]
         # Consider matrix for text flight and sideload
     env:
-      TFM: net8.0-maccatalyst
       CODESIGN_KEY: "Apple Distribution: Lancelot Software (L25222N3C7)"
       CODESIGN_PROV_PROFILE: "xkcdviewer_maccatalyst_appstore"
       CODESIGN_PROFILE_TYPE: "MAC_APP_STORE"
@@ -380,24 +377,24 @@ jobs:
       with:
         fetch-depth: 0
 
-    # If the GitHub runner 
-    #- uses: maxim-lobanov/setup-xcode@v1
-    #  with:
-    #    xcode-version: latest
+    # If the GitHub runner doesn't have latest Xcode needed by the project.
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
-    - name: Install MAUI workloads (required for GitHub-hosted runners)
+    - name: Install MAUI workload
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
       run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
     
     - name: Build MAUI MacCatalyst project
-      run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f "${{env.TFM}}" -p:RuntimeIdentifier=${{matrix.RID}} -p:PublishTrimmed=true -p:MtouchLink=SdkOnly
+      run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f "${{env.MACOS_TFM}}" -p:RuntimeIdentifier=${{matrix.RID}} -p:PublishTrimmed=true -p:MtouchLink=SdkOnly
 
     # When you have an apple account and certificates, we can switch to this release setup
 
@@ -417,10 +414,10 @@ jobs:
     #     api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
     #     api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
 
-    # # Docs https://learn.microsoft.com/en-us/dotnet/maui/mac-catalyst/deployment/publish-app-store?view=net-maui-8.0 (carefully follow the intructions about entitlements.plist and info.plist)
+    # # Docs https://learn.microsoft.com/en-us/dotnet/maui/mac-catalyst/deployment/publish-app-store?view=net-maui-9.0 (carefully follow the intructions about entitlements.plist and info.plist)
     # - name: Build MAUI MacCatalyst project
     #   run: |
-    #     dotnet publish ${{env.CSPROJ_PATH}} -c ${{env.BUILD_CONFIGURATION}} -f "${{env.TFM}}" -p:RuntimeIdentifier=${{env.RID}} -p:EnableCodeSigning=true -p:EnablePackageSigning=true -p:PublishTrimmed=true -p:MtouchLink=SdkOnly -p:ApplicationId=${{env.APP_ID}} -p:CodesignProvision=${{env.CODESIGN_PROV_PROFILE}} -p:CodesignKey=${{env.CODESIGN_KEY}} -p:CodesignEntitlements=${{env.CODESIGN_ENTITLEMENTS}}
+    #     dotnet publish ${{env.CSPROJ_PATH}} -c ${{env.BUILD_CONFIGURATION}} -f "${{env.MACOS_TFM}}" -p:RuntimeIdentifier=${{env.RID}} -p:EnableCodeSigning=true -p:EnablePackageSigning=true -p:PublishTrimmed=true -p:MtouchLink=SdkOnly -p:ApplicationId=${{env.APP_ID}} -p:CodesignProvision=${{env.CODESIGN_PROV_PROFILE}} -p:CodesignKey=${{env.CODESIGN_KEY}} -p:CodesignEntitlements=${{env.CODESIGN_ENTITLEMENTS}}
 
     # WARNING ${{matrix.RID}} is in play, us if statement ${{matrix.RID}} == "testflight"
     # # Docs https://github.com/Apple-Actions/upload-testflight-build
@@ -450,6 +447,7 @@ jobs:
     runs-on: windows-2022
     needs: [shared-resources, maui-macos, maui-ios, maui-android, maui-windows-sideload, maui-windows-msstore]
     steps:
+    # Download the artifacts from the previous jobs
     - uses: actions/download-artifact@v4
 
     # Login to Azure CLI. No secrets needed, uses the GitHub OIDC token to authenticate.
@@ -461,6 +459,7 @@ jobs:
         tenant-id: "bd47e796-3473-4b8a-9101-1f4c0c7af31a"
         subscription-id: "48ab4839-62af-4ab3-afe6-043ea4d7c137"
 
+    # Codesign files with Trusted Signing
     - name: Sign files with Trusted Signing
       uses: azure/trusted-signing-action@v0.4.0
       with:
@@ -484,6 +483,7 @@ jobs:
         exclude-azure-developer-cli-credential: true
         exclude-interactive-browser-credential: true
 
+    # Create a GitHub release and attach the signed files
     - name: Release
       uses: softprops/action-gh-release@v2
       with:
@@ -492,46 +492,3 @@ jobs:
           This is v${{needs.shared-resources.outputs.app_version}} of the xkcd viewer app built with .NET MAUI and Telerik UI for Maui. To install, use the appropriate installer file for your device.
         files: ${{github.workspace}}/**/*
         tag_name: "v${{needs.shared-resources.outputs.app_version}}"
-
-  # ************************************* #
-  # >>>>>>> Create GitHub Release <<<<<<< #
-  # ************************************* #
-  publish-microsoft-store:
-    name: Codesign and Publish Release
-    if: ${{ success() }}
-    runs-on: ubuntu-latest
-    needs: [maui-windows-msstore]
-    env:
-      MSFT_STORE_SELLER_ID: 10113620
-      MSFT_STORE_PRODUCT_ID: 9PMCKHT7M93P
-      ENTRA_TENANT_ID: 237e90e1-29b9-4350-913d-f3837799f3c0
-      ENTRA_CLIENT_ID: 99d69d81-6234-46be-acf5-e7b59e7887af
-    steps:
-    - name: Configure Store Credentials
-      uses: actions/download-artifact@v4
-      with:
-        name: my-artifact
-        path: /**/*MsftStoreOnly.*
-
-    - name: Configure Store Credentials
-      uses: microsoft/store-submission@v1
-      with:
-        command: configure
-        type: win32
-        seller-id: ${{env.MSFT_STORE_SELLER_ID}}
-        product-id: ${{env.MSFT_STORE_PRODUCT_ID}}
-        tenant-id: ${{env.ENTRA_TENANT_ID}}
-        client-id: ${{env.ENTRA_CLIENT_ID}}
-        client-secret: ${{secrets.ENTRA_CLIENT_SECRET}}
-
-    - name: Update Draft Submission
-      uses: microsoft/store-submission@v1
-      with:
-        command: update
-        product-update: '{"packages":[{"packageUrl":"https://cdn.contoso.us/prod/5.10.1.4420/ContosoIgniteInstallerFull.msi","languages":["en"],"architectures":["X64"],"isSilentInstall":true}]}'
-
-    - name: Publish Submission
-      uses: microsoft/store-submission@v1
-      with:
-        command: publish
-

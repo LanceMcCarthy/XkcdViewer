@@ -465,7 +465,7 @@ jobs:
       - name: Prepare JSON
         id: generate-update-json
         run: |
-          JSON = $(jq -n --arg url '${{needs.maui-windows-msstore.outputs.windows_artifact_url}}' --argjson languages '["en"]' --argjson architectures '["X64", "ARM64"]' --argjson isSilentInstall true '{
+          JSON=$(jq -n --arg url '${{needs.maui-windows-msstore.outputs.windows_artifact_url}}' --argjson languages '["en"]' --argjson architectures '["X64", "ARM64"]' --argjson isSilentInstall true '{
             packages: [{
               packageUrl: $url,
               languages: $languages,

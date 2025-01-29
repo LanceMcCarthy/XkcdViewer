@@ -193,12 +193,6 @@ jobs:
     needs: [maui-windows-msstore]
     runs-on: ubuntu-latest
     steps:
-      # - name: Prepare Information
-      #   id: prep-info
-      #   run: echo "package_url=$env:ARTIFACT_URL" >> $env:GITHUB_OUTPUT
-      #   env:
-      #     ARTIFACT_URL: ${{needs.maui-windows-msstore.outputs.windows_artifact_url}}
-
       - name: Configure Credentials
         uses: microsoft/store-submission@v1
         with:

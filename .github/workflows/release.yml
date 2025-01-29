@@ -29,9 +29,7 @@ env:
   TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
 
 jobs:
-  # ***************************************** #
-  # >>>>>>> Generate Common Resources <<<<<<< #
-  # ***************************************** #
+  # >>>>>>> Generate Common Resources
   shared-resources:
     name: Create Shared Resources
     runs-on: windows-latest
@@ -47,15 +45,14 @@ jobs:
         $ver = $buildDay + "." + $runNumber + ".0"
         echo "app_version=$ver" >> $env:GITHUB_OUTPUT
 
-
-  # ********************************************* #
-  # >>>>>>> Windows Microsoft Store build <<<<<<< #
-  # ********************************************* #
+  # >>>>>>> Windows Microsoft Store Build
   maui-windows-msstore:
     name: Build Windows MS Store
     needs: shared-resources
     runs-on: windows-latest
     if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
+    outputs:
+      windows_artifact_url: ${{steps.upload-artifact.outputs.artifact-url}}
     env:
       RID: win10-x64
       MSFT_STORE_SELLER_ID: 10113620
@@ -127,33 +124,7 @@ jobs:
         if-no-files-found: error
         retention-days: 30
 
-    # Publishing to store    
-    - name: Configure Store Credentials
-      uses: microsoft/store-submission@v1
-      with:
-        command: configure
-        type: win32
-        seller-id: ${{env.MSFT_STORE_SELLER_ID}}
-        product-id: ${{env.MSFT_STORE_PRODUCT_ID}}
-        tenant-id: ${{env.ENTRA_TENANT_ID}}
-        client-id: ${{env.ENTRA_CLIENT_ID}}
-        client-secret: ${{secrets.ENTRA_CLIENT_SECRET}}
-
-    - name: Update Draft Submission
-      uses: microsoft/store-submission@v1
-      with:
-        command: update
-        product-update: '{"packages":[{"packageUrl":"${{steps.upload-artifact.outputs.artifact-url}}","languages":["en"],"architectures":["X64","ARM64"],"isSilentInstall":true}]}'
-
-    - name: Publish Submission
-      uses: microsoft/store-submission@v1
-      with:
-        command: publish
-
-
-  # ************************************** #
-  # >>>>>>> Windows Sideload build <<<<<<< #
-  # ************************************** #
+  # >>>>>>> Windows Sideload Build
   maui-windows-sideload:
     name: Build Windows Sideload
     needs: shared-resources
@@ -215,10 +186,7 @@ jobs:
         if-no-files-found: error
         retention-days: 30
 
-
-  # ***************************** #
-  # >>>>>>> Android build <<<<<<< #
-  # ***************************** #
+  # >>>>>>> Android Build
   maui-android:
     name: Build Android
     needs: shared-resources
@@ -272,10 +240,7 @@ jobs:
     #     if-no-files-found: warn
     #     retention-days: 10
 
-
-  # ************************* #
-  # >>>>>>> iOS Build <<<<<<< #
-  # ************************* #
+  # >>>>>>> iOS Build
   maui-ios:
     name: Build iOS
     needs: shared-resources
@@ -352,10 +317,7 @@ jobs:
     #     if-no-files-found: warn
     #     retention-days: 30
 
-
-  # ********************************* #
-  # >>>>>>> MacCatalyst Build <<<<<<< #
-  # ********************************* #
+  # >>>>>>> MacCatalyst Build
   maui-macos:
     name: Build MacCatalyst
     needs: shared-resources
@@ -437,10 +399,7 @@ jobs:
     #     if-no-files-found: warn
     #     retention-days: 30
 
-
-  # ************************************* #
-  # >>>>>>> Create GitHub Release <<<<<<< #
-  # ************************************* #
+  # >>>>>>> Create GitHub Release
   create-gh-release:
     name: Codesign and Publish Release
     if: ${{ success() }}
@@ -492,3 +451,37 @@ jobs:
           This is v${{needs.shared-resources.outputs.app_version}} of the xkcd viewer app built with .NET MAUI and Telerik UI for Maui. To install, use the appropriate installer file for your device.
         files: ${{github.workspace}}/**/*
         tag_name: "v${{needs.shared-resources.outputs.app_version}}"
+
+  # >>>>>>> Submit Update to Microsoft Store
+  publish_to_msstore:
+    name: Submit To Microsoft Store
+    if: ${{success()}}
+    needs: [shared-resources, maui-windows-msstore]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download MSIX Bundle Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_MsftStoreOnly.msixbundle"
+
+      - name: Configure Credentials
+        uses: microsoft/store-submission@v1
+        with:
+          command: configure
+          type: win32
+          seller-id: ${{env.MSFT_STORE_SELLER_ID}}
+          product-id: ${{env.MSFT_STORE_PRODUCT_ID}}
+          tenant-id: ${{env.ENTRA_TENANT_ID}}
+          client-id: ${{env.ENTRA_CLIENT_ID}}
+          client-secret: ${{secrets.ENTRA_CLIENT_SECRET}}
+
+      - name: Update Draft Submission
+        uses: microsoft/store-submission@v1
+        with:
+          command: update
+          product-update: '{"packages":[{"packageUrl":"${{needs.maui-windows-msstore.outputs.windows_artifact_url}}","languages":["en"],"architectures":["X64","ARM64"],"isSilentInstall":true}]}'
+
+      - name: Publish Submission
+        uses: microsoft/store-submission@v1
+        with:
+          command: publish

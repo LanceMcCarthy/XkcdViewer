@@ -456,13 +456,24 @@ jobs:
   publish_to_msstore:
     name: Submit To Microsoft Store
     if: ${{success()}}
-    needs: [shared-resources, maui-windows-msstore]
+    needs: [maui-windows-msstore]
     runs-on: ubuntu-latest
     steps:
-      - name: Download MSIX Bundle Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_MsftStoreOnly.msixbundle"
+      - name: Install JQ
+        run: sudo apt install jq
+      
+      - name: Prepare JSON
+        id: generate-update-json
+        run: |
+          JSON = $(jq -n --arg url '${{needs.maui-windows-msstore.outputs.windows_artifact_url}}' --argjson languages '["en"]' --argjson architectures '["X64", "ARM64"]' --argjson isSilentInstall true '{
+            packages: [{
+              packageUrl: $url,
+              languages: $languages,
+              architectures: $architectures,
+              isSilentInstall: $isSilentInstall
+            }]
+          }')
+          echo "PRODUCT_UPDATE_DETAILS=$JSON" >> $env:GITHUB_OUTPUT
 
       - name: Configure Credentials
         uses: microsoft/store-submission@v1
@@ -475,11 +486,11 @@ jobs:
           client-id: ${{env.ENTRA_CLIENT_ID}}
           client-secret: ${{secrets.ENTRA_CLIENT_SECRET}}
 
-      - name: Update Draft Submission
+      - name: Draft Submission
         uses: microsoft/store-submission@v1
         with:
           command: update
-          product-update: '{"packages":[{"packageUrl":"${{needs.maui-windows-msstore.outputs.windows_artifact_url}}","languages":["en"],"architectures":["X64","ARM64"],"isSilentInstall":true}]}'
+          product-update: ${{steps.generate-update-json.outputs.PRODUCT_UPDATE_DETAILS}}
 
       - name: Publish Submission
         uses: microsoft/store-submission@v1

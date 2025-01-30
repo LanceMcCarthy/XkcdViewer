@@ -203,6 +203,7 @@ jobs:
           tenant-id: ${{env.ENTRA_TENANT_ID}}
           client-id: ${{env.ENTRA_CLIENT_ID}}
           client-secret: ${{secrets.ENTRA_CLIENT_SECRET}}
+          # These env vars are defined in https://github.com/LanceMcCarthy/XkcdViewer/settings/variables/actions
 
       - name: Draft Submission
         uses: microsoft/store-submission@v1

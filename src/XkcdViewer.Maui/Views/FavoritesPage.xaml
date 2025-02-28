@@ -17,18 +17,21 @@
                          Grid.Row="0"
                          Margin="5">
                 <Label Text="{Binding CurrentFavorite.Num, FallbackValue='No'}"
-                       Style="{StaticResource RalewayLabelStyle}" />
+                       Style="{StaticResource RalewayLabelStyle}" 
+                       x:DataType="viewModels:FavoritesPageViewModel"/>
                 <Label Text=" - "
                        TextColor="{StaticResource DarkGrayTextColor}"
                        Style="{StaticResource RalewayLabelStyle}" />
                 <Label Text="{Binding CurrentFavorite.Title, FallbackValue='Favorites!'}"
-                       Style="{StaticResource RalewayLabelStyle}" />
+                       Style="{StaticResource RalewayLabelStyle}" 
+                       x:DataType="viewModels:FavoritesPageViewModel"/>
             </StackLayout>
 
             <telerik:RadSlideView x:Name="ComicsSlideView"
                                   ItemsSource="{Binding FavoriteComics}"
                                   CurrentItem="{Binding CurrentFavorite, Mode=TwoWay}"
                                   ItemTemplate="{StaticResource SlideViewItemTemplate}"
+                                  x:DataType="viewModels:FavoritesPageViewModel"
                                   Orientation="Horizontal"
                                   NavigationButtonsVisibility="Collapsed"
                                   Grid.Row="1" />
@@ -40,18 +43,22 @@
                                    Grid.Row="2">
                 <Button Text="{x:Static resources:IconFont.ArrowLeft}"
                         Command="{Binding NavigateToPreviousItemCommand, Source={x:Reference ComicsSlideView}}"
-                        Style="{StaticResource OverlayButtonStyle}" />
+                        Style="{StaticResource OverlayButtonStyle}" 
+                        x:DataType="telerik:RadSlideView"/>
                 <Button Text="{x:Static resources:IconFont.Share}"
                         Command="{Binding ShareCommand}"
                         CommandParameter="{Binding .}"
-                        Style="{StaticResource OverlayButtonStyle}" />
+                        Style="{StaticResource OverlayButtonStyle}" 
+                        x:DataType="viewModels:FavoritesPageViewModel"/>
                 <Button BackgroundColor="{Binding CurrentFavorite.IsFavorite, Converter={StaticResource FavoriteToColorConverter}, FallbackValue=Gray}"
                         Text="{Binding CurrentFavorite.IsFavorite, Converter={StaticResource IsFavoriteIconCharacterConverter}, FallbackValue='x'}"
                         Command="{Binding ToggleFavoriteCommand}"
-                        Style="{StaticResource OverlayButtonStyle}" />
+                        Style="{StaticResource OverlayButtonStyle}" 
+                        x:DataType="viewModels:FavoritesPageViewModel"/>
                 <Button Text="{x:Static resources:IconFont.ArrowRight}"
                         Command="{Binding NavigateToNextItemCommand, Source={x:Reference ComicsSlideView}}"
-                        Style="{StaticResource OverlayButtonStyle}" />
+                        Style="{StaticResource OverlayButtonStyle}" 
+                        x:DataType="telerik:RadSlideView"/>
             </HorizontalStackLayout>
         </Grid>
     </Grid>

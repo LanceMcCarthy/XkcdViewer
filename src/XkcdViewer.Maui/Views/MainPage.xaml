@@ -17,15 +17,18 @@
                      Margin="5">
             <Label Text="{Binding CurrentComic.Num, StringFormat='[{0}]', FallbackValue='~'}"
                    Style="{StaticResource RalewayLabelStyle}"
-                   Margin="0,5,0,5" />
+                   Margin="0,5,0,5" 
+                   x:DataType="viewModels:MainPageViewModel"/>
             <Label Text="{Binding CurrentComic.Title, FallbackValue='~'}"
-                   Style="{StaticResource RalewayLabelStyle}" />
+                   Style="{StaticResource RalewayLabelStyle}" 
+                   x:DataType="viewModels:MainPageViewModel"/>
         </StackLayout>
 
         <telerik:RadSlideView x:Name="ComicsSlideView"
                               ItemsSource="{Binding Comics}"
                               CurrentItem="{Binding CurrentComic, Mode=TwoWay}"
                               ItemTemplate="{StaticResource SlideViewItemTemplate}"
+                              x:DataType="viewModels:MainPageViewModel"
                               Orientation="Horizontal"
                               NavigationButtonsVisibility="Collapsed"
                               Grid.Row="1" />
@@ -36,19 +39,23 @@
             <HorizontalStackLayout HorizontalOptions="Center">
                 <Button Text="{x:Static resources:IconFont.ArrowLeft}"
                         Command="{Binding NavigateToPreviousItemCommand, Source={x:Reference ComicsSlideView}}"
-                        Style="{StaticResource OverlayButtonStyle}" />
+                        Style="{StaticResource OverlayButtonStyle}" 
+                        x:DataType="telerik:RadSlideView"/>
                 <Button Text="{x:Static resources:IconFont.Share}"
                         Command="{Binding ShareCommand}"
                         CommandParameter="{Binding .}"
-                        Style="{StaticResource OverlayButtonStyle}" />
+                        Style="{StaticResource OverlayButtonStyle}" 
+                        x:DataType="viewModels:MainPageViewModel"/>
                 <Button BackgroundColor="{Binding CurrentComic.IsFavorite, Converter={StaticResource FavoriteToColorConverter}, FallbackValue=Gray}"
                         Text="{Binding CurrentComic.IsFavorite, Converter={StaticResource IsFavoriteIconCharacterConverter}, FallbackValue='~'}"
                         Command="{Binding ToggleFavoriteCommand}"
                         CommandParameter="{Binding .}"
-                        Style="{StaticResource OverlayButtonStyle}" />
+                        Style="{StaticResource OverlayButtonStyle}" 
+                        x:DataType="viewModels:MainPageViewModel"/>
                 <Button Text="{x:Static resources:IconFont.ArrowRight}"
                         Command="{Binding NavigateToNextItemCommand, Source={x:Reference ComicsSlideView}}"
-                        Style="{StaticResource OverlayButtonStyle}" />
+                        Style="{StaticResource OverlayButtonStyle}" 
+                        x:DataType="telerik:RadSlideView"/>
             </HorizontalStackLayout>
             <Button Text="Get next comic"
                     Command="{Binding FetchComicCommand}"

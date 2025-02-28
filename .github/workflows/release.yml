@@ -27,6 +27,7 @@ env:
   IOS_ARTIFACTS_PATH: "artifacts_ios"
   TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
   TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
+  TELERIK_LICENSE: ${{secrets.MY_TELERIK_LICENSE_KEY}}
 
 jobs:
   # [JOB] Generate Common Resources [/JOB]
@@ -67,7 +68,7 @@ jobs:
 
     # Needed only for WinUI builds
     - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.3.2
+      uses: microsoft/setup-msbuild@v2
 
     - name: Install MAUI workloads
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json

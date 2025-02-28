@@ -290,7 +290,7 @@ jobs:
     # If the GitHub runner doesn't have latest Xcode needed by the project.
     - uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: latest
+        xcode-version: 16.1
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
@@ -370,7 +370,7 @@ jobs:
     # If the GitHub runner doesn't have latest Xcode needed by the project.
     - uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: latest
+        xcode-version: 16.1
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4

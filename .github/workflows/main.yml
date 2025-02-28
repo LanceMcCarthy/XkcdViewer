@@ -20,6 +20,7 @@ env:
   BUILD_CONFIG: Debug
   TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
   TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
+  TELERIK_LICENSE: ${{secrets.MY_TELERIK_LICENSE_KEY}}
 
 jobs:
 
@@ -75,7 +76,7 @@ jobs:
 
     # For WinUI builds
     - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.3.2
+      uses: microsoft/setup-msbuild@v2
 
     - name: Install MAUI workload
       shell: pwsh

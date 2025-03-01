@@ -10,6 +10,7 @@ on:
       - '.github/workflows/main.yml' 
 
 env:
+  XCODE_VERSION: '16.2'
   DOTNET_VERSION: "9.0.x"
   WINDOWS_TFM: "net9.0-windows10.0.19041.0"
   ANDROID_TFM: "net9.0-android"
@@ -110,7 +111,7 @@ jobs:
     # If the GitHub runner doesn't have latest Xcode needed by the project.
     - uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: 16.1
+        xcode-version: ${{env.XCODE_VERSION}}
 
     - name: Install MAUI workload
       shell: pwsh
@@ -143,7 +144,7 @@ jobs:
     # If the GitHub runner doesn't have latest Xcode needed by the project.
     - uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: 16.1
+        xcode-version: ${{env.XCODE_VERSION}}
 
     - name: Install MAUI workload
       shell: pwsh

@@ -289,9 +289,9 @@ jobs:
         fetch-depth: 0
 
     # If the GitHub runner doesn't have latest Xcode needed by the project.
-    - uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: ${{env.XCODE_VERSION}}
+    # - uses: maxim-lobanov/setup-xcode@v1
+    #   with:
+    #     xcode-version: ${{env.XCODE_VERSION}}
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4

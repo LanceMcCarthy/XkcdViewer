@@ -40,7 +40,8 @@
                 <Grid Padding="10"
                       BackgroundColor="Gray">
                     <Image x:Name="MyImage"
-                           Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}">
+                           Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}"
+                           HandlerChanged="MyImage_OnHandlerChanged">
                         <Image.Shadow>
                             <Shadow Brush="Black"
                                     Offset="0,0"

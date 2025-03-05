@@ -1,4 +1,4 @@
-﻿namespace XkcdViewer.Maui.Models;
+﻿namespace XkcdViewer.Common.Models;
 
 public static class CommonStrings
 {

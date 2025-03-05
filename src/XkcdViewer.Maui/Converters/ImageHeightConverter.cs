@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using XkcdViewer.Maui.Models;
+using XkcdViewer.Common.Models;
 
 namespace XkcdViewer.Maui.Converters;
 

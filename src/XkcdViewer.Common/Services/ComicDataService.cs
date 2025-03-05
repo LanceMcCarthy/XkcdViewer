@@ -1,14 +1,18 @@
 ﻿using CommonHelpers.Services;
 using Newtonsoft.Json;
+using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using XkcdViewer.Maui.Models;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using XkcdViewer.Common.Models;
 
-namespace XkcdViewer.Maui.Services;
+namespace XkcdViewer.Common.Services;
 
 public class ComicDataService(XkcdApiService apiServ)
 {
-    private readonly string dataFilePath = Path.Combine(FileSystem.AppDataDirectory, "appdata.json");
+    private readonly string dataFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "appdata.json");
 
     public async Task GetComic(ObservableCollection<Comic>? comics, int? comicNumber)
     {

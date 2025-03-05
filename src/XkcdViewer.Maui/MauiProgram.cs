@@ -2,7 +2,7 @@
 using Microsoft.Maui.LifecycleEvents;
 using Telerik.Maui.Controls.Compatibility;
 using CommonHelpers.Services;
-using XkcdViewer.Maui.Services;
+using XkcdViewer.Common.Services;
 using XkcdViewer.Maui.ViewModels;
 using XkcdViewer.Maui.Views;
 

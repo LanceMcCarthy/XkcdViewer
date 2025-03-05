@@ -6,8 +6,8 @@
        xmlns:views="using:XkcdViewer.Maui.Views"
        xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
        xmlns:resources="using:XkcdViewer.Maui.Resources"
-       xmlns:services="clr-namespace:XkcdViewer.Maui.Services"
-       xmlns:models="clr-namespace:XkcdViewer.Maui.Models"
+       xmlns:services="clr-namespace:XkcdViewer.Maui.Handlers"
+       xmlns:models="clr-namespace:XkcdViewer.Common.Models;assembly=XkcdViewer.Common"
        ios:Page.UseSafeArea="True"
        FlyoutBehavior="Disabled">
     <Shell.SearchHandler>

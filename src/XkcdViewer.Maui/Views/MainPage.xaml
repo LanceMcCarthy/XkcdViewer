@@ -17,7 +17,7 @@
                      Margin="5">
             <Label Text="{Binding CurrentComic.Num, StringFormat='[{0}]', FallbackValue='~'}"
                    Style="{StaticResource RalewayLabelStyle}"
-                   Margin="0,5,0,5" 
+                   Margin="0,5,0,5"
                    x:DataType="viewModels:MainPageViewModel"/>
             <Label Text="{Binding CurrentComic.Title, FallbackValue='~'}"
                    Style="{StaticResource RalewayLabelStyle}" 

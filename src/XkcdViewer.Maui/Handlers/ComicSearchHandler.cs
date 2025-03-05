@@ -1,8 +1,8 @@
-﻿using XkcdViewer.Maui.Models;
+﻿using XkcdViewer.Common.Models;
 using XkcdViewer.Maui.ViewModels;
 using XkcdViewer.Maui.Views;
 
-namespace XkcdViewer.Maui.Services;
+namespace XkcdViewer.Maui.Handlers;
 
 public class ComicSearchHandler : SearchHandler
 {

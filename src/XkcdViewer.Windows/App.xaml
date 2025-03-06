@@ -1,16 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Application
-    x:Class="XkcdViewer.Windows.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:XkcdViewer.Windows">
+<Application x:Class="XkcdViewer.Windows.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:XkcdViewer.Windows"
+             xmlns:controls="using:Telerik.UI.Xaml.Controls">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
-                <!-- Other merged dictionaries here -->
+                <ResourceDictionary Source="ms-appx:///Telerik.WinUI.Controls/Themes/Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <!-- Other app resources here -->
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="ThemableForegroundBrush"
+                                     Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="ThemableBackgroundBrush"
+                                     Color="#202020" />
+                    <SolidColorBrush x:Key="ThemableContentBackgroundBrush"
+                                     Color="#1B1B1B" />
+                    <SolidColorBrush x:Key="ThemableBorderBrush"
+                                     Color="#12FFFFFF" />
+
+                    <SolidColorBrush x:Key="ControlExampleCardBackground"
+                                     Color="#0DFFFFFF" />
+                    <SolidColorBrush x:Key="ControlExampleCardBorderBrush"
+                                     Color="#19000000" />
+                    <SolidColorBrush x:Key="CodeViewerBorderBrush"
+                                     Color="#18FFFFFF" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="ThemableForegroundBrush"
+                                     Color="#E4000000" />
+                    <SolidColorBrush x:Key="ThemableBackgroundBrush"
+                                     Color="#F3F3F3" />
+                    <SolidColorBrush x:Key="ThemableContentBackgroundBrush"
+                                     Color="#F9F9F9" />
+                    <SolidColorBrush x:Key="ThemableBorderBrush"
+                                     Color="#0F000000" />
+
+                    <SolidColorBrush x:Key="ControlExampleCardBackground"
+                                     Color="#B3FFFFFF" />
+                    <SolidColorBrush x:Key="ControlExampleCardBorderBrush"
+                                     Color="#0F000000" />
+                    <SolidColorBrush x:Key="CodeViewerBorderBrush"
+                                     Color="#29000000" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+
+            <DataTemplate x:Key="PdfTemplate">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <controls:RadPdfViewerToolBar RadPdfViewer="{Binding ElementName=pdfViewer, Mode=OneTime}" />
+                    <controls:RadPdfViewer Grid.Row="1"
+                                           x:Name="pdfViewer"
+                                           DocumentSource="ms-appx:///Sample.pdf" />
+                </Grid>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

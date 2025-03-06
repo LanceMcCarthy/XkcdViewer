@@ -46,13 +46,11 @@
     <ProjectReference Include="..\XkcdViewer.Common\XkcdViewer.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="CopilotHelpers.cs">
-      <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Content Update="Assets\ModernizingApps2019.pptx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Sample.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 

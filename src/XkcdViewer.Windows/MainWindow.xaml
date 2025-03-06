@@ -5,75 +5,76 @@
         xmlns:local="using:XkcdViewer.Windows"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:input="using:Telerik.UI.Xaml.Controls.Input"
-        xmlns:controls="using:Telerik.UI.Xaml.Controls"
+        xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
         mc:Ignorable="d"
         Title="XkcdViewer.Windows">
 
     <Grid x:Name="RootGrid">
+        <Grid.DataContext>
+            <local:MainViewModel x:Name="ViewModel"/>
+        </Grid.DataContext>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid.Resources>
-            <DataTemplate x:Key="ComicTemplate">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="2*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Center"
-                                Grid.Row="0"
-                                Margin="10">
-                        <TextBlock Text="{Binding CurrentComic.Num, FallbackValue='~'}"
-                                   Margin="5" />
-                        <TextBlock Text="{Binding CurrentComic.Title, FallbackValue='~'}" 
-                                   Margin="5" />
-                    </StackPanel>
 
-                    <Image Source="{Binding CurrentComic.Img}"
-                           Grid.Row="1" />
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Grid.Row="0"
+                    Margin="10">
+            <TextBlock Text="{x:Bind ViewModel.CurrentComic.Title, Mode=OneWay, FallbackValue='~'}"
+                       Margin="5" />
+            <TextBlock Text="{x:Bind ViewModel.CurrentComic.Num, Mode=OneWay, FallbackValue='~'}"
+                       Margin="5" />
+        </StackPanel>
 
-                    <StackPanel Padding="10,5,10,0"
-                                Orientation="Vertical"
-                                Spacing="5"
-                                Grid.Row="2">
-                        <StackPanel HorizontalAlignment="Center"
-                                    Orientation="Horizontal">
-                            <Button Content="Previous" />
-                            <Button Content="Next" />
-                        </StackPanel>
-                        <Button Content="Get next comic"
-                                Command="{Binding FetchComicCommand}"
-                                FontFamily="Raleway"
-                                Width="200"
-                                Visibility="{Binding GetNewComicButtonIsVisible}"
-                                HorizontalAlignment="Center" />
-                    </StackPanel>
-                </Grid>
-            </DataTemplate>
-            <DataTemplate x:Key="PdfTemplate">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <controls:RadPdfViewerToolBar RadPdfViewer="{Binding ElementName=pdfViewer, Mode=OneTime}" />
-                    <controls:RadPdfViewer Grid.Row="1"
-                                           x:Name="pdfViewer"
-                                           DocumentSource="ms-appx:///ModernizingApps2019.pdf" />
-                </Grid>
-            </DataTemplate>
-        </Grid.Resources>
+        <FlipView x:Name="ComicFlipView"
+                  ItemsSource="{x:Bind ViewModel.Comics}"
+                  SelectedItem="{x:Bind ViewModel.CurrentComic, Mode=TwoWay}"
+                  Grid.Row="1">
+            <FlipView.ItemTemplate>
+                <DataTemplate>
+                    <Image Source="{Binding Img}" />
+                </DataTemplate>
+            </FlipView.ItemTemplate>
+        </FlipView>
 
-        <input:RadSegmentedControl x:Name="SegmentedControl"
-                                   SelectionChanged="Segements_OnSelectionChanged"
-                                   HorizontalAlignment="Left"
-                                   Grid.Row="0"/>
+        <Button Content="Analyze"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Grid.Row="1"
+                Click="AnalyzeButton_OnClick"
+                Margin="10"/>
 
-        <ContentPresenter x:Name="Presenter"
-                          Grid.Row="1" />
+        <primitives:RadPaginationControl PageProvider="{Binding ElementName=ComicFlipView}"
+                                         HorizontalAlignment="Center"
+                                         Height="50"
+                                         Width="500"
+                                         Margin="20"
+                                         Grid.Row="2">
+            <primitives:RadPaginationControl.ListItemTemplate>
+                <DataTemplate>
+                    <Image Source="{Binding Img}"
+                           Height="50" />
+                </DataTemplate>
+            </primitives:RadPaginationControl.ListItemTemplate>
+        </primitives:RadPaginationControl>
+
+        <StackPanel Padding="10,5,10,0"
+                    Orientation="Vertical"
+                    Spacing="5"
+                    Grid.Row="3">
+            <Button Content="Download Next Comic"
+                    Command="{x:Bind ViewModel.FetchComicCommand}"
+                    Width="200"
+                    HorizontalAlignment="Center" />
+        </StackPanel>
+
+        <primitives:RadBusyIndicator IsActive="{x:Bind ViewModel.IsBusy, Mode=OneWay}"
+                                     Content="{x:Bind ViewModel.IsBusyMessage, Mode=OneWay}"
+                                     Grid.Row="0"
+                                     Grid.RowSpan="2" />
     </Grid>
 </Window>

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
@@ -37,16 +37,23 @@
   </ItemGroup>
   <ItemGroup>
 	  <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250127003-experimental3" />
-	  <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
+	  <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
+	  <PackageReference Include="Telerik.WinUI.Controls" Version="3.0.0" />
+	  <PackageReference Include="Telerik.WinUI.Controls.PdfViewer" Version="3.0.0" />
+	  <PackageReference Include="CommonHelpers" Version="1.4.1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\" />
+    <ProjectReference Include="..\XkcdViewer.Common\XkcdViewer.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="CopilotHelpers.cs">
       <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Assets\ModernizingApps2019.pptx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <!--

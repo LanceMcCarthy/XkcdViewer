@@ -65,7 +65,7 @@
                     Orientation="Vertical"
                     Spacing="5"
                     Grid.Row="3">
-            <Button Content="Download Next Comic"
+            <Button Content="Fetch Another Comic"
                     Command="{x:Bind ViewModel.FetchComicCommand}"
                     Width="200"
                     HorizontalAlignment="Center" />

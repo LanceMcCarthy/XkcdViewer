@@ -6,12 +6,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+        xmlns:models="using:XkcdViewer.Common.Models"
         mc:Ignorable="d"
         Title="XkcdViewer.Windows">
 
     <Grid x:Name="RootGrid">
         <Grid.DataContext>
-            <local:MainViewModel x:Name="ViewModel"/>
+            <local:MainViewModel x:Name="ViewModel" />
         </Grid.DataContext>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -35,27 +36,29 @@
                   SelectedItem="{x:Bind ViewModel.CurrentComic, Mode=TwoWay}"
                   Grid.Row="1">
             <FlipView.ItemTemplate>
-                <DataTemplate>
-                    <Image Source="{Binding Img}" />
+                <DataTemplate  x:DataType="models:Comic">
+                    <Image Source="{x:Bind Img}" />
                 </DataTemplate>
             </FlipView.ItemTemplate>
         </FlipView>
 
         <Button Content="Analyze"
+                Command="{x:Bind ViewModel.AnalyzeComicCommand}"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Grid.Row="1"
-                Click="AnalyzeButton_OnClick"
-                Margin="10"/>
+                Margin="10" 
+                Grid.Row="1"/>
 
         <primitives:RadPaginationControl PageProvider="{Binding ElementName=ComicFlipView}"
+                                         Style="{StaticResource MyPaginationControlStyle}"
+                                         DisplayMode="All"
                                          HorizontalAlignment="Center"
                                          Height="100"
                                          Margin="20"
                                          Grid.Row="2">
             <primitives:RadPaginationControl.ListItemTemplate>
-                <DataTemplate>
-                    <Image Source="{Binding Img}"
+                <DataTemplate x:DataType="models:Comic">
+                    <Image Source="{x:Bind Img}"
                            Height="100" />
                 </DataTemplate>
             </primitives:RadPaginationControl.ListItemTemplate>

@@ -50,14 +50,13 @@
 
         <primitives:RadPaginationControl PageProvider="{Binding ElementName=ComicFlipView}"
                                          HorizontalAlignment="Center"
-                                         Height="50"
-                                         Width="500"
+                                         Height="100"
                                          Margin="20"
                                          Grid.Row="2">
             <primitives:RadPaginationControl.ListItemTemplate>
                 <DataTemplate>
                     <Image Source="{Binding Img}"
-                           Height="50" />
+                           Height="100" />
                 </DataTemplate>
             </primitives:RadPaginationControl.ListItemTemplate>
         </primitives:RadPaginationControl>

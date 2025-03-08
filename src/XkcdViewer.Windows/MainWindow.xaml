@@ -50,7 +50,6 @@
                 Grid.Row="1"/>
 
         <primitives:RadPaginationControl PageProvider="{Binding ElementName=ComicFlipView}"
-                                         Style="{StaticResource MyPaginationControlStyle}"
                                          DisplayMode="All"
                                          HorizontalAlignment="Center"
                                          Height="100"

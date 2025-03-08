@@ -11,6 +11,8 @@
 		<DefaultLanguage>en-us</DefaultLanguage>
 		<MauiEnableXamlCBindingWithSourceCompilation>true</MauiEnableXamlCBindingWithSourceCompilation>
 
+		<MauiVersion>9.0.14</MauiVersion>
+
 		<!-- Display name -->
 		<ApplicationTitle>xkcd Viewer</ApplicationTitle>
 
@@ -29,18 +31,15 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.19041.0</TargetPlatformMinVersion>
 	</PropertyGroup>
 
-	<!-- For Windows AI capability 
-	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('windows')) and '$(Configuration)' == 'Debug'">
-		<WindowsSDKPackageVersion>10.0.22621.38</WindowsSDKPackageVersion>
-		<WindowsAppSdkBootstrapInitialize>true</WindowsAppSdkBootstrapInitialize>
-		<EnableMsixTooling>true</EnableMsixTooling>
-		<Nullable>enable</Nullable>
-		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-	</PropertyGroup>-->
-
 	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('windows')) and '$(Configuration)' == 'Release'">
 		<AppxPackage>absent</AppxPackage>
 		<EnableMsixTooling>true</EnableMsixTooling>
+	</PropertyGroup>
+	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('maccatalyst')) and '$(Configuration)' == 'Debug'">
+		<RuntimeIdentifiers>net9.0-maccatalyst</RuntimeIdentifiers>
+	</PropertyGroup>
+	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('maccatalyst')) and '$(Configuration)' == 'Release'">
+		<RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -70,12 +69,5 @@
 	  <ProjectReference Include="..\XkcdViewer.Common\XkcdViewer.Common.csproj" />
 	</ItemGroup>
 
-	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('maccatalyst')) and '$(Configuration)' == 'Debug'">
-		<RuntimeIdentifiers>net9.0-maccatalyst</RuntimeIdentifiers>
-	</PropertyGroup>
-	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('maccatalyst')) and '$(Configuration)' == 'Release'">
-		<RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers>
-	</PropertyGroup>
-
-	<!--<Import Project="Microsoft.Build.Msix.Packaging.MsixBundle.targets" />-->
+	<Import Project="Microsoft.Build.Msix.Packaging.MsixBundle.targets" />
 </Project>

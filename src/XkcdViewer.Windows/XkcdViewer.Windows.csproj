@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net9.0-windows10.0.22621.0</TargetFramework>
-		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+		<TargetPlatformMinVersion>10.0.22621.0</TargetPlatformMinVersion>
 		<WindowsSdkPackageVersion>10.0.22621.54</WindowsSdkPackageVersion>
 		<RootNamespace>XkcdViewer.Windows</RootNamespace>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
@@ -10,8 +10,13 @@
 		<RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
 		<PublishProfile>win-$(Platform).pubxml</PublishProfile>
 		<UseWinUI>true</UseWinUI>
-		<EnableMsixTooling>true</EnableMsixTooling>
-		<Nullable>enable</Nullable>
+
+		<LangVersion>preview</LangVersion>
+		<NoWarn>CS8305;WMC1501</NoWarn>
+		<NoWarn>$(NoWarn);IL2050</NoWarn>
+		<IsAotCompatible>true</IsAotCompatible>
+		<ApplicationIcon>Assets\xkcd.ico</ApplicationIcon>
+		<AssemblyTitle>xkcd viewer</AssemblyTitle>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -32,9 +37,9 @@
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250127003-experimental3" />
 		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
 		<PackageReference Include="Telerik.WinUI.Controls" Version="3.0.0" />
-		<PackageReference Include="Telerik.WinUI.Controls.PdfViewer" Version="3.0.0" />
 		<PackageReference Include="CommonHelpers" Version="1.4.1" />
 	</ItemGroup>
+
 	<ItemGroup>
 		<ProjectReference Include="..\XkcdViewer.Common\XkcdViewer.Common.csproj" />
 	</ItemGroup>
@@ -46,11 +51,9 @@
 		<Content Update="Assets\Sample.pdf">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-	</ItemGroup>
-	<ItemGroup>
-		<Page Update="Styles\MyStyles.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</Page>
+		<Content Update="Assets\xkcd.ico">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 
 	<!--

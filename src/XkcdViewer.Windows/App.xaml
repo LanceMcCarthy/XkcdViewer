@@ -12,52 +12,36 @@
             </ResourceDictionary.MergedDictionaries>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Dark">
-                    <SolidColorBrush x:Key="ThemableForegroundBrush"
-                                     Color="#FFFFFF" />
-                    <SolidColorBrush x:Key="ThemableBackgroundBrush"
-                                     Color="#202020" />
-                    <SolidColorBrush x:Key="ThemableContentBackgroundBrush"
-                                     Color="#1B1B1B" />
-                    <SolidColorBrush x:Key="ThemableBorderBrush"
-                                     Color="#12FFFFFF" />
-
-                    <SolidColorBrush x:Key="ControlExampleCardBackground"
-                                     Color="#0DFFFFFF" />
-                    <SolidColorBrush x:Key="ControlExampleCardBorderBrush"
-                                     Color="#19000000" />
-                    <SolidColorBrush x:Key="CodeViewerBorderBrush"
-                                     Color="#18FFFFFF" />
+                    <SolidColorBrush x:Key="ThemableForegroundBrush" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="ThemableBackgroundBrush" Color="#202020" />
+                    <SolidColorBrush x:Key="ThemableContentBackgroundBrush" Color="#1B1B1B" />
+                    <SolidColorBrush x:Key="ThemableBorderBrush" Color="#12FFFFFF" />
+                    <SolidColorBrush x:Key="ControlExampleCardBackground" Color="#0DFFFFFF" />
+                    <SolidColorBrush x:Key="ControlExampleCardBorderBrush" Color="#19000000" />
+                    <SolidColorBrush x:Key="CodeViewerBorderBrush" Color="#18FFFFFF" />
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Light">
-                    <SolidColorBrush x:Key="ThemableForegroundBrush"
-                                     Color="#E4000000" />
-                    <SolidColorBrush x:Key="ThemableBackgroundBrush"
-                                     Color="#F3F3F3" />
-                    <SolidColorBrush x:Key="ThemableContentBackgroundBrush"
-                                     Color="#F9F9F9" />
-                    <SolidColorBrush x:Key="ThemableBorderBrush"
-                                     Color="#0F000000" />
-
-                    <SolidColorBrush x:Key="ControlExampleCardBackground"
-                                     Color="#B3FFFFFF" />
-                    <SolidColorBrush x:Key="ControlExampleCardBorderBrush"
-                                     Color="#0F000000" />
-                    <SolidColorBrush x:Key="CodeViewerBorderBrush"
-                                     Color="#29000000" />
+                    <SolidColorBrush x:Key="ThemableForegroundBrush" Color="#E4000000" />
+                    <SolidColorBrush x:Key="ThemableBackgroundBrush" Color="#F3F3F3" />
+                    <SolidColorBrush x:Key="ThemableContentBackgroundBrush" Color="#F9F9F9" />
+                    <SolidColorBrush x:Key="ThemableBorderBrush" Color="#0F000000" />
+                    <SolidColorBrush x:Key="ControlExampleCardBackground" Color="#B3FFFFFF" />
+                    <SolidColorBrush x:Key="ControlExampleCardBorderBrush" Color="#0F000000" />
+                    <SolidColorBrush x:Key="CodeViewerBorderBrush" Color="#29000000" />
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
 
-            <x:Double x:Key="TelerikButton_MinHeight">32</x:Double>
-            <x:Double x:Key="TelerikButton_MinWidth">32</x:Double>
-            <Thickness x:Key="TelerikButton_BorderThickness">0</Thickness>
-            <Thickness x:Key="TelerikButton_DropdownPadding">0</Thickness>
-            <Thickness x:Key="TelerikButton_DropdownBorderThickness">1</Thickness>
-            <CornerRadius x:Key="TelerikButton_LeftPartCornerRadius">2 0 0 2</CornerRadius>
-            <CornerRadius x:Key="TelerikButton_RightPartCornerRadius">0 2 2 0</CornerRadius>
-            <x:Double x:Key="TelerikLoopingList_ItemHeight">40</x:Double>
-            <x:Double x:Key="TelerikExpander_HeaderButtonWidth">32</x:Double>
-            <x:Double x:Key="TelerikExpander_HeaderButtonHeight">32</x:Double>
-            <x:String x:Key="TelerikExpander_ExpandCollapseRotatableGlyph">&#xE70D;</x:String>
+            <x:Double x:Key="TelerikButtonMinHeight">32</x:Double>
+            <x:Double x:Key="TelerikButtonMinWidth">32</x:Double>
+            <Thickness x:Key="TelerikButtonBorderThickness">0</Thickness>
+            <Thickness x:Key="TelerikButtonDropdownPadding">0</Thickness>
+            <Thickness x:Key="TelerikButtonDropdownBorderThickness">1</Thickness>
+            <CornerRadius x:Key="TelerikButtonLeftPartCornerRadius">2 0 0 2</CornerRadius>
+            <CornerRadius x:Key="TelerikButtonRightPartCornerRadius">0 2 2 0</CornerRadius>
+            <x:Double x:Key="TelerikLoopingListItemHeight">40</x:Double>
+            <x:Double x:Key="TelerikExpanderHeaderButtonWidth">32</x:Double>
+            <x:Double x:Key="TelerikExpanderHeaderButtonHeight">32</x:Double>
+            <x:String x:Key="TelerikExpanderExpandCollapseRotatableGlyph">&#xE70D;</x:String>
 
             <Style TargetType="localPagination:PaginationListControlItem">
                 <Setter Property="HorizontalContentAlignment"
@@ -123,10 +107,8 @@
                                                                                Storyboard.TargetName="OuterBorder">
                                                     <DiscreteObjectKeyFrame KeyTime="0"
                                                                             Value="Red" />
+                                                    <!--{ThemeResource TelerikPaginationControl_Item_BackgroundSelected}-->
                                                 </ObjectAnimationUsingKeyFrames>
-                                                <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="OuterBorder">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikPaginationControl_Item_BackgroundSelected}"/>
-                                </ObjectAnimationUsingKeyFrames>-->
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
                                                                                Storyboard.TargetName="ItemIndicator">
                                                     <DiscreteObjectKeyFrame KeyTime="0"
@@ -145,10 +127,8 @@
                                                                                Storyboard.TargetName="OuterBorder">
                                                     <DiscreteObjectKeyFrame KeyTime="0"
                                                                             Value="Red" />
+                                                    <!--{ThemeResource TelerikPaginationControl_Item_BackgroundSelected}-->
                                                 </ObjectAnimationUsingKeyFrames>
-                                                <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="OuterBorder">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikPaginationControl_Item_BackgroundSelected}"/>
-                                </ObjectAnimationUsingKeyFrames>-->
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
                                                                                Storyboard.TargetName="ItemIndicator">
                                                     <DiscreteObjectKeyFrame KeyTime="0"

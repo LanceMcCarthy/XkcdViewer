@@ -6,8 +6,8 @@
 		<WindowsSdkPackageVersion>10.0.22621.54</WindowsSdkPackageVersion>
 		<RootNamespace>XkcdViewer.Windows</RootNamespace>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
-		<Platforms>x86;x64;ARM64</Platforms>
-		<RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+		<Platforms>x64;ARM64</Platforms>
+		<RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
 		<PublishProfile>win-$(Platform).pubxml</PublishProfile>
 		<UseWinUI>true</UseWinUI>
 
@@ -30,14 +30,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Manifest Include="$(ApplicationManifest)" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250127003-experimental3" />
 		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
 		<PackageReference Include="Telerik.WinUI.Controls" Version="3.0.0" />
 		<PackageReference Include="CommonHelpers" Version="1.4.1" />
+		<Manifest Include="$(ApplicationManifest)" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -45,9 +42,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Update="Assets\ModernizingApps2019.pptx">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
 		<Content Update="Assets\xkcd.ico">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>

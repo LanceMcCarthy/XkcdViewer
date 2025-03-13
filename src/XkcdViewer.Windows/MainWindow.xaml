@@ -44,6 +44,7 @@
 
         <Button Content="Analyze"
                 Command="{x:Bind ViewModel.AnalyzeComicCommand}"
+                Visibility="{x:Bind ViewModel.HasNpuCapability, Mode=OneWay}"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Margin="10" 

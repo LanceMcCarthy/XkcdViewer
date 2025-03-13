@@ -17,11 +17,12 @@ using System.Threading.Tasks;
 using Windows.Graphics.Imaging;
 using Windows.Media.Core;
 using Windows.Media.SpeechSynthesis;
-using Windows.Storage.Streams;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Popups;
 using XkcdViewer.Common.Models;
 using XkcdViewer.Common.Services;
+using XkcdViewer.Windows.Utils;
 
 namespace XkcdViewer.Windows;
 
@@ -32,26 +33,33 @@ public class MainViewModel : ViewModelBase
     private static MediaPlayerElement? mpe;
 
     private readonly ComicDataService comicDataService;
-    private Comic? currentComic;
 
     public MainViewModel()
     {
         comicDataService = new ComicDataService(new XkcdApiService());
         FetchComicCommand = new RelayCommand(async () => await FetchComicAsync());
         AnalyzeComicCommand = new RelayCommand(async () => await AnalyzeComicAsync());
+
+        HasNpuCapability = AppUtils.HasNpu() ? Visibility.Visible : Visibility.Collapsed;
     }
 
     public ObservableCollection<Comic> Comics { get; } = [];
 
     public Comic? CurrentComic
     {
-        get => currentComic;
-        set => SetProperty(ref currentComic, value);
+        get;
+        set => SetProperty(ref field, value);
     }
 
     public RelayCommand FetchComicCommand { get; set; }
 
     public RelayCommand AnalyzeComicCommand { get; set; }
+
+    public Visibility HasNpuCapability
+    {
+        get;
+        set => SetProperty(ref field, value);
+    }
 
     public async Task InitialLoadAsync()
     {
@@ -130,80 +138,88 @@ public class MainViewModel : ViewModelBase
 
     private async Task<LanguageModelResponse?> GetImageDescriptionAsync(string filePath)
     {
-        IRandomAccessStream stream;
-
-        if (IsPackagedApp)
+        try
         {
-            var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(filePath));
-            stream = await file.OpenAsync(FileAccessMode.Read);
-        }
-        else
-        {
-            stream = File.OpenRead(filePath).AsRandomAccessStream();
-        }
+            IRandomAccessStream stream;
 
-        if (stream == null)
-        {
-            await new MessageDialog("There was a problem loading the image file.").ShowAsync();
-            return null;
-        }
-
-        // STEP 1 - Load png file into a SoftwareBitmap
-
-        var decoder = await BitmapDecoder.CreateAsync(stream);
-        var sBitmap = await decoder.GetSoftwareBitmapAsync();
-
-        if (sBitmap == null)
-        {
-            await new MessageDialog("There was a problem creating the SoftwareBitmap from the image file.").ShowAsync();
-            return null;
-        }
-
-        // STEP 2 - Make sure Gen AI capabilities are onboard
-
-        IsBusyMessage = "Checking Windows AI capabilities...";
-
-        if (!ImageDescriptionGenerator.IsAvailable())
-        {
-            IsBusyMessage = "Preparing ImageDescriptionGenerator for first time use...";
-
-            var result = await ImageDescriptionGenerator.MakeAvailableAsync();
-
-            if (result.Status != PackageDeploymentStatus.CompletedSuccess)
+            if (IsPackagedApp)
             {
-                await new MessageDialog($"There was a problem installing the required packages: {result.ExtendedError.Message}").ShowAsync();
+                var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(filePath));
+                stream = await file.OpenAsync(FileAccessMode.Read);
+            }
+            else
+            {
+                stream = File.OpenRead(filePath).AsRandomAccessStream();
+            }
+
+            if (stream == null)
+            {
+                await new MessageDialog("There was a problem loading the image file.").ShowAsync();
                 return null;
             }
-        }
 
-        // STEP 3 - Load the SoftwareBitmap into an ImageBuffer
+            // STEP 1 - Load png file into a SoftwareBitmap
 
-        IsBusyMessage = "Preparing image buffer...";
+            var decoder = await BitmapDecoder.CreateAsync(stream);
+            var sBitmap = await decoder.GetSoftwareBitmapAsync();
 
-        var inputImage = ImageBuffer.CreateCopyFromBitmap(sBitmap);
-
-        if (inputImage == null)
-        {
-            await new MessageDialog("There was a problem creating the ImageBuffer from the SoftwareBitmap.").ShowAsync();
-            return null;
-        }
-
-        // STEP 4 - Use ImageDescriptionGenerator from Windows Gen AI APIs
-
-        IsBusyMessage = "Analyzing image...";
-
-        var imageDescriptionGenerator = await ImageDescriptionGenerator.CreateAsync();
-
-        var languageModelResponse = await imageDescriptionGenerator.DescribeAsync(
-            inputImage, 
-            ImageDescriptionScenario.DetailedNarration,
-            new ContentFilterOptions
+            if (sBitmap == null)
             {
-                PromptMinSeverityLevelToBlock = { ViolentContentSeverity = SeverityLevel.Medium },
-                ResponseMinSeverityLevelToBlock = { ViolentContentSeverity = SeverityLevel.Medium }
-            });
+                await new MessageDialog("There was a problem creating the SoftwareBitmap from the image file.").ShowAsync();
+                return null;
+            }
 
-        return languageModelResponse;
+            // STEP 2 - Make sure Gen AI capabilities are onboard
+
+            IsBusyMessage = "Checking Windows AI capabilities...";
+
+            if (!ImageDescriptionGenerator.IsAvailable())
+            {
+                IsBusyMessage = "Preparing ImageDescriptionGenerator for first time use...";
+
+                var result = await ImageDescriptionGenerator.MakeAvailableAsync();
+
+                if (result.Status != PackageDeploymentStatus.CompletedSuccess)
+                {
+                    await new MessageDialog($"There was a problem installing the required packages: {result.ExtendedError.Message}").ShowAsync();
+                    return null;
+                }
+            }
+
+            // STEP 3 - Load the SoftwareBitmap into an ImageBuffer
+
+            IsBusyMessage = "Preparing image buffer...";
+
+            var inputImage = ImageBuffer.CreateCopyFromBitmap(sBitmap);
+
+            if (inputImage == null)
+            {
+                await new MessageDialog("There was a problem creating the ImageBuffer from the SoftwareBitmap.").ShowAsync();
+                return null;
+            }
+
+            // STEP 4 - Use ImageDescriptionGenerator from Windows Gen AI APIs
+
+            IsBusyMessage = "Analyzing image...";
+
+            var imageDescriptionGenerator = await ImageDescriptionGenerator.CreateAsync();
+
+            var languageModelResponse = await imageDescriptionGenerator.DescribeAsync(
+                inputImage,
+                ImageDescriptionScenario.DetailedNarration,
+                new ContentFilterOptions
+                {
+                    PromptMinSeverityLevelToBlock = { ViolentContentSeverity = SeverityLevel.Medium },
+                    ResponseMinSeverityLevelToBlock = { ViolentContentSeverity = SeverityLevel.Medium }
+                });
+
+            return languageModelResponse;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            throw;
+        }
     }
 
     private static async Task ReadAloudAsync(string message)

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="XkcdViewer.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:XkcdViewer.Windows"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+        xmlns:models="using:XkcdViewer.Common.Models"
+        mc:Ignorable="d"
+        Title="XkcdViewer.Windows">
+
+    <Grid x:Name="RootGrid">
+        <Grid.DataContext>
+            <local:MainViewModel x:Name="ViewModel" />
+        </Grid.DataContext>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Grid.Row="0"
+                    Margin="10">
+            <TextBlock Text="{x:Bind ViewModel.CurrentComic.Title, Mode=OneWay, FallbackValue='~'}"
+                       Margin="5" />
+            <TextBlock Text="{x:Bind ViewModel.CurrentComic.Num, Mode=OneWay, FallbackValue='~'}"
+                       Margin="5" />
+        </StackPanel>
+
+        <FlipView x:Name="ComicFlipView"
+                  ItemsSource="{x:Bind ViewModel.Comics}"
+                  SelectedItem="{x:Bind ViewModel.CurrentComic, Mode=TwoWay}"
+                  Grid.Row="1">
+            <FlipView.ItemTemplate>
+                <DataTemplate  x:DataType="models:Comic">
+                    <Image Source="{x:Bind Img}" />
+                </DataTemplate>
+            </FlipView.ItemTemplate>
+        </FlipView>
+
+        <Button Content="Analyze (Copilot+ NPU)"
+                Command="{x:Bind ViewModel.AnalyzeComicCommand}"
+                Visibility="{x:Bind ViewModel.CopilotCapVisibility, Mode=OneWay}"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="10" 
+                Grid.Row="1"/>
+
+        <primitives:RadPaginationControl PageProvider="{Binding ElementName=ComicFlipView}"
+                                         DisplayMode="All"
+                                         HorizontalAlignment="Center"
+                                         Height="100"
+                                         Margin="20"
+                                         Grid.Row="2">
+            <primitives:RadPaginationControl.ListItemTemplate>
+                <DataTemplate x:DataType="models:Comic">
+                    <Image Source="{x:Bind Img}"
+                           Height="100" />
+                </DataTemplate>
+            </primitives:RadPaginationControl.ListItemTemplate>
+        </primitives:RadPaginationControl>
+
+        <StackPanel Padding="10,5,10,0"
+                    Orientation="Vertical"
+                    Spacing="5"
+                    Grid.Row="3">
+            <Button Content="Fetch Another Comic"
+                    Command="{x:Bind ViewModel.FetchComicCommand}"
+                    Width="200"
+                    HorizontalAlignment="Center" />
+        </StackPanel>
+
+        <primitives:RadBusyIndicator IsActive="{x:Bind ViewModel.IsBusy, Mode=OneWay}"
+                                     Content="{x:Bind ViewModel.IsBusyMessage, Mode=OneWay}"
+                                     Grid.Row="0"
+                                     Grid.RowSpan="2" />
+    </Grid>
+</Window>

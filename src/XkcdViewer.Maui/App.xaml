@@ -5,7 +5,7 @@
              xmlns:converters="clr-namespace:XkcdViewer.Maui.Converters"
              xmlns:local="clr-namespace:XkcdViewer.Maui"
              xmlns:resources="clr-namespace:XkcdViewer.Maui.Resources"
-             xmlns:models="clr-namespace:XkcdViewer.Maui.Models"
+             xmlns:models="clr-namespace:XkcdViewer.Common.Models;assembly=XkcdViewer.Common"
              x:Class="XkcdViewer.Maui.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -40,7 +40,8 @@
                 <Grid Padding="10"
                       BackgroundColor="Gray">
                     <Image x:Name="MyImage"
-                           Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}">
+                           Source="{Binding Converter={StaticResource ComicToImageSourceConverter}}"
+                           HandlerChanged="MyImage_OnHandlerChanged">
                         <Image.Shadow>
                             <Shadow Brush="Black"
                                     Offset="0,0"

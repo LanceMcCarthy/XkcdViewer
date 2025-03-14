@@ -1,9 +1,10 @@
 ﻿using CommonHelpers.Services.DataModels;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
-namespace XkcdViewer.Maui.Models;
+namespace XkcdViewer.Common.Models;
 
 public class Comic : XkcdComic, INotifyPropertyChanged
 {

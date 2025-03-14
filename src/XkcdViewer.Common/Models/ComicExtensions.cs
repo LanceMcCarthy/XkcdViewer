@@ -1,6 +1,6 @@
 ﻿using CommonHelpers.Services.DataModels;
 
-namespace XkcdViewer.Maui.Models;
+namespace XkcdViewer.Common.Models;
 
 public static class ComicExtensions
 {

@@ -42,9 +42,9 @@
             </FlipView.ItemTemplate>
         </FlipView>
 
-        <Button Content="Analyze"
+        <Button Content="Analyze (Copilot+ NPU)"
                 Command="{x:Bind ViewModel.AnalyzeComicCommand}"
-                Visibility="{x:Bind ViewModel.HasNpuCapability, Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.CopilotCapVisibility, Mode=OneWay}"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Margin="10" 

@@ -40,7 +40,7 @@ public class MainViewModel : ViewModelBase
         FetchComicCommand = new RelayCommand(async () => await FetchComicAsync());
         AnalyzeComicCommand = new RelayCommand(async () => await AnalyzeComicAsync());
 
-        HasNpuCapability = AppUtils.HasNpu() ? Visibility.Visible : Visibility.Collapsed;
+        CopilotCapVisibility = AppUtils.HasNpu() ? Visibility.Visible : Visibility.Collapsed;
     }
 
     public ObservableCollection<Comic> Comics { get; } = [];
@@ -55,7 +55,7 @@ public class MainViewModel : ViewModelBase
 
     public RelayCommand AnalyzeComicCommand { get; set; }
 
-    public Visibility HasNpuCapability
+    public Visibility CopilotCapVisibility
     {
         get;
         set => SetProperty(ref field, value);

@@ -1,0 +1,155 @@
+name: WinUI Copilot+ Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: write
+  discussions: write
+
+defaults:
+  run:
+    shell: pwsh
+
+env:
+  DOTNET_VERSION: '9.0.x'
+  WINDOWS_TFM: "net9.0-windows10.0.22621.0"
+  CSPROJ_PATH: "src/XkcdViewer.Windows/XkcdViewer.Windows.csproj"
+  NUGETCONFIG_PATH: "src/nuget.config"
+  BUILD_CONFIG: Release
+  WINDOWS_ARTIFACTS_PATH: "artifacts_windows"
+  TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
+  TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
+  TELERIK_LICENSE: ${{secrets.MY_TELERIK_LICENSE_KEY}}
+
+jobs:
+  shared-resources:
+    name: Create Shared Resources
+    runs-on: windows-latest
+    outputs:
+      app_version: ${{steps.version-creator.outputs.app_version}}
+    steps:
+    # Generates a version number using year.monthday.run_number.0 (e.g., 2024.824.1.0)
+    - name: Generate version number using date and run number
+      id: version-creator
+      run: |
+        $buildDay = Get-Date -Format "yyyy.Mdd"
+        $runNumber = "$env:GITHUB_RUN_NUMBER"
+        $ver = $buildDay + "." + $runNumber + ".0"
+        echo "app_version=$ver" >> $env:GITHUB_OUTPUT
+
+  # [JOB] Windows Sideload Build [/JOB]
+  maui-windows-sideload:
+    name: Build Windows Sideload
+    needs: shared-resources
+    runs-on: windows-latest
+    if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
+    strategy:
+      matrix:
+        RID: [win10-arm64]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{env.DOTNET_VERSION}}
+
+    # Needed only for WinUI builds
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Install MAUI workloads
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+
+    - name: Restore NuGet packages
+      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+
+    # Update the app manifest using the sideload publisher identity
+    - name: Update manifest for side load build
+      run: |
+        [xml]$manifest = get-content "src\XkcdViewer.Windows\Package.appxmanifest"
+        $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}"
+        $manifest.Package.Identity.Name = "61469LanceLotSoftware.XKCDComicViewer"
+        $manifest.Package.Identity.Publisher = 'CN=" Lance McCarthy", O=" Lance McCarthy", L=Revere, S=Massachusetts, C=US'
+        $manifest.Package.Properties.DisplayName = "xkcd Comic Viewer"
+        $manifest.Package.Properties.PublisherDisplayName = "Lance McCarthy"
+        $manifest.Package.Applications.Application.VisualElements.DisplayName = "xkcd AI"
+        $manifest.save("src\XkcdViewer.Windows\Package.appxmanifest")
+    
+    - name: Build project
+      run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.WINDOWS_TFM}}" -p:RuntimeIdentifierOverride=${{matrix.RID}} -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
+
+    - name: Process MSIX
+      id: process-msix-file
+      run: |
+        $msixPath = Get-ChildItem -Filter XkcdViewer.Windows*.msix -Recurse | %{$_.FullName}
+        New-Item -Path . -Name ${{env.WINDOWS_ARTIFACTS_PATH}} -ItemType Directory
+        $finalMsixPath = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_${{matrix.RID}}.msix"
+        Move-Item -Path $msixPath -Destination $finalMsixPath -Force
+        echo "PACKAGE_PATH=$finalMsixPath" >> $env:GITHUB_OUTPUT
+
+    - name: Attach artifacts to workflow run
+      uses: actions/upload-artifact@v4
+      with:     
+        name: "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_${{matrix.RID}}.msix" 
+        path: ${{steps.process-msix-file.outputs.PACKAGE_PATH}}
+        if-no-files-found: error
+        retention-days: 30
+
+  create-gh-release:
+    name: Codesign and Publish Release
+    if: ${{ success() }}
+    runs-on: windows-2022
+    needs: [shared-resources, maui-windows-sideload]
+    steps:
+    # Download the artifacts from the previous jobs
+    - uses: actions/download-artifact@v4
+
+    # Login to Azure CLI. No secrets needed, uses the GitHub OIDC token to authenticate.
+    - name: Azure login using OIDC via GitHub
+      uses: azure/login@v2
+      id: azlogin
+      with:
+        client-id: "32daa13b-f4bb-4809-8ef6-58cb39051acd"
+        tenant-id: "bd47e796-3473-4b8a-9101-1f4c0c7af31a"
+        subscription-id: "48ab4839-62af-4ab3-afe6-043ea4d7c137"
+
+    # Codesign files with Trusted Signing
+    - name: Sign files with Trusted Signing
+      uses: azure/trusted-signing-action@v0.4.0
+      with:
+        endpoint: https://eus.codesigning.azure.net/
+        trusted-signing-account-name: PrimaryCodeSign
+        certificate-profile-name: lancemccarthylivepublic
+        timestamp-rfc3161: http://timestamp.acs.microsoft.com
+        timestamp-digest: SHA256
+        file-digest: SHA256
+        files-folder: ${{github.workspace}}
+        files-folder-filter: msix
+        files-folder-depth: 3
+        exclude-azure-cli-credential: false
+        exclude-environment-credential: true
+        exclude-workload-identity-credential: true
+        exclude-managed-identity-credential: true
+        exclude-shared-token-cache-credential: true
+        exclude-visual-studio-credential: true
+        exclude-visual-studio-code-credential: true
+        exclude-azure-powershell-credential: true
+        exclude-azure-developer-cli-credential: true
+        exclude-interactive-browser-credential: true
+
+    # Create a GitHub release and attach the signed files
+    - name: Release
+      uses: softprops/action-gh-release@v2
+      with:
+        name: "Xkcd AI v${{needs.shared-resources.outputs.app_version}}"
+        body: |
+          This is v${{needs.shared-resources.outputs.app_version}} of the xkcd viewer app built specificaly for windows Copilot+ PCs. To install, use the ARM64 installer file for your device (NPU is not available for x64 yet).
+        files: ${{github.workspace}}/**/*
+        tag_name: "v${{needs.shared-resources.outputs.app_version}}"
+        prerelease: true

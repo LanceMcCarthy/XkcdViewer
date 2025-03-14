@@ -69,5 +69,5 @@
 	  <ProjectReference Include="..\XkcdViewer.Common\XkcdViewer.Common.csproj" />
 	</ItemGroup>
 
-	<Import Project="Microsoft.Build.Msix.Packaging.MsixBundle.targets" />
+	<!--<Import Project="Microsoft.Build.Msix.Packaging.MsixBundle.targets" />-->
 </Project>

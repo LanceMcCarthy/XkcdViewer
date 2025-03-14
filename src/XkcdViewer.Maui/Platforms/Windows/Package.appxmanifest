@@ -6,7 +6,7 @@
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   IgnorableNamespaces="uap rescap">
 
-	<Identity Name="61469LanceLotSoftware.XKCDComicViewer" Publisher="CN=&quot;Lancelot Software, LLC&quot;, O=&quot;Lancelot Software, LLC&quot;, L=NORTH BILLERICA, S=Massachusetts, C=US" Version="2025.304.1.0" />
+	<Identity Name="61469LanceLotSoftware.XKCDComicViewer" Publisher="CN=51B5A8B2-5D86-4826-BBE2-C92E963A4C02" Version="2024.724.2.0" />
 	<mp:PhoneIdentity PhoneProductId="8f4f2ae7-ee34-417f-8764-36921b31b69b" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
 
 	<Properties>

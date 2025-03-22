@@ -8,12 +8,10 @@
         xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
         xmlns:models="using:XkcdViewer.Common.Models"
         mc:Ignorable="d"
-        Title="XkcdViewer.Windows">
+        Title="XkcdViewer.Windows"
+        x:Name="ThisWindow">
 
     <Grid x:Name="RootGrid">
-        <Grid.DataContext>
-            <local:MainViewModel x:Name="ViewModel" />
-        </Grid.DataContext>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="2*" />
@@ -42,13 +40,24 @@
             </FlipView.ItemTemplate>
         </FlipView>
 
-        <Button Content="Analyze (Copilot+ NPU)"
-                Command="{x:Bind ViewModel.AnalyzeComicCommand}"
-                Visibility="{x:Bind ViewModel.CopilotCapVisibility, Mode=OneWay}"
-                HorizontalAlignment="Right"
+        <StackPanel Visibility="{x:Bind ViewModel.CopilotCapVisibility, Mode=OneWay}"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Spacing="10"
+                    Margin="10"
+                    Grid.Row="1">
+            <ComboBox ItemsSource="{x:Bind ViewModel.DescriptionLevels}" 
+                      SelectedItem="{x:Bind ViewModel.PreferredDescriptionLevel, Mode=TwoWay}" />
+            <Button Content="Analyze (Copilot+ NPU)"
+                    Command="{x:Bind ViewModel.AnalyzeComicCommand}"/>
+        </StackPanel>
+
+        <Button Content="Remove"
+                Command="{x:Bind ViewModel.DeleteComicCommand}"
+                HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Margin="10" 
-                Grid.Row="1"/>
+                Grid.Row="1"
+                Margin="10" />
 
         <primitives:RadPaginationControl PageProvider="{Binding ElementName=ComicFlipView}"
                                          DisplayMode="All"
@@ -76,7 +85,9 @@
 
         <primitives:RadBusyIndicator IsActive="{x:Bind ViewModel.IsBusy, Mode=OneWay}"
                                      Content="{x:Bind ViewModel.IsBusyMessage, Mode=OneWay}"
+                                     Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
                                      Grid.Row="0"
+                                     OverlayBackground="{ThemeResource SystemControlBackgroundBaseMediumBrush}"
                                      Grid.RowSpan="2" />
     </Grid>
 </Window>

@@ -92,6 +92,9 @@ public partial class MainViewModel : ViewModelBase
 
     private async Task DeleteComicAsync()
     {
+        if (CurrentComic is null)
+            return;
+
         var dialog = new ContentDialog
         {
             Title = "Delete Confirmation",

@@ -33,9 +33,9 @@ public partial class MainViewModel : ViewModelBase
 
         // Shows the panel with Copilot controls
         CopilotCapVisibility = Visibility.Visible;
-
+        
         // Populate the ComboBox with the available description levels
-        var levelsList = Enum.GetValues(typeof(ImageDescriptionScenario)).Cast<ImageDescriptionScenario>();
+        var levelsList = Enum.GetValues<ImageDescriptionScenario>();
         DescriptionLevels.AddRange(levelsList);
 
         // Preselect the one I think works best

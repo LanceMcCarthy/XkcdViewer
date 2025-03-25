@@ -1,4 +1,5 @@
 ﻿// AppUtils.cs
+// https://github.com/microsoft/CsWin32#readme
 IDXCoreAdapterFactory
 IDXCoreAdapter
 IDXCoreAdapterList

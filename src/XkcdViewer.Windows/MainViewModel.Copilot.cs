@@ -155,7 +155,14 @@ public partial class MainViewModel : ViewModelBase
         {
             IsBusyMessage = "Preparing ImageDescriptionGenerator for first time use...";
 
-            var result = await ImageDescriptionGenerator.MakeAvailableAsync();
+            var wProg = ImageDescriptionGenerator.MakeAvailableAsync();
+
+            wProg.Progress = (asyncInfo, progressInfo) =>
+            {
+                IsBusyMessage = $"Downloading model... {progressInfo.Progress * 100}% complete.";
+            };
+
+            PackageDeploymentResult? result = await wProg;
 
             if (result.Status != PackageDeploymentStatus.CompletedSuccess)
             {
@@ -210,7 +217,12 @@ public partial class MainViewModel : ViewModelBase
         mpe ??= new MediaPlayerElement();
         var mediaSource = MediaSource.CreateFromStream(synthesisStream, synthesisStream.ContentType);
         mpe.Source = mediaSource;
+
+        IsBusyMessage = "Playing audio...";
+
         mpe.MediaPlayer.Play();
+
+        IsBusyMessage = "Done!";
     }
 
     private async Task ShowAnalyzerMessageAsync(string message)

@@ -14,9 +14,8 @@
     <Grid x:Name="RootGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="2*" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal"
@@ -40,24 +39,40 @@
             </FlipView.ItemTemplate>
         </FlipView>
 
-        <StackPanel Visibility="{x:Bind ViewModel.CopilotCapVisibility, Mode=OneWay}"
+        <StackPanel x:Name="RemoteOperationsPanel"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Spacing="10"
                     Margin="10"
                     Grid.Row="1">
-            <ComboBox ItemsSource="{x:Bind ViewModel.DescriptionLevels}" 
-                      SelectedItem="{x:Bind ViewModel.PreferredDescriptionLevel, Mode=TwoWay}" />
-            <Button Content="Analyze (Copilot+ NPU)"
-                    Command="{x:Bind ViewModel.AnalyzeComicCommand}"/>
+            <Button Content="Get Next Comic"
+                    Command="{x:Bind ViewModel.FetchComicCommand}"
+                    Width="150"
+                    HorizontalAlignment="Center" 
+                    Background="DarkGreen"
+                    Foreground="White"/>
         </StackPanel>
 
-        <Button Content="Remove"
-                Command="{x:Bind ViewModel.DeleteComicCommand}"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                Grid.Row="1"
-                Margin="10" />
+        <StackPanel x:Name="LocalOperationsPanel"
+                Visibility="{x:Bind ViewModel.CopilotCapVisibility, Mode=OneWay}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Spacing="10"
+                    Margin="10"
+                    Grid.Row="1">
+        <Button Content="Analyze with Copilot"
+                Command="{x:Bind ViewModel.AnalyzeComicCommand}" 
+                Background="DarkGoldenrod"
+                Width="175"/>
+            <!--<ComboBox ItemsSource="{x:Bind ViewModel.DescriptionLevels}"
+                      SelectedItem="{x:Bind ViewModel.PreferredDescriptionLevel, Mode=TwoWay}" 
+                      Width="175"/>-->
+            <Button Content="Delete"
+                    Command="{x:Bind ViewModel.DeleteComicCommand}"
+                    Width="175"
+                    Background="DarkRed"
+                    Foreground="White"/>
+        </StackPanel>
 
         <primitives:RadPaginationControl PageProvider="{Binding ElementName=ComicFlipView}"
                                          DisplayMode="All"
@@ -73,21 +88,16 @@
             </primitives:RadPaginationControl.ListItemTemplate>
         </primitives:RadPaginationControl>
 
-        <StackPanel Padding="10,5,10,0"
-                    Orientation="Vertical"
-                    Spacing="5"
-                    Grid.Row="3">
-            <Button Content="Fetch Another Comic"
-                    Command="{x:Bind ViewModel.FetchComicCommand}"
-                    Width="200"
-                    HorizontalAlignment="Center" />
-        </StackPanel>
-
         <primitives:RadBusyIndicator IsActive="{x:Bind ViewModel.IsBusy, Mode=OneWay}"
                                      Content="{x:Bind ViewModel.IsBusyMessage, Mode=OneWay}"
                                      Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+                                     OverlayBackground="{ThemeResource SystemControlBackgroundBaseMediumHighBrush}"
+                                     AnimationStyle="AnimationStyle1"
                                      Grid.Row="0"
-                                     OverlayBackground="{ThemeResource SystemControlBackgroundBaseMediumBrush}"
-                                     Grid.RowSpan="2" />
+                                     Grid.RowSpan="3">
+            <primitives:RadBusyIndicator.Resources>
+                <SolidColorBrush x:Key="TelerikBusyIndicator_IndicatorBackground" Color="{ThemeResource SystemAccentColor}" /> 
+            </primitives:RadBusyIndicator.Resources>
+        </primitives:RadBusyIndicator>
     </Grid>
 </Window>

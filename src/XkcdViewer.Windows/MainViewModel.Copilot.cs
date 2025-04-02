@@ -16,6 +16,7 @@ using Windows.Media.Core;
 using Windows.Media.SpeechSynthesis;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using Microsoft.UI.Dispatching;
 using XkcdViewer.Windows.Utils;
 
 namespace XkcdViewer.Windows;
@@ -157,9 +158,9 @@ public partial class MainViewModel : ViewModelBase
 
             var wProg = ImageDescriptionGenerator.MakeAvailableAsync();
 
-            wProg.Progress = (asyncInfo, progressInfo) =>
+            wProg.Progress = (result, progressInfo) =>
             {
-                IsBusyMessage = $"Downloading model... {progressInfo.Progress * 100}% complete.";
+                DispatcherQueue.GetForCurrentThread().TryEnqueue(() => IsBusyMessage = $"Downloading model... {progressInfo.Progress * 100}% complete.");
             };
 
             PackageDeploymentResult? result = await wProg;
@@ -189,9 +190,20 @@ public partial class MainViewModel : ViewModelBase
 
         var imageDescriptionGenerator = await ImageDescriptionGenerator.CreateAsync();
 
+
+
         IsBusyMessage = "Analyzing image...";
 
-        var languageModelResponse = await imageDescriptionGenerator.DescribeAsync(
+        //var languageModelResponse = await imageDescriptionGenerator.DescribeAsync(
+        //    inputImage,
+        //    ImageDescriptionScenario.Accessibility,
+        //    new ContentFilterOptions
+        //    {
+        //        PromptMinSeverityLevelToBlock = { ViolentContentSeverity = SeverityLevel.Medium },
+        //        ResponseMinSeverityLevelToBlock = { ViolentContentSeverity = SeverityLevel.Medium }
+        //    });
+
+        var describer = imageDescriptionGenerator.DescribeAsync(
             inputImage,
             ImageDescriptionScenario.Accessibility,
             new ContentFilterOptions
@@ -199,6 +211,13 @@ public partial class MainViewModel : ViewModelBase
                 PromptMinSeverityLevelToBlock = { ViolentContentSeverity = SeverityLevel.Medium },
                 ResponseMinSeverityLevelToBlock = { ViolentContentSeverity = SeverityLevel.Medium }
             });
+
+        describer.Progress = (response, progress) =>
+        {
+            DispatcherQueue.GetForCurrentThread().TryEnqueue(() => IsBusyMessage = $"Preparing response... {progress}% complete.");
+        };
+
+        var languageModelResponse = await describer;
 
         return languageModelResponse;
     }

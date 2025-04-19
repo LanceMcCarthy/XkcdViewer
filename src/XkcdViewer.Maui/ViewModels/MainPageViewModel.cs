@@ -1,4 +1,5 @@
 ﻿// ReSharper disable AsyncVoidLambda
+using CommonHelpers.Collections;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using XkcdViewer.Common.Models;

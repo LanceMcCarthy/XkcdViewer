@@ -33,6 +33,10 @@
                               NavigationButtonsVisibility="Collapsed"
                               Grid.Row="1" />
 
+        <VerticalStackLayout Grid.Row="1">
+            <telerik:RadComboBox x:Name="DescriptionLevelsComboBox"></telerik:RadComboBox>
+        </VerticalStackLayout>
+
         <VerticalStackLayout Padding="10,5,10,0"
                              Spacing="5"
                              Grid.Row="2">

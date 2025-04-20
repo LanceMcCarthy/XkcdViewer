@@ -33,8 +33,25 @@
                               NavigationButtonsVisibility="Collapsed"
                               Grid.Row="1" />
 
-        <VerticalStackLayout Grid.Row="1">
-            <telerik:RadComboBox x:Name="DescriptionLevelsComboBox"></telerik:RadComboBox>
+        <VerticalStackLayout IsVisible="{Binding AreCopilotControlsVisible}" Grid.Row="1">
+            <Button Text="Analyze with Copilot"
+                    Command="{Binding AnalyzeComicCommand}" 
+                    BackgroundColor="DarkGoldenrod"
+                    TextColor="White"
+                    WidthRequest="175"/>
+            <!--<ComboBox ItemsSource="{x:Bind ViewModel.DescriptionLevels}"
+              SelectedItem="{x:Bind ViewModel.PreferredDescriptionLevel, Mode=TwoWay}" 
+              Width="175"/>-->
+            <telerik:RadComboBox x:Name="DescriptionLevelsComboBox"
+                                 ItemsSource="{Binding DescriptionLevels}"
+                                 SelectedItem="{Binding PreferredDescriptionLevel, Mode=TwoWay}"
+                                 WidthRequest="175"/>
+            <Button Text="Delete"
+                    Command="{Binding DeleteComicCommand}"
+                    CommandParameter="{Binding CurrentComic.Num, FallbackValue=0}"
+                    WidthRequest="175"
+                    BackgroundColor="DarkRed"
+                    TextColor="White"/>
         </VerticalStackLayout>
 
         <VerticalStackLayout Padding="10,5,10,0"

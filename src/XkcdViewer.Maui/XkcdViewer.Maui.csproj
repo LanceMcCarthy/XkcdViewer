@@ -53,7 +53,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <AdditionalFiles Include="Platforms\Windows\NativeMethods.txt" />
+	  <AdditionalFiles Include="NativeMethods.txt" />
 	</ItemGroup>
 
 	<ItemGroup>

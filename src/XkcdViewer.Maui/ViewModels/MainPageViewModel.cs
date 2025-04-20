@@ -1,5 +1,6 @@
 ﻿// ReSharper disable AsyncVoidLambda
 using CommonHelpers.Collections;
+using CommonHelpers.Mvvm;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using XkcdViewer.Common.Models;
@@ -7,7 +8,7 @@ using XkcdViewer.Common.Services;
 
 namespace XkcdViewer.Maui.ViewModels;
 
-public class MainPageViewModel : PageViewModelBase
+public partial class MainPageViewModel : PageViewModelBase
 {
     private readonly ComicDataService comicDataService;
     private Comic? currentComic;
@@ -20,6 +21,13 @@ public class MainPageViewModel : PageViewModelBase
         FetchComicCommand = new Command(async (c) => await FetchComicAsync());
         ShareCommand = new Command(async c => await ShareItemAsync());
         ToggleFavoriteCommand = new Command(async (c) => await ToggleFavorite(CurrentComic));
+
+#if WINDOWS
+        DeleteComicCommand = new Command<int>(DeleteCachedComicImage);
+        AnalyzeComicCommand = new Command(async () => await AnalyzeCurrentComicAsync());
+
+        InitializeCopilotCapabilities();
+#endif
     }
 
     public ObservableCollection<Comic> Comics { get; } = [];

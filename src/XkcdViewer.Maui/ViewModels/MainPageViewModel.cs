@@ -1,4 +1,6 @@
 ﻿// ReSharper disable AsyncVoidLambda
+using CommonHelpers.Collections;
+using CommonHelpers.Mvvm;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using XkcdViewer.Common.Models;
@@ -6,11 +8,12 @@ using XkcdViewer.Common.Services;
 
 namespace XkcdViewer.Maui.ViewModels;
 
-public class MainPageViewModel : PageViewModelBase
+public partial class MainPageViewModel : PageViewModelBase
 {
     private readonly ComicDataService comicDataService;
     private Comic? currentComic;
     private bool getNewComicButtonIsVisible;
+    private bool areCopilotControlsVisible;
 
     public MainPageViewModel(ComicDataService comicDataServ)
     {
@@ -19,6 +22,20 @@ public class MainPageViewModel : PageViewModelBase
         FetchComicCommand = new Command(async (c) => await FetchComicAsync());
         ShareCommand = new Command(async c => await ShareItemAsync());
         ToggleFavoriteCommand = new Command(async (c) => await ToggleFavorite(CurrentComic));
+
+#if WINDOWS
+        DeleteComicCommand = new Command<int>(DeleteCachedComicImage);
+        AnalyzeComicCommand = new Command(async () => await AnalyzeCurrentComicAsync());
+
+        InitializeCopilotCapabilities();
+#endif
+    }
+
+
+    public bool AreCopilotControlsVisible
+    {
+        get => areCopilotControlsVisible;
+        set => SetProperty(ref areCopilotControlsVisible, value);
     }
 
     public ObservableCollection<Comic> Comics { get; } = [];
@@ -46,6 +63,10 @@ public class MainPageViewModel : PageViewModelBase
     public Command ShareCommand { get; set; }
 
     public Command ToggleFavoriteCommand { get; set; }
+
+    public Command<int> DeleteComicCommand { get; set; }
+
+    public Command AnalyzeComicCommand { get; set; }
 
     public async Task FetchComicAsync()
     {

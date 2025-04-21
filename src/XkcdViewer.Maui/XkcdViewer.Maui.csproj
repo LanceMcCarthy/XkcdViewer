@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.22621.0</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>XkcdViewer.Maui</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -10,8 +10,6 @@
 		<Nullable>enable</Nullable>
 		<DefaultLanguage>en-us</DefaultLanguage>
 		<MauiEnableXamlCBindingWithSourceCompilation>true</MauiEnableXamlCBindingWithSourceCompilation>
-
-		<MauiVersion>9.0.14</MauiVersion>
 
 		<!-- Display name -->
 		<ApplicationTitle>xkcd Viewer</ApplicationTitle>
@@ -27,19 +25,8 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.19041.0</SupportedOSPlatformVersion>
-		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.19041.0</TargetPlatformMinVersion>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('windows')) and '$(Configuration)' == 'Release'">
-		<AppxPackage>absent</AppxPackage>
-		<EnableMsixTooling>true</EnableMsixTooling>
-	</PropertyGroup>
-	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('maccatalyst')) and '$(Configuration)' == 'Debug'">
-		<RuntimeIdentifiers>net9.0-maccatalyst</RuntimeIdentifiers>
-	</PropertyGroup>
-	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('maccatalyst')) and '$(Configuration)' == 'Release'">
-		<RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -53,21 +40,40 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
+	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+	  <NoWarn>CS8305;WMC1501</NoWarn>
+	  <NoWarn>$(NoWarn);IL2050</NoWarn>
+	  <!--<EnableMsixTooling>true</EnableMsixTooling>-->
+	</PropertyGroup>
+
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.4" />
 		<PackageReference Include="CommonHelpers" Version="1.4.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="Telerik.UI.for.Maui" Version="10.0.0" />
+		<PackageReference Include="Telerik.UI.for.Maui" Version="10.1.0" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
 		<PackageReference Include="WinUIEx" Version="2.5.1" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250127003-experimental3" />
+		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
+		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.183">
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<AdditionalFiles Include="NativeMethods.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\XkcdViewer.Common\XkcdViewer.Common.csproj" />
 	</ItemGroup>
+
+	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('maccatalyst')) and '$(Configuration)' == 'Debug'">
+		<RuntimeIdentifiers>net9.0-maccatalyst</RuntimeIdentifiers>
+	</PropertyGroup>
+	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('maccatalyst')) and '$(Configuration)' == 'Release'">
+		<RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers>
+	</PropertyGroup>
 
 	<!--<Import Project="Microsoft.Build.Msix.Packaging.MsixBundle.targets" />-->
 </Project>

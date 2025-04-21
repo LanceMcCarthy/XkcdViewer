@@ -4,9 +4,11 @@ namespace XkcdViewer.Maui.Views;
 
 public partial class MainPage : BasePage
 {
-    public MainPage(MainPageViewModel vm)
+    private readonly MainPageViewModel vm;
+
+    public MainPage(MainPageViewModel viewModel)
     {
         InitializeComponent();
-        BindingContext = vm;
+        BindingContext = vm = viewModel;
     }
 }

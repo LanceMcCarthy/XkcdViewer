@@ -9,7 +9,6 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.UI.Popups;
 using XkcdViewer.Common.Models;
 using XkcdViewer.Common.Services;
 using XkcdViewer.Windows.Utils;

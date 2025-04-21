@@ -13,6 +13,7 @@ public partial class MainPageViewModel : PageViewModelBase
     private readonly ComicDataService comicDataService;
     private Comic? currentComic;
     private bool getNewComicButtonIsVisible;
+    private bool areCopilotControlsVisible;
 
     public MainPageViewModel(ComicDataService comicDataServ)
     {
@@ -28,6 +29,13 @@ public partial class MainPageViewModel : PageViewModelBase
 
         InitializeCopilotCapabilities();
 #endif
+    }
+
+
+    public bool AreCopilotControlsVisible
+    {
+        get => areCopilotControlsVisible;
+        set => SetProperty(ref areCopilotControlsVisible, value);
     }
 
     public ObservableCollection<Comic> Comics { get; } = [];
@@ -55,6 +63,10 @@ public partial class MainPageViewModel : PageViewModelBase
     public Command ShareCommand { get; set; }
 
     public Command ToggleFavoriteCommand { get; set; }
+
+    public Command<int> DeleteComicCommand { get; set; }
+
+    public Command AnalyzeComicCommand { get; set; }
 
     public async Task FetchComicAsync()
     {

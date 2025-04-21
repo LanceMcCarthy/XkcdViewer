@@ -43,11 +43,7 @@
 	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
 	  <NoWarn>CS8305;WMC1501</NoWarn>
 	  <NoWarn>$(NoWarn);IL2050</NoWarn>
-	  <EnableMsixTooling>true</EnableMsixTooling>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('windows')) and '$(Configuration)' == 'Release'">
-		<AppxPackage>absent</AppxPackage>
+	  <!--<EnableMsixTooling>true</EnableMsixTooling>-->
 	</PropertyGroup>
 
 	<ItemGroup>

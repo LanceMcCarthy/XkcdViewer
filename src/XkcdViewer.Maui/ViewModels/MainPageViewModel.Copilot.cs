@@ -24,7 +24,6 @@ public partial class MainPageViewModel : PageViewModelBase
     private static HttpClient? httpClient;
     private static MediaPlayerElement? mpe;
     private ImageDescriptionScenario preferredDescriptionLevel = ImageDescriptionScenario.DetailedNarration;
-    private bool areCopilotControlsVisible;
 
     public ObservableRangeCollection<ImageDescriptionScenario> DescriptionLevels { get; } = [];
 
@@ -33,16 +32,6 @@ public partial class MainPageViewModel : PageViewModelBase
         get => preferredDescriptionLevel;
         set => SetProperty(ref preferredDescriptionLevel, value);
     }
-
-    public bool AreCopilotControlsVisible
-    {
-        get => areCopilotControlsVisible;
-        set => SetProperty(ref areCopilotControlsVisible, value);
-    }
-
-    public Command<int> DeleteComicCommand { get; set; }
-
-    public Command AnalyzeComicCommand { get; set; }
 
     private void InitializeCopilotCapabilities()
     {
@@ -271,7 +260,6 @@ public partial class MainPageViewModel : PageViewModelBase
 
         await Shell.Current.DisplayAlert("Alert", message, "ok");
     }
-
 }
 
 #endif

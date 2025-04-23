@@ -43,7 +43,10 @@
 	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
 	  <NoWarn>CS8305;WMC1501</NoWarn>
 	  <NoWarn>$(NoWarn);IL2050</NoWarn>
-	  <!--<EnableMsixTooling>true</EnableMsixTooling>-->
+	  <EnableMsixTooling>true</EnableMsixTooling>
+	  <WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
+	  <WindowsAppSdkBootstrapInitialize>true</WindowsAppSdkBootstrapInitialize>
+		<!--<BuiltInComInteropSupport>true</BuiltInComInteropSupport>-->
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -75,5 +78,5 @@
 		<RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers>
 	</PropertyGroup>
 
-	<!--<Import Project="Microsoft.Build.Msix.Packaging.MsixBundle.targets" />-->
+	<Import Project="Microsoft.Build.Msix.Packaging.MsixBundle.targets" />
 </Project>

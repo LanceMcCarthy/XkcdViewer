@@ -40,14 +40,14 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
-	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+	<!--<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
 	  <NoWarn>CS8305;WMC1501</NoWarn>
 	  <NoWarn>$(NoWarn);IL2050</NoWarn>
 	  <EnableMsixTooling>true</EnableMsixTooling>
 	  <WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
 	  <WindowsAppSdkBootstrapInitialize>true</WindowsAppSdkBootstrapInitialize>
-		<!--<BuiltInComInteropSupport>true</BuiltInComInteropSupport>-->
-	</PropertyGroup>
+		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+	</PropertyGroup>-->
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />

@@ -1,4 +1,4 @@
-name: WinUI Copilot+ Release
+name: Windows AI Foundry
 
 on:
   workflow_dispatch:

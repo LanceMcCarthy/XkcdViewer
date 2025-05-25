@@ -1,10 +1,10 @@
-﻿using CommonHelpers.Common;
-using Microsoft.Graphics.Imaging;
+﻿using Microsoft.Graphics.Imaging;
+using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.Windows.AI.ContentModeration;
-using Microsoft.Windows.AI.Generative;
-using Microsoft.Windows.Management.Deployment;
+using Microsoft.Windows.AI;
+using Microsoft.Windows.AI.ContentSafety;
+using Microsoft.Windows.AI.Imaging;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -16,12 +16,12 @@ using Windows.Media.Core;
 using Windows.Media.SpeechSynthesis;
 using Windows.Storage;
 using Windows.Storage.Streams;
-using Microsoft.UI.Dispatching;
 using XkcdViewer.Windows.Utils;
 
 namespace XkcdViewer.Windows;
 
-public partial class MainViewModel : ViewModelBase
+#pragma warning disable CA1416
+public partial class MainViewModel
 {
     private static readonly bool IsPackagedApp = (Environment.GetEnvironmentVariable("PACKAGED_PRODUCT_ID") != null);
     private static HttpClient? httpClient;
@@ -36,11 +36,10 @@ public partial class MainViewModel : ViewModelBase
         CopilotCapVisibility = Visibility.Visible;
         
         // Populate the ComboBox with the available description levels
-        var levelsList = Enum.GetValues<ImageDescriptionScenario>();
-        DescriptionLevels.AddRange(levelsList);
+        DescriptionLevels.AddRange(Enum.GetValues<ImageDescriptionKind>());
 
         // Preselect the one I think works best
-        PreferredDescriptionLevel = DescriptionLevels.FirstOrDefault(n => n == ImageDescriptionScenario.DetailedNarration);
+        PreferredDescriptionLevel = DescriptionLevels.FirstOrDefault(n => n == ImageDescriptionKind.DetailedDescription);
     }
 
     public async Task AnalyzeCurrentComicAsync()
@@ -66,7 +65,7 @@ public partial class MainViewModel : ViewModelBase
 
             // STEP 3 - Audio playback using SpeechSynthesizer.
             IsBusyMessage = "Playing back audio...";
-            await ReadAloudAsync(languageModelResponse.Response);
+            await ReadAloudAsync(languageModelResponse.Description);
         }
         catch (Exception ex)
         {
@@ -107,7 +106,7 @@ public partial class MainViewModel : ViewModelBase
         File.Delete(filePath);
     }
 
-    private async Task<LanguageModelResponse?> GetImageDescriptionAsync(int comicId)
+    private async Task<ImageDescriptionResult?> GetImageDescriptionAsync(int comicId)
     {
         var filePath = IsPackagedApp
             ? Path.Combine(ApplicationData.Current.TemporaryFolder.Path, $"{comicId}.png")
@@ -152,33 +151,38 @@ public partial class MainViewModel : ViewModelBase
 
         IsBusyMessage = "Checking Windows AI capabilities...";
 
-        if (!ImageDescriptionGenerator.IsAvailable())
+        if (ImageDescriptionGenerator.GetReadyState() == AIFeatureReadyState.NotReady)
         {
-            IsBusyMessage = "Preparing ImageDescriptionGenerator for first time use...";
+            var wProg = ImageDescriptionGenerator.EnsureReadyAsync();
 
-            var wProg = ImageDescriptionGenerator.MakeAvailableAsync();
-
-            wProg.Progress = (result, progressInfo) =>
+            wProg.Progress = (result, progress) =>
             {
-                DispatcherQueue.GetForCurrentThread().TryEnqueue(() => IsBusyMessage = $"Downloading model... {progressInfo.Progress * 100}% complete.");
+                DispatcherQueue.GetForCurrentThread().TryEnqueue(() => IsBusyMessage = $"Downloading model... {progress * 100}% complete.");
             };
 
-            PackageDeploymentResult? result = await wProg;
+            AIFeatureReadyResult? result = await wProg;
 
-            if (result.Status != PackageDeploymentStatus.CompletedSuccess)
+            if (result.Status != AIFeatureReadyResultState.Failure)
             {
                 await ShowAnalyzerMessageAsync($"There was a problem installing the required packages: {result.ExtendedError.Message}");
                 return null;
             }
+        }
+        else if (ImageDescriptionGenerator.GetReadyState() == AIFeatureReadyState.NotSupportedOnCurrentSystem)
+        {
+            await ShowAnalyzerMessageAsync("This device does not support the required Gen AI capabilities.");
+            return null;
         }
 
         // STEP 3 - Load the SoftwareBitmap into an ImageBuffer
 
         IsBusyMessage = "Preparing image buffer...";
 
-        var inputImage = ImageBuffer.CreateCopyFromBitmap(sBitmap);
+        //var imgBuff = ImageBuffer.CreateCopyFromBitmap(sBitmap);
 
-        if (inputImage is null)
+        var imgBuff = ImageBuffer.CreateForSoftwareBitmap(sBitmap);
+
+        if (imgBuff is null)
         {
             await ShowAnalyzerMessageAsync("There was a problem creating the ImageBuffer from the SoftwareBitmap.");
             return null;
@@ -190,6 +194,16 @@ public partial class MainViewModel : ViewModelBase
 
         var imageDescriptionGenerator = await ImageDescriptionGenerator.CreateAsync();
 
+        // Image Description Scenario and Content Filter Options can be chosen as per scenario
+        //ContentFilterOptions filterOptions = new();
+        //var modelResponse = await imageDescriptionGenerator.DescribeAsync(inputImage, 
+        //    ImageDescriptionKind.BriefDescription, 
+        //    filterOptions); 
+        
+        
+        //if (modelResponse.Status != ImageDescriptionResultStatus.Complete) 
+        //{ return $"Image description failed with status: {modelResponse.Status}"; }
+        //return modelResponse.Description;
 
 
         IsBusyMessage = "Analyzing image...";
@@ -204,12 +218,13 @@ public partial class MainViewModel : ViewModelBase
         //    });
 
         var describer = imageDescriptionGenerator.DescribeAsync(
-            inputImage,
-            ImageDescriptionScenario.Accessibility,
+            imgBuff,
+            ImageDescriptionKind.DetailedDescription,
             new ContentFilterOptions
             {
-                PromptMinSeverityLevelToBlock = { ViolentContentSeverity = SeverityLevel.Medium },
-                ResponseMinSeverityLevelToBlock = { ViolentContentSeverity = SeverityLevel.Medium }
+                 
+                //PromptMinSeverityLevelToBlock = { ViolentContentSeverity = SeverityLevel.Medium },
+                //ResponseMinSeverityLevelToBlock = { ViolentContentSeverity = SeverityLevel.Medium }
             });
 
         describer.Progress = (response, progress) =>

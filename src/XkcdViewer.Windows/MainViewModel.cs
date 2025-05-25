@@ -4,7 +4,7 @@ using CommonHelpers.Mvvm;
 using CommonHelpers.Services;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.Windows.AI.Generative;
+using Microsoft.Windows.AI.Imaging;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -31,7 +31,7 @@ public partial class MainViewModel : ViewModelBase
 
     public ObservableRangeCollection<Comic> Comics { get; } = [];
 
-    public ObservableRangeCollection<ImageDescriptionScenario> DescriptionLevels { get; } = [];
+    public ObservableRangeCollection<ImageDescriptionKind> DescriptionLevels { get; } = [];
 
     public Comic? CurrentComic
     {
@@ -39,7 +39,7 @@ public partial class MainViewModel : ViewModelBase
         set => SetProperty(ref field, value);
     }
 
-    public ImageDescriptionScenario PreferredDescriptionLevel
+    public ImageDescriptionKind PreferredDescriptionLevel
     {
         get;
         set => SetProperty(ref field, value);

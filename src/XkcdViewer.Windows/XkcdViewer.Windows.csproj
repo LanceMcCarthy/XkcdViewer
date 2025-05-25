@@ -6,7 +6,7 @@
 		<!--<WindowsSdkPackageVersion>10.0.22621.54</WindowsSdkPackageVersion>-->
 		<RootNamespace>XkcdViewer.Windows</RootNamespace>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
-		<Platforms>x64;ARM64</Platforms>
+		<Platforms>x64;ARM64;AnyCPU</Platforms>
 		<RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
 		<!--<PublishProfile>win-$(Platform).pubxml</PublishProfile>-->
 		<UseWinUI>true</UseWinUI>

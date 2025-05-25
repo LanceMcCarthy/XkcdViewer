@@ -194,45 +194,26 @@ public partial class MainViewModel
 
         var imageDescriptionGenerator = await ImageDescriptionGenerator.CreateAsync();
 
-        // Image Description Scenario and Content Filter Options can be chosen as per scenario
-        //ContentFilterOptions filterOptions = new();
-        //var modelResponse = await imageDescriptionGenerator.DescribeAsync(inputImage, 
-        //    ImageDescriptionKind.BriefDescription, 
-        //    filterOptions); 
-        
-        
-        //if (modelResponse.Status != ImageDescriptionResultStatus.Complete) 
-        //{ return $"Image description failed with status: {modelResponse.Status}"; }
-        //return modelResponse.Description;
-
-
         IsBusyMessage = "Analyzing image...";
 
-        //var languageModelResponse = await imageDescriptionGenerator.DescribeAsync(
-        //    inputImage,
-        //    ImageDescriptionScenario.Accessibility,
-        //    new ContentFilterOptions
-        //    {
-        //        PromptMinSeverityLevelToBlock = { ViolentContentSeverity = SeverityLevel.Medium },
-        //        ResponseMinSeverityLevelToBlock = { ViolentContentSeverity = SeverityLevel.Medium }
-        //    });
-
-        var describer = imageDescriptionGenerator.DescribeAsync(
+        // No progress reporting
+        var languageModelResponse = await imageDescriptionGenerator.DescribeAsync(
             imgBuff,
             ImageDescriptionKind.DetailedDescription,
-            new ContentFilterOptions
-            {
-                 
-                //PromptMinSeverityLevelToBlock = { ViolentContentSeverity = SeverityLevel.Medium },
-                //ResponseMinSeverityLevelToBlock = { ViolentContentSeverity = SeverityLevel.Medium }
-            });
+            GetContentFilterOptions());
 
-        describer.Progress = (response, progress) =>
-        {
-            DispatcherQueue.GetForCurrentThread().TryEnqueue(() => IsBusyMessage = $"Preparing response... {progress}% complete.");
-        };
+        // Progress reporting (but isnt working right now)
+        //var describer = imageDescriptionGenerator.DescribeAsync(
+        //    imgBuff,
+        //    ImageDescriptionKind.DetailedDescription,
+        //    GetContentFilterOptions());
 
-        var languageModelResponse = await describer;
+        //describer.Progress = (response, progress) =>
+        //{
+        //    DispatcherQueue.GetForCurrentThread().TryEnqueue(() => IsBusyMessage = $"Preparing response... {progress}% complete.");
+        //};
+
+        //var languageModelResponse = await describer;
 
         return languageModelResponse;
     }
@@ -270,5 +251,27 @@ public partial class MainViewModel
         };
 
         await this.DialogService.ShowDialogAsync(dialog);
+    }
+
+    private ContentFilterOptions GetContentFilterOptions()
+    {
+        return new ContentFilterOptions
+        {
+            ImageMaxAllowedSeverityLevel = new ImageContentFilterSeverity(SeverityLevel.Medium),
+            PromptMaxAllowedSeverityLevel =
+            {
+                Sexual = SeverityLevel.Medium,
+                Hate = SeverityLevel.Minimum,
+                SelfHarm = SeverityLevel.Minimum,
+                Violent = SeverityLevel.Minimum
+            },
+            ResponseMaxAllowedSeverityLevel =
+            {
+                Sexual = SeverityLevel.Medium,
+                Hate = SeverityLevel.Minimum,
+                SelfHarm = SeverityLevel.Minimum,
+                Violent = SeverityLevel.Minimum
+            }
+        };
     }
 }

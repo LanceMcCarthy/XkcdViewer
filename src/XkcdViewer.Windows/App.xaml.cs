@@ -1,4 +1,5 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Dispatching;
+using Microsoft.UI.Xaml;
 
 namespace XkcdViewer.Windows;
 
@@ -11,9 +12,12 @@ public partial class App : Application
         this.InitializeComponent();
     }
 
-    protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+    public DispatcherQueue MainDispatcherQueue { get; private set; }
+
+    protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
-        mWindow = new MainWindow();
-        mWindow.Activate();
+        var window = new MainWindow();
+        MainDispatcherQueue = window.DispatcherQueue;
+        window.Activate();
     }
 }

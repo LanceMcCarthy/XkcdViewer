@@ -1,6 +1,4 @@
 ﻿// ReSharper disable AsyncVoidLambda
-using CommonHelpers.Collections;
-using CommonHelpers.Mvvm;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using XkcdViewer.Common.Models;
@@ -30,7 +28,6 @@ public partial class MainPageViewModel : PageViewModelBase
         InitializeCopilotCapabilities();
 #endif
     }
-
 
     public bool AreCopilotControlsVisible
     {

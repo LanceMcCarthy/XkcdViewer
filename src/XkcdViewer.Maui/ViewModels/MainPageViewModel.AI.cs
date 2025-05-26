@@ -1,30 +1,37 @@
-﻿using Microsoft.Graphics.Imaging;
+﻿// ReSharper disable AsyncVoidLambda
+
+#if WINDOWS
+using CommonHelpers.Collections;
+using Microsoft.Graphics.Imaging;
 using Microsoft.UI.Dispatching;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using Microsoft.Windows.AI;
 using Microsoft.Windows.AI.Imaging;
-using System;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using XkcdViewer.Windows.Utils;
 
-namespace XkcdViewer.Windows;
+namespace XkcdViewer.Maui.ViewModels;
 
-#pragma warning disable CA1416
-public partial class MainViewModel
+public partial class MainPageViewModel
 {
+    private ImageDescriptionKind preferredDescriptionLevel = ImageDescriptionKind.DetailedDescription;
+
+    public ObservableRangeCollection<ImageDescriptionKind> DescriptionLevels { get; } = [];
+
+    public ImageDescriptionKind PreferredDescriptionLevel
+    {
+        get => preferredDescriptionLevel;
+        set => SetProperty(ref preferredDescriptionLevel, value);
+    }
+
     private void InitializeCopilotCapabilities()
     {
         // Light up Windows Foundry Gen AI capabilities if the system supports it
         if (AppUtils.HasNpu())
         {
-            CopilotCapVisibility = Visibility.Visible;
+            AreCopilotControlsVisible = true;
             DescriptionLevels.AddRange(Enum.GetValues<ImageDescriptionKind>());
             PreferredDescriptionLevel = DescriptionLevels.FirstOrDefault(n => n == ImageDescriptionKind.DetailedDescription);
         }
@@ -160,7 +167,10 @@ public partial class MainViewModel
 
         describer.Progress = (info, streamingProgress) =>
         {
-            ((App)Application.Current).MainDispatcherQueue.TryEnqueue(() => IsBusyMessage = $"Generating: {streamingProgress}");
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                IsBusyMessage = $"Generating: {streamingProgress}";
+            });
         };
 
         IsBusyMessage = "Analyzing image...";
@@ -170,14 +180,8 @@ public partial class MainViewModel
 
     private async Task ShowAnalyzerMessageAsync(string message)
     {
-        var dialog = new ContentDialog
-        {
-            Title = "Alert",
-            Content = message,
-            PrimaryButtonText = "OK",
-            DefaultButton = ContentDialogButton.Primary
-        };
-
-        await this.DialogService.ShowDialogAsync(dialog);
+        await App.Current.MainPage.DisplayAlert("Warning", message, "okay");
     }
 }
+
+#endif

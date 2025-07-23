@@ -47,7 +47,9 @@ jobs:
         $ver = $buildDay + "." + $runNumber + ".0"
         echo "app_version=$ver" >> $env:GITHUB_OUTPUT
 
-  # [JOB] Windows Sideload Build [/JOB]
+# ******************************** #
+# >>>>>>> Windows Sideload <<<<<<< #
+# ******************************** #
   maui-windows-sideload:
     name: Build Windows Sideload
     needs: shared-resources
@@ -109,7 +111,9 @@ jobs:
         if-no-files-found: error
         retention-days: 30
 
-  # [JOB] Windows Microsoft Store Build [/JOB]
+# ***************************** #
+# >>>>>>> Windows Store <<<<<<< #
+# ***************************** #
   maui-windows-msstore:
     name: Build Windows MS Store
     needs: shared-resources
@@ -184,7 +188,9 @@ jobs:
         if-no-files-found: error
         retention-days: 30
 
-  # [JOB] Submit Update to Microsoft Store [/JOB]
+# ************************************** #
+# >>>>>>> Microsoft Store Upload <<<<<<< #
+# ************************************** #
   # publish_to_msstore:
   #   name: Submit To Microsoft Store
   #   if: ${{success()}}
@@ -215,7 +221,10 @@ jobs:
   #       with:
   #         command: publish
 
-  # [JOB] Android Build [/JOB]
+
+# ***************************** #
+# >>>>>>> Android build <<<<<<< #
+# ***************************** #
   maui-android:
     name: Build Android
     needs: shared-resources
@@ -269,7 +278,10 @@ jobs:
     #     if-no-files-found: warn
     #     retention-days: 10
 
-  # [JOB] iOS Build [/JOB]
+
+# ************************* #
+# >>>>>>> iOS Build <<<<<<< #
+# ************************* #
   maui-ios:
     name: Build iOS
     needs: shared-resources
@@ -289,9 +301,9 @@ jobs:
         fetch-depth: 0
 
     # If the GitHub runner doesn't have latest Xcode needed by the project.
-    # - uses: maxim-lobanov/setup-xcode@v1
-    #   with:
-    #     xcode-version: ${{env.XCODE_VERSION}}
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: ${{env.XCODE_VERSION}}
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
@@ -346,7 +358,10 @@ jobs:
     #     if-no-files-found: warn
     #     retention-days: 30
 
-  # [JOB] MacCatalyst Build [/JOB]
+
+# ********************************* #
+# >>>>>>> MacCatalyst Build <<<<<<< #
+# ********************************* #
   maui-macos:
     name: Build MacCatalyst
     needs: shared-resources
@@ -428,7 +443,10 @@ jobs:
     #     if-no-files-found: warn
     #     retention-days: 30
 
-  # [JOB] Create GitHub Release [/JOB]
+
+# ********************************* #
+# >>>>>>>> Create Release <<<<<<<<< #
+# ********************************* #
   create-gh-release:
     name: Codesign and Publish Release
     if: ${{ success() }}

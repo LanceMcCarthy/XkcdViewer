@@ -9,6 +9,10 @@ on:
       - 'src/XkcdViewer.Maui/**/*'
       - '.github/workflows/main.yml' 
 
+defaults:
+  run:
+    shell: pwsh
+
 env:
   XCODE_VERSION: '16.4'
   DOTNET_VERSION: "9.0.x"
@@ -24,7 +28,6 @@ env:
   TELERIK_LICENSE: ${{secrets.MY_TELERIK_LICENSE_KEY}}
 
 jobs:
-
 # ***************************** #
 # >>>>>>> Android build <<<<<<< #
 # ***************************** #
@@ -47,15 +50,12 @@ jobs:
         java-version: '11'
 
     - name: Install MAUI workload
-      shell: pwsh
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
-      shell: pwsh
       run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build Maui Android project
-      shell: pwsh
       run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.ANDROID_TFM}}" --no-restore
 
 
@@ -80,15 +80,12 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     - name: Install MAUI workload
-      shell: pwsh
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
-      shell: pwsh
       run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build Maui WinUI project
-      shell: pwsh
       run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.WINDOWS_TFM}}" --no-restore
 
 
@@ -114,15 +111,12 @@ jobs:
         xcode-version: ${{env.XCODE_VERSION}}
 
     - name: Install MAUI workload
-      shell: pwsh
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
-      shell: bash
       run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build iOS project
-      shell: bash
       run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.IOS_TFM}}" --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
 
 # ********************************* #
@@ -147,13 +141,10 @@ jobs:
         xcode-version: ${{env.XCODE_VERSION}}
 
     - name: Install MAUI workload
-      shell: pwsh
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
-      shell: bash
       run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
       
     - name: Build MacCatalyst project
-      shell: bash
       run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.MACOS_TFM}}" --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly

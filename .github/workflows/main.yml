@@ -55,7 +55,7 @@ jobs:
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.PROJECT_PATH}} -r ${{env.RID}} --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build Maui Android project
       run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.ANDROID_TFM}}" -p:RuntimeIdentifier=${{env.RID}}
@@ -87,10 +87,10 @@ jobs:
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.PROJECT_PATH}} -r ${{env.RID}} --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build Maui WinUI project
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.WINDOWS_TFM}}" -p:RuntimeIdentifier=${{env.RID}}
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.WINDOWS_TFM}}"
 
 
 # ************************* #
@@ -123,7 +123,7 @@ jobs:
       run: dotnet restore ${{env.PROJECT_PATH}} -r ${{env.RID}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build iOS project
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.IOS_TFM}}" -p:RuntimeIdentifier=${{env.RID}} -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.IOS_TFM}}" -p:RuntimeIdentifier=${{env.RID}} -p:PublishTrimmed=False -p:MtouchLink=SdkOnly
 
 # ********************************* #
 # >>>>>>> MacCatalyst Build <<<<<<< #
@@ -155,4 +155,4 @@ jobs:
       run: dotnet restore ${{env.PROJECT_PATH}} -r ${{env.RID}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build MacCatalyst project
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.MACOS_TFM}}" -p:RuntimeIdentifier=${{env.RID}} -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.MACOS_TFM}}" -p:RuntimeIdentifier=${{env.RID}} -p:PublishTrimmed=False -p:MtouchLink=SdkOnly

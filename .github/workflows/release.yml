@@ -221,7 +221,6 @@ jobs:
   #       with:
   #         command: publish
 
-
 # ***************************** #
 # >>>>>>> Android build <<<<<<< #
 # ***************************** #
@@ -255,7 +254,7 @@ jobs:
       run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build Maui Android project
-      run: dotnet build ${{env.CSPROJ_PATH}} -c Debug -f "${{env.ANDROID_TFM}}" -p:PublishTrimmed=False
+      run: dotnet build ${{env.CSPROJ_PATH}} -c Debug -f "${{env.ANDROID_TFM}}" -p:RuntimeIdentifier=${{env.RID}} -p:PublishTrimmed=False
 
     # ! When you have a Google Play account and certificates, we can switch to this release setup
     # # Decode keystore base64 secret into a local file
@@ -277,7 +276,6 @@ jobs:
     #     path: "${{github.workspace}}/**/*Signed.aab"
     #     if-no-files-found: warn
     #     retention-days: 10
-
 
 # ************************* #
 # >>>>>>> iOS Build <<<<<<< #
@@ -314,10 +312,10 @@ jobs:
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet restore ${{env.CSPROJ_PATH}} -r ${{env.RID}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build MAUI iOS project
-      run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f "${{env.IOS_TFM}}" -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
+      run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f "${{env.IOS_TFM}}" -p:RuntimeIdentifier=${{env.RID}} -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
 
     # ! When you have an apple account and certificates, we can switch to this release setup
     # # Docs https://github.com/Apple-Actions/import-codesign-certs
@@ -358,7 +356,6 @@ jobs:
     #     if-no-files-found: warn
     #     retention-days: 30
 
-
 # ********************************* #
 # >>>>>>> MacCatalyst Build <<<<<<< #
 # ********************************* #
@@ -397,8 +394,8 @@ jobs:
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
-    
+      run: dotnet restore ${{env.CSPROJ_PATH}} -r ${{matrix.RID}} --configfile ${{env.NUGETCONFIG_PATH}}
+
     - name: Build MAUI MacCatalyst project
       run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f "${{env.MACOS_TFM}}" -p:RuntimeIdentifier=${{matrix.RID}} -p:PublishTrimmed=true -p:MtouchLink=SdkOnly
 

@@ -55,15 +55,15 @@ public partial class MainPageViewModel : PageViewModelBase
         set => SetProperty(ref getNewComicButtonIsVisible, value);
     }
 
-    public Command FetchComicCommand { get; set; }
+    public required Command FetchComicCommand { get; set; }
 
-    public Command ShareCommand { get; set; }
+    public required Command ShareCommand { get; set; }
 
-    public Command ToggleFavoriteCommand { get; set; }
+    public required Command ToggleFavoriteCommand { get; set; }
 
-    public Command<int> DeleteComicCommand { get; set; }
+    public required Command<int> DeleteComicCommand { get; set; }
 
-    public Command AnalyzeComicCommand { get; set; }
+    public required Command AnalyzeComicCommand { get; set; }
 
     public async Task FetchComicAsync()
     {

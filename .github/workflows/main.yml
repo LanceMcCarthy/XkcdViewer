@@ -123,7 +123,7 @@ jobs:
       run: dotnet restore ${{env.PROJECT_PATH}} -r ${{env.RID}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build iOS project
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.IOS_TFM}}" -p:RuntimeIdentifier=${{env.RID}} --no-restore -p:MtouchLink=SdkOnly
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.IOS_TFM}}" --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
 
 # ********************************* #
 # >>>>>>> MacCatalyst Build <<<<<<< #
@@ -155,4 +155,4 @@ jobs:
       run: dotnet restore ${{env.PROJECT_PATH}} -r ${{env.RID}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build MacCatalyst project
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.MACOS_TFM}}" -p:RuntimeIdentifier=${{env.RID}} --no-restore -p:MtouchLink=SdkOnly
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.MACOS_TFM}}" --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly

@@ -121,7 +121,7 @@ jobs:
 
     # Codesign files with Trusted Signing
     - name: Sign files with Trusted Signing
-      uses: azure/trusted-signing-action@v0.4.0
+      uses: azure/trusted-signing-action@v0.5.9
       with:
         endpoint: https://eus.codesigning.azure.net/
         trusted-signing-account-name: PrimaryCodeSign

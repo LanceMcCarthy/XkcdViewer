@@ -17,7 +17,7 @@
     propertyin your .csproj. Make sure to condition on the Windows TargetFramework:
     
       <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
-        <RuntimeIdentifiers>win10-x64;win10-x86;win10-arm64</RuntimeIdentifiers>
+        <RuntimeIdentifiers>win-x64;win-x86;win-arm64</RuntimeIdentifiers>
       </PropertyGroup>
   -->
 
@@ -30,7 +30,7 @@
   <PropertyGroup Condition=" '$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))' == 'windows' and '$(RuntimeIdentifier)' == '' ">
     <_SingleProjectHostArchitecture>$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)</_SingleProjectHostArchitecture>
     <_SingleProjectHostArchitecture>$(_SingleProjectHostArchitecture.ToLower())</_SingleProjectHostArchitecture>
-    <RuntimeIdentifier>win10-$(_SingleProjectHostArchitecture)</RuntimeIdentifier>
+    <RuntimeIdentifier>win-$(_SingleProjectHostArchitecture)</RuntimeIdentifier>
   </PropertyGroup>
 
   <!-- Workaround for https://github.com/microsoft/WindowsAppSDK/issues/3337 -->

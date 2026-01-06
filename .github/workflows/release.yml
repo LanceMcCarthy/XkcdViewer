@@ -13,12 +13,12 @@ defaults:
     shell: pwsh
 
 env:
-  XCODE_VERSION: '16.4'
-  DOTNET_VERSION: '9.0.x'
-  WINDOWS_TFM: "net9.0-windows10.0.22621.0"
-  ANDROID_TFM: "net9.0-android"
-  IOS_TFM: "net9.0-ios"
-  MACOS_TFM: "net9.0-maccatalyst"
+  XCODE_VERSION: '26.2'
+  DOTNET_VERSION: "10.0.x"
+  WINDOWS_TFM: "net10.0-windows10.0.22621.0"
+  ANDROID_TFM: "net10.0-android"
+  IOS_TFM: "net10.0-ios"
+  MACOS_TFM: "net10.0-maccatalyst"
   CSPROJ_PATH: "src/XkcdViewer.Maui/XkcdViewer.Maui.csproj"
   NUGETCONFIG_PATH: "src/nuget.config"
   BUILD_CONFIG: Release
@@ -283,7 +283,7 @@ jobs:
   maui-ios:
     name: Build iOS
     needs: shared-resources
-    runs-on: macos-15
+    runs-on: macos-latest
     if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
     # TODO Consider matrix for text flight and sideload
     env:
@@ -362,7 +362,7 @@ jobs:
   maui-macos:
     name: Build MacCatalyst
     needs: shared-resources
-    runs-on: macos-15
+    runs-on: macos-latest
     if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
     strategy:
       matrix:
@@ -447,7 +447,7 @@ jobs:
   create-gh-release:
     name: Codesign and Publish Release
     if: ${{ success() }}
-    runs-on: windows-2022
+    runs-on: windows-latest
     needs: [shared-resources, maui-macos, maui-ios, maui-android, maui-windows-sideload, maui-windows-msstore]
     steps:
     # Download the artifacts from the previous jobs

@@ -283,7 +283,7 @@ jobs:
   maui-ios:
     name: Build iOS
     needs: shared-resources
-    runs-on: macos-15
+    runs-on: macos-latest
     if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
     # TODO Consider matrix for text flight and sideload
     env:
@@ -362,7 +362,7 @@ jobs:
   maui-macos:
     name: Build MacCatalyst
     needs: shared-resources
-    runs-on: macos-15
+    runs-on: macos-latest
     if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
     strategy:
       matrix:
@@ -447,7 +447,7 @@ jobs:
   create-gh-release:
     name: Codesign and Publish Release
     if: ${{ success() }}
-    runs-on: windows-2022
+    runs-on: windows-latest
     needs: [shared-resources, maui-macos, maui-ios, maui-android, maui-windows-sideload, maui-windows-msstore]
     steps:
     # Download the artifacts from the previous jobs

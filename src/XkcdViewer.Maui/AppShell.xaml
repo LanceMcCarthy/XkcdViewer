@@ -34,7 +34,7 @@
     <TabBar>
         <Tab Title="">
             <Tab.Icon>
-                <FontImageSource FontFamily="Font Awesome 6 Free Regular" 
+                <FontImageSource FontFamily="FontAwesomeSolid" 
                                  Glyph="{x:Static resources:IconFont.Home}"/>
             </Tab.Icon>
             <ShellContent Title="Home"
@@ -43,7 +43,7 @@
         </Tab>
         <Tab Title="">
             <Tab.Icon>
-                <FontImageSource FontFamily="Font Awesome 6 Free Regular" 
+                <FontImageSource FontFamily="FontAwesomeSolid" 
                                  Glyph="{x:Static resources:IconFont.Heart}"/>
             </Tab.Icon>
             <ShellContent Title="Favorites"

@@ -60,10 +60,10 @@
                 <Setter Property="WidthRequest" Value="40"/>
                 <Setter Property="HeightRequest" Value="40"/>
                 <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource DarkGrayTextColor}, Dark={StaticResource LightGrayTextColor}}"/>
-                <Setter Property="FontFamily" Value="Font Awesome 6 Free Regular"/>
+                <Setter Property="FontFamily" Value="FontAwesomeSolid"/>
                 <Setter Property="FontSize" Value="20"/>
             </Style>
-
+            
             <Style x:Key="RalewayLabelStyle"
                    TargetType="Label">
                 <Setter Property="Margin" Value="5"/>

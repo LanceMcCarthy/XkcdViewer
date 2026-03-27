@@ -40,7 +40,7 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 fonts.AddFont("Raleway-Regular.ttf", "Raleway");
                 fonts.AddFont("telerikfontexamples.ttf", "telerikfontexamples");
-                fonts.AddFont("fa-solid-900.ttf", "Font Awesome 6 Free Regular");
+                fonts.AddFont("fa-solid-900.ttf", "FontAwesomeSolid");
             });
 
 #if DEBUG
@@ -48,7 +48,6 @@ public static class MauiProgram
 #endif
 
         builder.Services.AddSingleton<XkcdApiService>();
-        //builder.Services.AddSingleton<FavoritesService>();
         builder.Services.AddSingleton<ComicDataService>();
 
         builder.Services.AddTransient<MainPageViewModel>();

@@ -463,8 +463,7 @@ jobs:
     name: Codesign and Publish Release
     if: ${{ success() }}
     runs-on: windows-latest
-    #needs: [shared-resources, maui-macos, maui-ios, maui-android, maui-windows-sideload, maui-windows-msstore]
-    needs: [shared-resources]
+    needs: [shared-resources, maui-macos, maui-ios, maui-android, maui-windows-sideload, maui-windows-msstore]
     steps:
     # Download the artifacts from the previous jobs
     - uses: actions/download-artifact@v6

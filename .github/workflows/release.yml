@@ -167,12 +167,16 @@ jobs:
     - name: Generate msixbundle
       id: generate-msixbundle
       run: |
-        $sdkToolsPath = Join-Path -Path 'C:\Program Files (x86)\Windows Kits\10\bin' -ChildPath 10.0.19041.0 -AdditionalChildPath x86
-        $env:Path += ";$sdkToolsPath"
+        $makeAppxPath = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin' -Recurse -Filter MakeAppx.exe |
+          Sort-Object FullName -Descending |
+          Select-Object -First 1 -ExpandProperty FullName
+        if (-not $makeAppxPath) {
+          throw 'MakeAppx.exe was not found in the Windows SDK tools directory.'
+        }
         New-Item -Path . -Name ${{env.WINDOWS_ARTIFACTS_PATH}} -ItemType Directory
         Get-ChildItem -Filter XkcdViewer.Maui*.msix -Recurse | %{ Copy-Item $_.FullName -Destination ${{env.WINDOWS_ARTIFACTS_PATH}} }
         Set-Location ${{env.WINDOWS_ARTIFACTS_PATH}}
-        MakeAppx.exe bundle /bv "${{needs.shared-resources.outputs.app_version}}" /d . /p "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
+        & $makeAppxPath bundle /bv "${{needs.shared-resources.outputs.app_version}}" /d . /p "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
         $msixBundlePath = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
         echo "msixbundle_path=$msixBundlePath" >> $env:GITHUB_OUTPUT
 

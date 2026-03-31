@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:XkcdViewer.Maui"
              xmlns:resources="clr-namespace:XkcdViewer.Maui.Resources"
              xmlns:models="clr-namespace:XkcdViewer.Common.Models;assembly=XkcdViewer.Common"
+             xmlns:models1="using:XkcdViewer.Maui.Models"
              x:Class="XkcdViewer.Maui.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -36,7 +37,7 @@
                                                   FalseResult="{x:Static resources:IconFont.Heart}" />
 
             <DataTemplate x:Key="SlideViewItemTemplate"
-                          x:DataType="models:Comic">
+                          x:DataType="models1:Comic">
                 <Grid Padding="10"
                       BackgroundColor="Gray">
                     <Image x:Name="MyImage"

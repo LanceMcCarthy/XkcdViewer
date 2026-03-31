@@ -45,8 +45,6 @@ public class BasePage : ContentPage, IQueryAttributable
 
             viewModel.OnNavigatedTo(args);
         }
-
-
     }
 
     protected override void OnAppearing()

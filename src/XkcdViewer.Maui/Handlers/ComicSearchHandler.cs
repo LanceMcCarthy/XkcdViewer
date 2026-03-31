@@ -1,4 +1,4 @@
-﻿using XkcdViewer.Common.Models;
+﻿using XkcdViewer.Maui.Models;
 using XkcdViewer.Maui.ViewModels;
 using XkcdViewer.Maui.Views;
 

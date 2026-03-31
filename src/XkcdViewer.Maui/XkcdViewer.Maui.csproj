@@ -65,12 +65,6 @@
 		<AdditionalFiles Include="Platforms\Windows\NativeMethods.txt" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\XkcdViewer.Common\XkcdViewer.Common.csproj">
-		  <GlobalPropertiesToRemove>PublishTrimmed</GlobalPropertiesToRemove>
-	  </ProjectReference>
-	</ItemGroup>
-
 	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('maccatalyst')) and '$(Configuration)' == 'Debug'">
 		<RuntimeIdentifiers>net10.0-maccatalyst</RuntimeIdentifiers>
 	</PropertyGroup>

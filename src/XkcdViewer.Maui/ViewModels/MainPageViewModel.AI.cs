@@ -178,9 +178,12 @@ public partial class MainPageViewModel
         return await describer;
     }
 
-    private async Task ShowAnalyzerMessageAsync(string message)
+    private static async Task ShowAnalyzerMessageAsync(string message)
     {
-        await App.Current.MainPage.DisplayAlert("Warning", message, "okay");
+        if(Application.Current?.Windows[0].Page is { } page)
+        {
+            await page.DisplayAlertAsync("Warning", message, "Okay");
+        }
     }
 }
 

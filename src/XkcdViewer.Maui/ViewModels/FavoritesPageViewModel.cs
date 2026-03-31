@@ -1,7 +1,7 @@
 ﻿// ReSharper disable AsyncVoidLambda
 using System.Collections.ObjectModel;
-using XkcdViewer.Common.Models;
-using XkcdViewer.Common.Services;
+using XkcdViewer.Maui.Models;
+using XkcdViewer.Maui.Services;
 
 namespace XkcdViewer.Maui.ViewModels;
 

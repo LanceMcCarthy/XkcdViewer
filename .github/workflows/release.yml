@@ -13,61 +13,174 @@ defaults:
     shell: pwsh
 
 env:
-  XCODE_VERSION: '26.2'
-  DOTNET_VERSION: "10.0.x"
-  WINDOWS_TFM: "net10.0-windows10.0.22621.0"
-  ANDROID_TFM: "net10.0-android"
-  IOS_TFM: "net10.0-ios"
-  MACOS_TFM: "net10.0-maccatalyst"
-  CSPROJ_PATH: "src/XkcdViewer.Maui/XkcdViewer.Maui.csproj"
-  NUGETCONFIG_PATH: "src/nuget.config"
-  BUILD_CONFIG: Release
-  WINDOWS_ARTIFACTS_PATH: "artifacts_windows"
+  # ____Global____________________________________________
+  APP_NAME: "XkcdViewer"
+  PROJECT_PATH: "src/XkcdViewer.Maui/XkcdViewer.Maui.csproj"
+  PROJECT_DIRECTORY: "XkcdViewer.Maui"
+  SDK_VERSION: '10.0.*'
+  NET_TFM: 'net10.0'
+  XCODE_VERSION: '26.4'
+  NUGET_CONFIG_PATH: 'src/nuget.config'
+  TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY_VALUE}}
+  APPLE_NOTARY_TEAM_ID: "L65255N3F7"
+  # ____Android___________________________________________
   ANDROID_ARTIFACTS_PATH: "artifacts_android"
-  MACOS_ARTIFACTS_PATH: "artifacts_macos"
-  IOS_ARTIFACTS_PATH: "artifacts_ios"
-  TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
-  TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
-  TELERIK_LICENSE: ${{secrets.MY_TELERIK_LICENSE_KEY}}
+  ANDROID_KEYSTORE_PATH: "${{github.workspace}}/android-upload.keystore"
+  JAVA_VERSION: '17'
+  JAVA_DISTRIBUTION: 'microsoft'
+  # ____MacCatalyst_______________________________________
+  APPLE_DEV_ID_APP_CERT_NAME: "Developer ID Application: Lancelot Software, LLC (L65255N3F7)"
+  APPLE_DEV_ID_INSTALLER_CERT_NAME: "Developer ID Installer: Lancelot Software, LLC (L65255N3F7)"
+  MAC_APP_BUNDLE_PATH: "src/XkcdViewer.Maui/bin/Release/net10.0-maccatalyst/XkcdViewer.app"
+  MAC_ARTIFACTS_PATH: "artifacts/maccatalyst"
+  # ____iOS______________________________________________ (also check matrix vars)
+  APPLE_APP_ID: "com.lancelotsoftware.XkcdViewer"
+  # ____Windows__________________________________________ (also check matrix vars)
+  WINDOWS_ARTIFACTS_PATH: "artifacts/windows"
+  SERVICE_PRINCIPAL_CLIENT_ID: "32daa13b-f4bb-4809-8ef6-58cb39051acd"
+  SERVICE_PRINCIPAL_TENANT_ID: "bd47e796-3473-4b8a-9101-1f4c0c7af31a"
+  SERVICE_PRINCIPAL_SUBSCRIPTION_ID: "48ab4839-62af-4ab3-afe6-043ea4d7c137"
+  SIGNING_ACCT_NAME: "PrimaryCodeSign"
+  SIGNING_ACCT_CERT_PROFILE: "lancemccarthylivepublic"
+  SIGNING_ACCT_ENDPOINT_URL: "https://eus.codesigning.azure.net/"
+  
+ # ------------------ REQUIRED SECRETS ---------------- #
+  # ____Global____________________________________________
+  # TELERIK_NUGET_KEY
+  # TELERIK_LICENSE_KEY_VALUE
+  # ____Android___________________________________________
+  # ANDROID_SIGNING_KEYSTORE_BASE64
+  # ANDROID_SIGNING_KEYSTORE_PASS
+  # ANDROID_SIGNING_KEY_ALIAS
+  # ANDROID_SIGNING_KEY_PASS
+  # ____MacCatalyst_______________________________________
+  # APPLE_DEVELOPER_ID_INSTALLER_CERT_BASE64
+  # APPLE_DEVELOPER_ID_INSTALLER_CERT_PASSWORD
+  # APPLE_DEVELOPER_ID_APPLICATION_CERT_BASE64
+  # APPLE_NOTARY_APPLE_ID
+  # APPLE_NOTARY_APP_PASSWORD
+  # ____iOS______________________________________________
+  # APPLE_DISTRIBUTION_CERT_BASE64
+  # APPLE_DISTRIBUTION_CERT_PASSWORD
+  # APPSTORE_API_ISSUER_ID
+  # APPSTORE_API_KEY_ID
+  # APPSTORE_API_PRIVATE_KEY
+  # ____Windows__________________________________________
+  # No additional secrets needed, uses Azure Trusted Signing.
 
 jobs:
-  # [JOB] Generate Common Resources [/JOB]
+  # ********************************************************************************** #
+  #                                  Shared Resources                                  #
+  # ********************************************************************************** #
   shared-resources:
     name: Create Shared Resources
-    runs-on: windows-latest
+    runs-on: windows-2025-vs2026
     outputs:
       app_version: ${{steps.version-creator.outputs.app_version}}
     steps:
-    # Generates a version number using year.monthday.run_number.0 (e.g., 2024.824.1.0)
+    # Generates a version number using year.monthday.run_number (e.g., 2024.824.1)
     - name: Generate version number using date and run number
       id: version-creator
+      shell: pwsh
       run: |
         $buildDay = Get-Date -Format "yyyy.Mdd"
         $runNumber = "$env:GITHUB_RUN_NUMBER"
-        $ver = $buildDay + "." + $runNumber + ".0"
+        $ver = $buildDay + "." + $runNumber
         echo "app_version=$ver" >> $env:GITHUB_OUTPUT
 
-# ******************************** #
-# >>>>>>> Windows Sideload <<<<<<< #
-# ******************************** #
-  maui-windows-sideload:
-    name: Build Windows Sideload
+  # ********************************************************************************** #
+  #                                     Android                                        #
+  # ********************************************************************************** #
+  android:
+    name: Build Android (Store Upload)
+    runs-on: windows-2025-vs2026
     needs: shared-resources
-    runs-on: windows-latest
     if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Decode the Keystore
+        shell: pwsh
+        run: |
+          $file_bytes = [System.Convert]::FromBase64String("${{secrets.ANDROID_SIGNING_KEYSTORE_BASE64}}")
+          [IO.File]::WriteAllBytes("${{env.ANDROID_KEYSTORE_PATH}}", $file_bytes)
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: ${{env.SDK_VERSION}}
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: ${{env.JAVA_DISTRIBUTION}}
+          java-version: ${{env.JAVA_VERSION}}
+
+      - name: Install MAUI Workloads
+        run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+
+      - name: Set Telerik NuGet Credentials
+        run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
+
+      - name: Restore NuGet packages
+        run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
+
+      - name: Publish MAUI Android
+        run: |
+          dotnet publish ${{env.PROJECT_PATH}} -c Release -f ${{env.NET_TFM}}-android /p:AndroidKeyStore=true /p:AndroidSigningKeyStore=${{env.ANDROID_KEYSTORE_PATH}} /p:AndroidSigningStorePass=${{secrets.ANDROID_SIGNING_KEYSTORE_PASS}} /p:AndroidSigningKeyAlias=${{secrets.ANDROID_SIGNING_KEY_ALIAS}} /p:AndroidSigningKeyPass=${{secrets.ANDROID_SIGNING_KEY_PASS}}
+
+      - name: Create artifacts folder
+        run: |
+          New-Item -ItemType Directory -Force -Path ${{env.ANDROID_ARTIFACTS_PATH}} | Out-Null
+
+      - name: Copy signed APKs & AABs
+        run: |
+          $publishRoot = "src/${{env.PROJECT_DIRECTORY}}/bin/Release/${{env.NET_TFM}}-android"
+          $apkFiles = Get-ChildItem -Path $publishRoot -Filter *-Signed.apk -File -Recurse -ErrorAction SilentlyContinue
+          $aabFiles = Get-ChildItem -Path $publishRoot -Filter *-Signed.aab -File -Recurse -ErrorAction SilentlyContinue
+
+          if ($apkFiles.Count -eq 0 -and $aabFiles.Count -eq 0) {
+            throw "No signed Android APK/AAB files found under $publishRoot"
+          }
+
+          $apkFiles | ForEach-Object { Copy-Item -Path $_.FullName -Destination ${{env.ANDROID_ARTIFACTS_PATH}} -Force }
+          $aabFiles | ForEach-Object { Copy-Item -Path $_.FullName -Destination ${{env.ANDROID_ARTIFACTS_PATH}} -Force }
+
+      - name: Publish Android build artifacts
+        uses: actions/upload-artifact@v7
+        with:     
+          name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_signed-android" 
+          path: "${{env.ANDROID_ARTIFACTS_PATH}}/*"
+          if-no-files-found: error
+          retention-days: 60
+
+  # ********************************************************************************** #
+  #                          Windows (Sideload - msixbundle)                           #
+  # ********************************************************************************** #
+  windows-sideload-packages:
+    name: Build Windows (Sideload)
+    needs: shared-resources
+    runs-on: windows-2025-vs2026
+    if: ${{ needs.shared-resources.outputs.app_version != ''}}
     strategy:
+      fail-fast: false
       matrix:
-        RID: [win10-arm64, win10-x64]
+        include:
+          - arch: x64
+            runtime_id: win-x64
+            platform: x64
+          - arch: arm64
+            runtime_id: win-arm64
+            platform: ARM64
     steps:
     - name: Checkout
       uses: actions/checkout@v6
       with:
         fetch-depth: 0
-    
+
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v5
       with:
-        dotnet-version: ${{env.DOTNET_VERSION}}
+        dotnet-version: ${{env.SDK_VERSION}}
 
     # Needed only for WinUI builds
     - name: Add msbuild to PATH
@@ -76,420 +189,129 @@ jobs:
     - name: Install MAUI workloads
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
-    - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+    - name: Set Telerik NuGet Credentials
+      run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
 
-    # Update the app manifest using the sideload publisher identity
+    - name: Restore NuGet packages
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
+
+    # Update the app manifest with version number, even if Version attribute is missing.
     - name: Update manifest for side load build
       run: |
-        [xml]$manifest = get-content "src\XkcdViewer.Maui\Platforms\Windows\Package.appxmanifest"
+        [xml]$manifest = Get-Content 'src\${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest'
         $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}"
         $manifest.Package.Identity.Name = "61469LanceLotSoftware.XKCDComicViewer"
         $manifest.Package.Identity.Publisher = 'CN=" Lance McCarthy", O=" Lance McCarthy", L=Revere, S=Massachusetts, C=US'
         $manifest.Package.Properties.DisplayName = "xkcd Comic Viewer"
         $manifest.Package.Properties.PublisherDisplayName = "Lance McCarthy"
         $manifest.Package.Applications.Application.VisualElements.DisplayName = "xkcd Viewer"
-        $manifest.save("src\XkcdViewer.Maui\Platforms\Windows\Package.appxmanifest")
-    
-    - name: Build Maui WinUI project
-      run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.WINDOWS_TFM}}" -p:RuntimeIdentifierOverride=${{matrix.RID}} -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
+        $manifest.Save('src\${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest')
 
-    - name: Process MSIX
-      id: process-msix-file
+    - name: Publish ${{matrix.arch}} Windows package
+      id: publish-package
       run: |
-        $msixPath = Get-ChildItem -Filter XkcdViewer.Maui*.msix -Recurse | %{$_.FullName}
-        New-Item -Path . -Name ${{env.WINDOWS_ARTIFACTS_PATH}} -ItemType Directory
-        $finalMsixPath = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_${{matrix.RID}}.msix"
-        Move-Item -Path $msixPath -Destination $finalMsixPath -Force
-        echo "PACKAGE_PATH=$finalMsixPath" >> $env:GITHUB_OUTPUT
+        $appVersion = "${{needs.shared-resources.outputs.app_version}}.0"
+        $artifactDir = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\${{matrix.arch}}"
+        New-Item -ItemType Directory -Force -Path $artifactDir | Out-Null
+        Write-Host "Publishing Windows ${{matrix.arch}}..."
+        $publishArgs = @(
+          'publish'
+          '${{env.PROJECT_PATH}}'
+          '-c', 'Release'
+          '-f', '${{env.NET_TFM}}-windows10.0.19041.0'
+          '-p:Platform=${{matrix.platform}}'
+          '-p:AppxPackageBuildPlatform=${{matrix.platform}}'
+          '-p:RuntimeIdentifierOverride=${{matrix.runtime_id}}'
+          '-p:GenerateAppxPackageOnBuild=true'
+          '-p:AppxPackageSigningEnabled=false'
+          '-p:UapAppxPackageBuildMode=SideloadOnly'
+          '-p:AppxBundle=Never'
+          '-p:WindowsPackageType=MSIX'
+        )
+        & dotnet @publishArgs
+        if ($LASTEXITCODE -ne 0) { throw "dotnet publish failed for ${{matrix.arch}} with exit code $LASTEXITCODE" }
+        # MAUI writes MSIX to src\${{env.PROJECT_DIRECTORY}}\AppPackages\<name>_<ver>_<arch>_Test\*.msix
+        $appPackagesRoot = "src\${{env.PROJECT_DIRECTORY}}\AppPackages"
+        $candidates = Get-ChildItem -Path $appPackagesRoot -Filter *.msix -Recurse -ErrorAction SilentlyContinue |
+          Where-Object { $_.FullName -notmatch '\\Dependencies\\' -and $_.Name -match "_${{matrix.arch}}\.msix$" }
+        Write-Host "Found $($candidates.Count) candidate MSIX file(s) for ${{matrix.arch}}:"
+        $candidates | ForEach-Object { Write-Host "  $($_.FullName)" }
+        $msix = $candidates | Sort-Object LastWriteTime -Descending | Select-Object -ExpandProperty FullName -First 1
+        if (-not $msix) { throw "No .msix found after publish for ${{matrix.arch}}" }
+        Write-Host "Found ${{matrix.arch}} package: $msix"
+        Copy-Item -Path $msix -Destination "$artifactDir\${{env.APP_NAME}}.${{matrix.arch}}.msix" -Force
+        echo "PACKAGE_PATH=$artifactDir\${{env.APP_NAME}}.${{matrix.arch}}.msix" >> $env:GITHUB_OUTPUT
 
-    - name: Attach artifacts to workflow run
-      uses: actions/upload-artifact@v6
+    - name: Upload ${{matrix.arch}} artifact
+      uses: actions/upload-artifact@v7
       with:     
-        name: "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_${{matrix.RID}}.msix" 
-        path: ${{steps.process-msix-file.outputs.PACKAGE_PATH}}
+        name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_${{matrix.runtime_id}}"
+        path: ${{steps.publish-package.outputs.PACKAGE_PATH}}
         if-no-files-found: error
         retention-days: 30
 
-# ***************************** #
-# >>>>>>> Windows Store <<<<<<< #
-# ***************************** #
-  maui-windows-msstore:
-    name: Build Windows MS Store
-    needs: shared-resources
-    runs-on: windows-latest
-    if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
-    outputs:
-      windows_artifact_url: ${{steps.upload-artifact.outputs.artifact-url}}
-    env:
-      RID: win-x64
+  windows-generate-msixbundle:
+    name: Bundle MSIX packages
+    needs: [shared-resources, windows-sideload-packages]
+    runs-on: windows-2025-vs2026
     steps:
-    - name: Checkout
-      uses: actions/checkout@v6
-
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: ${{env.DOTNET_VERSION}}
-
-    # Needed only for WinUI builds
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v3   
-
-    - name: Install MAUI workload
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-
-    # Restore NuGet packages ahead of time because we want to use the dedicated nuget.config file
-    - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
-
-    # Update the manifest for Microsoft Store identity
-    - name: Update manifest for Microsoft Store build
+    - name: Clean bundle workspace
       run: |
-        [xml]$manifest = get-content 'src\XkcdViewer.Maui\Platforms\Windows\Package.appxmanifest'
-        $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}"
-        $manifest.Package.Identity.Name = '61469LanceLotSoftware.XKCDComicViewer'
-        $manifest.Package.Identity.Publisher = 'CN=51B5A8B2-5D86-4826-BBE2-C92E963A4C02'
-        $manifest.Package.Properties.DisplayName = "xkcd Comic Viewer"
-        $manifest.Package.Properties.PublisherDisplayName = "Lancelot Software"
-        $manifest.Package.Applications.Application.VisualElements.DisplayName = "xkcd Viewer"
-        $manifest.save("src\XkcdViewer.Maui\Platforms\Windows\Package.appxmanifest")
+        Remove-Item -Recurse -Force "${{github.workspace}}\bundle-input" -ErrorAction SilentlyContinue
+        Remove-Item -Recurse -Force "${{github.workspace}}\bundle-output" -ErrorAction SilentlyContinue
 
-    # Compile and publish the WinUI x64 project for the Microsoft Store (no code signing)
-    - name: Build WinUI win10-x64
-      run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.WINDOWS_TFM}}" -p:RuntimeIdentifierOverride="win10-x64" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
+    - name: Download x64 artifact
+      uses: actions/download-artifact@v8
+      with:
+        name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_win-x64"
+        path: ${{github.workspace}}\bundle-input
 
-      # Compile and publish the WinUI ARM64 project for the Microsoft Store (no code signing)
-    - name: Build WinUI win10-arm64
-      run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.WINDOWS_TFM}}" -p:RuntimeIdentifierOverride="win10-arm64" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
+    - name: Download arm64 artifact
+      uses: actions/download-artifact@v8
+      with:
+        name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_win-arm64"
+        path: ${{github.workspace}}\bundle-input
 
-    # Find the msix file
-    - name: Generate msixbundle
-      id: generate-msixbundle
+    - name: Create MSIX bundle
+      id: bundle
       run: |
-        $makeAppxPath = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin' -Recurse -Filter MakeAppx.exe |
-          Sort-Object FullName -Descending |
-          Select-Object -First 1 -ExpandProperty FullName
-        if (-not $makeAppxPath) {
-          throw 'MakeAppx.exe was not found in the Windows SDK tools directory.'
-        }
-        New-Item -Path . -Name ${{env.WINDOWS_ARTIFACTS_PATH}} -ItemType Directory
-        Get-ChildItem -Filter XkcdViewer.Maui*.msix -Recurse | %{ Copy-Item $_.FullName -Destination ${{env.WINDOWS_ARTIFACTS_PATH}} }
-        Set-Location ${{env.WINDOWS_ARTIFACTS_PATH}}
-        & $makeAppxPath bundle /bv "${{needs.shared-resources.outputs.app_version}}" /d . /p "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
-        $msixBundlePath = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
-        echo "msixbundle_path=$msixBundlePath" >> $env:GITHUB_OUTPUT
+        $appVersion = "${{needs.shared-resources.outputs.app_version}}.0"
+        $inputDir = "${{github.workspace}}\bundle-input"
+        $outputDir = "${{github.workspace}}\bundle-output"
+        New-Item -ItemType Directory -Force -Path $outputDir | Out-Null
+        # Locate makeappx.exe from the latest installed Windows 10 SDK
+        $sdkRoot = "C:\Program Files (x86)\Windows Kits\10\bin"
+        $makeAppx = Get-ChildItem -Path $sdkRoot -Recurse -Filter makeappx.exe -ErrorAction SilentlyContinue |
+          Where-Object { $_.FullName -match '\\x64\\makeappx\.exe$' } |
+          Sort-Object FullName -Descending | Select-Object -First 1
+        if (-not $makeAppx) { throw "makeappx.exe not found under $sdkRoot" }
+        Write-Host "Using makeappx: $($makeAppx.FullName)"
+        Get-ChildItem $inputDir -Filter *.msix | ForEach-Object { Write-Host "Input: $($_.FullName)" }
+        $bundlePath = "$outputDir\${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}.msixbundle"
+        & $makeAppx.FullName bundle /d $inputDir /p $bundlePath /bv $appVersion /o
+        if ($LASTEXITCODE -ne 0) { throw "makeappx bundle failed with exit code $LASTEXITCODE" }
 
-    # Attaching the asset to workflow run
-    - name: Attach artifacts
-      id: upload-artifact
-      uses: actions/upload-artifact@v6
-      with:     
-        name: "XkcdViewer_v${{needs.shared-resources.outputs.app_version}}_MsftStoreOnly.msixbundle" 
-        path: ${{steps.generate-msixbundle.outputs.msixbundle_path}}
-        if-no-files-found: error
-        retention-days: 30
+        echo "BUNDLE_PATH=$bundlePath" >> $env:GITHUB_OUTPUT
 
-# ************************************** #
-# >>>>>>> Microsoft Store Upload <<<<<<< #
-# ************************************** #
-  # publish_to_msstore:
-  #   name: Submit To Microsoft Store
-  #   if: ${{success()}}
-  #   needs: [maui-windows-msstore]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Configure Credentials
-  #       uses: microsoft/store-submission@v1
-  #       with:
-  #         command: configure
-  #         type: win32
-  #         seller-id: '10113620'
-  #         product-id: '9PMCKHT7M93P'
-  #         tenant-id: '237e90e1-29b9-4350-913d-f3837799f3c0'
-  #         client-id: '99d69d81-6234-46be-acf5-e7b59e7887af'
-  #         client-secret: ${{secrets.ENTRA_CLIENT_SECRET}}
-
-  #     - name: Draft Submission
-  #       uses: microsoft/store-submission@v1
-  #       with:
-  #         command: update
-  #         product-update: '{"packages":[{"packageUrl":"${{env.ARTIFACT_URL}}","languages":["en"],"architectures":["X64", "ARM64"],"isSilentInstall":true}]}'
-  #       env:
-  #         ARTIFACT_URL: ${{needs.maui-windows-msstore.outputs.windows_artifact_url}}
-
-  #     - name: Publish Submission
-  #       uses: microsoft/store-submission@v1
-  #       with:
-  #         command: publish
-
-# ***************************** #
-# >>>>>>> Android build <<<<<<< #
-# ***************************** #
-  maui-android:
-    name: Build Android
-    needs: shared-resources
-    runs-on: windows-latest
-    if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
-    env:
-      RID: android-arm64
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v6
-
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: ${{env.DOTNET_VERSION}}
-
-    - uses: actions/setup-java@v4
-      with:
-        distribution: 'microsoft'
-        java-version: '11'
-
-    - name: Install MAUI workload
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-
-    - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
-
-    # - name: Build Maui Android project
-    #   run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f "${{env.ANDROID_TFM}}" -p:RuntimeIdentifier=${{env.RID}} -p:PublishTrimmed=False
-
-    # ! When you have a Google Play account and certificates, we can switch to this release setup
-    # Decode keystore base64 secret into a local file
-    - name: Decode the Keystore into File
-      run: |
-        $file_bytes = [System.Convert]::FromBase64String("${{secrets.ANDROID_SIGNING_KEYSTORE_BASE64}}")
-        [IO.File]::WriteAllBytes("${{github.workspace}}/${{secrets.ANDROID_SIGNING_KEYSTORE_FILENAME}}", $file_bytes)
-
-    # Docs https://learn.microsoft.com/en-us/dotnet/maui/android/deployment/publish-cli?view=net-maui-9.0
-    - name: Build MAUI Android project
-      run: dotnet publish ${{env.CSPROJ_PATH}} -c ${{env.BUILD_CONFIGURATION}} -f "${{env.ANDROID_TFM}}" -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="${{github.workspace}}/${{secrets.ANDROID_SIGNING_KEYSTORE_FILENAME}}" -p:AndroidSigningStorePass="${{secrets.ANDROID_SIGNING_STORE_PASS}}" -p:AndroidSigningKeyAlias="${{secrets.ANDROID_SIGNING_KEY_ALIAS}}" -p:AndroidSigningKeyPass="${{secrets.ANDROID_SIGNING_KEY_PASS}}"
-
-    # Upload the artifact the Action's result
-    # To publish to the store, see https://github.com/marketplace/actions/upload-android-release-to-play-store
-    - name: Upload Android AAB artifacts (better than APKs)
-      uses: actions/upload-artifact@v6
-      with:
-        name: "Android Artifacts" 
-        path: "${{github.workspace}}/**/*Signed.aab"
-        if-no-files-found: warn
-        retention-days: 10
-
-# ************************* #
-# >>>>>>> iOS Build <<<<<<< #
-# ************************* #
-  maui-ios:
-    name: Build iOS
-    needs: shared-resources
-    runs-on: macos-26
-    if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
-    # TODO Consider matrix for test flight and sideload
-    env:
-      RID: ios-arm64
-      CODESIGN_KEY: "Apple Distribution: Lancelot Software (L25222N3C7)"
-      CODESIGN_PROV_PROFILE: "xkcdViewer App Store Distribution"
-      CODESIGN_PROFILE_TYPE: "IOS_APP_STORE"
-      APP_ID: "com.LancelotSoftware.xkcdviewer"
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v6
-
-    # No longer needed, the macos-26 runner has 26.2 installed
-    # - name: Download Xcode 26.2
-    #   run: |
-    #     XCODE_PATH="/Applications/Xcode_${{env.XCODE_VERSION}}.app/Contents/Developer"
-    #     if [ ! -d "$XCODE_PATH" ]; then
-    #       echo "Downloading Xcode ${{env.XCODE_VERSION}}..."
-    #       sudo xcode-select --switch /Applications/Xcode_${{env.XCODE_VERSION}}.app/Contents/Developer
-    #     fi
-
-    # Switch to the required Xcode version
-    - uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: ${{env.XCODE_VERSION}}
-
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: ${{env.DOTNET_VERSION}}
-
-    - name: Install MAUI workloads
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-
-    - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}} -r ${{env.RID}} --configfile ${{env.NUGETCONFIG_PATH}}
-
-    - name: Build MAUI iOS project
-      run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f "${{env.IOS_TFM}}" -p:PublishTrimmed=true -p:RuntimeIdentifier=${{env.RID}} -p:MtouchLink=SdkOnly
-
-    # # ! When you have an apple account and certificates, we can switch to this release setup
-    # # Docs https://github.com/Apple-Actions/import-codesign-certs
-    # - name: Import Code-Signing Certificates
-    #   uses: Apple-Actions/import-codesign-certs@v5
-    #   with:
-    #     p12-file-base64: "${{secrets.APPLE_DISTRIBUTION_CERT_BASE64}}"
-    #     p12-password: "${{secrets.APPLE_DISTRIBUTION_CERT_PASSWORD}}"
-
-    # # Docs https://github.com/Apple-Actions/download-provisioning-profiles
-    # - uses: Apple-Actions/download-provisioning-profiles@v5
-    #   with:
-    #     profile-type: "IOS_APP_STORE"
-    #     bundle-id: ${{env.APP_ID}}
-    #     issuer-id: "69a6de8d-6f4c-47e3-e053-5b8c7c11a4d1"
-    #     api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
-    #     api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
-
-    # # Docs https://learn.microsoft.com/en-us/dotnet/maui/ios/deployment/publish-cli?view=net-maui-9.0
-    # - name: Build MAUI iOS project
-    #   run: |
-    #     dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.IOS_TFM}}" -p:RuntimeIdentifier=${{env.RID}} -p:PublishTrimmed=true -p:MtouchLink=SdkOnly -p:ApplicationId=${{env.APP_ID}} -p:CodesignProvision=${{env.CODESIGN_PROV_PROFILE}} -p:CodesignKey=${{env.CODESIGN_KEY}}
-
-    # # Docs https://github.com/Apple-Actions/upload-testflight-build
-    # - name: 'Upload app to TestFlight'
-    #   uses: apple-actions/upload-testflight-build@v1
-    #   with: 
-    #     app-path: "${{github.workspace}}/**/*.ipa" 
-    #     issuer-id: ${{secrets.APPSTORE_API_ISSUER_ID}}
-    #     api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
-    #     api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
-
-    # - name: Publish iOS build artifacts
-    #   uses: actions/upload-artifact@v6
-    #   with:     
-    #     name: "iOS artifacts" 
-    #     path: "*.app"
-    #     if-no-files-found: warn
-    #     retention-days: 30
-
-# ********************************* #
-# >>>>>>> MacCatalyst Build <<<<<<< #
-# ********************************* #
-  maui-macos:
-    name: Build MacCatalyst
-    needs: shared-resources
-    runs-on: macos-26
-    if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
-    strategy:
-      matrix:
-        RID: [maccatalyst-arm64, maccatalyst-x64]
-        # Consider matrix for text flight and sideload
-    env:
-      CODESIGN_KEY: "Apple Distribution: Lancelot Software (L25222N3C7)"
-      CODESIGN_PROV_PROFILE: "xkcdviewer_maccatalyst_appstore"
-      CODESIGN_PROFILE_TYPE: "MAC_APP_STORE"
-      CODESIGN_ENTITLEMENTS: "Platforms/MacCatalyst/Entitlements.plist"
-      APP_ID: "com.LancelotSoftware.xkcdviewer"
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v6
-
-    # No longer needed, the macos-26 runner has 26.2 installed
-    # - name: Download Xcode 26.2
-    #   run: |
-    #     XCODE_PATH="/Applications/Xcode_${{env.XCODE_VERSION}}.app/Contents/Developer"
-    #     if [ ! -d "$XCODE_PATH" ]; then
-    #       echo "Downloading Xcode ${{env.XCODE_VERSION}}..."
-    #       sudo xcode-select --switch /Applications/Xcode_${{env.XCODE_VERSION}}.app/Contents/Developer
-    #     fi
-
-    # Switch to the required Xcode version
-    - uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: ${{env.XCODE_VERSION}}
-
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: ${{env.DOTNET_VERSION}}
-
-    - name: Install MAUI workload
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-
-    - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}} -r ${{matrix.RID}} --configfile ${{env.NUGETCONFIG_PATH}}
-
-    # Commenting out CI only build
-    - name: Build MAUI MacCatalyst project
-      run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f "${{env.MACOS_TFM}}" -p:RuntimeIdentifier=${{matrix.RID}} -p:PublishTrimmed=true -p:MtouchLink=SdkOnly
-
-    # When you have an apple account and certificates, we can switch to this release setup
-
-    # # Docs https://github.com/Apple-Actions/import-codesign-certs
-    # - name: Import Code-Signing Certificates
-    #   uses: Apple-Actions/import-codesign-certs@v2
-    #   with:
-    #     p12-file-base64: "${{secrets.APPLE_DISTRIBUTION_CERT_BASE64}}"
-    #     p12-password: "${{secrets.APPLE_DISTRIBUTION_CERT_PASSWORD}}"
-
-    # # Docs https://github.com/Apple-Actions/download-provisioning-profiles
-    # - uses: Apple-Actions/download-provisioning-profiles@v2
-    #   with:
-    #     profile-type: ${{env.APP_ID}}
-    #     bundle-id: "${{env.CODESIGN_PROV_PROFILE}}"
-    #     issuer-id: "${{secrets.APPSTORE_API_ISSUER_ID}}"
-    #     api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
-    #     api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
-
-    # # Docs https://learn.microsoft.com/en-us/dotnet/maui/mac-catalyst/deployment/publish-app-store?view=net-maui-9.0 (carefully follow the intructions about entitlements.plist and info.plist)
-    # - name: Build MAUI MacCatalyst project
-    #   run: |
-    #     dotnet publish ${{env.CSPROJ_PATH}} -c ${{env.BUILD_CONFIGURATION}} -f "${{env.MACOS_TFM}}" -p:RuntimeIdentifier=${{env.RID}} -p:EnableCodeSigning=true -p:EnablePackageSigning=true -p:PublishTrimmed=true -p:MtouchLink=SdkOnly -p:ApplicationId=${{env.APP_ID}} -p:CodesignProvision=${{env.CODESIGN_PROV_PROFILE}} -p:CodesignKey=${{env.CODESIGN_KEY}} -p:CodesignEntitlements=${{env.CODESIGN_ENTITLEMENTS}}
-
-    # WARNING ${{matrix.RID}} is in play, us if statement ${{matrix.RID}} == "testflight"
-    # # Docs https://github.com/Apple-Actions/upload-testflight-build
-    # - name: 'Upload app to TestFlight'
-    #   uses: apple-actions/upload-testflight-build@v1
-    #   with: 
-    #     app-path: "${{github.workspace}}/**/*.pkg" 
-    #     issuer-id: ${{secrets.APPSTORE_API_ISSUER_ID}}
-    #     api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
-    #     api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
-
-    - name: Publish MacCatalyst build artifacts
-      uses: actions/upload-artifact@v6
-      with:     
-        name: "MacCatalyst artifacts" 
-        path: "*.pkg"
-        if-no-files-found: warn
-        retention-days: 30
-
-
-# ********************************* #
-# >>>>>>>> Create Release <<<<<<<<< #
-# ********************************* #
-  create-gh-release:
-    name: Codesign and Publish Release
-    if: ${{ success() }}
-    runs-on: windows-latest
-    needs: [shared-resources, maui-macos, maui-ios, maui-android, maui-windows-sideload, maui-windows-msstore]
-    steps:
-    # Download the artifacts from the previous jobs
-    - uses: actions/download-artifact@v6
-
-    # Login to Azure CLI. No secrets needed, uses the GitHub OIDC token to authenticate.
+    # Entra ID App Registration (Akeyless OIDC Provider) > Certificates and Secrets > Federated Credentials
     - name: Azure login using OIDC via GitHub
-      uses: azure/login@v2
+      uses: azure/login@v3
       id: azlogin
       with:
-        client-id: "32daa13b-f4bb-4809-8ef6-58cb39051acd"
-        tenant-id: "bd47e796-3473-4b8a-9101-1f4c0c7af31a"
-        subscription-id: "48ab4839-62af-4ab3-afe6-043ea4d7c137"
+        client-id: ${{env.SERVICE_PRINCIPAL_CLIENT_ID}}
+        tenant-id: ${{env.SERVICE_PRINCIPAL_TENANT_ID}}
+        subscription-id: ${{env.SERVICE_PRINCIPAL_SUBSCRIPTION_ID}}
 
-    # Codesign files with Trusted Signing
-    - name: Sign files with Trusted Signing
+    - name: Sign MSIX bundle
       uses: azure/trusted-signing-action@v1.2.0
       with:
-        endpoint: https://eus.codesigning.azure.net/
-        trusted-signing-account-name: PrimaryCodeSign
-        certificate-profile-name: lancemccarthylivepublic
+        endpoint: ${{env.SIGNING_ACCT_ENDPOINT_URL}}
+        signing-account-name: ${{env.SIGNING_ACCT_NAME}}
+        certificate-profile-name: ${{env.SIGNING_ACCT_CERT_PROFILE}}
         timestamp-rfc3161: http://timestamp.acs.microsoft.com
         timestamp-digest: SHA256
         file-digest: SHA256
-        files-folder: ${{github.workspace}}
-        files-folder-filter: msix
-        files-folder-depth: 3
+        files: ${{steps.bundle.outputs.BUNDLE_PATH}}
         exclude-azure-cli-credential: false
         exclude-environment-credential: true
         exclude-workload-identity-credential: true
@@ -501,12 +323,477 @@ jobs:
         exclude-azure-developer-cli-credential: true
         exclude-interactive-browser-credential: true
 
-    # Create a GitHub release and attach the signed files
-    - name: Release
-      uses: softprops/action-gh-release@v2
+    - name: Upload MSIX bundle artifact
+      uses: actions/upload-artifact@v7
       with:
-        name: "XkcdViewer v${{needs.shared-resources.outputs.app_version}}"
-        body: |
-          This is v${{needs.shared-resources.outputs.app_version}} of the xkcd viewer app built with .NET MAUI and Telerik UI for Maui. To install, use the appropriate installer file for your device.
-        files: ${{github.workspace}}/**/*
-        tag_name: "v${{needs.shared-resources.outputs.app_version}}"
+        name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_signed-windows.msixbundle"
+        path: ${{steps.bundle.outputs.BUNDLE_PATH}}
+        if-no-files-found: error
+        retention-days: 30
+
+
+  # ********************************************************************************** #
+  #                           Windows (Store - msixupload)                             #
+  # ********************************************************************************** #
+  windows-store:
+    name: Build Windows (Store Upload)
+    runs-on: windows-2025-vs2026
+    needs: shared-resources
+    if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: ${{env.SDK_VERSION}}
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v3
+
+      - name: Install MAUI Workloads
+        run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+
+      - name: Set Telerik NuGet Credentials
+        run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
+
+      - name: Restore NuGet packages
+        run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
+
+      # Update the app manifest with version number, even if Version attribute is missing.
+      - name: Update manifest for side load build
+        run: |
+          [xml]$manifest = get-content "src\${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest"
+          $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}"
+          $manifest.Package.Identity.Name = '61469LanceLotSoftware.XKCDComicViewer'
+          $manifest.Package.Identity.Publisher = 'CN=51B5A8B2-5D86-4826-BBE2-C92E963A4C02'
+          $manifest.Package.Properties.DisplayName = "xkcd Comic Viewer"
+          $manifest.Package.Properties.PublisherDisplayName = "Lancelot Software"
+          $manifest.Package.Applications.Application.VisualElements.DisplayName = "xkcd Viewer"
+          $manifest.save("src\${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest")
+
+      - name: Build Maui WinUI project
+        run: dotnet publish ${{env.PROJECT_PATH}} -c Release -f ${{env.NET_TFM}}-windows10.0.19041.0 -p:AppxPackageSigningEnabled=false -p:AppxSymbolPackageEnabled=false -p:UapAppxPackageBuildMode=StoreUpload -p:AppxBundle=Always "-p:AppxBundlePlatforms=x64|arm64" -p:PlatformTarget=AnyCPU
+
+      - name: Publish build artifacts
+        uses: actions/upload-artifact@v7
+        id: upload-artifacts
+        with:     
+          name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_storeupload-windows"
+          path: "**/*.msixupload"
+          if-no-files-found: error
+          retention-days: 60
+
+      # - name: Configure Credentials
+      #   uses: microsoft/store-submission@v1
+      #   with:
+      #     command: configure
+      #     type: win32
+      #     seller-id: '10113620'
+      #     product-id: '9PMCKHT7M93P'
+      #     tenant-id: '237e90e1-29b9-4350-913d-f3837799f3c0'
+      #     client-id: '99d69d81-6234-46be-acf5-e7b59e7887af'
+      #     client-secret: ${{secrets.ENTRA_CLIENT_SECRET}}
+
+      # - name: Draft Submission
+      #   uses: microsoft/store-submission@v1
+      #   with:
+      #     command: update
+      #     product-update: '{"packages":[{"packageUrl":"${{steps.upload-artifacts.outputs.artifact-url}}","languages":["en"],"architectures":["X64", "ARM64"],"isSilentInstall":true}]}'
+
+      # - name: Publish Submission
+      #   uses: microsoft/store-submission@v1
+      #   with:
+      #     command: publish
+
+
+  # ********************************************************************************** #
+  #                                   MacCatalyst                                      #
+  # ********************************************************************************** #
+  maccatalyst:
+    name: Build MacCatalyst (Signed & Notiarized)
+    runs-on: macos-26
+    needs: shared-resources
+    if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{env.XCODE_VERSION}}
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: ${{env.SDK_VERSION}}
+
+      - name: Install MAUI Workloads
+        run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+
+      - name: Set Telerik NuGet Credentials
+        run: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
+
+      - name: Restore NuGet packages
+        run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
+
+      - name: Import Developer ID Installer Certificates
+        uses: Apple-Actions/import-codesign-certs@v7
+        with:
+          p12-file-base64: "${{secrets.APPLE_DEVELOPER_ID_INSTALLER_CERT_BASE64}}"
+          p12-password: "${{secrets.APPLE_DEVELOPER_ID_INSTALLER_CERT_PASSWORD}}"
+          keychain: installer_signing_temp
+
+      - name: Import Developer ID Application Certificates
+        uses: Apple-Actions/import-codesign-certs@v7
+        with:
+          p12-file-base64: "${{secrets.APPLE_DEVELOPER_ID_APPLICATION_CERT_BASE64}}"
+          p12-password: "${{secrets.APPLE_DEVELOPER_ID_APPLICATION_CERT_PASSWORD}}"
+          keychain: application_signing_temp
+
+      # Each import-codesign-certs call rewrites the keychain search list. The second import step (Application cert) drops the first (Installer) keychain, so product build cannot find the "Developer ID Installer" identity. This step re-adds both keychains explicitly before any signing occurs.
+      - name: Ensure both signing keychains are in the search list
+        shell: bash
+        run: |
+          set -euo pipefail
+          security list-keychains -d user -s "$HOME/Library/Keychains/installer_signing_temp.keychain-db" "$HOME/Library/Keychains/application_signing_temp.keychain-db" login.keychain
+          echo "Keychain search list:"
+          security list-keychains -d user
+
+      # Finally make sure both certs are available before we build
+      - name: Verify Developer ID identities are available
+        shell: bash
+        run: |
+          set -euo pipefail
+          APPLE_DEV_ID_APP_CERT_NAME="${{env.APPLE_DEV_ID_APP_CERT_NAME}}"
+          APPLE_DEV_ID_INSTALLER_CERT_NAME="${{env.APPLE_DEV_ID_INSTALLER_CERT_NAME}}"
+
+          security find-identity -v -p codesigning
+          security find-certificate -a -c "$APPLE_DEV_ID_INSTALLER_CERT_NAME" || true
+
+          if ! security find-identity -v -p codesigning | grep -F "$APPLE_DEV_ID_APP_CERT_NAME" >/dev/null; then
+            echo "Missing Developer ID Application identity: $APPLE_DEV_ID_APP_CERT_NAME"
+            exit 1
+          fi
+
+          if ! security find-certificate -a -c "$APPLE_DEV_ID_INSTALLER_CERT_NAME" >/dev/null; then
+            echo "Missing Developer ID Installer certificate: $APPLE_DEV_ID_INSTALLER_CERT_NAME"
+            exit 1
+          fi
+
+      - name: Build and sign MacCatalyst artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+          cd "$ROOT_DIR"
+          mkdir -p "$ARTIFACTS_DIR"
+
+          echo "Cleaning and publishing MacCatalyst app..."
+          dotnet clean "$PROJECT_PATH" -c "$CONFIGURATION" -f "$TFM"
+
+          publish_args=(
+            "$PROJECT_PATH"
+            -c "$CONFIGURATION"
+            -f "$TFM"
+            "-p:CodesignKey=\"$CODESIGN_KEY\""
+            -p:UseHardenedRuntime=true
+          )
+
+          if [[ -n "$APP_VERSION" ]]; then
+            publish_args+=("-p:ApplicationVersion=$APP_VERSION" "-p:ApplicationDisplayVersion=$APP_VERSION")
+          fi
+
+          printf 'Running: dotnet publish'; printf ' %q' "${publish_args[@]}"; printf '\n'
+          dotnet publish "${publish_args[@]}"
+
+          if [[ ! -d "$APP_BUNDLE_PATH" ]]; then
+            echo "Expected app bundle not found at $APP_BUNDLE_PATH"
+            exit 1
+          fi
+
+          echo "Verifying app signature..."
+          codesign -dv --verbose=2 "$APP_BUNDLE_PATH" >/dev/null 2>&1
+
+          echo "Creating signed app zip and installer pkg..."
+          rm -f "$SIGNED_ZIP_PATH" "$SIGNED_PKG_PATH"
+          ditto -c -k --sequesterRsrc --keepParent "$APP_BUNDLE_PATH" "$SIGNED_ZIP_PATH"
+          productbuild --component "$APP_BUNDLE_PATH" /Applications --sign "$INSTALLER_SIGN_ID" "$SIGNED_PKG_PATH"
+
+          echo "Done. Signed artifacts:"
+          echo "- $SIGNED_PKG_PATH"
+          echo "- $SIGNED_ZIP_PATH"
+        env:
+          PROJECT_PATH: "${{env.PROJECT_PATH}}"
+          TFM: "${{env.NET_TFM}}-maccatalyst"
+          CONFIGURATION: "Release"
+          APP_VERSION: "${{needs.shared-resources.outputs.app_version}}"
+          ARTIFACTS_DIR: "${{env.MAC_ARTIFACTS_PATH}}"
+          APP_BUNDLE_PATH: "${{env.MAC_APP_BUNDLE_PATH}}"
+          CODESIGN_KEY: "${{env.APPLE_DEV_ID_APP_CERT_NAME}}"
+          INSTALLER_SIGN_ID: "${{ env.APPLE_DEV_ID_INSTALLER_CERT_NAME}}"
+          SIGNED_ZIP_PATH: "$ARTIFACTS_DIR/${{env.APP_NAME}}-MacCatalyst-Release-signed.zip"
+          SIGNED_PKG_PATH: "$ARTIFACTS_DIR/${{env.APP_NAME}}-MacCatalyst-Release-signed.pkg"
+
+      - name: Notarize and staple MacCatalyst artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+          cd "$ROOT_DIR"
+
+          if [[ -z "$APPLE_NOTARY_APPLE_ID" || -z "$APPLE_NOTARY_APP_PASSWORD" || -z "$APPLE_NOTARY_TEAM_ID" ]]; then
+            echo "Missing notarization credentials."
+            echo "Set APPLE_NOTARY_APPLE_ID, APPLE_NOTARY_APP_PASSWORD, and APPLE_NOTARY_TEAM_ID."
+            exit 1
+          fi
+
+          if [[ ! -d "$APP_BUNDLE_PATH" ]]; then
+            echo "Expected app bundle not found at $APP_BUNDLE_PATH"
+            exit 1
+          fi
+
+          if [[ ! -f "$SIGNED_PKG_PATH" || ! -f "$SIGNED_ZIP_PATH" ]]; then
+            echo "Expected signed artifacts not found in $ARTIFACTS_DIR"
+            exit 1
+          fi
+
+          echo "Submitting pkg for notarization..."
+          pkg_submit_json="$(xcrun notarytool submit "$SIGNED_PKG_PATH" --apple-id "$APPLE_NOTARY_APPLE_ID" --team-id "$APPLE_NOTARY_TEAM_ID" --password "$APPLE_NOTARY_APP_PASSWORD" --wait --output-format json)"
+          echo "$pkg_submit_json"
+          if ! grep -q '"status":"Accepted"' <<< "$pkg_submit_json"; then
+            echo "Notarization failed for pkg."
+            exit 1
+          fi
+
+          echo "Stapling and validating pkg..."
+          xcrun stapler staple "$SIGNED_PKG_PATH"
+          xcrun stapler validate "$SIGNED_PKG_PATH"
+
+          echo "Submitting signed app zip for notarization..."
+          zip_submit_json="$(xcrun notarytool submit "$SIGNED_ZIP_PATH" --apple-id "$APPLE_NOTARY_APPLE_ID" --team-id "$APPLE_NOTARY_TEAM_ID" --password "$APPLE_NOTARY_APP_PASSWORD" --wait --output-format json)"
+          echo "$zip_submit_json"
+          if ! grep -q '"status":"Accepted"' <<< "$zip_submit_json"; then
+            echo "Notarization failed for app zip."
+            exit 1
+          fi
+
+          echo "Stapling and validating app..."
+          xcrun stapler staple "$APP_BUNDLE_PATH"
+          xcrun stapler validate "$APP_BUNDLE_PATH"
+
+          # Recreate the final distributable zip from the stapled app.
+          ditto -c -k --sequesterRsrc --keepParent "$APP_BUNDLE_PATH" "$NOTARIZED_ZIP_PATH"
+
+          echo "Gatekeeper checks..."
+          spctl -a -t exec -vv "$APP_BUNDLE_PATH"
+          spctl -a -t install -vv "$SIGNED_PKG_PATH"
+
+          echo "Done. Artifacts:"
+          echo "- $SIGNED_PKG_PATH"
+          echo "- $NOTARIZED_ZIP_PATH"
+        env:
+          ARTIFACTS_DIR: "${{env.MAC_ARTIFACTS_PATH}}"
+          APP_BUNDLE_PATH: "${{env.MAC_APP_BUNDLE_PATH}}"
+          APPLE_NOTARY_APPLE_ID: "${{secrets.APPLE_NOTARY_APPLE_ID}}"
+          APPLE_NOTARY_APP_PASSWORD: "${{secrets.APPLE_NOTARY_APP_PASSWORD}}"
+          APPLE_NOTARY_TEAM_ID: "${{env.APPLE_NOTARY_TEAM_ID}}"
+          SIGNED_ZIP_PATH: "${{env.MAC_ARTIFACTS_PATH}}/${{env.APP_NAME}}-MacCatalyst-Release-signed.zip"
+          NOTARIZED_ZIP_PATH: "${{env.MAC_ARTIFACTS_PATH}}/${{env.APP_NAME}}-MacCatalyst-Release-notarized.zip"
+          SIGNED_PKG_PATH: "${{env.MAC_ARTIFACTS_PATH}}/${{env.APP_NAME}}-MacCatalyst-Release-signed.pkg"
+
+      # # Docs https://github.com/Apple-Actions/upload-testflight-build
+      # - name: 'Upload app to TestFlight'
+      #   uses: apple-actions/upload-testflight-build@v5
+      #   with: 
+      #     app-path: "${{github.workspace}}/**/*.pkg" 
+      #     issuer-id: ${{secrets.APPSTORE_API_ISSUER_ID}}
+      #     api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
+      #     api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
+
+      - name: Publish MacCatalyst build artifacts
+        uses: actions/upload-artifact@v7
+        with:     
+          name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_signed-maccatalyst"
+          path: artifacts/maccatalyst/${{env.APP_NAME}}-MacCatalyst-Release-signed.pkg
+          if-no-files-found: error
+          retention-days: 30
+
+
+  # ********************************************************************************** #
+  #                                        iOS                                         #
+  # ********************************************************************************** #
+  ios:
+    name: Build iOS (${{matrix.distribution_name}})
+    runs-on: macos-26
+    needs: shared-resources
+    if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - distribution_name: Store Upload IPA
+            artifact_suffix: storeupload-ios
+            provisioning_profile: XkcdViewer_AppStore_Distribution
+            provisioning_profile_type: IOS_APP_STORE
+            rid: ios-arm64
+          - distribution_name: Ad Hoc Sideload IPA
+            artifact_suffix: sideload-ios
+            provisioning_profile: XkcdViewer_AdHoc_Distribution
+            provisioning_profile_type: IOS_APP_ADHOC
+            rid: ios-arm64
+    env:
+      APPLE_PROV_PROFILE: ${{matrix.provisioning_profile}}
+      APPLE_PROV_PROFILE_TYPE: ${{matrix.provisioning_profile_type}}
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{env.XCODE_VERSION}}
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: ${{env.SDK_VERSION}}
+
+      - name: Install MAUI Workloads
+        run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+
+      - name: Set Telerik NuGet Credentials
+        run: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
+
+      - name: Restore NuGet packages
+        run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
+
+      # Docs https://github.com/Apple-Actions/import-codesign-certs
+      - name: Import Code-Signing Certificates
+        uses: Apple-Actions/import-codesign-certs@v7
+        with:
+          p12-file-base64: "${{secrets.APPLE_DISTRIBUTION_CERTIFICATE_BASE64}}"
+          p12-password: "${{secrets.APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD}}"
+
+      # Docs https://github.com/Apple-Actions/download-provisioning-profiles
+      - id: provisioning-profiles
+        uses: Apple-Actions/download-provisioning-profiles@v6
+        with:
+          profile-type: "${{env.APPLE_PROV_PROFILE_TYPE}}"
+          bundle-id: "${{env.APPLE_APP_ID}}"
+          issuer-id: "${{secrets.APPSTORE_API_ISSUER_ID}}"
+          api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
+          api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
+
+      - name: Verify provisioning profile
+        run: |
+          $profiles = '${{steps.provisioning-profiles.outputs.profiles}}' | ConvertFrom-Json
+          $profile = $profiles | Where-Object { $_.name -eq $env:APPLE_PROV_PROFILE -and $_.type -eq $env:APPLE_PROV_PROFILE_TYPE } | Select-Object -First 1
+
+          if ($null -eq $profile) {
+            $profiles | Format-Table -AutoSize | Out-String | Write-Host
+            throw "Provisioning profile '$env:APPLE_PROV_PROFILE' with type '$env:APPLE_PROV_PROFILE_TYPE' was not downloaded."
+          }
+
+      - name: Verify iOS signing identity is available
+        shell: bash
+        run: |
+          set -euo pipefail
+          security find-identity -v -p codesigning
+          if ! security find-identity -v -p codesigning | grep -F "Apple Distribution" >/dev/null; then
+            echo "Missing Apple Distribution identity"
+            exit 1
+          fi
+
+      # Docs https://learn.microsoft.com/en-us/dotnet/maui/ios/deployment/publish-cli?view=net-maui-9.0
+      - name: Publish MAUI iOS IPA
+        run: |
+          # Query the actual signing identity to avoid comma parsing issues
+          $identityOutput = security find-identity -v -p codesigning | Select-String "Apple Distribution"
+          if (-not $identityOutput) { throw "No Apple Distribution identity found in keychain" }
+          $codesignKey = [regex]::Match($identityOutput.Line, '"(?<name>Apple Distribution:[^"]+)"').Groups['name'].Value
+          if (-not $codesignKey) { throw "Could not parse Apple Distribution identity from keychain output" }
+          Write-Host "Using codesign key: $codesignKey"
+          $quotedCodesignKey = '"' + $codesignKey + '"'
+          
+          $publishArgs = @(
+            'publish'
+            '${{env.PROJECT_PATH}}'
+            '-f', '${{env.NET_TFM}}-ios'
+            '-c', 'Release'
+            '-p:ArchiveOnBuild=true'
+            '-p:RuntimeIdentifier=${{matrix.rid}}'
+            '-p:MtouchLink=SdkOnly'
+            '-p:ApplicationId=${{env.APPLE_APP_ID}}'
+            '-p:ApplicationVersion=${{needs.shared-resources.outputs.app_version}}'
+            '-p:CodesignProvision=${{env.APPLE_PROV_PROFILE}}'
+            "-p:CodesignKey=$quotedCodesignKey"
+          )
+          & dotnet @publishArgs
+          if ($LASTEXITCODE -ne 0) { throw "dotnet publish failed with exit code $LASTEXITCODE" }
+
+      - name: Publish iOS build artifacts
+        uses: actions/upload-artifact@v7
+        with:     
+          name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_${{matrix.artifact_suffix}}"
+          path: "src/${{env.PROJECT_DIRECTORY}}/bin/Release/${{env.NET_TFM}}-ios/${{matrix.rid}}/publish/*.ipa"
+          if-no-files-found: error
+          retention-days: 60
+
+
+  # ********************************************************************************** #
+  #                                  GitHub Release                                    #
+  # ********************************************************************************** #
+  create-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs: [shared-resources, android, windows-sideload-packages, windows-generate-msixbundle, windows-store, maccatalyst, ios]
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v8
+        with:
+          path: release-artifacts
+
+      - name: List downloaded artifacts
+        shell: bash
+        run: find release-artifacts -type f | sort
+
+      - name: Prepare release files
+        shell: bash
+        run: |
+          VER="${{needs.shared-resources.outputs.app_version}}"
+          PREFIX="${{env.APP_NAME}}_v${VER}"
+          mkdir -p release-upload
+
+          # Android
+          find "release-artifacts/${PREFIX}_signed-android" -name "*-Signed.apk" -exec cp {} "release-upload/${PREFIX}_android-signed.apk" \;
+          find "release-artifacts/${PREFIX}_signed-android" -name "*-Signed.aab" -exec cp {} "release-upload/${PREFIX}_android-signed.aab" \;
+
+          # Windows sideload (individual per-arch MSIX)
+          cp "release-artifacts/${PREFIX}_win-x64/${{env.APP_NAME}}.x64.msix"     "release-upload/${PREFIX}_win-x64.msix";
+          cp "release-artifacts/${PREFIX}_win-arm64/${{env.APP_NAME}}.arm64.msix" "release-upload/${PREFIX}_win-arm64.msix";
+
+          # Windows msixbundle (signed)
+          cp "release-artifacts/${PREFIX}_signed-windows.msixbundle/${PREFIX}.msixbundle" "release-upload/${PREFIX}_windows.msixbundle";
+
+          # Windows Store upload
+          find "release-artifacts/${PREFIX}_storeupload-windows" -name "*.msixupload" -exec cp {} "release-upload/${PREFIX}_msstore.msixupload" \;
+
+          # MacCatalyst pkg
+          cp "release-artifacts/${PREFIX}_signed-maccatalyst/${PREFIX}-MacCatalyst-Release-signed.pkg" "release-upload/${PREFIX}_mac.pkg";
+
+          # iOS Store IPA
+          find "release-artifacts/${PREFIX}_storeupload-ios" -name "*.ipa" -exec cp {} "release-upload/${PREFIX}_ios-store.ipa" \;
+
+          # iOS Ad Hoc sideload IPA
+          find "release-artifacts/${PREFIX}_sideload-ios" -name "*.ipa" -exec cp {} "release-upload/${PREFIX}_ios-sideload.ipa" \;
+
+          echo "Files prepared for release:"
+          ls -lh release-upload/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3.0.0
+        with:
+          tag_name: "v${{needs.shared-resources.outputs.app_version}}"
+          name: "${{env.APP_NAME}} v${{needs.shared-resources.outputs.app_version}}"
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          files: release-upload/*

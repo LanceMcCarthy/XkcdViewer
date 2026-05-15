@@ -34,7 +34,7 @@ env:
   MAC_APP_BUNDLE_PATH: "src/XkcdViewer.Maui/bin/Release/net10.0-maccatalyst/XkcdViewer.app"
   MAC_ARTIFACTS_PATH: "artifacts/maccatalyst"
   # ____iOS______________________________________________ (also check matrix vars)
-  APPLE_APP_ID: "com.lancelotsoftware.XkcdViewer"
+  APPLE_APP_ID: "com.lancelotsoftware.xkcdViewer"
   # ____Windows__________________________________________ (also check matrix vars)
   WINDOWS_ARTIFACTS_PATH: "artifacts/windows"
   SERVICE_PRINCIPAL_CLIENT_ID: "32daa13b-f4bb-4809-8ef6-58cb39051acd"
@@ -636,12 +636,12 @@ jobs:
         include:
           - distribution_name: Store Upload IPA
             artifact_suffix: storeupload-ios
-            provisioning_profile: XkcdViewer_AppStore_Distribution
+            provisioning_profile: "xkcdViewer_AppStore_Distribution"
             provisioning_profile_type: IOS_APP_STORE
             rid: ios-arm64
           - distribution_name: Ad Hoc Sideload IPA
             artifact_suffix: sideload-ios
-            provisioning_profile: XkcdViewer_AdHoc_Distribution
+            provisioning_profile: "xkcdViewer_AdHoc_Distribution"
             provisioning_profile_type: IOS_APP_ADHOC
             rid: ios-arm64
     env:

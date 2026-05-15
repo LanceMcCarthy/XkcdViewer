@@ -431,7 +431,7 @@ jobs:
         run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
       - name: Set Telerik NuGet Credentials
-        run: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
+        run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
 
       - name: Restore NuGet packages
         run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
@@ -663,7 +663,7 @@ jobs:
         run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
       - name: Set Telerik NuGet Credentials
-        run: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
+        run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
 
       - name: Restore NuGet packages
         run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}

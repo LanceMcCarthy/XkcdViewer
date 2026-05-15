@@ -199,7 +199,7 @@ jobs:
     - name: Update manifest for side load build
       run: |
         [xml]$manifest = Get-Content 'src\${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest'
-        $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}"
+        $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}.0"
         $manifest.Package.Identity.Name = "61469LanceLotSoftware.XKCDComicViewer"
         $manifest.Package.Identity.Publisher = 'CN=" Lance McCarthy", O=" Lance McCarthy", L=Revere, S=Massachusetts, C=US'
         $manifest.Package.Properties.DisplayName = "xkcd Comic Viewer"
@@ -364,7 +364,7 @@ jobs:
       - name: Update manifest for side load build
         run: |
           [xml]$manifest = get-content "src\${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest"
-          $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}"
+          $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}.0"
           $manifest.Package.Identity.Name = '61469LanceLotSoftware.XKCDComicViewer'
           $manifest.Package.Identity.Publisher = 'CN=51B5A8B2-5D86-4826-BBE2-C92E963A4C02'
           $manifest.Package.Properties.DisplayName = "xkcd Comic Viewer"

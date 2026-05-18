@@ -20,7 +20,7 @@ env:
   SDK_VERSION: '10.0.x'
   NET_TFM: 'net10.0'
   XCODE_VERSION: '26.4'
-  IOS_SDK_VERSION: '10.0.203'
+  MAC_DOTNET_VERSION: '10.0.203'
   NUGET_CONFIG_PATH: 'src/nuget.config'
   TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY_VALUE}}
   APPLE_NOTARY_TEAM_ID: "L65255N3F7"
@@ -428,7 +428,7 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: ${{env.SDK_VERSION}}
+          dotnet-version: ${{env.MAC_DOTNET_VERSION}}
 
       - name: Install MAUI Workloads
         run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
@@ -696,7 +696,7 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: ${{env.IOS_SDK_VERSION}}
+          dotnet-version: ${{env.MAC_DOTNET_VERSION}}
 
       - name: Install MAUI Workloads
         run: dotnet workload install maui --source https://api.nuget.org/v3/index.json

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net10.0-android;net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.22621.0</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>XkcdViewer.Maui</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -57,6 +57,11 @@
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
 		<PackageReference Include="WinUIEx" Version="2.9.0" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="2.0.1" />
+		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.275">
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<AdditionalFiles Include="Platforms\Windows\NativeMethods.txt" />
 	</ItemGroup>
 
 	<!-- Build Settings -->

@@ -673,11 +673,13 @@ jobs:
       - name: Verify provisioning profile
         run: |
           $profiles = '${{steps.provisioning-profiles.outputs.profiles}}' | ConvertFrom-Json
-          $profile = $profiles | Where-Object { $_.name -eq ${{matrix.provisioning_profile}} -and $_.type -eq ${{matrix.provisioning_profile_type}} } | Select-Object -First 1
+          $expectedName = '${{matrix.provisioning_profile}}'
+          $expectedType = '${{matrix.provisioning_profile_type}}'
+          $profile = $profiles | Where-Object { $_.name -eq $expectedName -and $_.type -eq $expectedType } | Select-Object -First 1
 
           if ($null -eq $profile) {
             $profiles | Format-Table -AutoSize | Out-String | Write-Host
-            throw "Provisioning profile '${{matrix.provisioning_profile}}' with type '${{matrix.provisioning_profile_type}}' was not downloaded."
+            throw "Provisioning profile '$expectedName' with type '$expectedType' was not downloaded."
           }
 
       - name: Verify iOS signing identity is available

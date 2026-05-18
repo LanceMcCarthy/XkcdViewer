@@ -201,7 +201,7 @@ jobs:
         [xml]$manifest = Get-Content 'src\${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest'
         $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}.0"
         $manifest.Package.Identity.Name = "61469LanceLotSoftware.XKCDComicViewer"
-        $manifest.Package.Identity.Publisher = 'CN=" Lance McCarthy", O=" Lance McCarthy", L=Revere, S=Massachusetts, C=US'
+        $manifest.Package.Identity.Publisher = 'CN=Lance McCarthy, O=Lance McCarthy, L=Revere, S=Massachusetts, C=US'
         $manifest.Package.Properties.DisplayName = "xkcd Comic Viewer"
         $manifest.Package.Properties.PublisherDisplayName = "Lance McCarthy"
         $manifest.Package.Applications.Application.VisualElements.DisplayName = "xkcd Viewer"
@@ -336,76 +336,76 @@ jobs:
   # ********************************************************************************** #
   #                           Windows (Store - msixupload)                             #
   # ********************************************************************************** #
-  windows-store:
-    name: Build Windows (Store Upload)
-    runs-on: windows-2025-vs2026
-    needs: shared-resources
-    if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
-    steps:
-      - uses: actions/checkout@v6
+  # windows-store:
+  #   name: Build Windows (Store Upload)
+  #   runs-on: windows-2025-vs2026
+  #   needs: shared-resources
+  #   if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
+  #   steps:
+  #     - uses: actions/checkout@v6
 
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: ${{env.SDK_VERSION}}
+  #     - name: Setup .NET SDK
+  #       uses: actions/setup-dotnet@v5
+  #       with:
+  #         dotnet-version: ${{env.SDK_VERSION}}
 
-      - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v3
+  #     - name: Add msbuild to PATH
+  #       uses: microsoft/setup-msbuild@v3
 
-      - name: Install MAUI Workloads
-        run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+  #     - name: Install MAUI Workloads
+  #       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
-      - name: Set Telerik NuGet Credentials
-        run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
+  #     - name: Set Telerik NuGet Credentials
+  #       run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
 
-      - name: Restore NuGet packages
-        run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
+  #     - name: Restore NuGet packages
+  #       run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
 
-      # Update the app manifest with version number, even if Version attribute is missing.
-      - name: Update manifest for side load build
-        run: |
-          [xml]$manifest = get-content "src\${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest"
-          $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}.0"
-          $manifest.Package.Identity.Name = '61469LanceLotSoftware.XKCDComicViewer'
-          $manifest.Package.Identity.Publisher = 'CN=51B5A8B2-5D86-4826-BBE2-C92E963A4C02'
-          $manifest.Package.Properties.DisplayName = "xkcd Comic Viewer"
-          $manifest.Package.Properties.PublisherDisplayName = "Lancelot Software"
-          $manifest.Package.Applications.Application.VisualElements.DisplayName = "xkcd Viewer"
-          $manifest.save("src\${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest")
+  #     # Update the app manifest with version number, even if Version attribute is missing.
+  #     - name: Update manifest for side load build
+  #       run: |
+  #         [xml]$manifest = get-content "src\${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest"
+  #         $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}.0"
+  #         $manifest.Package.Identity.Name = '61469LanceLotSoftware.XKCDComicViewer'
+  #         $manifest.Package.Identity.Publisher = 'CN=51B5A8B2-5D86-4826-BBE2-C92E963A4C02'
+  #         $manifest.Package.Properties.DisplayName = "xkcd Comic Viewer"
+  #         $manifest.Package.Properties.PublisherDisplayName = "Lancelot Software"
+  #         $manifest.Package.Applications.Application.VisualElements.DisplayName = "xkcd Viewer"
+  #         $manifest.save("src\${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest")
 
-      - name: Build Maui WinUI project
-        run: dotnet publish ${{env.PROJECT_PATH}} -c Release -f ${{env.NET_TFM}}-windows10.0.22621.0 -p:AppxPackageSigningEnabled=false -p:AppxSymbolPackageEnabled=false -p:UapAppxPackageBuildMode=StoreUpload -p:AppxBundle=Always "-p:AppxBundlePlatforms=x64|arm64" -p:PlatformTarget=AnyCPU
+  #     - name: Build Maui WinUI project
+  #       run: dotnet publish ${{env.PROJECT_PATH}} -c Release -f ${{env.NET_TFM}}-windows10.0.22621.0 -p:AppxPackageSigningEnabled=false -p:AppxSymbolPackageEnabled=false -p:UapAppxPackageBuildMode=StoreUpload -p:AppxBundle=Always "-p:AppxBundlePlatforms=x64|arm64" -p:PlatformTarget=AnyCPU
 
-      - name: Publish build artifacts
-        uses: actions/upload-artifact@v7
-        id: upload-artifacts
-        with:     
-          name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_storeupload-windows"
-          path: "**/*.msixupload"
-          if-no-files-found: error
-          retention-days: 60
+  #     - name: Publish build artifacts
+  #       uses: actions/upload-artifact@v7
+  #       id: upload-artifacts
+  #       with:     
+  #         name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_storeupload-windows"
+  #         path: "**/*.msixupload"
+  #         if-no-files-found: error
+  #         retention-days: 60
 
-      # - name: Configure Credentials
-      #   uses: microsoft/store-submission@v1
-      #   with:
-      #     command: configure
-      #     type: win32
-      #     seller-id: '10113620'
-      #     product-id: '9PMCKHT7M93P'
-      #     tenant-id: '237e90e1-29b9-4350-913d-f3837799f3c0'
-      #     client-id: '99d69d81-6234-46be-acf5-e7b59e7887af'
-      #     client-secret: ${{secrets.ENTRA_CLIENT_SECRET}}
+  #     # - name: Configure Credentials
+  #     #   uses: microsoft/store-submission@v1
+  #     #   with:
+  #     #     command: configure
+  #     #     type: win32
+  #     #     seller-id: '10113620'
+  #     #     product-id: '9PMCKHT7M93P'
+  #     #     tenant-id: '237e90e1-29b9-4350-913d-f3837799f3c0'
+  #     #     client-id: '99d69d81-6234-46be-acf5-e7b59e7887af'
+  #     #     client-secret: ${{secrets.ENTRA_CLIENT_SECRET}}
 
-      # - name: Draft Submission
-      #   uses: microsoft/store-submission@v1
-      #   with:
-      #     command: update
-      #     product-update: '{"packages":[{"packageUrl":"${{steps.upload-artifacts.outputs.artifact-url}}","languages":["en"],"architectures":["X64", "ARM64"],"isSilentInstall":true}]}'
+  #     # - name: Draft Submission
+  #     #   uses: microsoft/store-submission@v1
+  #     #   with:
+  #     #     command: update
+  #     #     product-update: '{"packages":[{"packageUrl":"${{steps.upload-artifacts.outputs.artifact-url}}","languages":["en"],"architectures":["X64", "ARM64"],"isSilentInstall":true}]}'
 
-      # - name: Publish Submission
-      #   uses: microsoft/store-submission@v1
-      #   with:
-      #     command: publish
+  #     # - name: Publish Submission
+  #     #   uses: microsoft/store-submission@v1
+  #     #   with:
+  #     #     command: publish
 
 
   # ********************************************************************************** #

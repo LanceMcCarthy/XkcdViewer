@@ -19,7 +19,7 @@ env:
   PROJECT_DIRECTORY: "XkcdViewer.Maui"
   SDK_VERSION: '10.0.x'
   NET_TFM: 'net10.0'
-  XCODE_VERSION: '26.4'
+  XCODE_VERSION: '26'
   NUGET_CONFIG_PATH: 'src/nuget.config'
   TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY_VALUE}}
   APPLE_NOTARY_TEAM_ID: "L65255N3F7"
@@ -641,11 +641,11 @@ jobs:
       matrix:
         include:
           - distribution_name: AdHoc Sideload
-            artifact_suffix: sideload-ios
+            artifact_suffix: ios-adhoc
             provisioning_profile: "xkcdViewerAdHoc"
             provisioning_profile_type: IOS_APP_ADHOC
           - distribution_name: Store Upload
-            artifact_suffix: storeupload-ios
+            artifact_suffix: ios-store
             provisioning_profile: "xkcdAppStore"
             provisioning_profile_type: IOS_APP_STORE
     steps:
@@ -706,7 +706,6 @@ jobs:
       - name: Restore NuGet packages
         run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
 
-      # Docs https://learn.microsoft.com/en-us/dotnet/maui/ios/deployment/publish-cli?view=net-maui-9.0
       - name: Publish MAUI iOS
         run: |
           # Query the actual signing identity to avoid comma parsing issues
@@ -770,9 +769,9 @@ jobs:
   #         find "release-artifacts/${PREFIX}_signed-android" -name "*-Signed.apk" -exec cp {} "release-upload/${PREFIX}_android-signed.apk" \;
   #         find "release-artifacts/${PREFIX}_signed-android" -name "*-Signed.aab" -exec cp {} "release-upload/${PREFIX}_android-signed.aab" \;
 
-  #         # Windows sideload (individual per-arch MSIX)
-  #         cp "release-artifacts/${PREFIX}_win-x64/${{env.APP_NAME}}.x64.msix"     "release-upload/${PREFIX}_win-x64.msix";
-  #         cp "release-artifacts/${PREFIX}_win-arm64/${{env.APP_NAME}}.arm64.msix" "release-upload/${PREFIX}_win-arm64.msix";
+  #         # Windows sideload (individual per-arch MSIX) - not signed, should not be distributed
+  #         # cp "release-artifacts/${PREFIX}_win-x64/${{env.APP_NAME}}.x64.msix"     "release-upload/${PREFIX}_win-x64.msix";
+  #         # cp "release-artifacts/${PREFIX}_win-arm64/${{env.APP_NAME}}.arm64.msix" "release-upload/${PREFIX}_win-arm64.msix";
 
   #         # Windows msixbundle (signed)
   #         cp "release-artifacts/${PREFIX}_signed-windows.msixbundle/${PREFIX}.msixbundle" "release-upload/${PREFIX}_windows.msixbundle";
@@ -783,6 +782,12 @@ jobs:
 
   #         # MacCatalyst pkg
   #         cp "release-artifacts/${PREFIX}_signed-maccatalyst/${{env.APP_NAME}}-MacCatalyst-Release-signed.pkg" "release-upload/${PREFIX}_mac.pkg";
+
+  #         # iOS AdHoc
+  #         find "release-artifacts/${PREFIX}_ios-adhoc" -name "*.ipa" -exec cp {} "release-upload/${PREFIX}_ios-adhoc.ipa" \;
+
+  #         # iOS Store
+  #         find "release-artifacts/${PREFIX}_ios-store" -name "*.ipa" -exec cp {} "release-upload/${PREFIX}_ios-store.ipa" \;
 
   #         echo "Files prepared for release:"
   #         ls -lh release-upload/

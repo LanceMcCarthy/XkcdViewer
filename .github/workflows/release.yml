@@ -193,7 +193,7 @@ jobs:
       run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
 
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.PROJECT_PATH}} -f ${{env.NET_TFM}}-windows10.0.22621.0 --configfile ${{env.NUGET_CONFIG_PATH}}
+      run: dotnet restore ${{env.PROJECT_PATH}} -p:TargetFramework=${{env.NET_TFM}}-windows10.0.22621.0 --configfile ${{env.NUGET_CONFIG_PATH}}
 
     # Update the app manifest with version number, even if Version attribute is missing.
     - name: Update manifest for side load build
@@ -359,7 +359,7 @@ jobs:
         run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
 
       - name: Restore NuGet packages
-        run: dotnet restore ${{env.PROJECT_PATH}} -f ${{env.NET_TFM}}-windows10.0.22621.0 --configfile ${{env.NUGET_CONFIG_PATH}}
+        run: dotnet restore ${{env.PROJECT_PATH}} -p:TargetFramework=${{env.NET_TFM}}-windows10.0.22621.0 --configfile ${{env.NUGET_CONFIG_PATH}}
 
       # Update the app manifest with version number, even if Version attribute is missing.
       - name: Update manifest for side load build
@@ -562,8 +562,8 @@ jobs:
           ARTIFACTS_DIR: "${{env.MAC_ARTIFACTS_PATH}}"
           CODESIGN_KEY: "${{env.APPLE_DEV_ID_APP_CERT_NAME}}"
           INSTALLER_SIGN_ID: "${{ env.APPLE_DEV_ID_INSTALLER_CERT_NAME}}"
-          SIGNED_ZIP_PATH: "$ARTIFACTS_DIR/${{env.APP_NAME}}-MacCatalyst-Release-signed.zip"
-          SIGNED_PKG_PATH: "$ARTIFACTS_DIR/${{env.APP_NAME}}-MacCatalyst-Release-signed.pkg"
+          SIGNED_ZIP_PATH: "${{env.MAC_ARTIFACTS_PATH}}/${{env.APP_NAME}}-MacCatalyst-Release-signed.zip"
+          SIGNED_PKG_PATH: "${{env.MAC_ARTIFACTS_PATH}}/${{env.APP_NAME}}-MacCatalyst-Release-signed.pkg"
 
       - name: Notarize and staple MacCatalyst artifacts
         shell: bash

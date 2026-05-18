@@ -213,12 +213,13 @@ jobs:
         $appVersion = "${{needs.shared-resources.outputs.app_version}}.0"
         $artifactDir = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\${{matrix.arch}}"
         New-Item -ItemType Directory -Force -Path $artifactDir | Out-Null
-        Write-Host "Publishing Windows ${{matrix.arch}}..."
+        Write-Host "Publishing Windows ${{matrix.arch}} (RID=${{matrix.runtime_id}}, Platform=${{matrix.platform}})..."
         $publishArgs = @(
           'publish'
           '${{env.PROJECT_PATH}}'
           '-c', 'Release'
           '-f', '${{env.NET_TFM}}-windows10.0.22621.0'
+          '-p:RuntimeIdentifier=${{matrix.runtime_id}}'
           '-p:Platform=${{matrix.platform}}'
           '-p:PlatformTarget=${{matrix.platform}}'
           '-p:AppxPackageBuildPlatform=${{matrix.platform}}'
@@ -380,6 +381,12 @@ jobs:
         id: store-package
         run: |
           $appPackagesRoot = "src\${{env.PROJECT_DIRECTORY}}\AppPackages"
+          $publishRoot = "src\${{env.PROJECT_DIRECTORY}}\bin\Release\${{env.NET_TFM}}-windows10.0.22621.0"
+
+          Write-Host "Searching for Store package under:"
+          Write-Host "- $appPackagesRoot"
+          Write-Host "- $publishRoot"
+
           $candidate = Get-ChildItem -Path $appPackagesRoot -Filter *.msixupload -Recurse -ErrorAction SilentlyContinue |
             Sort-Object LastWriteTime -Descending |
             Select-Object -First 1
@@ -391,6 +398,34 @@ jobs:
           }
 
           if ($null -eq $candidate) {
+            $candidate = Get-ChildItem -Path $publishRoot -Filter *.msixupload -Recurse -ErrorAction SilentlyContinue |
+              Sort-Object LastWriteTime -Descending |
+              Select-Object -First 1
+          }
+
+          if ($null -eq $candidate) {
+            $candidate = Get-ChildItem -Path $publishRoot -Filter *.msixbundle -Recurse -ErrorAction SilentlyContinue |
+              Sort-Object LastWriteTime -Descending |
+              Select-Object -First 1
+          }
+
+          if ($null -eq $candidate) {
+            Write-Host "No package found. Listing AppPackages contents:"
+            if (Test-Path $appPackagesRoot) {
+              Get-ChildItem -Path $appPackagesRoot -Recurse -ErrorAction SilentlyContinue | ForEach-Object { Write-Host "  $($_.FullName)" }
+            }
+            else {
+              Write-Host "  (path does not exist)"
+            }
+
+            Write-Host "Listing publish output contents:"
+            if (Test-Path $publishRoot) {
+              Get-ChildItem -Path $publishRoot -Recurse -ErrorAction SilentlyContinue | ForEach-Object { Write-Host "  $($_.FullName)" }
+            }
+            else {
+              Write-Host "  (path does not exist)"
+            }
+
             throw "No .msixupload or .msixbundle was produced under $appPackagesRoot"
           }
 

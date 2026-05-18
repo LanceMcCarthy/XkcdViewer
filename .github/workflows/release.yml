@@ -90,543 +90,543 @@ jobs:
         $ver = $buildDay + "." + $runNumber
         echo "app_version=$ver" >> $env:GITHUB_OUTPUT
 
-  # # ********************************************************************************** #
-  # #                                     Android                                        #
-  # # ********************************************************************************** #
-  # android:
-  #   name: Build Android (Store Upload)
-  #   runs-on: windows-2025-vs2026
-  #   needs: shared-resources
-  #   if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
-  #   steps:
-  #     - uses: actions/checkout@v6
-
-  #     - name: Decode the Keystore
-  #       shell: pwsh
-  #       run: |
-  #         $file_bytes = [System.Convert]::FromBase64String("${{secrets.ANDROID_SIGNING_KEYSTORE_BASE64}}")
-  #         [IO.File]::WriteAllBytes("${{env.ANDROID_KEYSTORE_PATH}}", $file_bytes)
-
-  #     - name: Setup .NET SDK
-  #       uses: actions/setup-dotnet@v5
-  #       with:
-  #         dotnet-version: ${{env.SDK_VERSION}}
-
-  #     - uses: actions/setup-java@v5
-  #       with:
-  #         distribution: ${{env.JAVA_DISTRIBUTION}}
-  #         java-version: ${{env.JAVA_VERSION}}
-
-  #     - name: Install MAUI Workloads
-  #       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-
-  #     - name: Set Telerik NuGet Credentials
-  #       run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
-
-  #     - name: Restore NuGet packages
-  #       run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
-
-  #     - name: Publish MAUI Android
-  #       run: |
-  #         dotnet publish ${{env.PROJECT_PATH}} -c Release -f ${{env.NET_TFM}}-android /p:AndroidKeyStore=true /p:AndroidSigningKeyStore=${{env.ANDROID_KEYSTORE_PATH}} /p:AndroidSigningStorePass=${{secrets.ANDROID_SIGNING_KEYSTORE_PASS}} /p:AndroidSigningKeyAlias=${{secrets.ANDROID_SIGNING_KEY_ALIAS}} /p:AndroidSigningKeyPass=${{secrets.ANDROID_SIGNING_KEY_PASS}}
-
-  #     - name: Create artifacts folder
-  #       run: |
-  #         New-Item -ItemType Directory -Force -Path ${{env.ANDROID_ARTIFACTS_PATH}} | Out-Null
-
-  #     - name: Copy signed APKs & AABs
-  #       run: |
-  #         $publishRoot = "src/${{env.PROJECT_DIRECTORY}}/bin/Release/${{env.NET_TFM}}-android"
-  #         $apkFiles = Get-ChildItem -Path $publishRoot -Filter *-Signed.apk -File -Recurse -ErrorAction SilentlyContinue
-  #         $aabFiles = Get-ChildItem -Path $publishRoot -Filter *-Signed.aab -File -Recurse -ErrorAction SilentlyContinue
-
-  #         if ($apkFiles.Count -eq 0 -and $aabFiles.Count -eq 0) {
-  #           throw "No signed Android APK/AAB files found under $publishRoot"
-  #         }
-
-  #         $apkFiles | ForEach-Object { Copy-Item -Path $_.FullName -Destination ${{env.ANDROID_ARTIFACTS_PATH}} -Force }
-  #         $aabFiles | ForEach-Object { Copy-Item -Path $_.FullName -Destination ${{env.ANDROID_ARTIFACTS_PATH}} -Force }
-
-  #     - name: Publish Android build artifacts
-  #       uses: actions/upload-artifact@v7
-  #       with:     
-  #         name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_signed-android" 
-  #         path: "${{env.ANDROID_ARTIFACTS_PATH}}/*"
-  #         if-no-files-found: error
-  #         retention-days: 60
-
-  # # ********************************************************************************** #
-  # #                          Windows (Generate & Sign msixbundle)                     #
-  # # ********************************************************************************** #
-  # windows-sideload-packages:
-  #   name: Build Windows
-  #   needs: shared-resources
-  #   runs-on: windows-2025-vs2026
-  #   if: ${{ needs.shared-resources.outputs.app_version != ''}}
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       include:
-  #         - arch: x64
-  #           runtime_id: win-x64
-  #           platform: x64
-  #         - arch: arm64
-  #           runtime_id: win-arm64
-  #           platform: ARM64
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v6
-  #     with:
-  #       fetch-depth: 0
-
-  #   - name: Setup .NET Core SDK
-  #     uses: actions/setup-dotnet@v5
-  #     with:
-  #       dotnet-version: ${{env.SDK_VERSION}}
-
-  #   # Needed only for WinUI builds
-  #   - name: Add msbuild to PATH
-  #     uses: microsoft/setup-msbuild@v3
-
-  #   - name: Install MAUI workloads
-  #     run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-
-  #   - name: Set Telerik NuGet Credentials
-  #     run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
-
-  #   - name: Restore NuGet packages
-  #     run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
-
-  #   # Update the app manifest with version number, even if Version attribute is missing.
-  #   - name: Update manifest for side load build
-  #     run: |
-  #       [xml]$manifest = Get-Content 'src\${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest'
-  #       $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}.0"
-  #       $manifest.Package.Identity.Name = "61469LanceLotSoftware.XKCDComicViewer"
-  #       $manifest.Package.Identity.Publisher = 'CN=Lance McCarthy, O=Lance McCarthy, L=Revere, S=Massachusetts, C=US'
-  #       $manifest.Package.Properties.DisplayName = "xkcd Comic Viewer"
-  #       $manifest.Package.Properties.PublisherDisplayName = "Lance McCarthy"
-  #       $manifest.Package.Applications.Application.VisualElements.DisplayName = "xkcd Viewer"
-  #       $manifest.Save('src\${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest')
-
-  #   - name: Publish ${{matrix.arch}} Windows package
-  #     id: publish-package
-  #     run: |
-  #       $appVersion = "${{needs.shared-resources.outputs.app_version}}.0"
-  #       $artifactDir = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\${{matrix.arch}}"
-  #       New-Item -ItemType Directory -Force -Path $artifactDir | Out-Null
-  #       Write-Host "Publishing Windows ${{matrix.arch}}..."
-  #       $publishArgs = @(
-  #         'publish'
-  #         '${{env.PROJECT_PATH}}'
-  #         '-c', 'Release'
-  #         '-f', '${{env.NET_TFM}}-windows10.0.22621.0'
-  #         '-p:Platform=${{matrix.platform}}'
-  #         '-p:AppxPackageBuildPlatform=${{matrix.platform}}'
-  #         '-p:RuntimeIdentifierOverride=${{matrix.runtime_id}}'
-  #         '-p:GenerateAppxPackageOnBuild=true'
-  #         '-p:AppxPackageSigningEnabled=false'
-  #         '-p:UapAppxPackageBuildMode=SideloadOnly'
-  #         '-p:AppxBundle=Never'
-  #         '-p:WindowsPackageType=MSIX'
-  #       )
-  #       & dotnet @publishArgs
-  #       if ($LASTEXITCODE -ne 0) { throw "dotnet publish failed for ${{matrix.arch}} with exit code $LASTEXITCODE" }
-  #       # MAUI writes MSIX to src\${{env.PROJECT_DIRECTORY}}\AppPackages\<name>_<ver>_<arch>_Test\*.msix
-  #       $appPackagesRoot = "src\${{env.PROJECT_DIRECTORY}}\AppPackages"
-  #       $candidates = Get-ChildItem -Path $appPackagesRoot -Filter *.msix -Recurse -ErrorAction SilentlyContinue |
-  #         Where-Object { $_.FullName -notmatch '\\Dependencies\\' -and $_.Name -match "_${{matrix.arch}}\.msix$" }
-  #       Write-Host "Found $($candidates.Count) candidate MSIX file(s) for ${{matrix.arch}}:"
-  #       $candidates | ForEach-Object { Write-Host "  $($_.FullName)" }
-  #       $msix = $candidates | Sort-Object LastWriteTime -Descending | Select-Object -ExpandProperty FullName -First 1
-  #       if (-not $msix) { throw "No .msix found after publish for ${{matrix.arch}}" }
-  #       Write-Host "Found ${{matrix.arch}} package: $msix"
-  #       $outputMsixPath = "$artifactDir\${{env.APP_NAME}}.${{matrix.arch}}.msix"
-  #       Copy-Item -Path $msix -Destination $outputMsixPath -Force
-  #       echo "PACKAGE_PATH=$outputMsixPath" >> $env:GITHUB_OUTPUT
-
-  #   - name: Upload ${{matrix.arch}} artifact
-  #     uses: actions/upload-artifact@v7
-  #     with:     
-  #       name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_${{matrix.runtime_id}}"
-  #       path: ${{steps.publish-package.outputs.PACKAGE_PATH}}
-  #       if-no-files-found: error
-  #       retention-days: 30
-
-  # windows-generate-msixbundle:
-  #   name: Generate & Sign msixbundle
-  #   needs: [shared-resources, windows-sideload-packages]
-  #   runs-on: windows-2025-vs2026
-  #   steps:
-  #   - name: Clean bundle workspace
-  #     run: |
-  #       Remove-Item -Recurse -Force "${{github.workspace}}\bundle-input" -ErrorAction SilentlyContinue
-  #       Remove-Item -Recurse -Force "${{github.workspace}}\bundle-output" -ErrorAction SilentlyContinue
-
-  #   - name: Download x64 artifact
-  #     uses: actions/download-artifact@v8
-  #     with:
-  #       name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_win-x64"
-  #       path: ${{github.workspace}}\bundle-input
-
-  #   - name: Download arm64 artifact
-  #     uses: actions/download-artifact@v8
-  #     with:
-  #       name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_win-arm64"
-  #       path: ${{github.workspace}}\bundle-input
-
-  #   - name: Create MSIX bundle
-  #     id: bundle
-  #     run: |
-  #       $appVersion = "${{needs.shared-resources.outputs.app_version}}.0"
-  #       $inputDir = "${{github.workspace}}\bundle-input"
-  #       $outputDir = "${{github.workspace}}\bundle-output"
-  #       New-Item -ItemType Directory -Force -Path $outputDir | Out-Null
-  #       # Locate makeappx.exe from the latest installed Windows 10 SDK
-  #       $sdkRoot = "C:\Program Files (x86)\Windows Kits\10\bin"
-  #       $makeAppx = Get-ChildItem -Path $sdkRoot -Recurse -Filter makeappx.exe -ErrorAction SilentlyContinue |
-  #         Where-Object { $_.FullName -match '\\x64\\makeappx\.exe$' } |
-  #         Sort-Object FullName -Descending | Select-Object -First 1
-  #       if (-not $makeAppx) { throw "makeappx.exe not found under $sdkRoot" }
-  #       Write-Host "Using makeappx: $($makeAppx.FullName)"
-  #       Get-ChildItem $inputDir -Filter *.msix | ForEach-Object { Write-Host "Input: $($_.FullName)" }
-  #       $bundlePath = "$outputDir\${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}.msixbundle"
-  #       & $makeAppx.FullName bundle /d $inputDir /p $bundlePath /bv $appVersion /o
-  #       if ($LASTEXITCODE -ne 0) { throw "makeappx bundle failed with exit code $LASTEXITCODE" }
-
-  #       echo "BUNDLE_PATH=$bundlePath" >> $env:GITHUB_OUTPUT
-
-  #   # Entra ID App Registration (Akeyless OIDC Provider) > Certificates and Secrets > Federated Credentials
-  #   - name: Azure login using OIDC via GitHub
-  #     uses: azure/login@v3
-  #     id: azlogin
-  #     with:
-  #       client-id: ${{env.SERVICE_PRINCIPAL_CLIENT_ID}}
-  #       tenant-id: ${{env.SERVICE_PRINCIPAL_TENANT_ID}}
-  #       subscription-id: ${{env.SERVICE_PRINCIPAL_SUBSCRIPTION_ID}}
-
-  #   - name: Sign MSIX bundle
-  #     uses: azure/trusted-signing-action@v1.2.0
-  #     with:
-  #       endpoint: ${{env.SIGNING_ACCT_ENDPOINT_URL}}
-  #       signing-account-name: ${{env.SIGNING_ACCT_NAME}}
-  #       certificate-profile-name: ${{env.SIGNING_ACCT_CERT_PROFILE}}
-  #       timestamp-rfc3161: http://timestamp.acs.microsoft.com
-  #       timestamp-digest: SHA256
-  #       file-digest: SHA256
-  #       files: ${{steps.bundle.outputs.BUNDLE_PATH}}
-  #       exclude-azure-cli-credential: false
-  #       exclude-environment-credential: true
-  #       exclude-workload-identity-credential: true
-  #       exclude-managed-identity-credential: true
-  #       exclude-shared-token-cache-credential: true
-  #       exclude-visual-studio-credential: true
-  #       exclude-visual-studio-code-credential: true
-  #       exclude-azure-powershell-credential: true
-  #       exclude-azure-developer-cli-credential: true
-  #       exclude-interactive-browser-credential: true
-
-  #   - name: Upload MSIX bundle artifact
-  #     uses: actions/upload-artifact@v7
-  #     with:
-  #       name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_signed-windows.msixbundle"
-  #       path: ${{steps.bundle.outputs.BUNDLE_PATH}}
-  #       if-no-files-found: error
-  #       retention-days: 30
-
-
-  # # ********************************************************************************** #
-  # #                           Windows (Store - msixupload)                             #
-  # # ********************************************************************************** #
-  # windows-store:
-  #   name: Build Windows (Store Upload)
-  #   runs-on: windows-2025-vs2026
-  #   needs: shared-resources
-  #   if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
-  #   steps:
-  #     - uses: actions/checkout@v6
-
-  #     - name: Setup .NET SDK
-  #       uses: actions/setup-dotnet@v5
-  #       with:
-  #         dotnet-version: ${{env.SDK_VERSION}}
-
-  #     - name: Add msbuild to PATH
-  #       uses: microsoft/setup-msbuild@v3
-
-  #     - name: Install MAUI Workloads
-  #       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-
-  #     - name: Set Telerik NuGet Credentials
-  #       run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
-
-  #     - name: Restore NuGet packages
-  #       run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
-
-  #     # Update the app manifest with version number, even if Version attribute is missing.
-  #     - name: Update manifest for side load build
-  #       run: |
-  #         [xml]$manifest = get-content "src\${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest"
-  #         $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}.0"
-  #         $manifest.Package.Identity.Name = '61469LanceLotSoftware.XKCDComicViewer'
-  #         $manifest.Package.Identity.Publisher = 'CN=51B5A8B2-5D86-4826-BBE2-C92E963A4C02'
-  #         $manifest.Package.Properties.DisplayName = "xkcd Comic Viewer"
-  #         $manifest.Package.Properties.PublisherDisplayName = "Lancelot Software"
-  #         $manifest.Package.Applications.Application.VisualElements.DisplayName = "xkcd Viewer"
-  #         $manifest.save("src\${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest")
-
-  #     - name: Build Maui WinUI project
-  #       run: dotnet publish ${{env.PROJECT_PATH}} -c Release -f ${{env.NET_TFM}}-windows10.0.22621.0 -p:AppxPackageSigningEnabled=false -p:AppxSymbolPackageEnabled=false -p:UapAppxPackageBuildMode=StoreUpload -p:AppxBundle=Always "-p:AppxBundlePlatforms=x64|arm64" -p:PlatformTarget=AnyCPU
-
-  #     - name: Publish build artifacts
-  #       uses: actions/upload-artifact@v7
-  #       id: upload-artifacts
-  #       with:     
-  #         name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_storeupload-windows"
-  #         path: "**/*.msixupload"
-  #         if-no-files-found: error
-  #         retention-days: 60
-
-  #     # - name: Configure Credentials
-  #     #   uses: microsoft/store-submission@v1
-  #     #   with:
-  #     #     command: configure
-  #     #     type: win32
-  #     #     seller-id: '10113620'
-  #     #     product-id: '9PMCKHT7M93P'
-  #     #     tenant-id: '237e90e1-29b9-4350-913d-f3837799f3c0'
-  #     #     client-id: '99d69d81-6234-46be-acf5-e7b59e7887af'
-  #     #     client-secret: ${{secrets.ENTRA_CLIENT_SECRET}}
-
-  #     # - name: Draft Submission
-  #     #   uses: microsoft/store-submission@v1
-  #     #   with:
-  #     #     command: update
-  #     #     product-update: '{"packages":[{"packageUrl":"${{steps.upload-artifacts.outputs.artifact-url}}","languages":["en"],"architectures":["X64", "ARM64"],"isSilentInstall":true}]}'
-
-  #     # - name: Publish Submission
-  #     #   uses: microsoft/store-submission@v1
-  #     #   with:
-  #     #     command: publish
-
-
-  # # ********************************************************************************** #
-  # #                                   MacCatalyst                                      #
-  # # ********************************************************************************** #
-  # maccatalyst:
-  #   name: Build MacCatalyst (Signed & Notiarized)
-  #   runs-on: macos-26
-  #   needs: shared-resources
-  #   if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
-  #   steps:
-  #     - uses: actions/checkout@v6
-
-  #     - uses: maxim-lobanov/setup-xcode@v1
-  #       with:
-  #         xcode-version: ${{env.XCODE_VERSION}}
-
-  #     - name: Setup .NET SDK
-  #       uses: actions/setup-dotnet@v5
-  #       with:
-  #         dotnet-version: ${{env.SDK_VERSION}}
-
-  #     - name: Install MAUI Workloads
-  #       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-
-  #     - name: Set Telerik NuGet Credentials
-  #       run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
-
-  #     - name: Restore NuGet packages
-  #       run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
-
-  #     - name: Import Developer ID Installer Certificates
-  #       uses: Apple-Actions/import-codesign-certs@v7
-  #       with:
-  #         p12-file-base64: "${{secrets.APPLE_DEVELOPER_ID_INSTALLER_CERT_BASE64}}"
-  #         p12-password: "${{secrets.APPLE_DEVELOPER_ID_INSTALLER_CERT_PASSWORD}}"
-  #         keychain: installer_signing_temp
-
-  #     - name: Import Developer ID Application Certificates
-  #       uses: Apple-Actions/import-codesign-certs@v7
-  #       with:
-  #         p12-file-base64: "${{secrets.APPLE_DEVELOPER_ID_APPLICATION_CERT_BASE64}}"
-  #         p12-password: "${{secrets.APPLE_DEVELOPER_ID_APPLICATION_CERT_PASSWORD}}"
-  #         keychain: application_signing_temp
-
-  #     # Each import-codesign-certs call rewrites the keychain search list. The second import step (Application cert) drops the first (Installer) keychain, so product build cannot find the "Developer ID Installer" identity. This step re-adds both keychains explicitly before any signing occurs.
-  #     - name: Ensure both signing keychains are in the search list
-  #       shell: bash
-  #       run: |
-  #         set -euo pipefail
-  #         security list-keychains -d user -s "$HOME/Library/Keychains/installer_signing_temp.keychain-db" "$HOME/Library/Keychains/application_signing_temp.keychain-db" "$HOME/Library/Keychains/login.keychain-db"
-  #         echo "Keychain search list:"
-  #         security list-keychains -d user
-
-  #     # Finally make sure both certs are available before we build
-  #     - name: Verify Developer ID identities are available
-  #       shell: bash
-  #       run: |
-  #         set -euo pipefail
-  #         APPLE_DEV_ID_APP_CERT_NAME="${{env.APPLE_DEV_ID_APP_CERT_NAME}}"
-  #         APPLE_DEV_ID_INSTALLER_CERT_NAME="${{env.APPLE_DEV_ID_INSTALLER_CERT_NAME}}"
-
-  #         security find-identity -v -p codesigning
-  #         security find-certificate -a -c "$APPLE_DEV_ID_INSTALLER_CERT_NAME" || true
-
-  #         if ! security find-identity -v -p codesigning | grep -F "$APPLE_DEV_ID_APP_CERT_NAME" >/dev/null; then
-  #           echo "Missing Developer ID Application identity: $APPLE_DEV_ID_APP_CERT_NAME"
-  #           exit 1
-  #         fi
-
-  #         if ! security find-certificate -a -c "$APPLE_DEV_ID_INSTALLER_CERT_NAME" >/dev/null; then
-  #           echo "Missing Developer ID Installer certificate: $APPLE_DEV_ID_INSTALLER_CERT_NAME"
-  #           exit 1
-  #         fi
-
-  #     - name: Build and sign MacCatalyst artifacts
-  #       shell: bash
-  #       run: |
-  #         set -euo pipefail
-  #         cd "$GITHUB_WORKSPACE"
-
-  #         if [[ ! -f "$PROJECT_PATH" ]]; then
-  #           echo "Project file not found: $PROJECT_PATH"
-  #           echo "Current directory: $(pwd)"
-  #           exit 1
-  #         fi
-
-  #         mkdir -p "$ARTIFACTS_DIR"
-
-  #         echo "Cleaning project..."
-  #         dotnet clean "$PROJECT_PATH" -c "$CONFIGURATION" -f "$TFM"
-
-  #         publish_args=(
-  #           "$PROJECT_PATH"
-  #           -c "$CONFIGURATION"
-  #           -f "$TFM"
-  #           "-p:CodesignKey=\"$CODESIGN_KEY\""
-  #           "-p:ApplicationVersion=$APP_VERSION"
-  #           "-p:ApplicationDisplayVersion=$APP_VERSION"
-  #           -p:UseHardenedRuntime=true
-  #         )
-
-  #         echo "Publishing project..."
-  #         dotnet publish "${publish_args[@]}"
-
-  #         app_bundle_path="$(find "src/${PROJECT_DIRECTORY}/bin/${CONFIGURATION}/${TFM}" -type d -name "*.app" | sort | tail -n 1)"
-  #         if [[ -z "$app_bundle_path" || ! -d "$app_bundle_path" ]]; then
-  #           echo "Expected app bundle not found under src/${PROJECT_DIRECTORY}/bin/${CONFIGURATION}/${TFM}"
-  #           find "src/${PROJECT_DIRECTORY}/bin/${CONFIGURATION}/${TFM}" -maxdepth 6 -type d -name "*.app" || true
-  #           exit 1
-  #         fi
-
-  #         echo "Resolved app bundle path: $app_bundle_path"
-  #         echo "APP_BUNDLE_PATH=$app_bundle_path" >> "$GITHUB_ENV"
-
-  #         echo "Verifying app signature..."
-  #         codesign -dv --verbose=2 "$app_bundle_path" >/dev/null 2>&1
-
-  #         echo "Creating signed app zip and installer pkg..."
-  #         rm -f "$SIGNED_ZIP_PATH" "$SIGNED_PKG_PATH"
-  #         ditto -c -k --sequesterRsrc --keepParent "$app_bundle_path" "$SIGNED_ZIP_PATH"
-  #         productbuild --component "$app_bundle_path" /Applications --sign "$INSTALLER_SIGN_ID" "$SIGNED_PKG_PATH"
-
-  #         echo "Done. Signed artifacts:"
-  #         echo "- $SIGNED_PKG_PATH"
-  #         echo "- $SIGNED_ZIP_PATH"
-  #       env:
-  #         PROJECT_PATH: "${{env.PROJECT_PATH}}"
-  #         PROJECT_DIRECTORY: "${{env.PROJECT_DIRECTORY}}"
-  #         TFM: "${{env.NET_TFM}}-maccatalyst"
-  #         CONFIGURATION: "Release"
-  #         APP_VERSION: "${{needs.shared-resources.outputs.app_version}}"
-  #         ARTIFACTS_DIR: "${{env.MAC_ARTIFACTS_PATH}}"
-  #         CODESIGN_KEY: "${{env.APPLE_DEV_ID_APP_CERT_NAME}}"
-  #         INSTALLER_SIGN_ID: "${{ env.APPLE_DEV_ID_INSTALLER_CERT_NAME}}"
-  #         SIGNED_ZIP_PATH: "${{env.MAC_ARTIFACTS_PATH}}/${{env.APP_NAME}}-MacCatalyst-Release-signed.zip"
-  #         SIGNED_PKG_PATH: "${{env.MAC_ARTIFACTS_PATH}}/${{env.APP_NAME}}-MacCatalyst-Release-signed.pkg"
-
-  #     - name: Notarize and staple MacCatalyst artifacts
-  #       shell: bash
-  #       run: |
-  #         set -euo pipefail
-  #         cd "$GITHUB_WORKSPACE"
-
-  #         if [[ -z "$APPLE_NOTARY_APPLE_ID" || -z "$APPLE_NOTARY_APP_PASSWORD" || -z "$APPLE_NOTARY_TEAM_ID" ]]; then
-  #           echo "Missing notarization credentials."
-  #           echo "Set APPLE_NOTARY_APPLE_ID, APPLE_NOTARY_APP_PASSWORD, and APPLE_NOTARY_TEAM_ID."
-  #           exit 1
-  #         fi
-
-  #         if [[ ! -d "$APP_BUNDLE_PATH" ]]; then
-  #           echo "Expected app bundle not found at $APP_BUNDLE_PATH"
-  #           exit 1
-  #         fi
-
-  #         if [[ ! -f "$SIGNED_PKG_PATH" || ! -f "$SIGNED_ZIP_PATH" ]]; then
-  #           echo "Expected signed artifacts not found in $ARTIFACTS_DIR"
-  #           exit 1
-  #         fi
-
-  #         echo "Submitting pkg for notarization..."
-  #         pkg_submit_json="$(xcrun notarytool submit "$SIGNED_PKG_PATH" --apple-id "$APPLE_NOTARY_APPLE_ID" --team-id "$APPLE_NOTARY_TEAM_ID" --password "$APPLE_NOTARY_APP_PASSWORD" --wait --output-format json)"
-  #         echo "$pkg_submit_json"
-  #         if ! grep -Eq '"status"[[:space:]]*:[[:space:]]*"Accepted"' <<< "$pkg_submit_json"; then
-  #           echo "Notarization failed for pkg."
-  #           exit 1
-  #         fi
-
-  #         echo "Stapling and validating pkg..."
-  #         xcrun stapler staple "$SIGNED_PKG_PATH"
-  #         xcrun stapler validate "$SIGNED_PKG_PATH"
-
-  #         echo "Submitting signed app zip for notarization..."
-  #         zip_submit_json="$(xcrun notarytool submit "$SIGNED_ZIP_PATH" --apple-id "$APPLE_NOTARY_APPLE_ID" --team-id "$APPLE_NOTARY_TEAM_ID" --password "$APPLE_NOTARY_APP_PASSWORD" --wait --output-format json)"
-  #         echo "$zip_submit_json"
-  #         if ! grep -Eq '"status"[[:space:]]*:[[:space:]]*"Accepted"' <<< "$zip_submit_json"; then
-  #           echo "Notarization failed for app zip."
-  #           exit 1
-  #         fi
-
-  #         echo "Stapling and validating app..."
-  #         xcrun stapler staple "$APP_BUNDLE_PATH"
-  #         xcrun stapler validate "$APP_BUNDLE_PATH"
-
-  #         # Recreate the final distributable zip from the stapled app.
-  #         ditto -c -k --sequesterRsrc --keepParent "$APP_BUNDLE_PATH" "$NOTARIZED_ZIP_PATH"
-
-  #         echo "Gatekeeper checks..."
-  #         spctl -a -t exec -vv "$APP_BUNDLE_PATH"
-  #         spctl -a -t install -vv "$SIGNED_PKG_PATH"
-
-  #         echo "Done. Artifacts:"
-  #         echo "- $SIGNED_PKG_PATH"
-  #         echo "- $NOTARIZED_ZIP_PATH"
-  #       env:
-  #         ARTIFACTS_DIR: "${{env.MAC_ARTIFACTS_PATH}}"
-  #         APPLE_NOTARY_APPLE_ID: "${{secrets.APPLE_NOTARY_APPLE_ID}}"
-  #         APPLE_NOTARY_APP_PASSWORD: "${{secrets.APPLE_NOTARY_APP_PASSWORD}}"
-  #         APPLE_NOTARY_TEAM_ID: "${{env.APPLE_NOTARY_TEAM_ID}}"
-  #         SIGNED_ZIP_PATH: "${{env.MAC_ARTIFACTS_PATH}}/${{env.APP_NAME}}-MacCatalyst-Release-signed.zip"
-  #         NOTARIZED_ZIP_PATH: "${{env.MAC_ARTIFACTS_PATH}}/${{env.APP_NAME}}-MacCatalyst-Release-notarized.zip"
-  #         SIGNED_PKG_PATH: "${{env.MAC_ARTIFACTS_PATH}}/${{env.APP_NAME}}-MacCatalyst-Release-signed.pkg"
-
-  #     # # Docs https://github.com/Apple-Actions/upload-testflight-build
-  #     # - name: 'Upload app to TestFlight'
-  #     #   uses: apple-actions/upload-testflight-build@v5
-  #     #   with: 
-  #     #     app-path: "${{github.workspace}}/**/*.pkg" 
-  #     #     issuer-id: ${{secrets.APPSTORE_API_ISSUER_ID}}
-  #     #     api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
-  #     #     api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
-
-  #     - name: Publish MacCatalyst build artifacts
-  #       uses: actions/upload-artifact@v7
-  #       with:     
-  #         name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_signed-maccatalyst"
-  #         path: artifacts/maccatalyst/${{env.APP_NAME}}-MacCatalyst-Release-signed.pkg
-  #         if-no-files-found: error
-  #         retention-days: 30
+  # ********************************************************************************** #
+  #                                     Android                                        #
+  # ********************************************************************************** #
+  android:
+    name: Build Android (Store Upload)
+    runs-on: windows-2025-vs2026
+    needs: shared-resources
+    if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Decode the Keystore
+        shell: pwsh
+        run: |
+          $file_bytes = [System.Convert]::FromBase64String("${{secrets.ANDROID_SIGNING_KEYSTORE_BASE64}}")
+          [IO.File]::WriteAllBytes("${{env.ANDROID_KEYSTORE_PATH}}", $file_bytes)
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: ${{env.SDK_VERSION}}
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: ${{env.JAVA_DISTRIBUTION}}
+          java-version: ${{env.JAVA_VERSION}}
+
+      - name: Install MAUI Workloads
+        run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+
+      - name: Set Telerik NuGet Credentials
+        run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
+
+      - name: Restore NuGet packages
+        run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
+
+      - name: Publish MAUI Android
+        run: |
+          dotnet publish ${{env.PROJECT_PATH}} -c Release -f ${{env.NET_TFM}}-android /p:AndroidKeyStore=true /p:AndroidSigningKeyStore=${{env.ANDROID_KEYSTORE_PATH}} /p:AndroidSigningStorePass=${{secrets.ANDROID_SIGNING_KEYSTORE_PASS}} /p:AndroidSigningKeyAlias=${{secrets.ANDROID_SIGNING_KEY_ALIAS}} /p:AndroidSigningKeyPass=${{secrets.ANDROID_SIGNING_KEY_PASS}}
+
+      - name: Create artifacts folder
+        run: |
+          New-Item -ItemType Directory -Force -Path ${{env.ANDROID_ARTIFACTS_PATH}} | Out-Null
+
+      - name: Copy signed APKs & AABs
+        run: |
+          $publishRoot = "src/${{env.PROJECT_DIRECTORY}}/bin/Release/${{env.NET_TFM}}-android"
+          $apkFiles = Get-ChildItem -Path $publishRoot -Filter *-Signed.apk -File -Recurse -ErrorAction SilentlyContinue
+          $aabFiles = Get-ChildItem -Path $publishRoot -Filter *-Signed.aab -File -Recurse -ErrorAction SilentlyContinue
+
+          if ($apkFiles.Count -eq 0 -and $aabFiles.Count -eq 0) {
+            throw "No signed Android APK/AAB files found under $publishRoot"
+          }
+
+          $apkFiles | ForEach-Object { Copy-Item -Path $_.FullName -Destination ${{env.ANDROID_ARTIFACTS_PATH}} -Force }
+          $aabFiles | ForEach-Object { Copy-Item -Path $_.FullName -Destination ${{env.ANDROID_ARTIFACTS_PATH}} -Force }
+
+      - name: Publish Android build artifacts
+        uses: actions/upload-artifact@v7
+        with:     
+          name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_signed-android" 
+          path: "${{env.ANDROID_ARTIFACTS_PATH}}/*"
+          if-no-files-found: error
+          retention-days: 60
+
+  # ********************************************************************************** #
+  #                          Windows (Generate & Sign msixbundle)                     #
+  # ********************************************************************************** #
+  windows-sideload-packages:
+    name: Build Windows
+    needs: shared-resources
+    runs-on: windows-2025-vs2026
+    if: ${{ needs.shared-resources.outputs.app_version != ''}}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: x64
+            runtime_id: win-x64
+            platform: x64
+          - arch: arm64
+            runtime_id: win-arm64
+            platform: ARM64
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: ${{env.SDK_VERSION}}
+
+    # Needed only for WinUI builds
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v3
+
+    - name: Install MAUI workloads
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+
+    - name: Set Telerik NuGet Credentials
+      run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
+
+    - name: Restore NuGet packages
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
+
+    # Update the app manifest with version number, even if Version attribute is missing.
+    - name: Update manifest for side load build
+      run: |
+        [xml]$manifest = Get-Content 'src\${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest'
+        $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}.0"
+        $manifest.Package.Identity.Name = "61469LanceLotSoftware.XKCDComicViewer"
+        $manifest.Package.Identity.Publisher = 'CN=Lance McCarthy, O=Lance McCarthy, L=Revere, S=Massachusetts, C=US'
+        $manifest.Package.Properties.DisplayName = "xkcd Comic Viewer"
+        $manifest.Package.Properties.PublisherDisplayName = "Lance McCarthy"
+        $manifest.Package.Applications.Application.VisualElements.DisplayName = "xkcd Viewer"
+        $manifest.Save('src\${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest')
+
+    - name: Publish ${{matrix.arch}} Windows package
+      id: publish-package
+      run: |
+        $appVersion = "${{needs.shared-resources.outputs.app_version}}.0"
+        $artifactDir = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\${{matrix.arch}}"
+        New-Item -ItemType Directory -Force -Path $artifactDir | Out-Null
+        Write-Host "Publishing Windows ${{matrix.arch}}..."
+        $publishArgs = @(
+          'publish'
+          '${{env.PROJECT_PATH}}'
+          '-c', 'Release'
+          '-f', '${{env.NET_TFM}}-windows10.0.22621.0'
+          '-p:Platform=${{matrix.platform}}'
+          '-p:AppxPackageBuildPlatform=${{matrix.platform}}'
+          '-p:RuntimeIdentifierOverride=${{matrix.runtime_id}}'
+          '-p:GenerateAppxPackageOnBuild=true'
+          '-p:AppxPackageSigningEnabled=false'
+          '-p:UapAppxPackageBuildMode=SideloadOnly'
+          '-p:AppxBundle=Never'
+          '-p:WindowsPackageType=MSIX'
+        )
+        & dotnet @publishArgs
+        if ($LASTEXITCODE -ne 0) { throw "dotnet publish failed for ${{matrix.arch}} with exit code $LASTEXITCODE" }
+        # MAUI writes MSIX to src\${{env.PROJECT_DIRECTORY}}\AppPackages\<name>_<ver>_<arch>_Test\*.msix
+        $appPackagesRoot = "src\${{env.PROJECT_DIRECTORY}}\AppPackages"
+        $candidates = Get-ChildItem -Path $appPackagesRoot -Filter *.msix -Recurse -ErrorAction SilentlyContinue |
+          Where-Object { $_.FullName -notmatch '\\Dependencies\\' -and $_.Name -match "_${{matrix.arch}}\.msix$" }
+        Write-Host "Found $($candidates.Count) candidate MSIX file(s) for ${{matrix.arch}}:"
+        $candidates | ForEach-Object { Write-Host "  $($_.FullName)" }
+        $msix = $candidates | Sort-Object LastWriteTime -Descending | Select-Object -ExpandProperty FullName -First 1
+        if (-not $msix) { throw "No .msix found after publish for ${{matrix.arch}}" }
+        Write-Host "Found ${{matrix.arch}} package: $msix"
+        $outputMsixPath = "$artifactDir\${{env.APP_NAME}}.${{matrix.arch}}.msix"
+        Copy-Item -Path $msix -Destination $outputMsixPath -Force
+        echo "PACKAGE_PATH=$outputMsixPath" >> $env:GITHUB_OUTPUT
+
+    - name: Upload ${{matrix.arch}} artifact
+      uses: actions/upload-artifact@v7
+      with:     
+        name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_${{matrix.runtime_id}}"
+        path: ${{steps.publish-package.outputs.PACKAGE_PATH}}
+        if-no-files-found: error
+        retention-days: 30
+
+  windows-generate-msixbundle:
+    name: Generate & Sign msixbundle
+    needs: [shared-resources, windows-sideload-packages]
+    runs-on: windows-2025-vs2026
+    steps:
+    - name: Clean bundle workspace
+      run: |
+        Remove-Item -Recurse -Force "${{github.workspace}}\bundle-input" -ErrorAction SilentlyContinue
+        Remove-Item -Recurse -Force "${{github.workspace}}\bundle-output" -ErrorAction SilentlyContinue
+
+    - name: Download x64 artifact
+      uses: actions/download-artifact@v8
+      with:
+        name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_win-x64"
+        path: ${{github.workspace}}\bundle-input
+
+    - name: Download arm64 artifact
+      uses: actions/download-artifact@v8
+      with:
+        name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_win-arm64"
+        path: ${{github.workspace}}\bundle-input
+
+    - name: Create MSIX bundle
+      id: bundle
+      run: |
+        $appVersion = "${{needs.shared-resources.outputs.app_version}}.0"
+        $inputDir = "${{github.workspace}}\bundle-input"
+        $outputDir = "${{github.workspace}}\bundle-output"
+        New-Item -ItemType Directory -Force -Path $outputDir | Out-Null
+        # Locate makeappx.exe from the latest installed Windows 10 SDK
+        $sdkRoot = "C:\Program Files (x86)\Windows Kits\10\bin"
+        $makeAppx = Get-ChildItem -Path $sdkRoot -Recurse -Filter makeappx.exe -ErrorAction SilentlyContinue |
+          Where-Object { $_.FullName -match '\\x64\\makeappx\.exe$' } |
+          Sort-Object FullName -Descending | Select-Object -First 1
+        if (-not $makeAppx) { throw "makeappx.exe not found under $sdkRoot" }
+        Write-Host "Using makeappx: $($makeAppx.FullName)"
+        Get-ChildItem $inputDir -Filter *.msix | ForEach-Object { Write-Host "Input: $($_.FullName)" }
+        $bundlePath = "$outputDir\${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}.msixbundle"
+        & $makeAppx.FullName bundle /d $inputDir /p $bundlePath /bv $appVersion /o
+        if ($LASTEXITCODE -ne 0) { throw "makeappx bundle failed with exit code $LASTEXITCODE" }
+
+        echo "BUNDLE_PATH=$bundlePath" >> $env:GITHUB_OUTPUT
+
+    # Entra ID App Registration (Akeyless OIDC Provider) > Certificates and Secrets > Federated Credentials
+    - name: Azure login using OIDC via GitHub
+      uses: azure/login@v3
+      id: azlogin
+      with:
+        client-id: ${{env.SERVICE_PRINCIPAL_CLIENT_ID}}
+        tenant-id: ${{env.SERVICE_PRINCIPAL_TENANT_ID}}
+        subscription-id: ${{env.SERVICE_PRINCIPAL_SUBSCRIPTION_ID}}
+
+    - name: Sign MSIX bundle
+      uses: azure/trusted-signing-action@v1.2.0
+      with:
+        endpoint: ${{env.SIGNING_ACCT_ENDPOINT_URL}}
+        signing-account-name: ${{env.SIGNING_ACCT_NAME}}
+        certificate-profile-name: ${{env.SIGNING_ACCT_CERT_PROFILE}}
+        timestamp-rfc3161: http://timestamp.acs.microsoft.com
+        timestamp-digest: SHA256
+        file-digest: SHA256
+        files: ${{steps.bundle.outputs.BUNDLE_PATH}}
+        exclude-azure-cli-credential: false
+        exclude-environment-credential: true
+        exclude-workload-identity-credential: true
+        exclude-managed-identity-credential: true
+        exclude-shared-token-cache-credential: true
+        exclude-visual-studio-credential: true
+        exclude-visual-studio-code-credential: true
+        exclude-azure-powershell-credential: true
+        exclude-azure-developer-cli-credential: true
+        exclude-interactive-browser-credential: true
+
+    - name: Upload MSIX bundle artifact
+      uses: actions/upload-artifact@v7
+      with:
+        name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_signed-windows.msixbundle"
+        path: ${{steps.bundle.outputs.BUNDLE_PATH}}
+        if-no-files-found: error
+        retention-days: 30
+
+
+  # ********************************************************************************** #
+  #                           Windows (Store - msixupload)                             #
+  # ********************************************************************************** #
+  windows-store:
+    name: Build Windows (Store Upload)
+    runs-on: windows-2025-vs2026
+    needs: shared-resources
+    if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: ${{env.SDK_VERSION}}
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v3
+
+      - name: Install MAUI Workloads
+        run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+
+      - name: Set Telerik NuGet Credentials
+        run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
+
+      - name: Restore NuGet packages
+        run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
+
+      # Update the app manifest with version number, even if Version attribute is missing.
+      - name: Update manifest for side load build
+        run: |
+          [xml]$manifest = get-content "src\${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest"
+          $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}.0"
+          $manifest.Package.Identity.Name = '61469LanceLotSoftware.XKCDComicViewer'
+          $manifest.Package.Identity.Publisher = 'CN=51B5A8B2-5D86-4826-BBE2-C92E963A4C02'
+          $manifest.Package.Properties.DisplayName = "xkcd Comic Viewer"
+          $manifest.Package.Properties.PublisherDisplayName = "Lancelot Software"
+          $manifest.Package.Applications.Application.VisualElements.DisplayName = "xkcd Viewer"
+          $manifest.save("src\${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest")
+
+      - name: Build Maui WinUI project
+        run: dotnet publish ${{env.PROJECT_PATH}} -c Release -f ${{env.NET_TFM}}-windows10.0.22621.0 -p:AppxPackageSigningEnabled=false -p:AppxSymbolPackageEnabled=false -p:UapAppxPackageBuildMode=StoreUpload -p:AppxBundle=Always "-p:AppxBundlePlatforms=x64|arm64" -p:PlatformTarget=AnyCPU
+
+      - name: Publish build artifacts
+        uses: actions/upload-artifact@v7
+        id: upload-artifacts
+        with:     
+          name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_storeupload-windows"
+          path: "**/*.msixupload"
+          if-no-files-found: error
+          retention-days: 60
+
+      # - name: Configure Credentials
+      #   uses: microsoft/store-submission@v1
+      #   with:
+      #     command: configure
+      #     type: win32
+      #     seller-id: '10113620'
+      #     product-id: '9PMCKHT7M93P'
+      #     tenant-id: '237e90e1-29b9-4350-913d-f3837799f3c0'
+      #     client-id: '99d69d81-6234-46be-acf5-e7b59e7887af'
+      #     client-secret: ${{secrets.ENTRA_CLIENT_SECRET}}
+
+      # - name: Draft Submission
+      #   uses: microsoft/store-submission@v1
+      #   with:
+      #     command: update
+      #     product-update: '{"packages":[{"packageUrl":"${{steps.upload-artifacts.outputs.artifact-url}}","languages":["en"],"architectures":["X64", "ARM64"],"isSilentInstall":true}]}'
+
+      # - name: Publish Submission
+      #   uses: microsoft/store-submission@v1
+      #   with:
+      #     command: publish
+
+
+  # ********************************************************************************** #
+  #                                   MacCatalyst                                      #
+  # ********************************************************************************** #
+  maccatalyst:
+    name: Build MacCatalyst (Signed & Notiarized)
+    runs-on: macos-26
+    needs: shared-resources
+    if: ${{ success() && needs.shared-resources.outputs.app_version != '' }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{env.XCODE_VERSION}}
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: ${{env.SDK_VERSION}}
+
+      - name: Install MAUI Workloads
+        run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+
+      - name: Set Telerik NuGet Credentials
+        run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
+
+      - name: Restore NuGet packages
+        run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
+
+      - name: Import Developer ID Installer Certificates
+        uses: Apple-Actions/import-codesign-certs@v7
+        with:
+          p12-file-base64: "${{secrets.APPLE_DEVELOPER_ID_INSTALLER_CERT_BASE64}}"
+          p12-password: "${{secrets.APPLE_DEVELOPER_ID_INSTALLER_CERT_PASSWORD}}"
+          keychain: installer_signing_temp
+
+      - name: Import Developer ID Application Certificates
+        uses: Apple-Actions/import-codesign-certs@v7
+        with:
+          p12-file-base64: "${{secrets.APPLE_DEVELOPER_ID_APPLICATION_CERT_BASE64}}"
+          p12-password: "${{secrets.APPLE_DEVELOPER_ID_APPLICATION_CERT_PASSWORD}}"
+          keychain: application_signing_temp
+
+      # Each import-codesign-certs call rewrites the keychain search list. The second import step (Application cert) drops the first (Installer) keychain, so product build cannot find the "Developer ID Installer" identity. This step re-adds both keychains explicitly before any signing occurs.
+      - name: Ensure both signing keychains are in the search list
+        shell: bash
+        run: |
+          set -euo pipefail
+          security list-keychains -d user -s "$HOME/Library/Keychains/installer_signing_temp.keychain-db" "$HOME/Library/Keychains/application_signing_temp.keychain-db" "$HOME/Library/Keychains/login.keychain-db"
+          echo "Keychain search list:"
+          security list-keychains -d user
+
+      # Finally make sure both certs are available before we build
+      - name: Verify Developer ID identities are available
+        shell: bash
+        run: |
+          set -euo pipefail
+          APPLE_DEV_ID_APP_CERT_NAME="${{env.APPLE_DEV_ID_APP_CERT_NAME}}"
+          APPLE_DEV_ID_INSTALLER_CERT_NAME="${{env.APPLE_DEV_ID_INSTALLER_CERT_NAME}}"
+
+          security find-identity -v -p codesigning
+          security find-certificate -a -c "$APPLE_DEV_ID_INSTALLER_CERT_NAME" || true
+
+          if ! security find-identity -v -p codesigning | grep -F "$APPLE_DEV_ID_APP_CERT_NAME" >/dev/null; then
+            echo "Missing Developer ID Application identity: $APPLE_DEV_ID_APP_CERT_NAME"
+            exit 1
+          fi
+
+          if ! security find-certificate -a -c "$APPLE_DEV_ID_INSTALLER_CERT_NAME" >/dev/null; then
+            echo "Missing Developer ID Installer certificate: $APPLE_DEV_ID_INSTALLER_CERT_NAME"
+            exit 1
+          fi
+
+      - name: Build and sign MacCatalyst artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$GITHUB_WORKSPACE"
+
+          if [[ ! -f "$PROJECT_PATH" ]]; then
+            echo "Project file not found: $PROJECT_PATH"
+            echo "Current directory: $(pwd)"
+            exit 1
+          fi
+
+          mkdir -p "$ARTIFACTS_DIR"
+
+          echo "Cleaning project..."
+          dotnet clean "$PROJECT_PATH" -c "$CONFIGURATION" -f "$TFM"
+
+          publish_args=(
+            "$PROJECT_PATH"
+            -c "$CONFIGURATION"
+            -f "$TFM"
+            "-p:CodesignKey=\"$CODESIGN_KEY\""
+            "-p:ApplicationVersion=$APP_VERSION"
+            "-p:ApplicationDisplayVersion=$APP_VERSION"
+            -p:UseHardenedRuntime=true
+          )
+
+          echo "Publishing project..."
+          dotnet publish "${publish_args[@]}"
+
+          app_bundle_path="$(find "src/${PROJECT_DIRECTORY}/bin/${CONFIGURATION}/${TFM}" -type d -name "*.app" | sort | tail -n 1)"
+          if [[ -z "$app_bundle_path" || ! -d "$app_bundle_path" ]]; then
+            echo "Expected app bundle not found under src/${PROJECT_DIRECTORY}/bin/${CONFIGURATION}/${TFM}"
+            find "src/${PROJECT_DIRECTORY}/bin/${CONFIGURATION}/${TFM}" -maxdepth 6 -type d -name "*.app" || true
+            exit 1
+          fi
+
+          echo "Resolved app bundle path: $app_bundle_path"
+          echo "APP_BUNDLE_PATH=$app_bundle_path" >> "$GITHUB_ENV"
+
+          echo "Verifying app signature..."
+          codesign -dv --verbose=2 "$app_bundle_path" >/dev/null 2>&1
+
+          echo "Creating signed app zip and installer pkg..."
+          rm -f "$SIGNED_ZIP_PATH" "$SIGNED_PKG_PATH"
+          ditto -c -k --sequesterRsrc --keepParent "$app_bundle_path" "$SIGNED_ZIP_PATH"
+          productbuild --component "$app_bundle_path" /Applications --sign "$INSTALLER_SIGN_ID" "$SIGNED_PKG_PATH"
+
+          echo "Done. Signed artifacts:"
+          echo "- $SIGNED_PKG_PATH"
+          echo "- $SIGNED_ZIP_PATH"
+        env:
+          PROJECT_PATH: "${{env.PROJECT_PATH}}"
+          PROJECT_DIRECTORY: "${{env.PROJECT_DIRECTORY}}"
+          TFM: "${{env.NET_TFM}}-maccatalyst"
+          CONFIGURATION: "Release"
+          APP_VERSION: "${{needs.shared-resources.outputs.app_version}}"
+          ARTIFACTS_DIR: "${{env.MAC_ARTIFACTS_PATH}}"
+          CODESIGN_KEY: "${{env.APPLE_DEV_ID_APP_CERT_NAME}}"
+          INSTALLER_SIGN_ID: "${{ env.APPLE_DEV_ID_INSTALLER_CERT_NAME}}"
+          SIGNED_ZIP_PATH: "${{env.MAC_ARTIFACTS_PATH}}/${{env.APP_NAME}}-MacCatalyst-Release-signed.zip"
+          SIGNED_PKG_PATH: "${{env.MAC_ARTIFACTS_PATH}}/${{env.APP_NAME}}-MacCatalyst-Release-signed.pkg"
+
+      - name: Notarize and staple MacCatalyst artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$GITHUB_WORKSPACE"
+
+          if [[ -z "$APPLE_NOTARY_APPLE_ID" || -z "$APPLE_NOTARY_APP_PASSWORD" || -z "$APPLE_NOTARY_TEAM_ID" ]]; then
+            echo "Missing notarization credentials."
+            echo "Set APPLE_NOTARY_APPLE_ID, APPLE_NOTARY_APP_PASSWORD, and APPLE_NOTARY_TEAM_ID."
+            exit 1
+          fi
+
+          if [[ ! -d "$APP_BUNDLE_PATH" ]]; then
+            echo "Expected app bundle not found at $APP_BUNDLE_PATH"
+            exit 1
+          fi
+
+          if [[ ! -f "$SIGNED_PKG_PATH" || ! -f "$SIGNED_ZIP_PATH" ]]; then
+            echo "Expected signed artifacts not found in $ARTIFACTS_DIR"
+            exit 1
+          fi
+
+          echo "Submitting pkg for notarization..."
+          pkg_submit_json="$(xcrun notarytool submit "$SIGNED_PKG_PATH" --apple-id "$APPLE_NOTARY_APPLE_ID" --team-id "$APPLE_NOTARY_TEAM_ID" --password "$APPLE_NOTARY_APP_PASSWORD" --wait --output-format json)"
+          echo "$pkg_submit_json"
+          if ! grep -Eq '"status"[[:space:]]*:[[:space:]]*"Accepted"' <<< "$pkg_submit_json"; then
+            echo "Notarization failed for pkg."
+            exit 1
+          fi
+
+          echo "Stapling and validating pkg..."
+          xcrun stapler staple "$SIGNED_PKG_PATH"
+          xcrun stapler validate "$SIGNED_PKG_PATH"
+
+          echo "Submitting signed app zip for notarization..."
+          zip_submit_json="$(xcrun notarytool submit "$SIGNED_ZIP_PATH" --apple-id "$APPLE_NOTARY_APPLE_ID" --team-id "$APPLE_NOTARY_TEAM_ID" --password "$APPLE_NOTARY_APP_PASSWORD" --wait --output-format json)"
+          echo "$zip_submit_json"
+          if ! grep -Eq '"status"[[:space:]]*:[[:space:]]*"Accepted"' <<< "$zip_submit_json"; then
+            echo "Notarization failed for app zip."
+            exit 1
+          fi
+
+          echo "Stapling and validating app..."
+          xcrun stapler staple "$APP_BUNDLE_PATH"
+          xcrun stapler validate "$APP_BUNDLE_PATH"
+
+          # Recreate the final distributable zip from the stapled app.
+          ditto -c -k --sequesterRsrc --keepParent "$APP_BUNDLE_PATH" "$NOTARIZED_ZIP_PATH"
+
+          echo "Gatekeeper checks..."
+          spctl -a -t exec -vv "$APP_BUNDLE_PATH"
+          spctl -a -t install -vv "$SIGNED_PKG_PATH"
+
+          echo "Done. Artifacts:"
+          echo "- $SIGNED_PKG_PATH"
+          echo "- $NOTARIZED_ZIP_PATH"
+        env:
+          ARTIFACTS_DIR: "${{env.MAC_ARTIFACTS_PATH}}"
+          APPLE_NOTARY_APPLE_ID: "${{secrets.APPLE_NOTARY_APPLE_ID}}"
+          APPLE_NOTARY_APP_PASSWORD: "${{secrets.APPLE_NOTARY_APP_PASSWORD}}"
+          APPLE_NOTARY_TEAM_ID: "${{env.APPLE_NOTARY_TEAM_ID}}"
+          SIGNED_ZIP_PATH: "${{env.MAC_ARTIFACTS_PATH}}/${{env.APP_NAME}}-MacCatalyst-Release-signed.zip"
+          NOTARIZED_ZIP_PATH: "${{env.MAC_ARTIFACTS_PATH}}/${{env.APP_NAME}}-MacCatalyst-Release-notarized.zip"
+          SIGNED_PKG_PATH: "${{env.MAC_ARTIFACTS_PATH}}/${{env.APP_NAME}}-MacCatalyst-Release-signed.pkg"
+
+      # # Docs https://github.com/Apple-Actions/upload-testflight-build
+      # - name: 'Upload app to TestFlight'
+      #   uses: apple-actions/upload-testflight-build@v5
+      #   with: 
+      #     app-path: "${{github.workspace}}/**/*.pkg" 
+      #     issuer-id: ${{secrets.APPSTORE_API_ISSUER_ID}}
+      #     api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
+      #     api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
+
+      - name: Publish MacCatalyst build artifacts
+        uses: actions/upload-artifact@v7
+        with:     
+          name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_signed-maccatalyst"
+          path: artifacts/maccatalyst/${{env.APP_NAME}}-MacCatalyst-Release-signed.pkg
+          if-no-files-found: error
+          retention-days: 30
 
 
   # ********************************************************************************** #
@@ -745,60 +745,77 @@ jobs:
   # ********************************************************************************** #
   #                                  GitHub Release                                    #
   # ********************************************************************************** #
-  # create-release:
-  #   name: Create GitHub Release
-  #   runs-on: ubuntu-latest
-  #   needs: [shared-resources, android, windows-sideload-packages, windows-generate-msixbundle, windows-store, maccatalyst]
-  #   steps:
-  #     - name: Download all artifacts
-  #       uses: actions/download-artifact@v8
-  #       with:
-  #         path: release-artifacts
+  create-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs: [shared-resources, android, windows-sideload-packages, windows-generate-msixbundle, windows-store, maccatalyst, ios]
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v8
+        with:
+          path: release-artifacts
 
-  #     - name: List downloaded artifacts
-  #       shell: bash
-  #       run: find release-artifacts -type f | sort
+      - name: List downloaded artifacts
+        shell: bash
+        run: find release-artifacts -type f | sort
 
-  #     - name: Prepare release files
-  #       shell: bash
-  #       run: |
-  #         VER="${{needs.shared-resources.outputs.app_version}}"
-  #         PREFIX="${{env.APP_NAME}}_v${VER}"
-  #         mkdir -p release-upload
+      - name: Prepare release files
+        shell: bash
+        run: |
+          set -euo pipefail
 
-  #         # Android
-  #         find "release-artifacts/${PREFIX}_signed-android" -name "*-Signed.apk" -exec cp {} "release-upload/${PREFIX}_android-signed.apk" \;
-  #         find "release-artifacts/${PREFIX}_signed-android" -name "*-Signed.aab" -exec cp {} "release-upload/${PREFIX}_android-signed.aab" \;
+          VER="${{needs.shared-resources.outputs.app_version}}"
+          PREFIX="${{env.APP_NAME}}_v${VER}"
+          mkdir -p release-upload
 
-  #         # Windows sideload (individual per-arch MSIX) - not signed, should not be distributed
-  #         # cp "release-artifacts/${PREFIX}_win-x64/${{env.APP_NAME}}.x64.msix"     "release-upload/${PREFIX}_win-x64.msix";
-  #         # cp "release-artifacts/${PREFIX}_win-arm64/${{env.APP_NAME}}.arm64.msix" "release-upload/${PREFIX}_win-arm64.msix";
+          copy_one() {
+            local artifact_dir="$1"
+            local pattern="$2"
+            local destination="$3"
+            local -a matches=()
 
-  #         # Windows msixbundle (signed)
-  #         cp "release-artifacts/${PREFIX}_signed-windows.msixbundle/${PREFIX}.msixbundle" "release-upload/${PREFIX}_windows.msixbundle";
+            if [[ ! -d "$artifact_dir" ]]; then
+              echo "Expected artifact directory not found: $artifact_dir" >&2
+              exit 1
+            fi
 
-  #         # Windows Store upload
-  #         find "release-artifacts/${PREFIX}_storeupload-windows" -name "*.msixupload" -exec cp {} "release-upload/${PREFIX}_msstore.msixupload" \;
-  #         find "release-artifacts/${PREFIX}_storeupload-windows" -name "*.msixbundle" -exec cp {} "release-upload/${PREFIX}_msstore.msixbundle" \;
+            mapfile -d '' matches < <(find "$artifact_dir" -type f -name "$pattern" -print0 | sort -z)
 
-  #         # MacCatalyst pkg
-  #         cp "release-artifacts/${PREFIX}_signed-maccatalyst/${{env.APP_NAME}}-MacCatalyst-Release-signed.pkg" "release-upload/${PREFIX}_mac.pkg";
+            if [[ ${#matches[@]} -ne 1 ]]; then
+              echo "Expected exactly one match for '$pattern' under '$artifact_dir', found ${#matches[@]}." >&2
+              find "$artifact_dir" -type f | sort >&2
+              exit 1
+            fi
 
-  #         # iOS AdHoc
-  #         find "release-artifacts/${PREFIX}_ios-adhoc" -name "*.ipa" -exec cp {} "release-upload/${PREFIX}_ios-adhoc.ipa" \;
+            cp -- "${matches[0]}" "$destination"
+          }
 
-  #         # iOS Store
-  #         find "release-artifacts/${PREFIX}_ios-store" -name "*.ipa" -exec cp {} "release-upload/${PREFIX}_ios-store.ipa" \;
+          # Android
+          copy_one "release-artifacts/${PREFIX}_signed-android" "*-Signed.apk" "release-upload/${PREFIX}_android-signed.apk"
+          copy_one "release-artifacts/${PREFIX}_signed-android" "*-Signed.aab" "release-upload/${PREFIX}_android-signed.aab"
 
-  #         echo "Files prepared for release:"
-  #         ls -lh release-upload/
+          # Windows msixbundle (signed)
+          copy_one "release-artifacts/${PREFIX}_signed-windows.msixbundle" "*.msixbundle" "release-upload/${PREFIX}_windows.msixbundle"
 
-  #     - name: Create GitHub Release
-  #       uses: softprops/action-gh-release@v3.0.0
-  #       with:
-  #         tag_name: "v${{needs.shared-resources.outputs.app_version}}"
-  #         name: "${{env.APP_NAME}} v${{needs.shared-resources.outputs.app_version}}"
-  #         draft: false
-  #         prerelease: false
-  #         generate_release_notes: true
-  #         files: release-upload/*
+          # Windows Store
+          copy_one "release-artifacts/${PREFIX}_storeupload-windows" "*.msixupload" "release-upload/${PREFIX}_msstore.msixupload"
+
+          # MacCatalyst
+          copy_one "release-artifacts/${PREFIX}_signed-maccatalyst" "*.pkg" "release-upload/${PREFIX}_mac.pkg"
+
+          # iOS
+          copy_one "release-artifacts/${PREFIX}_ios-adhoc" "*.ipa" "release-upload/${PREFIX}_ios-adhoc.ipa"
+          copy_one "release-artifacts/${PREFIX}_ios-store" "*.ipa" "release-upload/${PREFIX}_ios-store.ipa"
+
+          echo "Files prepared for release:"
+          ls -lh release-upload/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3.0.0
+        with:
+          tag_name: "v${{needs.shared-resources.outputs.app_version}}"
+          name: "${{env.APP_NAME}} v${{needs.shared-resources.outputs.app_version}}"
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          files: release-upload/*

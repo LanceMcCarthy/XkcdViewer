@@ -34,7 +34,8 @@ env:
   MAC_APP_BUNDLE_PATH: "src/XkcdViewer.Maui/bin/Release/net10.0-maccatalyst/publish/XkcdViewer.Maui.app"
   MAC_ARTIFACTS_PATH: "artifacts/maccatalyst"
   # ____iOS______________________________________________ (also check matrix vars)
-  APPLE_APP_ID: "com.lancelotsoftware.xkcdViewer"
+  APPLE_APP_ID: "com.lancelotSoftware.xkcdViewer"
+  IOS_RID: ios-arm64
   # ____Windows__________________________________________ (also check matrix vars)
   WINDOWS_ARTIFACTS_PATH: "artifacts/windows"
   SERVICE_PRINCIPAL_CLIENT_ID: "32daa13b-f4bb-4809-8ef6-58cb39051acd"
@@ -252,7 +253,7 @@ jobs:
   #       retention-days: 30
 
   # windows-generate-msixbundle:
-  #   name: Generate & Sign msixbundle 
+  #   name: Generate & Sign msixbundle
   #   needs: [shared-resources, windows-sideload-packages]
   #   runs-on: windows-2025-vs2026
   #   steps:
@@ -643,21 +644,51 @@ jobs:
             artifact_suffix: sideload-ios
             provisioning_profile: "xkcdViewerAdHoc"
             provisioning_profile_type: IOS_APP_ADHOC
-            rid: ios-arm64
           - distribution_name: Store Upload
             artifact_suffix: storeupload-ios
             provisioning_profile: "xkcdAppStore"
             provisioning_profile_type: IOS_APP_STORE
-            rid: ios-arm64
-    env:
-      APPLE_PROV_PROFILE: ${{matrix.provisioning_profile}}
-      APPLE_PROV_PROFILE_TYPE: ${{matrix.provisioning_profile_type}}
     steps:
       - uses: actions/checkout@v6
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: ${{env.XCODE_VERSION}}
+
+      - name: Import Code-Signing Certificates
+        uses: Apple-Actions/import-codesign-certs@v7
+        with:
+          p12-file-base64: "${{secrets.APPLE_DISTRIBUTION_CERTIFICATE_BASE64}}"
+          p12-password: "${{secrets.APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD}}"
+
+      - id: provisioning-profiles
+        uses: Apple-Actions/download-provisioning-profiles@v6
+        with:
+          profile-type: "${{matrix.provisioning_profile_type}}"
+          bundle-id: "${{env.APPLE_APP_ID}}"
+          issuer-id: "${{secrets.APPSTORE_API_ISSUER_ID}}"
+          api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
+          api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
+
+      - name: Verify provisioning profile
+        run: |
+          $profiles = '${{steps.provisioning-profiles.outputs.profiles}}' | ConvertFrom-Json
+          $profile = $profiles | Where-Object { $_.name -eq ${{matrix.provisioning_profile}} -and $_.type -eq ${{matrix.provisioning_profile_type}} } | Select-Object -First 1
+
+          if ($null -eq $profile) {
+            $profiles | Format-Table -AutoSize | Out-String | Write-Host
+            throw "Provisioning profile '${{matrix.provisioning_profile}}' with type '${{matrix.provisioning_profile_type}}' was not downloaded."
+          }
+
+      - name: Verify iOS signing identity is available
+        shell: bash
+        run: |
+          set -euo pipefail
+          security find-identity -v -p codesigning
+          if ! security find-identity -v -p codesigning | grep -F "Apple Distribution" >/dev/null; then
+            echo "Missing Apple Distribution identity"
+            exit 1
+          fi
 
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v5
@@ -673,45 +704,8 @@ jobs:
       - name: Restore NuGet packages
         run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
 
-      # Docs https://github.com/Apple-Actions/import-codesign-certs
-      - name: Import Code-Signing Certificates
-        uses: Apple-Actions/import-codesign-certs@v7
-        with:
-          p12-file-base64: "${{secrets.APPLE_DISTRIBUTION_CERTIFICATE_BASE64}}"
-          p12-password: "${{secrets.APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD}}"
-
-      # Docs https://github.com/Apple-Actions/download-provisioning-profiles
-      - id: provisioning-profiles
-        uses: Apple-Actions/download-provisioning-profiles@v6
-        with:
-          profile-type: "${{env.APPLE_PROV_PROFILE_TYPE}}"
-          bundle-id: "${{env.APPLE_APP_ID}}"
-          issuer-id: "${{secrets.APPSTORE_API_ISSUER_ID}}"
-          api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
-          api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
-
-      - name: Verify provisioning profile
-        run: |
-          $profiles = '${{steps.provisioning-profiles.outputs.profiles}}' | ConvertFrom-Json
-          $profile = $profiles | Where-Object { $_.name -eq $env:APPLE_PROV_PROFILE -and $_.type -eq $env:APPLE_PROV_PROFILE_TYPE } | Select-Object -First 1
-
-          if ($null -eq $profile) {
-            $profiles | Format-Table -AutoSize | Out-String | Write-Host
-            throw "Provisioning profile '$env:APPLE_PROV_PROFILE' with type '$env:APPLE_PROV_PROFILE_TYPE' was not downloaded."
-          }
-
-      - name: Verify iOS signing identity is available
-        shell: bash
-        run: |
-          set -euo pipefail
-          security find-identity -v -p codesigning
-          if ! security find-identity -v -p codesigning | grep -F "Apple Distribution" >/dev/null; then
-            echo "Missing Apple Distribution identity"
-            exit 1
-          fi
-
       # Docs https://learn.microsoft.com/en-us/dotnet/maui/ios/deployment/publish-cli?view=net-maui-9.0
-      - name: Publish MAUI iOS IPA
+      - name: Publish MAUI iOS
         run: |
           # Query the actual signing identity to avoid comma parsing issues
           $identityOutput = security find-identity -v -p codesigning | Select-String "Apple Distribution"
@@ -727,11 +721,11 @@ jobs:
             '-f', '${{env.NET_TFM}}-ios'
             '-c', 'Release'
             '-p:ArchiveOnBuild=true'
-            '-p:RuntimeIdentifier=${{matrix.rid}}'
+            '-p:RuntimeIdentifier=${{env.IOS_RID}}'
             '-p:MtouchLink=SdkOnly'
             '-p:ApplicationId=${{env.APPLE_APP_ID}}'
             '-p:ApplicationVersion=${{needs.shared-resources.outputs.app_version}}'
-            '-p:CodesignProvision=${{env.APPLE_PROV_PROFILE}}'
+            '-p:CodesignProvision=${{matrix.provisioning_profile}}'
             "-p:CodesignKey=$quotedCodesignKey"
           )
           & dotnet @publishArgs
@@ -741,7 +735,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:     
           name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_${{matrix.artifact_suffix}}"
-          path: "src/${{env.PROJECT_DIRECTORY}}/bin/Release/${{env.NET_TFM}}-ios/${{matrix.rid}}/publish/*.ipa"
+          path: "src/${{env.PROJECT_DIRECTORY}}/bin/Release/${{env.NET_TFM}}-ios/${{env.IOS_RID}}/publish/*.ipa"
           if-no-files-found: error
           retention-days: 60
 

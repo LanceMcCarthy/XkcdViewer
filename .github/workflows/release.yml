@@ -193,7 +193,7 @@ jobs:
       run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
 
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
+      run: dotnet restore ${{env.PROJECT_PATH}} -f ${{env.NET_TFM}}-windows10.0.22621.0 --configfile ${{env.NUGET_CONFIG_PATH}}
 
     # Update the app manifest with version number, even if Version attribute is missing.
     - name: Update manifest for side load build
@@ -222,7 +222,6 @@ jobs:
           '-p:Platform=${{matrix.platform}}'
           '-p:PlatformTarget=${{matrix.platform}}'
           '-p:AppxPackageBuildPlatform=${{matrix.platform}}'
-          '-p:RuntimeIdentifier=${{matrix.runtime_id}}'
           '-p:GenerateAppxPackageOnBuild=true'
           '-p:AppxPackageSigningEnabled=false'
           '-p:UapAppxPackageBuildMode=SideloadOnly'
@@ -360,7 +359,7 @@ jobs:
         run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
 
       - name: Restore NuGet packages
-        run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
+        run: dotnet restore ${{env.PROJECT_PATH}} -f ${{env.NET_TFM}}-windows10.0.22621.0 --configfile ${{env.NUGET_CONFIG_PATH}}
 
       # Update the app manifest with version number, even if Version attribute is missing.
       - name: Update manifest for side load build
@@ -533,29 +532,34 @@ jobs:
           echo "Publishing project..."
           dotnet publish "${publish_args[@]}"
 
-          if [[ ! -d "$APP_BUNDLE_PATH" ]]; then
-            echo "Expected app bundle not found at $APP_BUNDLE_PATH"
+          app_bundle_path="$(find "src/${PROJECT_DIRECTORY}/bin/${CONFIGURATION}/${TFM}" -type d -name "*.app" | sort | tail -n 1)"
+          if [[ -z "$app_bundle_path" || ! -d "$app_bundle_path" ]]; then
+            echo "Expected app bundle not found under src/${PROJECT_DIRECTORY}/bin/${CONFIGURATION}/${TFM}"
+            find "src/${PROJECT_DIRECTORY}/bin/${CONFIGURATION}/${TFM}" -maxdepth 6 -type d -name "*.app" || true
             exit 1
           fi
 
+          echo "Resolved app bundle path: $app_bundle_path"
+          echo "APP_BUNDLE_PATH=$app_bundle_path" >> "$GITHUB_ENV"
+
           echo "Verifying app signature..."
-          codesign -dv --verbose=2 "$APP_BUNDLE_PATH" >/dev/null 2>&1
+          codesign -dv --verbose=2 "$app_bundle_path" >/dev/null 2>&1
 
           echo "Creating signed app zip and installer pkg..."
           rm -f "$SIGNED_ZIP_PATH" "$SIGNED_PKG_PATH"
-          ditto -c -k --sequesterRsrc --keepParent "$APP_BUNDLE_PATH" "$SIGNED_ZIP_PATH"
-          productbuild --component "$APP_BUNDLE_PATH" /Applications --sign "$INSTALLER_SIGN_ID" "$SIGNED_PKG_PATH"
+          ditto -c -k --sequesterRsrc --keepParent "$app_bundle_path" "$SIGNED_ZIP_PATH"
+          productbuild --component "$app_bundle_path" /Applications --sign "$INSTALLER_SIGN_ID" "$SIGNED_PKG_PATH"
 
           echo "Done. Signed artifacts:"
           echo "- $SIGNED_PKG_PATH"
           echo "- $SIGNED_ZIP_PATH"
         env:
           PROJECT_PATH: "${{env.PROJECT_PATH}}"
+          PROJECT_DIRECTORY: "${{env.PROJECT_DIRECTORY}}"
           TFM: "${{env.NET_TFM}}-maccatalyst"
           CONFIGURATION: "Release"
           APP_VERSION: "${{needs.shared-resources.outputs.app_version}}"
           ARTIFACTS_DIR: "${{env.MAC_ARTIFACTS_PATH}}"
-          APP_BUNDLE_PATH: "${{env.MAC_APP_BUNDLE_PATH}}"
           CODESIGN_KEY: "${{env.APPLE_DEV_ID_APP_CERT_NAME}}"
           INSTALLER_SIGN_ID: "${{ env.APPLE_DEV_ID_INSTALLER_CERT_NAME}}"
           SIGNED_ZIP_PATH: "$ARTIFACTS_DIR/${{env.APP_NAME}}-MacCatalyst-Release-signed.zip"
@@ -619,7 +623,6 @@ jobs:
           echo "- $NOTARIZED_ZIP_PATH"
         env:
           ARTIFACTS_DIR: "${{env.MAC_ARTIFACTS_PATH}}"
-          APP_BUNDLE_PATH: "${{env.MAC_APP_BUNDLE_PATH}}"
           APPLE_NOTARY_APPLE_ID: "${{secrets.APPLE_NOTARY_APPLE_ID}}"
           APPLE_NOTARY_APP_PASSWORD: "${{secrets.APPLE_NOTARY_APP_PASSWORD}}"
           APPLE_NOTARY_TEAM_ID: "${{env.APPLE_NOTARY_TEAM_ID}}"

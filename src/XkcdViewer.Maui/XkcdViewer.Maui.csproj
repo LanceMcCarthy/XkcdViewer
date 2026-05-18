@@ -8,15 +8,15 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<DefaultLanguage>en-us</DefaultLanguage>
+		<NoWarn>NU1608</NoWarn>
 		<MauiEnableXamlCBindingWithSourceCompilation>true</MauiEnableXamlCBindingWithSourceCompilation>
+		<DefaultLanguage>en-us</DefaultLanguage>
+
+		<!-- Local macOS dev often has newer Xcode than the currently pinned .NET mobile SDK. -->
+		<ValidateXcodeVersion>false</ValidateXcodeVersion>
 
 		<!-- Display name -->
 		<ApplicationTitle>xkcd Viewer</ApplicationTitle>
-
-		<!-- App Identifier -->
-		<ApplicationId>com.LancelotSoftware.xkcdViewer</ApplicationId>
-		<ApplicationIdGuid>bb4a5cf4-ec2c-464f-86f9-a42c2043b6af</ApplicationIdGuid>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -65,16 +65,31 @@
 		<AdditionalFiles Include="Platforms\Windows\NativeMethods.txt" />
 	</ItemGroup>
 
-	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('maccatalyst')) and '$(Configuration)' == 'Debug'">
-		<RuntimeIdentifiers>net10.0-maccatalyst</RuntimeIdentifiers>
-	</PropertyGroup>
-	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('maccatalyst')) and '$(Configuration)' == 'Release'">
-		<RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers>
+	<!-- Build Settings -->
+	<PropertyGroup Condition="$(TargetFramework.Contains('-windows'))">
+		<ApplicationId>com.lancelotsoftware.xkcdViewer</ApplicationId>
+		<ApplicationIdGuid>bb4a5cf4-ec2c-464f-86f9-a42c2043b6af</ApplicationIdGuid>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == ''">
-		<Compile Remove="**\*.cs" />
-		<MauiXaml Remove="**\*.xaml" />
-	</ItemGroup>
+	<PropertyGroup Condition="$(TargetFramework.Contains('-windows')) and '$(Configuration)' == 'Debug'">
+		<WindowsPackageType>None</WindowsPackageType>
+		<GenerateAppxPackageOnBuild>false</GenerateAppxPackageOnBuild>
+		<AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
+	</PropertyGroup>
 
+	<PropertyGroup Condition="$(TargetFramework.Contains('-android'))">
+		<ApplicationId>com.lancelotsoftware.xkcdViewer</ApplicationId>
+		<ApplicationIdGuid>bb4a5cf4-ec2c-464f-86f9-a42c2043b6af</ApplicationIdGuid>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$(TargetFramework.Contains('-ios'))">
+		<ApplicationId>com.lancelotsoftware.xkcdViewer</ApplicationId>
+		<ApplicationIdGuid>bb4a5cf4-ec2c-464f-86f9-a42c2043b6af</ApplicationIdGuid>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$(TargetFramework.Contains('-maccatalyst'))">
+		<ApplicationId>com.lancelotsoftware.xkcdViewer</ApplicationId>
+		<ApplicationIdGuid>bb4a5cf4-ec2c-464f-86f9-a42c2043b6af</ApplicationIdGuid>
+		<RuntimeIdentifiers>maccatalyst-arm64;maccatalyst-x64</RuntimeIdentifiers>
+	</PropertyGroup>
 </Project>

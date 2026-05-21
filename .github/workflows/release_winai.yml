@@ -16,11 +16,8 @@ env:
   DOTNET_VERSION: '10.0.x'
   WINDOWS_TFM: "net10.0-windows10.0.22621.0"
   CSPROJ_PATH: "src/XkcdViewer.Windows/XkcdViewer.Windows.csproj"
-  NUGETCONFIG_PATH: "src/nuget.config"
   BUILD_CONFIG: Release
   WINDOWS_ARTIFACTS_PATH: "artifacts_windows"
-  TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
-  TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
   TELERIK_LICENSE: ${{secrets.MY_TELERIK_LICENSE_KEY}}
 
 jobs:
@@ -30,16 +27,15 @@ jobs:
     outputs:
       app_version: ${{steps.version-creator.outputs.app_version}}
     steps:
-    # Generates a version number using year.monthday.run_number.0 (e.g., 2024.824.1.0)
+    # Generates a version number using year.monthday.run_number (e.g., 2024.824.1)
     - name: Generate version number using date and run number
       id: version-creator
       run: |
         $buildDay = Get-Date -Format "yyyy.Mdd"
         $runNumber = "$env:GITHUB_RUN_NUMBER"
-        $ver = $buildDay + "." + $runNumber + ".0"
+        $ver = $buildDay + "." + $runNumber
         echo "app_version=$ver" >> $env:GITHUB_OUTPUT
 
-  # [JOB] Windows Sideload Build [/JOB]
   maui-windows-sideload:
     name: Build Windows Sideload
     needs: shared-resources
@@ -66,14 +62,11 @@ jobs:
     - name: Install MAUI workloads
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
-    - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
-
     # Update the app manifest using the sideload publisher identity
     - name: Update manifest for side load build
       run: |
         [xml]$manifest = get-content "src\XkcdViewer.Windows\Package.appxmanifest"
-        $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}"
+        $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}.0"
         $manifest.Package.Identity.Name = "61469LanceLotSoftware.XKCDComicViewer"
         $manifest.Package.Identity.Publisher = 'CN=Lance McCarthy, O=Lance McCarthy, L=Revere, S=Massachusetts, C=US'
         $manifest.Package.Properties.DisplayName = "xkcd Comic Viewer"
@@ -107,10 +100,8 @@ jobs:
     runs-on: windows-latest
     needs: [shared-resources, maui-windows-sideload]
     steps:
-    # Download the artifacts from the previous jobs
     - uses: actions/download-artifact@v4
 
-    # Login to Azure CLI. No secrets needed, uses the GitHub OIDC token to authenticate.
     - name: Azure login using OIDC via GitHub
       uses: azure/login@v2
       id: azlogin
@@ -119,7 +110,6 @@ jobs:
         tenant-id: "bd47e796-3473-4b8a-9101-1f4c0c7af31a"
         subscription-id: "48ab4839-62af-4ab3-afe6-043ea4d7c137"
 
-    # Codesign files with Trusted Signing
     - name: Sign files with Trusted Signing
       uses: azure/trusted-signing-action@v0.5.9
       with:
@@ -143,7 +133,6 @@ jobs:
         exclude-azure-developer-cli-credential: true
         exclude-interactive-browser-credential: true
 
-    # Create a GitHub release and attach the signed files
     - name: Release
       uses: softprops/action-gh-release@v2
       with:

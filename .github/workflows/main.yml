@@ -9,19 +9,12 @@ on:
       - 'src/XkcdViewer.Maui/**/*'
       - '.github/workflows/main.yml' 
 
-defaults:
-  run:
-    shell: pwsh
-
 env:
   XCODE_VERSION: '26.4'
   DOTNET_VERSION: "10.0.x"
   NET_TFM: 'net10.0'
   PROJECT_PATH: "src/XkcdViewer.Maui/XkcdViewer.Maui.csproj"
-  NUGETCONFIG_PATH: "src/nuget.config"
   BUILD_CONFIG: Debug
-  TELERIK_USERNAME: "api-key"
-  TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
   TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY_VALUE}}
 
 jobs:
@@ -45,13 +38,10 @@ jobs:
         java-version: '11'
 
     - name: Install MAUI workload
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-
-    - name: Restore NuGet packages
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet workload install maui
 
     - name: Build Maui Android project
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f ${{env.NET_TFM}}-android --no-restore
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f ${{env.NET_TFM}}-android
 
 
 # ***************************** #
@@ -73,13 +63,10 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     - name: Install MAUI workload
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-
-    - name: Restore NuGet packages
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet workload install maui
 
     - name: Build Maui WinUI project
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f ${{env.NET_TFM}}-windows10.0.22621.0 --no-restore
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f ${{env.NET_TFM}}-windows10.0.22621.0
 
 
 # ************************* #
@@ -101,13 +88,10 @@ jobs:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
     - name: Install MAUI workload
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-
-    - name: Restore NuGet packages
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet workload install maui
 
     - name: Build iOS project
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f ${{env.NET_TFM}}-ios --no-restore -p:MtouchLink=SdkOnly
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f ${{env.NET_TFM}}-ios -p:MtouchLink=SdkOnly
 
 # ********************************* #
 # >>>>>>> MacCatalyst Build <<<<<<< #
@@ -128,10 +112,7 @@ jobs:
         xcode-version: ${{env.XCODE_VERSION}}
 
     - name: Install MAUI workload
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+      run: dotnet workload install maui
 
-    - name: Restore NuGet packages
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
-      
     - name: Build MacCatalyst project
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f ${{env.NET_TFM}}-maccatalyst --no-restore -p:MtouchLink=SdkOnly
+      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f ${{env.NET_TFM}}-maccatalyst -p:MtouchLink=SdkOnly

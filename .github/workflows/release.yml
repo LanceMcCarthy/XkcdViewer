@@ -21,7 +21,6 @@ env:
   NET_TFM: 'net10.0'
   XCODE_VERSION: '26.4'
   MAC_DOTNET_VERSION: '10.0.203'
-  NUGET_CONFIG_PATH: 'src/nuget.config'
   TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY_VALUE}}
   APPLE_NOTARY_TEAM_ID: "L65255N3F7"
   # ____Android___________________________________________
@@ -120,12 +119,6 @@ jobs:
       - name: Install MAUI Workloads
         run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
-      - name: Set Telerik NuGet Credentials
-        run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
-
-      - name: Restore NuGet packages
-        run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
-
       - name: Publish MAUI Android
         run: |
           dotnet publish ${{env.PROJECT_PATH}} -c Release -f ${{env.NET_TFM}}-android /p:AndroidKeyStore=true /p:AndroidSigningKeyStore=${{env.ANDROID_KEYSTORE_PATH}} /p:AndroidSigningStorePass=${{secrets.ANDROID_SIGNING_KEYSTORE_PASS}} /p:AndroidSigningKeyAlias=${{secrets.ANDROID_SIGNING_KEY_ALIAS}} /p:AndroidSigningKeyPass=${{secrets.ANDROID_SIGNING_KEY_PASS}}
@@ -190,12 +183,6 @@ jobs:
 
     - name: Install MAUI workloads
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-
-    - name: Set Telerik NuGet Credentials
-      run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
-
-    - name: Restore NuGet packages
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
 
     # Update the app manifest with version number, even if Version attribute is missing.
     - name: Update manifest for side load build
@@ -357,12 +344,6 @@ jobs:
       - name: Install MAUI Workloads
         run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
-      - name: Set Telerik NuGet Credentials
-        run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
-
-      - name: Restore NuGet packages
-        run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
-
       # Update the app manifest with version number, even if Version attribute is missing.
       - name: Update manifest for side load build
         run: |
@@ -432,12 +413,6 @@ jobs:
 
       - name: Install MAUI Workloads
         run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-
-      - name: Set Telerik NuGet Credentials
-        run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
-
-      - name: Restore NuGet packages
-        run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
 
       - name: Import Developer ID Installer Certificates
         uses: Apple-Actions/import-codesign-certs@v7
@@ -700,12 +675,6 @@ jobs:
 
       - name: Install MAUI Workloads
         run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-
-      - name: Set Telerik NuGet Credentials
-        run: dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile '${{env.NUGET_CONFIG_PATH}}' --store-password-in-clear-text
-
-      - name: Restore NuGet packages
-        run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
 
       - name: Publish MAUI iOS
         run: |

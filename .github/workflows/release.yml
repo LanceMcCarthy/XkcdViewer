@@ -529,7 +529,13 @@ jobs:
           echo "Creating signed app zip and installer pkg..."
           rm -f "$SIGNED_ZIP_PATH" "$SIGNED_PKG_PATH"
           ditto -c -k --sequesterRsrc --keepParent "$app_bundle_path" "$SIGNED_ZIP_PATH"
-          productbuild --component "$app_bundle_path" /Applications --sign "$INSTALLER_SIGN_ID" "$SIGNED_PKG_PATH"
+
+          # Generate a component plist and disable relocation so the pkg always
+          # installs to /Applications, regardless of any existing bundle on the user's machine.
+          pkgbuild --analyze --root "$app_bundle_path" component.plist
+          /usr/libexec/PlistBuddy -c "Set :0:BundleIsRelocatable false" component.plist
+          productbuild --component-plist component.plist --component "$app_bundle_path" /Applications --sign "$INSTALLER_SIGN_ID" "$SIGNED_PKG_PATH"
+          rm -f component.plist
 
           echo "Done. Signed artifacts:"
           echo "- $SIGNED_PKG_PATH"
